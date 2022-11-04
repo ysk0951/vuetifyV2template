@@ -3,37 +3,22 @@
     <v-card height="600px" width="450px">
       <SetDialog :setDialog="this.setDialog" ref="loginModal" />
       <div class="pa-10">
-        <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
-        <div>
-          <v-text-field placeholder="아이디를 입력해주세요"></v-text-field>
-          <v-text-field
-            append-icon="mdi-eye"
-            :type="pwdType"
-            placeholder="비밀번호를 입력해주세요"
-            @click:append="togglePwdShow"
-          >
-          </v-text-field>
-          <v-checkbox v-model="checkbox" :label="'아이디 기억하기'" />
-          <v-btn
-            type="submit"
-            color="black lighten-1 text-capitalize"
-            depressed
-            large
-            block
-            dark
-            class="mb-3"
-            @click="login"
-          >
-            Login
-          </v-btn>
-          <div class="underLogin">
-            <div>
-              <span @click="find('id')">아이디 찾기 </span>
-              <span @click="find('pw')">비밀번호 찾기</span>
-            </div>
-            <span @click="signup">회원가입</span>
-          </div>
-        </div>
+        <h3 style="text-align: left">{{ `${tabKey(this.key)} 찾기` }}</h3>
+        <hr class="mb-3" />
+
+        <v-tabs>
+          <v-tab v-for="item in items" :key="item" @click="move(item)">
+            {{ tabKey(item) }}
+          </v-tab>
+        </v-tabs>
+
+        <v-tabs-items>
+          <v-tab-item v-for="item in items" :key="item">
+            <v-card flat>
+              <v-card-text v-text="text"></v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
       </div>
     </v-card>
   </div>
@@ -41,7 +26,10 @@
 
 <script>
 import SetDialog from "@/components/SetDialog";
-
+export const FindKey = {
+  id: "아이디",
+  pw: "패스워드",
+};
 export default {
   data() {
     return {
@@ -51,6 +39,9 @@ export default {
       },
       checkbox: false,
       showPwd: false,
+      key: "id",
+      text: "2",
+      items: ["id", "pw"],
     };
   },
   components: {
@@ -64,13 +55,28 @@ export default {
         return "text";
       }
     },
+    findString() {
+      return `${FindKey[this.key]} 찾기`;
+    },
+  },
+  mounted() {
+    if (this.$route.params.key) {
+      this.key = this.$route.params.key;
+    }
   },
   methods: {
+    move(key) {
+      console.log("move", key);
+      this.key = key;
+    },
+    tabKey(key) {
+      return FindKey[key];
+    },
     find(key) {
-      this.$router.push({ name: "find", params: { key } });
+      this.$router.push("./member/find", key);
     },
     signup() {
-      this.$router.push({ name: "signup" });
+      this.$router.push("./member/signup");
     },
     login() {
       this.setDialogText("아이디를 입력해주세요");
@@ -101,5 +107,9 @@ export default {
 }
 .v-input__slot {
   margin-bottom: 0px;
+}
+
+.v-item-group div {
+  color: black !important;
 }
 </style>

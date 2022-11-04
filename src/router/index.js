@@ -2,22 +2,25 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
 import ModifyPwd from "../views/member/ModifyPwd";
+import Find from "../views/member/Find";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "login",
+    name: "main",
     component: Login,
   },
   {
-    path: "/modifyPwd",
+    path: "/member/modifyPwd",
     name: "modifyPwd",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: ModifyPwd,
+  },
+  {
+    path: "/member/find",
+    name: "find",
+    component: Find,
   },
 ];
 

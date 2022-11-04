@@ -59,7 +59,7 @@ export default {
         dialogText: "변경된 비밀번호로 로그인해주세요",
         approveCb: () => {
           console.log("back");
-          this.$router.push("./");
+          this.$router.push({ name: "main" });
         },
       },
       checkbox: false,
