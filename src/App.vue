@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-main class="blue-grey lighten-4">
       <!-- Login Component -->
-      <v-container style="max-width: 450px" fill-height>
+      <v-container fill-height>
         <v-layout align-center row wrap>
           <v-flex xs12>
             <router-view />
@@ -23,4 +23,14 @@ export default {
   components: {},
 };
 </script>
-<style></style>
+<style>
+.wrapper {
+  justify-content: center;
+  display: flex;
+}
+
+.wrapperSpace {
+  justify-content: space-between;
+  display: flex;
+}
+</style>

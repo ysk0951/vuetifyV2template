@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="cardWrapper">
     <v-card height="600px" width="450px">
       <SetDialog :setDialog="this.setDialog" ref="loginModal" />
       <div class="pa-10">
@@ -13,9 +13,13 @@
             @click:append="togglePwdShow"
           >
           </v-text-field>
-          <v-checkbox v-model="checkbox" :label="'아이디 기억하기'" />
+          <v-checkbox
+            class="d-flex flex-row mb-6"
+            v-model="checkbox"
+            :label="'아이디 기억하기'"
+          />
           <v-btn
-            type="submit"
+            type="text"
             color="black lighten-1 text-capitalize"
             depressed
             large
@@ -47,7 +51,7 @@ export default {
     return {
       setDialog: {
         dialogTitle: "알림",
-        dialogText: "",
+        dialogText: "변경된 비밀번호로 로그인해주세요",
       },
       checkbox: false,
       showPwd: false,
@@ -71,7 +75,6 @@ export default {
       this.$router.push("./member/signup");
     },
     login() {
-      this.setDialogText("아이디를 입력해주세요");
       this.$refs.loginModal.openModal();
     },
     togglePwdShow() {
@@ -96,8 +99,5 @@ export default {
 
 .underLogin span {
   cursor: pointer;
-}
-.v-input__slot {
-  margin-bottom: 0px;
 }
 </style>
