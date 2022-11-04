@@ -1,0 +1,32 @@
+
+//컬러색지정
+$primary: #17853a; //사용예시 #{$primary} #{$danger} 
+$danger: #ff0000;
+$alert: #f39703;
+//max-width
+$maxWidth: 1440px;
+//header 높이
+$headerHeight: 87px;
+//footer 높이
+$footerHeight: 30px; 
+//메인 탭메뉴 높이
+$maintabHeight: 61px;
+//검색필터 높이
+$searchContent01: 88px;
+$searchContent02: 99px;
+$searchContent03: 25px;
+$searchContent04: 280px;
+$searchContent05: 51px;
+$searchContent06: 98px;
+$searchContent07: 98px;
+$searchContent08: 32px;
+$searchContent09: 66px;
+$searchContent10: 101px;
+$searchContent11: 135px;
+
+//리얼그리드박스 상하
+$realHead: 37px;
+$realHead02: 72px;
+$realTopFilter : 45px;
+$realTotal: 33px;
+$realFooter: 37px;

@@ -1,0 +1,44 @@
+@mixin transition ($all,$time) {
+    transition: $all $time;
+    -webkit-transition: $all $time;
+    -moz-transition: $all $time;
+    -ms-transition: $all $time;
+    -o-transition: $all $time;
+  }
+  @mixin flex-align($justify, $align) {
+    display: -webkit-box;
+    display: flex;
+    display: -ms-flexbox;
+    -webkit-box-pack: $justify;
+    -ms-flex-pack: $justify;
+    justify-content: $justify;
+    -webkit-box-align: $align;
+    -ms-flex-align: $align;
+    align-items: $align;
+  }
+  @mixin font-style($size, $color) {
+    font-size: $size;
+    color:$color;
+  }
+  @mixin size($width, $height) {
+    width: $width;
+    height: $height;
+  }
+  @mixin borderRadius($num) {
+    border-radius: $num;
+    -webkit-border-radius: $num;
+    -moz-border-radius: $num;
+    -ms-border-radius: $num;
+    -o-border-radius: $num;
+  }
+  
+  //포지션
+  @mixin position($position, $top, $right, $bottom, $left, $z-index){
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    z-index: $z-index;
+  }
+  

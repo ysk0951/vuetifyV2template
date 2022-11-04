@@ -1,0 +1,544 @@
+//2개 이상의 리얼그리드 가로 정렬
+.realgrid_container_row {
+    @include flex-align(flex-start,flex-start);
+    @include size(100%, auto);
+
+    flex-flow:row wrap;
+    gap:10px;
+    margin-bottom:10px;
+
+    > .realgrid_container {width:calc(50% - 5px)}
+}
+.realgrid_container{
+    @include size(100%, calc(100% - $searchContent01));
+    position: relative;
+    margin-top: 0;
+
+    &.realgrid_container02 {height:calc(100% - $searchContent02)}
+    &.realgrid_container03 {height:calc(100% - $searchContent03)}
+    &.realgrid_container04 {height:calc(100% - $searchContent04)}
+    &.realgrid_container05 {height:calc(100% - $searchContent05)}
+    &.realgrid_container06 {height:calc(100% - $searchContent06)}
+    &.realgrid_container07 {height:calc(100% - $searchContent07)}
+    &.realgrid_container08 {height:calc(100% - $searchContent06)}
+    &.realgrid_container09 {height:calc(100% - $searchContent09)}
+    &.realgrid_container10 {height:calc(100% - $searchContent10)}
+    &.realgrid_container11 {height:calc(100% - $searchContent11)}
+    &.realgrid_container12 {height:calc(100% - 192px)}
+    &.realgrid_container13 {height:calc(100% - $searchContent09 - 310px)}
+    &.realgrid_container14 {height:calc(100% - $searchContent08)}
+    &.realgrid_container_half {
+        width:calc(100% / 2);
+    }
+    &.modal_realgrid01 {
+        height:calc(740px - $searchContent08);
+
+        //배송요청 모달
+        .real_body{height:calc(100% - $realHead - $realFooter - $realFooter - $realFooter - 110px)}
+    }
+    &.modal_realgrid02 {
+        height:calc(100% - $searchContent08);
+
+        //배송요청 모달
+        .real_body{height:calc(100% - 55px)}
+    }
+    &.modal_realgrid03 {
+        height:calc(100% - 110px);//기타주문등록
+
+        .real_body{height:calc(100% - 55px)}
+    }
+    &.modal_realgrid04 {
+        height:calc(100% - 148px);//출고상세
+
+        .real_body{height:calc(100% - 72px)}
+    }
+    &.modal_realgrid05 {
+        height:calc(100% - 76px);//차량번호 선택
+
+        .real_body{height:calc(100% - 79px)}
+    }
+}
+.real_head {
+    @include flex-align(space-between, flex-end);
+    @include size(100%, auto);
+
+    flex-flow: row nowrap;
+    //margin-bottom: 10px;
+    margin-bottom: 7px;
+
+    .real_head_left{
+        @include flex-align(flex-start, flex-end);
+        @include size(auto, auto);
+
+        flex-flow: row nowrap;
+        min-height:30px;
+
+        .real_title{
+            @include size(auto, auto);
+      
+            position: relative;
+            
+            font-size: 20px;
+            color: #3f3f3f;
+            font-weight: 700;
+            line-height: 1;
+            margin:0 20px 0 0;
+            padding-left:12px;
+
+            &::before{
+                @include position(absolute,50%,auto,auto,0,9);
+                @include size(6px,6px);
+  
+                content: "";
+                background: #70b341;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+              }
+
+          }
+        > small {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+            line-height: 1;
+
+            > i {
+                font-style: normal;
+                font-weight: 700;
+                color: #e34b00;
+                margin:0 3px 0 6px;
+            }
+        }
+        .btn_filter {
+            @include transition(all,0.3s);
+            @include borderRadius(0);
+
+            background: #fff;
+            border-color: #ccc;
+
+            &:hover {
+                border:1px solid #{$primary} ;
+            }
+
+            span i {color:#ff0000}
+            > img {margin-right: 5px}
+        }
+    }
+    .real_head_right{
+        @include flex-align(flex-start, flex-end);
+        @include size(auto, auto);
+
+        flex-flow: row nowrap;
+        gap:5px;
+
+        &.real_head_right_column {
+            flex-flow: column wrap;
+
+            > div {
+                @include flex-align(flex-start, flex-end);
+                @include size(auto, auto);
+
+                flex-flow: row nowrap;
+                gap:5px;
+            }
+        }
+        .btn_filter {
+            @include transition(all,0.3s);
+            @include borderRadius(0);
+
+            background: #fff;
+            border-color: #ccc;
+
+            &:hover {
+                border:1px solid #{$primary} ;
+            }
+
+            span i {color:#ff0000}
+            > img {margin-right: 5px}
+        }
+    }
+    
+}
+.real_top_filter{
+    @include flex-align(space-between, center);
+    @include size(100%, auto);
+
+    flex-flow: row nowrap;
+    //padding: 6px 20px;
+    padding: 7px 20px;
+    background: #dedede;
+    border: 1px solid #999;
+    border-bottom:0;
+
+    .real_top_left{
+        @include flex-align(flex-start, center);
+        @include size(auto, auto);
+
+        flex-flow: row nowrap;
+
+        .real_top_filter_title{
+            @include size(auto, auto);
+      
+            position: relative;
+            font-size: 14px;
+            color: #000;
+            font-weight: 500;
+            line-height: 1;
+            margin:0 20px 0 0;
+
+            > i {
+                font-style: normal;
+                font-weight: 700;
+                color: #e34b00;
+            }
+          }
+        .btn_date_search {
+            @include size(auto,30px);
+            @include borderRadius(0);
+
+            margin-left:-20px;
+            margin-right: 20px;
+            border:0 solid #ddd;
+            background: transparent
+        }
+    }
+    .real_top_right{
+        @include flex-align(flex-start, flex-end);
+        @include size(auto, auto);
+
+        flex-flow: row nowrap;
+        gap:5px;
+
+        .btn_filter {
+            @include transition(all,0.3s);
+            @include borderRadius(0);
+
+            background: #fff;
+            border-color: #ccc;
+
+            &:hover {
+                border:1px solid #{$primary} ;
+            }
+            > img {margin-right: 5px}
+        }
+        > .form_input {
+            width:auto;
+            margin:0;
+
+            span {
+                font-size: 13px;
+                margin-right: 5px;
+            }
+            input {height:30px}
+        }
+    }
+}
+.real_body{
+    @include size(100%, calc(100% - $realHead - $realTopFilter - $realTotal - $realFooter ));
+
+    position: relative;
+    display: block;    
+    //border:1px solid #999;    
+
+    &.real_body02,
+    &.real_body03,
+    &.real_body04,
+    &.real_body05{height:calc(100% - $realHead - $realTopFilter - $realFooter)}
+    &.real_body06{height:calc(100% - 120px)}//운송사 선택 모달 적용
+    &.real_body07{height:calc(100% - $realHead - $realFooter)}//공지사항,메뉴얼
+    &.real_body08{height:calc(100% - $realHead - 15px - $realFooter)}
+    &.real_body09{height:calc(100% - $realHead - 15px - $realTotal - $realFooter )}
+    &.real-body10{height:calc(100% - 37px - 70px - 37px);}
+    &.real_body11{height:calc(100% - $realHead - $realTopFilter);}
+    &.real_body12{height:calc(100% - $realHead - 15px);}
+    &.real_body13{height:calc(100% - 15px);}
+    
+}
+.real_total{
+    @include size(100%, auto);
+    @include flex-align(flex-end, center);
+
+    flex-flow: row nowrap;
+    //padding: 15px 20px;
+    padding: 7px 20px;
+    background: #dedede;
+    border: 1px solid #999;
+    border-top:0;
+
+    > p {
+        font-size: 14px;
+        color: #000;
+        margin:0;
+
+        > span {
+            margin:0 15px 0 35px;
+        }
+        > i {
+            font-style: normal;
+            font-size: 18px;
+            font-weight: 900;
+        }
+    }
+}
+.real_footer{
+    @include size(100%, auto);
+    @include flex-align(space-between, center);
+
+    flex-flow: row nowrap;
+    //margin-top: 20px;
+    margin-top: 7px;
+    
+
+    .footer_left {
+        .btn_ref {
+            font-size: 13px;
+            color: #fff;
+            border-color: #70b340;
+            background: #70b340;
+        }
+    }
+    .footer_right,
+    .footer_left {
+        @include size(auto, auto);
+        @include flex-align(flex-start, center);
+
+        flex-flow: row nowrap;
+        gap:5px;
+
+        > .btn_default {
+            min-width:80px;
+            font-size: 13px ;
+        }
+        .btn_excel{
+            border-color: #999;
+            background: #fff;;
+        }
+        .btn_temp {
+            color: #fff;
+            border-color: #999;
+            background: #999;
+        }
+        .btn_quta {
+            color: #fff;
+            border-color: #00592d;
+            background: #00592d;
+        }
+    }
+}
+.realgrid_container + .page_num_box {margin:10px 0;}
+.addrInfo_read {
+  @include flex-align(center, center);
+  height: 18px;
+  background: url("@/assets/img/icon_note.png") center center no-repeat;
+}
+
+.pen_read {
+  @include flex-align(center, center);
+  height: 18px;
+  background: url("@/assets/img/icon_pensil.png") center center no-repeat;
+  background-size: 13px;
+}
+
+.end_read {
+  @include position(absolute, 0, 5px, auto, auto, 9);
+  @include flex-align(center, center);
+  @include size(18px, 18px);
+  background: url("@/assets/img/icon_note.png") center center no-repeat;
+}
+
+.custom_search,.custom_search2 {
+    @include flex-align(center, center);
+
+    height: 18px;
+    background: url("/public/static/img/icon_fav_on.png") center center no-repeat;
+    
+}
+
+.custom_search2 {
+    background: url("/public/static/img/icon_fav.png") center center no-repeat;
+    
+}
+.custom_render_span {
+    @include position(absolute,0,auto,auto,0,9);
+    @include size(0,0);
+    
+    //visibility: hidden;
+    opacity: 0;
+
+}
+
+//데이트피커
+.rg-calendar{
+    @include borderRadius(5px);
+
+    padding:10px !important;
+    border: 1px solid #ccc !important;
+    box-shadow: rgb(0 0 0 / 30%) 1px 2px 5px !important;
+
+
+    .rg-cal-days-table .rg-cal-days .rg-cal-day{
+        @include size(30px !important,30px !important);
+    
+        &.rg-cal-today {
+            background: #ff2a2a !important;
+            color: #FFFFFF !important;
+        }
+        &.rg-cal-focusday {
+            background: #42883c !important;
+            color: #FFFFFF;
+        }
+    }
+}
+
+.rg-header-focus,
+.rg-rowbarcontainer .rg-table tr td.rg-rowindicator-focus {
+    //background: #b9f9ca !important;
+    background: #e2f0d9 !important;
+}
+
+.up_price,.down_price {
+    width:100%;
+    color:#ff0000;
+    padding:0;
+    margin:0;
+
+    img {
+        margin-right:5px;
+    }
+}
+.down_price{
+    color:#0006ff
+}
+.real_form_input {
+    @include size(100%,28px);
+
+    > input {
+        @include size(100%,100%);
+    }
+}
+.rg-cell-buttons{
+    right:4px !important;
+}
+.rg-renderer {
+    position: relative;
+
+    .caleandar_render_span {
+        padding-right: 15px;
+    }
+    .rg_caleandar_btn {
+        @include position(absolute,5px,10px,auto,auto,9);
+        @include flex-align(center, center);
+        @include size(18px,17px);
+
+        background: url("/public/static/img/icon_calendar.png") center center no-repeat;
+
+    }   
+    .file_render_span {padding-right: 15px;}
+    .rg_file_btn {
+        // @include position(absolute, 5px, 10px, auto, auto, 9);
+        @include flex-align(center, center);
+        // @include size(17px);
+        height: 17px;
+        background: url("/public/static/img/icon_file.png") center center no-repeat;
+
+    }
+}
+
+.dropdown_box {
+    position: relative;
+
+    >.btn_default {
+        position: relative;
+        z-index: 90;
+    }
+
+    .dropdown_chang_unit,.dropdown_layout {
+        @include position(absolute,0,auto,auto,0,-1);
+        @include flex-align(flex-start,flex-start);
+        @include size(100%, auto);
+        @include transition(all,0.3s);
+
+        display: flex;
+        flex-flow: column wrap;
+        gap:1px;
+        
+        
+        visibility: hidden;
+        opacity: 0;
+
+        li {@include size(100%, auto);
+
+            font-size: 12px;
+        }
+        .btn_dropdown  {
+            @include size(100%, 30px);
+            @include flex-align(center, center);
+            @include transition(all,0.3s);
+
+            color:#666;
+            border:1px solid #cfcfcf;
+            background: #fff;
+
+            &:hover {
+                color:#333;
+                border:1px solid #{$primary};
+            }
+        }
+        li >.btn_save {
+            color: #fff;
+            background: #00592d;
+            border-color: #00592d;
+
+            &:hover {color:#fff;}
+        }
+        li >.btn_reset {
+            color: #fff;
+            background: #999;
+            border-color: #999;
+
+            &:hover {color:#fff;}
+        }
+
+        &.on{
+            @include transition(all,0.3s);
+
+            top:31px;
+            z-index: 9;
+            visibility: visible;
+            opacity: 1;
+
+            li>button {
+                @include transition(all,0.3s);
+
+                height: 30px;
+            }
+        }
+    }
+    .dropdown_chang_unit {
+        top:-62px;
+
+        &.on{
+            @include transition(all,0.3s);
+
+            top:-62px;
+            z-index: 9;
+            visibility: visible;
+            opacity: 1;
+
+        }
+    }
+}
+
+
+//MDF,MFB 구분
+.rg-mfb {background: rgba(162, 233, 111, 0.1) !important;}
+.rg-prdt-disble {
+    color:#c0c0c0 !important;
+    background: #eff1f1 !important
+}
+
+//데이터 없음
+.rg-empty-grid {
+  font-size: 20px !important;
+  font-weight: bold !important;
+}

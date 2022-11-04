@@ -1,19 +1,25 @@
 <template>
   <v-card height="600px">
+    <SetDialog :setDialog="this.setDialog" ref="loginModal" />
     <div class="pa-10">
-      <h1 style="text-align: center" class="mb-10">Login</h1>
-      <form>
-        <v-text-field label="ID"></v-text-field>
+      <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
+      <div>
+        <v-text-field placeholder="아이디를 입력해주세요"></v-text-field>
         <v-text-field
           append-icon="mdi-eye"
           :type="pwdType"
-          label="Password"
+          placeholder="비밀번호를 입력해주세요"
           @click:append="togglePwdShow"
         >
         </v-text-field>
+        <v-checkbox
+          class="d-flex flex-row mb-6"
+          v-model="checkbox"
+          :label="'아이디 기억하기'"
+        />
         <v-btn
           type="submit"
-          color="blue lighten-1 text-capitalize"
+          color="black lighten-1 text-capitalize"
           depressed
           large
           block
@@ -23,46 +29,35 @@
         >
           Login
         </v-btn>
-        <v-btn
-          color="blue lighten-1 text-capitalize"
-          depressed
-          large
-          block
-          dark
-          class="mb-3"
-          @click="signup"
-        >
-          Sign Up
-        </v-btn>
-        <v-btn
-          color="blue lighten-1 text-capitalize"
-          depressed
-          large
-          block
-          dark
-          @click="find"
-        >
-          아이디/비밀번호 찾기
-        </v-btn>
-        <v-checkbox
-          class="d-flex flex-row mb-6"
-          v-model="checkbox"
-          :label="'비밀번호 저장'"
-        />
-      </form>
+        <div class="underLogin">
+          <div>
+            <span>아이디 찾기 </span>
+            <span>비밀번호 찾기</span>
+          </div>
+          <span @click="signup">회원가입</span>
+        </div>
+      </div>
     </div>
   </v-card>
 </template>
 
 <script>
+import SetDialog from "@/components/SetDialog";
+
 export default {
   data() {
     return {
+      setDialog: {
+        dialogTitle: "알림",
+        dialogText: "",
+      },
       checkbox: false,
       showPwd: false,
     };
   },
-  components: {},
+  components: {
+    SetDialog,
+  },
   computed: {
     pwdType() {
       if (this.showPwd) {
@@ -74,11 +69,34 @@ export default {
   },
   methods: {
     find() {},
-    signup() {},
-    login() {},
+    signup() {
+      this.$router.push("./member/signup");
+    },
+    login() {
+      this.setDialogText("아이디를 입력해주세요");
+      this.$refs.loginModal.openModal();
+    },
     togglePwdShow() {
       this.showPwd = !this.showPwd;
+    },
+    setDialogText(text) {
+      this.setDialog.dialogText = text;
     },
   },
 };
 </script>
+<style>
+.v-text-field {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.underLogin {
+  display: flex;
+  justify-content: space-between;
+}
+
+.underLogin span {
+  cursor: pointer;
+}
+</style>
