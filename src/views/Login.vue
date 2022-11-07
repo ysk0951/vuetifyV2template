@@ -5,9 +5,13 @@
       <div class="pa-10">
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
         <div>
-          <v-text-field placeholder="아이디를 입력해주세요"></v-text-field>
+          <v-text-field
+            placeholder="아이디를 입력해주세요"
+            v-model="id"
+          ></v-text-field>
           <v-text-field
             append-icon="mdi-eye"
+            v-model="pw"
             :type="pwdType"
             placeholder="비밀번호를 입력해주세요"
             @click:append="togglePwdShow"
@@ -22,7 +26,7 @@
             block
             dark
             class="mb-3"
-            @click="login"
+            @click="signin"
           >
             Login
           </v-btn>
@@ -41,7 +45,8 @@
 
 <script>
 import SetDialog from "@/components/SetDialog";
-
+import _ from "lodash";
+import { login } from "../../api/member/login";
 export default {
   data() {
     return {
@@ -51,6 +56,8 @@ export default {
       },
       checkbox: false,
       showPwd: false,
+      id: "",
+      pw: "",
     };
   },
   components: {
@@ -72,9 +79,20 @@ export default {
     signup() {
       this.$router.push({ name: "signup" });
     },
-    login() {
-      this.setDialogText("아이디를 입력해주세요");
-      this.$refs.loginModal.openModal();
+    signin() {
+      if (_.isEmpty(this.id)) {
+        this.setDialogText("아이디를 입력해주세요");
+        this.$refs.loginModal.openModal();
+      } else {
+        console.log(123123);
+        login(this.id, this.pw)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
     },
     togglePwdShow() {
       this.showPwd = !this.showPwd;

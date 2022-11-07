@@ -1,9 +1,8 @@
 import axios from "axios";
-import config from "config";
+import config from "./config";
 
-const instance = axios.create({
-  baseURL: config.baseURL,
-  port: config.port,
-});
-
+const instance = axios.create(config);
+instance.defaults.headers = {
+  "Access-Control-Allow-Origin": "*",
+};
 export default instance;
