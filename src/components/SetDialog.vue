@@ -14,6 +14,7 @@
   </v-dialog>
 </template>
 <script>
+import _ from "lodash";
 export default {
   props: {
     setDialog: {
@@ -27,14 +28,14 @@ export default {
   },
   computed: {},
   methods: {
-    openModal() {
+    openModal(openCb) {
       this.open = true;
+      if (_.isFunction(openCb)) {
+        openCb();
+      }
     },
     closeModal() {
       this.open = false;
-      if (this.setDialog.approveCb) {
-        this.setDialog.approveCb();
-      }
     },
   },
 };

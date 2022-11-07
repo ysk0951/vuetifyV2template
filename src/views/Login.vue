@@ -81,7 +81,6 @@ export default {
       this.$router.push({ name: "signup" });
     },
     signin() {
-      console.log("SIGN IN");
       if (_.isEmpty(this.id)) {
         this.setDialogText("아이디를 입력해주세요");
         this.$refs.loginModal.openModal();
@@ -90,12 +89,15 @@ export default {
           .then((res) => {
             const resBody = res.data;
             setToken(this, resBody.data);
+            this.setDialogText("로그인 되었습니다.");
           })
           .catch((e) => {
             console.errro(e);
           })
           .finally(() => {
-            this.$router.push({ name: "main" });
+            this.$refs.loginModal.openModal(() => {
+              this.$router.push({ name: "main" });
+            });
           });
       }
     },

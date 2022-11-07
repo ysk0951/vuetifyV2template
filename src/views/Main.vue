@@ -34,7 +34,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$store.state.member.accessToken);
     const token = getToken(this);
     if (_.isEmpty(token.accessToken)) {
       this.$router.push({ name: "login" });

@@ -57,9 +57,6 @@ export default {
       setDialog: {
         dialogTitle: "알림",
         dialogText: "변경된 비밀번호로 로그인해주세요",
-        approveCb: () => {
-          this.$router.push({ name: "login" });
-        },
       },
       checkbox: false,
       showPwd: false,
@@ -83,7 +80,9 @@ export default {
       this.$router.push("./member/signup");
     },
     login() {
-      this.$refs.modifyModal.openModal();
+      this.$refs.modifyModal.openModal(() => {
+        this.$router.push({ name: "login" });
+      });
     },
     togglePwdShow() {
       this.showPwd = !this.showPwd;
