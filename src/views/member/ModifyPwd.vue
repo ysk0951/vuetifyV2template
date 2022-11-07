@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <v-card height="600px" width="1200px">
-      <SetDialog :setDialog="this.setDialog" ref="loginModal" />
+      <SetDialog :setDialog="this.setDialog" ref="modifyModal" />
       <div class="pa-10">
         <h3 style="text-align: left">로그인</h3>
         <hr class="mb-16" />
@@ -58,8 +58,7 @@ export default {
         dialogTitle: "알림",
         dialogText: "변경된 비밀번호로 로그인해주세요",
         approveCb: () => {
-          console.log("back");
-          this.$router.push({ name: "main" });
+          this.$router.push({ name: "login" });
         },
       },
       checkbox: false,
@@ -84,7 +83,7 @@ export default {
       this.$router.push("./member/signup");
     },
     login() {
-      this.$refs.loginModal.openModal();
+      this.$refs.modifyModal.openModal();
     },
     togglePwdShow() {
       this.showPwd = !this.showPwd;

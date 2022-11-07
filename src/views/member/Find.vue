@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <v-card height="600px" width="450px">
-      <SetDialog :setDialog="this.setDialog" ref="loginModal" />
+      <SetDialog :setDialog="this.setDialog" ref="findModal" />
       <div class="pa-10">
         <h3 style="text-align: left">{{ `${tabKey(this.key)} 찾기` }}</h3>
         <hr class="mb-3" />
@@ -91,7 +91,6 @@ export default {
   },
   mounted() {
     if (this.$route.params.key) {
-      console.log(this.$route.params.key);
       this.key = this.$route.params.key;
     }
   },
@@ -103,7 +102,7 @@ export default {
       return FindKey[key];
     },
     cancel() {
-      this.$router.push({ name: "main" });
+      this.$router.push({ name: "login" });
     },
     approve(params) {
       this.$router.push({ name: "find", params: { params } });
@@ -113,7 +112,7 @@ export default {
     },
     login() {
       this.setDialogText("아이디를 입력해주세요");
-      this.$refs.loginModal.openModal();
+      this.$refs.findModal.openModal();
     },
     togglePwdShow() {
       this.showPwd = !this.showPwd;

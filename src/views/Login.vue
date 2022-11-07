@@ -85,14 +85,16 @@ export default {
         this.setDialogText("아이디를 입력해주세요");
         this.$refs.loginModal.openModal();
       } else {
-        console.log(123123);
         login(this.id, this.pw)
           .then((res) => {
             const resBody = res.data;
             setToken(this, resBody.data);
           })
           .catch((e) => {
-            console.log(e);
+            console.errro(e);
+          })
+          .finally(() => {
+            this.$router.push({ name: "main" });
           });
       }
     },

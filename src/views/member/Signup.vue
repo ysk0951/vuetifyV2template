@@ -1,7 +1,7 @@
 <template>
   <div class="cardWrapper">
     <v-card height="600px" width="450px">
-      <SetDialog :setDialog="this.setDialog" ref="loginModal" />
+      <SetDialog :setDialog="this.setDialog" ref="signupModal" />
       <div class="pa-10">
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
         <div>
@@ -75,7 +75,7 @@ export default {
       this.$router.push("./member/signup");
     },
     login() {
-      this.$refs.loginModal.openModal();
+      this.$refs.signupModal.openModal();
     },
     togglePwdShow() {
       this.showPwd = !this.showPwd;
