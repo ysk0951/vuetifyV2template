@@ -4,7 +4,6 @@ import Login from "@/views/Login.vue";
 import ModifyPwd from "@/views/member/ModifyPwd";
 import Find from "@/views/member/Find";
 import Main from "@/views/Main";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -35,5 +34,18 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  next();
+  console.log(to, from, next);
+});
+
+//NavigationDuplicated Error ignore
+const originPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originPush.call(this, location).catch((err) => {
+    if (err.name !== "NavigationDuplicated") throw err;
+  });
+};
 
 export default router;

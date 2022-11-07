@@ -83,22 +83,20 @@ export default {
     signin() {
       if (_.isEmpty(this.id)) {
         this.setDialogText("아이디를 입력해주세요");
-        this.$refs.loginModal.openModal();
+        this.$refs.loginModal.openModal(() => {
+          this.$router.push({ name: "modifyPwd" });
+        });
       } else {
         login(this.id, this.pw)
           .then((res) => {
             const resBody = res.data;
             setToken(this, resBody.data);
-            this.setDialogText("로그인 되었습니다.");
+            this.routing("main", "로그인 되었습니다.");
           })
-          .catch((e) => {
-            console.errro(e);
+          .catch(() => {
+            this.routing("login", "로그인 에 실패하였습니다.");
           })
-          .finally(() => {
-            this.$refs.loginModal.openModal(() => {
-              this.$router.push({ name: "main" });
-            });
-          });
+          .finally(() => {});
       }
     },
     togglePwdShow() {
@@ -106,6 +104,12 @@ export default {
     },
     setDialogText(text) {
       this.setDialog.dialogText = text;
+    },
+    routing(name, message) {
+      this.setDialogText(message);
+      this.$refs.loginModal.openModal(() => {
+        this.$router.push({ name: name });
+      });
     },
   },
 };

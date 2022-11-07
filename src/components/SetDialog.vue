@@ -7,7 +7,7 @@
           {{ setDialog.dialogText }}
         </v-card-text>
         <v-card-actions style="justify-content: center">
-          <v-btn class="approve" @click="closeModal">확인</v-btn>
+          <v-btn class="approve" @click="opApprove">확인</v-btn>
         </v-card-actions>
       </v-card>
     </v-form>
@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       open: false,
+      cb: "",
     };
   },
   computed: {},
@@ -31,11 +32,16 @@ export default {
     openModal(openCb) {
       this.open = true;
       if (_.isFunction(openCb)) {
-        openCb();
+        this.cb = openCb;
       }
     },
     closeModal() {
+      console.log("close");
       this.open = false;
+    },
+    opApprove() {
+      this.closeModal();
+      this.cb();
     },
   },
 };
