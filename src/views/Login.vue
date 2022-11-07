@@ -46,7 +46,8 @@
 <script>
 import SetDialog from "@/components/SetDialog";
 import _ from "lodash";
-import { login } from "../../api/member/login";
+import { login } from "api/member/login";
+import { setToken } from "store/memberEx";
 export default {
   data() {
     return {
@@ -87,7 +88,8 @@ export default {
         console.log(123123);
         login(this.id, this.pw)
           .then((res) => {
-            console.log(res.data);
+            const resBody = res.data;
+            setToken(this, resBody.data);
           })
           .catch((e) => {
             console.log(e);
