@@ -33,4 +33,8 @@ export default {
   justify-content: space-between;
   display: flex;
 }
+.v-btn .approve {
+  background-color: black !important;
+  color: white !important;
+}
 </style>
