@@ -2,13 +2,15 @@
   <div class="wrapper">
     <v-card height="600px" width="1200px">
       <SetDialog :setDialog="this.setDialog" ref="mainModal" />
+      <v-btn @click="reset">초기화</v-btn>
     </v-card>
   </div>
 </template>
 
 <script>
 import SetDialog from "@/components/SetDialog";
-// import _ from "lodash";
+import { getToken, setToken } from "@/store/moduleExec/memberEx";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -26,7 +28,18 @@ export default {
     SetDialog,
   },
   computed: {},
-  methods: {},
+  methods: {
+    reset() {
+      setToken(this, {});
+    },
+  },
+  created() {
+    console.log(this.$store.state.member.accessToken);
+    const token = getToken(this);
+    if (_.isEmpty(token.accessToken)) {
+      this.$router.push({ name: "login" });
+    }
+  },
 };
 </script>
 <style></style>

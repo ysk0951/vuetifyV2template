@@ -81,6 +81,7 @@ export default {
       this.$router.push({ name: "signup" });
     },
     signin() {
+      console.log("SIGN IN");
       if (_.isEmpty(this.id)) {
         this.setDialogText("아이디를 입력해주세요");
         this.$refs.loginModal.openModal();
