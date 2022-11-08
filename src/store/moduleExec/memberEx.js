@@ -4,7 +4,6 @@ export function setToken(context, { accessToken, refreshToken }) {
 }
 
 export function getToken(context) {
-  console.log("get", context);
   return {
     accessToken: context.$store.state.member.accessToken,
     refreshToken: context.$store.state.member.refreshToken,

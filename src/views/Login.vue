@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
     <v-card height="600px" width="450px">
-      <SetDialog :setDialog="this.setDialog" ref="loginModal" />
+      <SetDialog :setting="this.setDialog" ref="loginModal" />
+      <SetDialog :setting="this.setFindPopup" ref="findPopup">
+        <Find></Find>
+      </SetDialog>
       <div class="pa-10">
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
         <div>
@@ -15,6 +18,7 @@
             :type="pwdType"
             placeholder="비밀번호를 입력해주세요"
             @click:append="togglePwdShow"
+            maxlength="20"
           >
           </v-text-field>
           <v-checkbox v-model="checkbox" :label="'아이디 기억하기'" />
@@ -45,6 +49,7 @@
 
 <script>
 import SetDialog from "@/components/SetDialog";
+import Find from "@/views/member/Find.vue";
 import _ from "lodash";
 import { login } from "api/member/login";
 import { setToken } from "store/memberEx";
@@ -54,6 +59,13 @@ export default {
       setDialog: {
         dialogTitle: "알림",
         dialogText: "",
+        maxWidth: 500,
+      },
+      setFindPopup: {
+        dialogText: "",
+        closable: true,
+        maxWidth: 450,
+        height: 600,
       },
       checkbox: false,
       showPwd: false,
@@ -63,6 +75,7 @@ export default {
   },
   components: {
     SetDialog,
+    Find,
   },
   computed: {
     pwdType() {
@@ -73,9 +86,18 @@ export default {
       }
     },
   },
+  mounted() {
+    const id = localStorage.getItem("id");
+    if (!_.isEmpty(id)) {
+      this.id = id;
+    }
+  },
   methods: {
     find(key) {
-      this.$router.push({ name: "find", params: { key } });
+      this.$refs.findPopup.openModal(key);
+
+      // 팝업으로 만들시에
+      // this.$router.push({ name: "find", params: { key } });
     },
     signup() {
       this.$router.push({ name: "signup" });
@@ -91,6 +113,9 @@ export default {
           .then((res) => {
             const resBody = res.data;
             setToken(this, resBody.data);
+            if (this.checkbox) {
+              localStorage.setItem("id", this.id);
+            }
             this.routing("main", "로그인 되었습니다.");
           })
           .catch(() => {

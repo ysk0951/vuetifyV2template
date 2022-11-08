@@ -57,6 +57,7 @@ export default {
       setDialog: {
         dialogTitle: "알림",
         dialogText: "변경된 비밀번호로 로그인해주세요",
+        maxWidth: 500,
       },
       checkbox: false,
       showPwd: false,

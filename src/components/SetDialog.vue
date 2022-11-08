@@ -1,14 +1,24 @@
 <template>
-  <v-dialog max-width="500" v-model="open">
+  <v-dialog :max-width="setting.maxWidth" v-model="open">
     <v-form ref="form" lazy-validation>
-      <v-card>
-        <v-card-title>{{ setDialog.dialogTitle }}</v-card-title>
-        <v-card-text>
-          {{ setDialog.dialogText }}
+      <v-card :style="'height:' + setting.height + 'px'" class="tableParent">
+        <v-card-title v-if="setting.dialogTitle">{{
+          setting.dialogTitle
+        }}</v-card-title>
+        <v-card-text v-if="setting.dialogText">
+          {{ setting.dialogText }}
         </v-card-text>
-        <v-card-actions style="justify-content: center">
-          <v-btn class="approve" @click="opApprove">확인</v-btn>
-        </v-card-actions>
+        <slot></slot>
+        <div class="tableChild">
+          <div class="wrapper">
+            <v-card-actions v-if="setting.closable">
+              <v-btn @click="closeModal">취소</v-btn>
+            </v-card-actions>
+            <v-card-actions>
+              <v-btn class="approve" @click="opApprove">확인</v-btn>
+            </v-card-actions>
+          </div>
+        </div>
       </v-card>
     </v-form>
   </v-dialog>
@@ -17,7 +27,7 @@
 import _ from "lodash";
 export default {
   props: {
-    setDialog: {
+    setting: {
       type: Object,
     },
   },
@@ -36,7 +46,6 @@ export default {
       }
     },
     closeModal() {
-      console.log("close");
       this.open = false;
     },
     opApprove() {
@@ -52,5 +61,16 @@ export default {
 }
 .approve span {
   color: white;
+}
+
+.tableParent {
+  border-collapse: collapse;
+  display: table;
+}
+
+.tableChild {
+  display: table-row;
+  vertical-align: bottom;
+  height: 1px;
 }
 </style>
