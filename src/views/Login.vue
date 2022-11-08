@@ -53,6 +53,7 @@ import Find from "@/views/member/Find.vue";
 import _ from "lodash";
 import { mapMutations } from "vuex";
 import { login } from "api/member/login";
+import { emailRegex } from "@/assets/regex";
 export default {
   props: {},
   data() {
@@ -93,7 +94,6 @@ export default {
       "RESET_MODAL",
     ]),
     find(key) {
-      console.log(key);
       this.SET_MODAL({
         height: 400,
         width: 450,
@@ -106,14 +106,8 @@ export default {
       this.$router.push({ name: "signup" });
     },
     signin() {
-      if (_.isEmpty(this.id)) {
-        this.SET_MODAL({
-          title: "알림",
-          text: "아이디를 입력해주세요",
-          height: 150,
-          width: 300,
-        });
-        this.$refs.loginModal.openModal();
+      if (this.validation()) {
+        return;
       } else {
         login(this.id, this.pw)
           .then((res) => {
@@ -138,6 +132,41 @@ export default {
       this.$refs.loginModal.openModal(() => {
         this.$router.push({ name: name });
       });
+    },
+    validation() {
+      let ret = false;
+      //eslint-disable-next-line
+      const isEmailType = emailRegex.test(this.id);
+      console.log(isEmailType);
+      if (_.isEmpty(this.id)) {
+        this.SET_MODAL({
+          title: "알림",
+          text: "아이디를 입력해주세요",
+          height: 150,
+          width: 300,
+        });
+        this.$refs.loginModal.openModal();
+        ret = true;
+      } else if (_.isEmpty(this.pw)) {
+        this.SET_MODAL({
+          title: "알림",
+          text: "비밀번호를 입력해주세요",
+          height: 150,
+          width: 300,
+        });
+        this.$refs.loginModal.openModal();
+        ret = true;
+      } else if (!isEmailType) {
+        this.SET_MODAL({
+          title: "알림",
+          text: "잘못된 아이디 정보입니다",
+          height: 150,
+          width: 300,
+        });
+        this.$refs.loginModal.openModal();
+        ret = true;
+      }
+      return ret;
     },
   },
 };
