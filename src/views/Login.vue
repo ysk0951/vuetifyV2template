@@ -52,7 +52,7 @@ import SetDialog from "@/components/SetDialog";
 import Find from "@/views/member/Find.vue";
 import _ from "lodash";
 import { mapMutations } from "vuex";
-import { login } from "api/member/login";
+import { login } from "api/member/member";
 import { emailRegex } from "@/assets/regex";
 export default {
   props: {},
@@ -99,6 +99,7 @@ export default {
         width: 450,
         param: key,
         closable: true,
+        customApprove: true,
       });
       this.$refs.findPopup.openModal();
     },
@@ -129,9 +130,6 @@ export default {
     },
     routing(name, message) {
       this.SET_DIALOG_TEXT(message);
-      this.$refs.loginModal.openModal(() => {
-        this.$router.push({ name: name });
-      });
     },
     validation() {
       let ret = false;

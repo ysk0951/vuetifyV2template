@@ -5,3 +5,7 @@ export async function login(id, pw) {
     pw,
   });
 }
+
+export async function searchUserId(param) {
+  return http.post("/searchUserId", param);
+}

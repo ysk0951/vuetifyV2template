@@ -12,7 +12,7 @@
           {{ this.dialogText }}
         </v-card-text>
         <slot></slot>
-        <div class="tableChild">
+        <div class="tableChild" v-if="!this.customApprove">
           <div class="wrapper">
             <v-card-actions v-if="this.closable">
               <v-btn @click="closeModal">취소</v-btn>
@@ -44,22 +44,21 @@ export default {
       "dialogText",
       "maxWidth",
       "closable",
+      "callback",
+      "customApprove",
     ]),
   },
   methods: {
-    openModal(openCb) {
+    openModal() {
       this.open = true;
-      if (_.isFunction(openCb)) {
-        this.cb = openCb;
-      }
     },
     closeModal() {
       this.open = false;
     },
     opApprove() {
       this.closeModal();
-      if (_.isFunction(this.cb)) {
-        this.cb();
+      if (_.isFunction(this.callback)) {
+        this.callback();
       }
     },
   },

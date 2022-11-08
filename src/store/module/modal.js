@@ -7,6 +7,8 @@ const modal = {
     maxWidth: 450,
     height: 450,
     closable: false,
+    callback: undefined,
+    customApprove: false,
   },
   mutations: {
     SET_PARAM(state, value) {
@@ -27,6 +29,9 @@ const modal = {
     SET_CLOSABLE(state, value) {
       state.closable = value;
     },
+    SET_CUSTOM_APPROVE(state, value) {
+      state.customApprove = value;
+    },
     SET_MODAL(state, value) {
       this.commit("modal/RESET_MODAL");
       state.param = value.param;
@@ -35,6 +40,8 @@ const modal = {
       state.maxWidth = value.width;
       state.height = value.height;
       state.closable = value.closable;
+      state.callback = value.callback;
+      state.customApprove = value.customApprove;
     },
     RESET_MODAL(state) {
       state.param = {};
@@ -43,6 +50,11 @@ const modal = {
       state.maxWidth = 450;
       state.height = 450;
       state.closable = false;
+      state.callback = undefined;
+      state.customApprove = false;
+    },
+    SET_CALL_BACK(state, value) {
+      state.callback = value;
     },
   },
   getters: {},

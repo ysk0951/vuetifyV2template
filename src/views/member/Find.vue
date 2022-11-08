@@ -18,7 +18,10 @@
                   <v-subheader>이름</v-subheader>
                 </v-col>
                 <v-col cols="12" sm="9">
-                  <v-text-field placeholder="이름을 입력해주요"></v-text-field>
+                  <v-text-field
+                    placeholder="이름을 입력해주요"
+                    v-model="memberName"
+                  ></v-text-field>
                 </v-col>
               </v-layout>
               <v-row>
@@ -29,7 +32,10 @@
                   <v-select :items="numbers"></v-select>
                 </v-col>
                 <v-col cols="12" sm="6" style="padding-left: 0px">
-                  <v-text-field placeholder="000-0000-0000"></v-text-field>
+                  <v-text-field
+                    placeholder="000-0000-0000"
+                    v-model="phone"
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </template>
@@ -47,7 +53,7 @@
                   <v-subheader>휴대폰 번호</v-subheader>
                 </v-col>
                 <v-col cols="12" sm="3">
-                  <v-select :items="numbers"></v-select>
+                  <v-select :items="numbers" item-value="areacode"></v-select>
                 </v-col>
                 <v-col cols="12" sm="6" style="padding-left: 0px">
                   <v-text-field placeholder="000-0000-0000"></v-text-field>
@@ -64,6 +70,7 @@
 <script>
 import SetDialog from "@/components/SetDialog";
 import { mapState, mapMutations } from "vuex";
+import { searchUserId } from "api/member/member";
 export const FindKey = {
   id: "아이디",
   pw: "패스워드",
@@ -71,6 +78,7 @@ export const FindKey = {
 export default {
   data() {
     return {
+      //setting
       checkbox: false,
       showPwd: false,
       tab: 0,
@@ -78,6 +86,10 @@ export default {
       text: "2",
       items: ["id", "pw"],
       numbers: [1, 2],
+      //id Param
+      memberName: "",
+      phone: "",
+      areacode: "",
     };
   },
   components: {
@@ -85,6 +97,12 @@ export default {
   },
   mounted() {
     this.key = this.param;
+    this.setCb();
+  },
+  watch: {
+    key: function () {
+      this.setCb();
+    },
   },
   computed: {
     ...mapState("modal", ["param"]),
@@ -100,21 +118,39 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("modal", ["SET_PARAM"]),
+    ...mapMutations("modal", ["SET_PARAM", "SET_CALL_BACK"]),
     move(key) {
       this.key = key;
     },
     tabKey(key) {
       return FindKey[key];
     },
-    cancel() {
-      this.$router.push({ name: "login" });
-    },
-    approve(params) {
-      this.$router.push({ name: "find", params: { params } });
-    },
     togglePwdShow() {
       this.showPwd = !this.showPwd;
+    },
+    findIdCb() {
+      const param = {
+        memberName: this.memberName,
+        phone: this.phone,
+        areacode: this.areacode,
+      };
+      searchUserId(param)
+        .then((res) => {
+          const resBody = res.data;
+          console.log(resBody);
+        })
+        .catch(() => {})
+        .finally(() => {});
+    },
+    findPwCb() {
+      console.log("pw Cb");
+    },
+    setCb() {
+      if (this.key === "id") {
+        this.SET_CALL_BACK(this.findIdCb);
+      } else if (this.key === "pw") {
+        this.SET_CALL_BACK(this.findPwCb);
+      }
     },
   },
 };
