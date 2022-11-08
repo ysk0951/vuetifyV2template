@@ -1,14 +1,14 @@
 const member = {
+  namespaced: true,
   state: {
     accessToken: "",
     refreshToken: "",
   },
   mutations: {
-    SET_ACCESS_TOKEN(state, value) {
-      state.accessToken = value;
-    },
-    SET_REFRESH_TOKEN(state, value) {
-      state.refreshToken = value;
+    SET_TOKEN(state, payload) {
+      console.log(payload);
+      state.accessToken = payload.accessToken;
+      state.refreshToken = payload.refreshToken;
     },
   },
   getters: {},

@@ -9,8 +9,8 @@
 
 <script>
 import SetDialog from "@/components/SetDialog";
-import { getToken, setToken } from "@/store/moduleExec/memberEx";
 import _ from "lodash";
+import { mapMutations, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -28,15 +28,17 @@ export default {
   components: {
     SetDialog,
   },
-  computed: {},
+  computed: {
+    ...mapState("member", ["accessToken"]),
+  },
   methods: {
+    ...mapMutations("member", ["SET_TOKEN"]),
     reset() {
-      setToken(this, {});
+      this.SET_TOKEN({});
     },
   },
   created() {
-    const token = getToken(this);
-    if (_.isEmpty(token.accessToken)) {
+    if (_.isEmpty(this.accessToken)) {
       this.$router.push({ name: "login" });
     }
   },

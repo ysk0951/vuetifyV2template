@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <!-- <v-card height="500px" width="450px"> -->
     <SetDialog :setting="this.setDialog" ref="findModal" />
     <div class="pa-10">
       <h3 style="text-align: left">{{ `${tabKey(this.key)} 찾기` }}</h3>
@@ -34,19 +33,32 @@
                   <v-text-field placeholder="000-0000-0000"></v-text-field>
                 </v-col>
               </v-row>
-              <!-- <v-flex class="approveWrapper" mt-6>
-                  <v-btn style="right: 6px" @click="cancel">취소</v-btn>
-                  <v-btn style="right: -6px" @click="approve" class="approve"
-                    >확인</v-btn
-                  >
-                </v-flex> -->
             </template>
-            <template v-if="key === 'pw'"></template>
+            <template v-if="key === 'pw'">
+              <v-layout row style="margin-top: 18px">
+                <v-col cols="12" sm="3">
+                  <v-subheader>이름</v-subheader>
+                </v-col>
+                <v-col cols="12" sm="9">
+                  <v-text-field placeholder="이름을 입력해주요"></v-text-field>
+                </v-col>
+              </v-layout>
+              <v-row>
+                <v-col cols="12" sm="3">
+                  <v-subheader>휴대폰 번호</v-subheader>
+                </v-col>
+                <v-col cols="12" sm="3">
+                  <v-select :items="numbers"></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" style="padding-left: 0px">
+                  <v-text-field placeholder="000-0000-0000"></v-text-field>
+                </v-col>
+              </v-row>
+            </template>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
     </div>
-    <!-- </v-card> -->
   </div>
 </template>
 

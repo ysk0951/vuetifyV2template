@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <v-card height="600px" width="450px">
-      <SetDialog :setting="this.setDialog" ref="loginModal" />
+      <SetDialog ref="loginModal" />
       <SetDialog :setting="this.setFindPopup" ref="findPopup">
         <Find></Find>
       </SetDialog>
@@ -51,9 +51,10 @@
 import SetDialog from "@/components/SetDialog";
 import Find from "@/views/member/Find.vue";
 import _ from "lodash";
+import { mapMutations } from "vuex";
 import { login } from "api/member/login";
-import { setToken } from "store/memberEx";
 export default {
+  props: {},
   data() {
     return {
       setDialog: {
@@ -93,26 +94,36 @@ export default {
     }
   },
   methods: {
+    ...mapMutations("member", ["SET_TOKEN"]),
+    ...mapMutations("modal", [
+      "SET_DIALOG_TITLE",
+      "SET_DIALOG_TEXT",
+      "SET_HIGHT",
+      "SET_MAX_WIDTH",
+      "SET_MODAL",
+      "RESET_MODAL",
+    ]),
     find(key) {
       this.$refs.findPopup.openModal(key);
-
-      // 팝업으로 만들시에
-      // this.$router.push({ name: "find", params: { key } });
     },
     signup() {
       this.$router.push({ name: "signup" });
     },
     signin() {
       if (_.isEmpty(this.id)) {
-        this.setDialogText("아이디를 입력해주세요");
-        this.$refs.loginModal.openModal(() => {
-          this.$router.push({ name: "modifyPwd" });
+        this.RESET_MODAL();
+        this.SET_MODAL({
+          title: "알림",
+          text: "아이디를 입력해주세요",
+          height: 150,
+          width: 300,
         });
+        this.$refs.loginModal.openModal();
       } else {
         login(this.id, this.pw)
           .then((res) => {
             const resBody = res.data;
-            setToken(this, resBody.data);
+            this.SET_TOKEN(resBody.data);
             if (this.checkbox) {
               localStorage.setItem("id", this.id);
             }
@@ -127,11 +138,8 @@ export default {
     togglePwdShow() {
       this.showPwd = !this.showPwd;
     },
-    setDialogText(text) {
-      this.setDialog.dialogText = text;
-    },
     routing(name, message) {
-      this.setDialogText(message);
+      this.SET_DIALOG_TEXT(message);
       this.$refs.loginModal.openModal(() => {
         this.$router.push({ name: name });
       });

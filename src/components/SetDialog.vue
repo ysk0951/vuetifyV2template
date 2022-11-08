@@ -1,17 +1,20 @@
 <template>
-  <v-dialog :max-width="setting.maxWidth" v-model="open">
+  <v-dialog :max-width="this.maxWidth" v-model="open">
     <v-form ref="form" lazy-validation>
-      <v-card :style="'height:' + setting.height + 'px'" class="tableParent">
-        <v-card-title v-if="setting.dialogTitle">{{
-          setting.dialogTitle
+      <v-card
+        :style="'height:' + this.height + 'px; width:100%'"
+        class="tableParent"
+      >
+        <v-card-title v-if="this.dialogTitle">{{
+          this.dialogTitle
         }}</v-card-title>
-        <v-card-text v-if="setting.dialogText">
-          {{ setting.dialogText }}
+        <v-card-text v-if="this.dialogText">
+          {{ this.dialogText }}
         </v-card-text>
         <slot></slot>
         <div class="tableChild">
           <div class="wrapper">
-            <v-card-actions v-if="setting.closable">
+            <v-card-actions v-if="this.closable">
               <v-btn @click="closeModal">취소</v-btn>
             </v-card-actions>
             <v-card-actions>
@@ -25,6 +28,7 @@
 </template>
 <script>
 import _ from "lodash";
+import { mapState } from "vuex";
 export default {
   props: {
     setting: {
@@ -37,7 +41,16 @@ export default {
       cb: "",
     };
   },
-  computed: {},
+  computed: {
+    ...mapState("modal", [
+      "param",
+      "height",
+      "dialogTitle",
+      "dialogText",
+      "maxWidth",
+      "closable",
+    ]),
+  },
   methods: {
     openModal(openCb) {
       this.open = true;
@@ -50,7 +63,9 @@ export default {
     },
     opApprove() {
       this.closeModal();
-      this.cb();
+      if (_.isFunction(this.cb)) {
+        this.cb();
+      }
     },
   },
 };
