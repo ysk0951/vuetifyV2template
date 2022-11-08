@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <v-card height="600px" width="1200px">
-      <SetDialog :setting="this.setDialog" ref="mainModal" />
+      <SetDialog ref="mainModal" />
       <v-btn @click="reset">초기화</v-btn>
     </v-card>
   </div>
@@ -14,11 +14,6 @@ import { mapMutations, mapState } from "vuex";
 export default {
   data() {
     return {
-      setDialog: {
-        dialogTitle: "알림",
-        dialogText: "",
-        maxWidth: 500,
-      },
       checkbox: false,
       showPwd: false,
       id: "",

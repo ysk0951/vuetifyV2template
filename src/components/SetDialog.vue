@@ -30,11 +30,6 @@
 import _ from "lodash";
 import { mapState } from "vuex";
 export default {
-  props: {
-    setting: {
-      type: Object,
-    },
-  },
   data() {
     return {
       open: false,

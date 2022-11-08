@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <v-card height="600px" width="450px">
-      <SetDialog :setting="this.setDialog" ref="findModal" />
+      <SetDialog ref="findModal" />
       <div class="pa-10">
         <h3 style="text-align: left">{{ `${tabKey(this.key)} 찾기` }}</h3>
         <hr class="mb-3" />
@@ -61,11 +61,6 @@ export const FindKey = {
 export default {
   data() {
     return {
-      setDialog: {
-        dialogTitle: "알림",
-        dialogText: "",
-        maxWidth: 500,
-      },
       checkbox: false,
       showPwd: false,
       tab: 0,

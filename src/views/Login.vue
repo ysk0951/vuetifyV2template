@@ -2,7 +2,7 @@
   <div class="wrapper">
     <v-card height="600px" width="450px">
       <SetDialog ref="loginModal" />
-      <SetDialog :setting="this.setFindPopup" ref="findPopup">
+      <SetDialog ref="findPopup">
         <Find></Find>
       </SetDialog>
       <div class="pa-10">
@@ -57,17 +57,6 @@ export default {
   props: {},
   data() {
     return {
-      setDialog: {
-        dialogTitle: "알림",
-        dialogText: "",
-        maxWidth: 500,
-      },
-      setFindPopup: {
-        dialogText: "",
-        closable: true,
-        maxWidth: 450,
-        height: 600,
-      },
       checkbox: false,
       showPwd: false,
       id: "",
@@ -104,14 +93,20 @@ export default {
       "RESET_MODAL",
     ]),
     find(key) {
-      this.$refs.findPopup.openModal(key);
+      console.log(key);
+      this.SET_MODAL({
+        height: 400,
+        width: 450,
+        param: key,
+        closable: true,
+      });
+      this.$refs.findPopup.openModal();
     },
     signup() {
       this.$router.push({ name: "signup" });
     },
     signin() {
       if (_.isEmpty(this.id)) {
-        this.RESET_MODAL();
         this.SET_MODAL({
           title: "알림",
           text: "아이디를 입력해주세요",

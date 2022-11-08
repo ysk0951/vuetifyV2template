@@ -1,7 +1,7 @@
 <template>
   <div class="cardWrapper">
     <v-card height="600px" width="450px">
-      <SetDialog :setting="this.setDialog" ref="signupModal" />
+      <SetDialog ref="signupModal" />
       <div class="pa-10">
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
         <div>
@@ -49,11 +49,6 @@ import SetDialog from "@/components/SetDialog";
 export default {
   data() {
     return {
-      setDialog: {
-        dialogTitle: "알림",
-        dialogText: "변경된 비밀번호로 로그인해주세요",
-        maxWidth: 500,
-      },
       checkbox: false,
       showPwd: false,
     };

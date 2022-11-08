@@ -1,10 +1,9 @@
 <template>
   <div class="wrapper">
-    <SetDialog :setting="this.setDialog" ref="findModal" />
+    <SetDialog ref="findModal" />
     <div class="pa-10">
       <h3 style="text-align: left">{{ `${tabKey(this.key)} 찾기` }}</h3>
       <hr class="mb-3" />
-
       <v-tabs v-model="tab">
         <v-tab v-for="item in items" :key="item" @click="move(item)">
           {{ tabKey(item) }}
@@ -64,23 +63,14 @@
 
 <script>
 import SetDialog from "@/components/SetDialog";
+import { mapState, mapMutations } from "vuex";
 export const FindKey = {
   id: "아이디",
   pw: "패스워드",
 };
 export default {
-  props: {
-    height: {
-      type: Number,
-    },
-  },
   data() {
     return {
-      setDialog: {
-        dialogTitle: "알림",
-        dialogText: "",
-        maxWidth: 500,
-      },
       checkbox: false,
       showPwd: false,
       tab: 0,
@@ -93,7 +83,11 @@ export default {
   components: {
     SetDialog,
   },
+  mounted() {
+    this.key = this.param;
+  },
   computed: {
+    ...mapState("modal", ["param"]),
     pwdType() {
       if (this.showPwd) {
         return "Password";
@@ -105,12 +99,8 @@ export default {
       return `${FindKey[this.key]} 찾기`;
     },
   },
-  mounted() {
-    if (this.$route.params.key) {
-      this.key = this.$route.params.key;
-    }
-  },
   methods: {
+    ...mapMutations("modal", ["SET_PARAM"]),
     move(key) {
       this.key = key;
     },
@@ -123,18 +113,8 @@ export default {
     approve(params) {
       this.$router.push({ name: "find", params: { params } });
     },
-    signup() {
-      this.$router.push({ name: "signup" });
-    },
-    login() {
-      this.setDialogText("아이디를 입력해주세요");
-      this.$refs.findModal.openModal();
-    },
     togglePwdShow() {
       this.showPwd = !this.showPwd;
-    },
-    setDialogText(text) {
-      this.setDialog.dialogText = text;
     },
   },
 };

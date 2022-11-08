@@ -28,6 +28,7 @@ const modal = {
       state.closable = value;
     },
     SET_MODAL(state, value) {
+      this.commit("modal/RESET_MODAL");
       state.param = value.param;
       state.dialogTitle = value.title;
       state.dialogText = value.text;
