@@ -2,20 +2,24 @@
   <div class="wrapper">
     <SetDialog ref="findModal" />
     <div class="pa-10">
-      <h3 style="text-align: left">{{ `${tabKey(this.key)} 찾기` }}</h3>
+      <h3 style="text-align: left">{{ `${tabKey(this.tab)} 찾기` }}</h3>
       <hr class="mb-3" />
       <v-tabs v-model="tab">
-        <v-tab v-for="item in items" :key="item" @click="move(item)">
-          {{ tabKey(item) }}
+        <v-tab
+          v-for="item in items"
+          :key="item.key"
+          :internalLazyValue="findType"
+        >
+          {{ item.value }}
         </v-tab>
       </v-tabs>
       <v-tabs-items
         v-model="tab"
         :style="'min-width:' + (this.maxWidth - 100) + 'px'"
       >
-        <v-tab-item v-for="item in items" :key="item">
+        <v-tab-item v-for="item in items" :key="item.key">
           <v-card flat>
-            <template v-if="key === 'id'">
+            <template v-if="tab === 0">
               <template v-if="!isApproved">
                 <FindIdForm @closeModal="closeModal" @onApprove="onApprove" />
               </template>
@@ -31,7 +35,7 @@
                 />
               </template>
             </template>
-            <template v-if="key === 'pw'">
+            <template v-if="tab === 1">
               <template v-if="!isApproved">
                 <FindPwForm @closeModal="closeModal" @onApprove="onApprove" />
               </template>
@@ -53,14 +57,10 @@ import FindPwForm from "@/views/member/FindPwForm.vue";
 import { mapState, mapMutations } from "vuex";
 import { searchUserId } from "api/member/member";
 import _ from "lodash";
-export const FindKey = {
-  id: "아이디",
-  pw: "패스워드",
-};
 export default {
   props: {
-    slotProps: {
-      type: String,
+    findType: {
+      type: Number,
     },
   },
   data() {
@@ -68,9 +68,11 @@ export default {
       //setting
       checkbox: false,
       showPwd: false,
-      tab: 0,
-      text: "2",
-      items: ["id", "pw"],
+      tab: this.findType,
+      items: [
+        { key: "id", value: "아이디" },
+        { key: "pw", value: "패스워드" },
+      ],
       //find ret
       isApproved: false,
       isSuccessFindId: false,
@@ -85,8 +87,6 @@ export default {
     FindIdResult,
     FindPwForm,
   },
-  mounted() {},
-  watch: {},
   computed: {
     ...mapState("modal", ["maxWidth"]),
     pwdType() {
@@ -97,22 +97,22 @@ export default {
       }
     },
     findString() {
-      return `${FindKey[this.key]} 찾기`;
+      return `${this.item[this.tab].value} 찾기`;
     },
   },
   methods: {
     ...mapMutations("modal", ["SET_PARAM", "SET_CALL_BACK"]),
-    move(tab) {
-      tab;
-    },
-    tabKey(key) {
-      return FindKey[key];
+    tabKey() {
+      return this.items[this.tab].value;
     },
     togglePwdShow() {
       this.showPwd = !this.showPwd;
     },
     closeModal() {
       this.$emit("close");
+    },
+    changeType(idx) {
+      this.$emit("changeType", idx);
     },
     onApprove(param, key) {
       if (key === "id") {

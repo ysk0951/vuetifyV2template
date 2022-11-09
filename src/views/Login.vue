@@ -6,7 +6,7 @@
         <Find
           @close="close"
           @loginByFindId="loginByFindId"
-          :slotProps="findType"
+          :findType="findType"
         ></Find>
       </SetDialog>
       <div class="pa-10">
@@ -40,8 +40,8 @@
           </v-btn>
           <div class="underLogin">
             <div>
-              <span @click="find('id')">아이디 찾기 </span>
-              <span @click="find('pw')">비밀번호 찾기</span>
+              <span @click="find(0)">아이디 찾기 </span>
+              <span @click="find(1)">비밀번호 찾기</span>
             </div>
             <span @click="signup">회원가입</span>
           </div>
@@ -105,6 +105,7 @@ export default {
         customApprove: true,
       });
       this.findType = key;
+      this.$refs.findPopup.$forceUpdate();
       this.$refs.findPopup.openModal();
     },
     signup() {
@@ -139,7 +140,6 @@ export default {
       let ret = false;
       //eslint-disable-next-line
       const isEmailType = emailRegex.test(this.id);
-      console.log(isEmailType);
       if (_.isEmpty(this.id)) {
         this.SET_MODAL({
           title: "알림",

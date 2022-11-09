@@ -11,7 +11,7 @@
         <v-card-text v-if="this.dialogText">
           {{ this.dialogText }}
         </v-card-text>
-        <slot></slot>
+        <slot ref="slot"></slot>
         <div class="tableChild" v-if="!this.customApprove">
           <div class="wrapper">
             <v-card-actions v-if="this.closable">
@@ -55,9 +55,7 @@ export default {
     ]),
   },
   methods: {
-    openModal(paramProps) {
-      console.log("propsKEY", paramProps);
-      this.paramProps = paramProps;
+    openModal() {
       this.open = true;
     },
     closeModal() {
