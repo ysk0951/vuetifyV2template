@@ -3,7 +3,7 @@
     <v-card height="600px" width="450px">
       <SetDialog ref="loginModal" />
       <SetDialog ref="findPopup">
-        <Find></Find>
+        <Find @close="close"></Find>
       </SetDialog>
       <div class="pa-10">
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
@@ -95,8 +95,8 @@ export default {
     ]),
     find(key) {
       this.SET_MODAL({
-        height: 400,
-        width: 450,
+        height: 600,
+        width: 650,
         param: key,
         closable: true,
         customApprove: true,
@@ -165,6 +165,9 @@ export default {
         ret = true;
       }
       return ret;
+    },
+    close() {
+      this.$refs.findPopup.closeModal();
     },
   },
 };
