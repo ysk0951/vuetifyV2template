@@ -3,7 +3,7 @@
     <v-card height="600px" width="450px">
       <SetDialog ref="loginModal" />
       <SetDialog ref="findPopup">
-        <Find @close="close"></Find>
+        <Find @close="close" @loginByFindId="loginByFindId"></Find>
       </SetDialog>
       <div class="pa-10">
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
@@ -168,6 +168,10 @@ export default {
     },
     close() {
       this.$refs.findPopup.closeModal();
+    },
+    loginByFindId(id) {
+      this.$refs.findPopup.closeModal();
+      this.id = id;
     },
   },
 };

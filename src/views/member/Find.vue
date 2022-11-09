@@ -24,7 +24,10 @@
                   :setting="{
                     isSuccessFindId,
                     memberId,
+                    errorMessage,
                   }"
+                  @loginByFindId="loginByFindId"
+                  @back="back"
                 />
               </template>
             </template>
@@ -69,6 +72,7 @@ export default {
       isSuccessFindId: false,
       isSuccessFindPW: false,
       memberId: "",
+      errorMessage: "",
     };
   },
   components: {
@@ -79,13 +83,8 @@ export default {
   },
   mounted() {
     this.key = this.param;
-    this.setCb();
   },
-  watch: {
-    key: function () {
-      this.setCb();
-    },
-  },
+  watch: {},
   computed: {
     ...mapState("modal", ["param", "maxWidth"]),
     pwdType() {
@@ -110,16 +109,6 @@ export default {
     togglePwdShow() {
       this.showPwd = !this.showPwd;
     },
-    findPwCb() {
-      console.log("pw Cb");
-    },
-    setCb() {
-      if (this.key === "id") {
-        this.SET_CALL_BACK(this.findIdCb);
-      } else if (this.key === "pw") {
-        this.SET_CALL_BACK(this.findPwCb);
-      }
-    },
     closeModal() {
       this.$emit("close");
     },
@@ -131,6 +120,7 @@ export default {
             this.isApproved = true;
             if (!_.isEmpty(resBody.errorCode)) {
               this.isSuccessFindId = false;
+              this.errorMessage = resBody.errorMessage;
             } else {
               this.isSuccessFindId = true;
               this.memberId = resBody.data.item.memberid;
@@ -141,6 +131,20 @@ export default {
       } else if (key === "pw") {
         key;
       }
+    },
+    loginByFindId(id) {
+      this.clearSetting();
+      this.$emit("loginByFindId", id);
+    },
+    back() {
+      this.clearSetting();
+    },
+    clearSetting() {
+      this.isSuccessFindId = false;
+      this.isSuccessFindPW = false;
+      this.isApproved = false;
+      this.memberId = "";
+      this.errorMessage = "";
     },
   },
 };

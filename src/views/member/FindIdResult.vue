@@ -6,15 +6,34 @@
       >
       <v-card class="infoCard between">
         <div class="wrapper">
+          <v-radio-group v-model="radioGroup">
+            <v-radio :key="1" :value="setting.memberId"></v-radio>
+          </v-radio-group>
           {{ setting.memberId }}
         </div>
         <div>가입일자</div>
       </v-card>
+      <div class="wrapper">
+        <v-card-actions>
+          <v-btn @click="findPw">비밀번호 찾기</v-btn>
+        </v-card-actions>
+        <v-card-actions>
+          <v-btn class="approve" @click="login">로그인</v-btn>
+        </v-card-actions>
+      </div>
     </template>
     <template v-else>
       <v-card class="infoCard">
-        입력된 정보와 일치하는 아이디를 찾을 수 없습니다
+        {{ setting.errorMessage }}
       </v-card>
+      <div class="wrapper">
+        <v-card-actions>
+          <v-btn @click="back">이전</v-btn>
+        </v-card-actions>
+        <v-card-actions>
+          <v-btn class="approve" @click="login">로그인</v-btn>
+        </v-card-actions>
+      </div>
     </template>
   </div>
 </template>
@@ -26,9 +45,19 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      radioGroup: "",
+    };
   },
-  methods: {},
+  methods: {
+    goPw() {},
+    login() {
+      this.$emit("loginByFindId", this.radioGroup);
+    },
+    back() {
+      this.$emit("back");
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -43,6 +72,7 @@ export default {
   box-shadow: none !important;
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .between {
@@ -52,5 +82,14 @@ export default {
 .infoHeader {
   display: inline-block;
   margin-top: 30px;
+}
+
+.v-input--selection-controls {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.v-btn {
+  width: 110px;
 }
 </style>
