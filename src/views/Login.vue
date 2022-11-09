@@ -3,7 +3,11 @@
     <v-card height="600px" width="450px">
       <SetDialog ref="loginModal" />
       <SetDialog ref="findPopup">
-        <Find @close="close" @loginByFindId="loginByFindId"></Find>
+        <Find
+          @close="close"
+          @loginByFindId="loginByFindId"
+          :slotProps="findType"
+        ></Find>
       </SetDialog>
       <div class="pa-10">
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
@@ -55,13 +59,13 @@ import { mapMutations } from "vuex";
 import { login } from "api/member/member";
 import { emailRegex } from "@/assets/regex";
 export default {
-  props: {},
   data() {
     return {
       checkbox: false,
       showPwd: false,
       id: "",
       pw: "",
+      findType: "",
     };
   },
   components: {
@@ -97,10 +101,10 @@ export default {
       this.SET_MODAL({
         height: 600,
         width: 650,
-        param: key,
         closable: true,
         customApprove: true,
       });
+      this.findType = key;
       this.$refs.findPopup.openModal();
     },
     signup() {

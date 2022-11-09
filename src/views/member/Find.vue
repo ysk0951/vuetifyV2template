@@ -58,13 +58,17 @@ export const FindKey = {
   pw: "패스워드",
 };
 export default {
+  props: {
+    slotProps: {
+      type: String,
+    },
+  },
   data() {
     return {
       //setting
       checkbox: false,
       showPwd: false,
       tab: 0,
-      key: "id",
       text: "2",
       items: ["id", "pw"],
       //find ret
@@ -81,12 +85,10 @@ export default {
     FindIdResult,
     FindPwForm,
   },
-  mounted() {
-    this.key = this.param;
-  },
+  mounted() {},
   watch: {},
   computed: {
-    ...mapState("modal", ["param", "maxWidth"]),
+    ...mapState("modal", ["maxWidth"]),
     pwdType() {
       if (this.showPwd) {
         return "Password";
@@ -100,8 +102,8 @@ export default {
   },
   methods: {
     ...mapMutations("modal", ["SET_PARAM", "SET_CALL_BACK"]),
-    move(key) {
-      this.key = key;
+    move(tab) {
+      tab;
     },
     tabKey(key) {
       return FindKey[key];

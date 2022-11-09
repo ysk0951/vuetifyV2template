@@ -30,8 +30,14 @@
 import _ from "lodash";
 import { mapState } from "vuex";
 export default {
+  props: {
+    slotProps: {
+      type: Object,
+    },
+  },
   data() {
     return {
+      paramProps: {},
       open: false,
       cb: "",
     };
@@ -49,7 +55,9 @@ export default {
     ]),
   },
   methods: {
-    openModal() {
+    openModal(paramProps) {
+      console.log("propsKEY", paramProps);
+      this.paramProps = paramProps;
       this.open = true;
     },
     closeModal() {
