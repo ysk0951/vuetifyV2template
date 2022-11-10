@@ -6,7 +6,8 @@
         <Find
           @close="close"
           @loginByFindId="loginByFindId"
-          :findType="findType"
+          :propsTab="propsTab"
+          @changeTab="changeTab"
         ></Find>
       </SetDialog>
       <div class="pa-10">
@@ -65,7 +66,7 @@ export default {
       showPwd: false,
       id: "",
       pw: "",
-      findType: "",
+      propsTab: 0,
     };
   },
   components: {
@@ -104,8 +105,7 @@ export default {
         closable: true,
         customApprove: true,
       });
-      this.findType = key;
-      this.$refs.findPopup.$forceUpdate();
+      this.propsTab = key;
       this.$refs.findPopup.openModal();
     },
     signup() {
@@ -176,6 +176,9 @@ export default {
     loginByFindId(id) {
       this.$refs.findPopup.closeModal();
       this.id = id;
+    },
+    changeTab(v) {
+      this.propsTab = v;
     },
   },
 };

@@ -6,9 +6,9 @@
       <hr class="mb-3" />
       <v-tabs v-model="tab">
         <v-tab
-          v-for="item in items"
+          v-for="(item, index) in items"
           :key="item.key"
-          :internalLazyValue="findType"
+          @click="changeTab(index)"
         >
           {{ item.value }}
         </v-tab>
@@ -58,9 +58,10 @@ import { mapState, mapMutations } from "vuex";
 import { searchUserId } from "api/member/member";
 import _ from "lodash";
 export default {
-  props: {
-    findType: {
-      type: Number,
+  props: ["propsTab"],
+  watch: {
+    propsTab: function (v) {
+      this.tab = v;
     },
   },
   data() {
@@ -68,7 +69,7 @@ export default {
       //setting
       checkbox: false,
       showPwd: false,
-      tab: this.findType,
+      tab: this.propsTab,
       items: [
         { key: "id", value: "아이디" },
         { key: "pw", value: "패스워드" },
@@ -96,9 +97,6 @@ export default {
         return "text";
       }
     },
-    findString() {
-      return `${this.item[this.tab].value} 찾기`;
-    },
   },
   methods: {
     ...mapMutations("modal", ["SET_PARAM", "SET_CALL_BACK"]),
@@ -108,11 +106,12 @@ export default {
     togglePwdShow() {
       this.showPwd = !this.showPwd;
     },
+    changeTab(tab) {
+      console.log(1, tab);
+      this.$emit("changeTab", tab);
+    },
     closeModal() {
       this.$emit("close");
-    },
-    changeType(idx) {
-      this.$emit("changeType", idx);
     },
     onApprove(param, key) {
       if (key === "id") {
