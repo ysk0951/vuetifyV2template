@@ -115,7 +115,10 @@ export default {
       if (this.validation()) {
         return;
       } else {
-        login(this.id, this.pw)
+        login({
+          memberid: this.id,
+          memberpw: this.pw,
+        })
           .then((res) => {
             const resBody = res.data;
             this.SET_TOKEN(resBody.data);

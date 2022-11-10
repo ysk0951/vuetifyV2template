@@ -41,6 +41,7 @@
             <v-btn depressed color="primary" @click="certificate">{{
               this.isSend ? "재발송" : "인증번호 받기"
             }}</v-btn>
+            {{ 5000 - this.timer }}
           </v-col>
         </v-row>
         <v-row>
@@ -48,10 +49,15 @@
             <v-subheader>인증 번호</v-subheader>
           </v-col>
           <v-col cols="12" sm="6" class="pb-0 pt-0">
-            <v-text-field placeholder="이름을 입력해주요"></v-text-field>
+            <v-text-field
+              placeholder="인증번호를 입력해주요"
+              v-model="certifiCode"
+            ></v-text-field>
           </v-col>
           <v-col cols="12" sm="3" class="pb-0 pt-0">
-            <v-btn depressed color="primary">인증번호 확인</v-btn>
+            <v-btn depressed color="primary" @click="checkCode"
+              >인증번호 확인</v-btn
+            >
           </v-col>
         </v-row>
       </div>
@@ -70,6 +76,7 @@
 import _ from "lodash";
 import { mapMutations } from "vuex";
 import SetPopup from "@/components/SetPopup";
+import { sendAuthNum, authNumCheck } from "api/member/member";
 export default {
   data() {
     return {
@@ -80,6 +87,8 @@ export default {
       check: true,
       memberId: "test@test.com",
       isSend: false,
+      timer: 0,
+      certifiCode: "",
     };
   },
   computed: {},
@@ -101,6 +110,27 @@ export default {
     onApprove() {
       console.log("approve");
     },
+    checkCode() {
+      if (_.isEmpty(this.certifiCode)) {
+        this.openPopup("인증번호를 입력해 주세요");
+      } else {
+        authNumCheck({
+          authNum: this.certifiCode,
+          memberId: this.memberId,
+          memberName: this.memberName,
+        })
+          .then((res) => {
+            const body = res.data;
+            if (!_.isEmpty(body.errorCode)) {
+              this.openPopup(body.errorMessage);
+            } else {
+              console.log(body.data);
+            }
+          })
+          .catch()
+          .finally();
+      }
+    },
     certificate() {
       this.SET_POPUP({
         title: "알림",
@@ -113,6 +143,28 @@ export default {
         this.openPopup("이메일 주소를 확인해주세요");
       } else {
         this.isSend = true;
+        sendAuthNum({
+          memberName: this.memberName,
+          memberId: this.memberId,
+        })
+          .then((res) => {
+            const body = res.data;
+            if (!_.isEmpty(body.errorCode)) {
+              this.openPopup(body.errorMessage);
+            } else {
+              this.timer = 0;
+              this.openPopup(body.data);
+              const interval = setInterval(() => {
+                this.timer++;
+                if (this.timer === 300) {
+                  clearInterval(interval);
+                }
+              }, 1000);
+              interval;
+            }
+          })
+          .catch()
+          .finally();
       }
     },
     openPopup(text) {
