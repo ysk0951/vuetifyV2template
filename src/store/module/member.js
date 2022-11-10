@@ -6,7 +6,6 @@ const member = {
   },
   mutations: {
     SET_TOKEN(state, payload) {
-      console.log(payload);
       state.accessToken = payload.accessToken;
       state.refreshToken = payload.refreshToken;
     },

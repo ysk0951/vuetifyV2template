@@ -57,6 +57,7 @@ export default {
     back() {
       this.$emit("back");
     },
+    findPw() {},
   },
 };
 </script>

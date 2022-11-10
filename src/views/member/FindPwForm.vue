@@ -38,9 +38,9 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="3" class="pb-0 pt-0">
-            <v-btn depressed color="primary" @click="certificate"
-              >인증번호 받기</v-btn
-            >
+            <v-btn depressed color="primary" @click="certificate">{{
+              this.isSend ? "재발송" : "인증번호 받기"
+            }}</v-btn>
           </v-col>
         </v-row>
         <v-row>
@@ -78,7 +78,8 @@ export default {
       numbers: [1, 2],
       //pw Param
       check: true,
-      memberId: "",
+      memberId: "test@test.com",
+      isSend: false,
     };
   },
   computed: {},
@@ -87,8 +88,8 @@ export default {
   },
   methods: {
     ...mapMutations("popup", [
-      "SET_DIALOG_TITLE",
-      "SET_DIALOG_TEXT",
+      "SET_POPUP_TITLE",
+      "SET_POPUP_TEXT",
       "SET_HIGHT",
       "SET_MAX_WIDTH",
       "SET_POPUP",
@@ -101,19 +102,22 @@ export default {
       console.log("approve");
     },
     certificate() {
-      console.log(1);
       this.SET_POPUP({
         title: "알림",
-        text: "아이디를 입력해주세요",
         height: 150,
         width: 300,
       });
-      this.$refs.sertificatePopup.openPopup();
       if (_.isEmpty(this.memberName)) {
-        console.log(1);
+        this.openPopup("이름을 입력해 주세요");
       } else if (_.isEmpty(this.memberId)) {
-        console.log(2);
+        this.openPopup("이메일 주소를 확인해주세요");
+      } else {
+        this.isSend = true;
       }
+    },
+    openPopup(text) {
+      this.SET_POPUP_TEXT(text);
+      this.$refs.sertificatePopup.openPopup();
     },
   },
 };

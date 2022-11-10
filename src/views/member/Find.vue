@@ -36,11 +36,8 @@
               </template>
             </template>
             <template v-if="tab === 1">
-              <template v-if="!isApproved">
-                <FindPwForm @closeModal="closeModal" @onApprove="onApprove" />
-              </template>
+              <FindPwForm @closeModal="closeModal" @onApprove="onApprove" />
             </template>
-            <template v-else> </template>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -107,7 +104,6 @@ export default {
       this.showPwd = !this.showPwd;
     },
     changeTab(tab) {
-      console.log(1, tab);
       this.$emit("changeTab", tab);
     },
     closeModal() {

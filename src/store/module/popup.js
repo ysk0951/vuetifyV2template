@@ -14,10 +14,10 @@ const popup = {
     SET_PARAM(state, value) {
       state.param = value;
     },
-    SET_DIALOG_TITLE(state, value) {
+    SET_POPUP_TITLE(state, value) {
       state.dialogTitle = value;
     },
-    SET_DIALOG_TEXT(state, value) {
+    SET_POPUP_TEXT(state, value) {
       state.dialogText = value;
     },
     SET_MAX_WIDTH(state, value) {
@@ -33,7 +33,7 @@ const popup = {
       state.customApprove = value;
     },
     SET_POPUP(state, value) {
-      this.commit("popup/RESET_MODAL");
+      this.commit("popup/RESET_POPUP");
       state.param = value.param;
       state.dialogTitle = value.title;
       state.dialogText = value.text;
