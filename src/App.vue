@@ -4,7 +4,7 @@
       <v-container fill-height>
         <v-layout align-center row wrap>
           <v-flex xs12>
-            <v-overlay :value="loading">
+            <v-overlay :value="loading" style="z-index: 999">
               <v-progress-circular
                 indeterminate
                 color="primary"

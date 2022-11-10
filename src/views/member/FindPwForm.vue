@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SetPopup ref="sertificatePopup" />
     <span class="infoHeader pwHeader">
       비밀번호를 찾고자 하는 이메일 주소를 입력해주세요</span
     >
@@ -20,7 +21,10 @@
             <v-subheader>이름</v-subheader>
           </v-col>
           <v-col cols="12" sm="6" class="pb-0 pt-0">
-            <v-text-field placeholder="이름을 입력해주요"></v-text-field>
+            <v-text-field
+              placeholder="이름을 입력해주요"
+              v-model="memberName"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -28,10 +32,15 @@
             <v-subheader>이메일 주소</v-subheader>
           </v-col>
           <v-col cols="12" sm="6" class="pb-0 pt-0">
-            <v-text-field placeholder="이름을 입력해주요"></v-text-field>
+            <v-text-field
+              placeholder="이메일 주소를 입력해주요"
+              v-model="memberId"
+            ></v-text-field>
           </v-col>
           <v-col cols="12" sm="3" class="pb-0 pt-0">
-            <v-btn depressed color="primary">인증번호 받기</v-btn>
+            <v-btn depressed color="primary" @click="certificate"
+              >인증번호 받기</v-btn
+            >
           </v-col>
         </v-row>
         <v-row>
@@ -47,7 +56,7 @@
         </v-row>
       </div>
     </div>
-    <div class="wrapper" style="margin-top: 96px">
+    <div class="wrapper" style="margin-top: 116px">
       <v-card-actions>
         <v-btn depressed @click="closeModal">취소</v-btn>
       </v-card-actions>
@@ -58,6 +67,9 @@
   </div>
 </template>
 <script>
+import _ from "lodash";
+import { mapMutations } from "vuex";
+import SetPopup from "@/components/SetPopup";
 export default {
   data() {
     return {
@@ -66,17 +78,42 @@ export default {
       numbers: [1, 2],
       //pw Param
       check: true,
+      memberId: "",
     };
   },
+  computed: {},
+  components: {
+    SetPopup,
+  },
   methods: {
+    ...mapMutations("popup", [
+      "SET_DIALOG_TITLE",
+      "SET_DIALOG_TEXT",
+      "SET_HIGHT",
+      "SET_MAX_WIDTH",
+      "SET_POPUP",
+      "RESET_POPUP",
+    ]),
     closeModal() {
-      console.log("close");
-      // this.$emit("closeModal");
+      this.$emit("closeModal");
     },
     onApprove() {
       console.log("approve");
-      // const param = {};
-      // this.$emit("onApprove", param);
+    },
+    certificate() {
+      console.log(1);
+      this.SET_POPUP({
+        title: "알림",
+        text: "아이디를 입력해주세요",
+        height: 150,
+        width: 300,
+      });
+      this.$refs.sertificatePopup.openPopup();
+      if (_.isEmpty(this.memberName)) {
+        console.log(1);
+      } else if (_.isEmpty(this.memberId)) {
+        console.log(2);
+      }
     },
   },
 };
@@ -110,7 +147,7 @@ export default {
 }
 
 .pwHeader {
-  margin-bottom: 75px;
+  margin-bottom: 55px;
   margin-left: 16px;
 }
 </style>
