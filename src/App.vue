@@ -4,6 +4,12 @@
       <v-container fill-height>
         <v-layout align-center row wrap>
           <v-flex xs12>
+            <v-overlay :value="loading">
+              <v-progress-circular
+                indeterminate
+                color="black"
+              ></v-progress-circular
+            ></v-overlay>
             <router-view />
           </v-flex>
         </v-layout>
@@ -13,9 +19,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "App",
-
+  computed: {
+    ...mapState("loading", ["loading"]),
+  },
   data: () => ({
     //
   }),
