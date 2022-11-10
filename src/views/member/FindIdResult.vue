@@ -15,10 +15,10 @@
       </v-card>
       <div class="wrapper">
         <v-card-actions>
-          <v-btn @click="findPw">비밀번호 찾기</v-btn>
+          <v-btn depressed @click="findPw">비밀번호 찾기</v-btn>
         </v-card-actions>
         <v-card-actions>
-          <v-btn class="approve" @click="login">로그인</v-btn>
+          <v-btn depressed color="primary" @click="login">로그인</v-btn>
         </v-card-actions>
       </div>
     </template>
@@ -28,10 +28,10 @@
       </v-card>
       <div class="wrapper">
         <v-card-actions>
-          <v-btn @click="back">이전</v-btn>
+          <v-btn depressed @click="back">이전</v-btn>
         </v-card-actions>
         <v-card-actions>
-          <v-btn class="approve" @click="login">로그인</v-btn>
+          <v-btn depressed color="primary" @click="login">로그인</v-btn>
         </v-card-actions>
       </div>
     </template>

@@ -1,8 +1,8 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" :style="'height:' + this.height + 'px; width:100%'">
     <SetDialog ref="findModal" />
     <div class="pa-10">
-      <h3 style="text-align: left">{{ `${tabKey(this.tab)} 찾기` }}</h3>
+      <h3 style="text-align: left">{{ `${tabKey(this.tab)}` }}</h3>
       <hr class="mb-3" />
       <v-tabs v-model="tab">
         <v-tab
@@ -71,8 +71,8 @@ export default {
       showPwd: false,
       tab: this.propsTab,
       items: [
-        { key: "id", value: "아이디" },
-        { key: "pw", value: "패스워드" },
+        { key: "id", value: "아이디 찾기" },
+        { key: "pw", value: "패스워드 찾기" },
       ],
       //find ret
       isApproved: false,
@@ -89,7 +89,7 @@ export default {
     FindPwForm,
   },
   computed: {
-    ...mapState("modal", ["maxWidth"]),
+    ...mapState("modal", ["maxWidth", "height"]),
     pwdType() {
       if (this.showPwd) {
         return "Password";
@@ -172,9 +172,5 @@ export default {
 }
 .v-input__slot {
   margin-bottom: 0px;
-}
-
-.v-item-group div {
-  color: black !important;
 }
 </style>

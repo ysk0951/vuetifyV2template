@@ -15,10 +15,10 @@
         <div class="tableChild" v-if="!this.customApprove">
           <div class="wrapper">
             <v-card-actions v-if="this.closable">
-              <v-btn @click="closeModal">취소</v-btn>
+              <v-btn depressed @click="closeModal">취소</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn class="approve" @click="opApprove">확인</v-btn>
+              <v-btn depressed color="primary" @click="opApprove">확인</v-btn>
             </v-card-actions>
           </div>
         </div>
@@ -71,9 +71,6 @@ export default {
 };
 </script>
 <style>
-.approve {
-  background-color: black !important;
-}
 .approve span {
   color: white;
 }

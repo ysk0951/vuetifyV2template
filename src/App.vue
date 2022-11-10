@@ -7,7 +7,7 @@
             <v-overlay :value="loading">
               <v-progress-circular
                 indeterminate
-                color="black"
+                color="primary"
               ></v-progress-circular
             ></v-overlay>
             <router-view />
@@ -41,8 +41,7 @@ export default {
   justify-content: space-between;
   display: flex;
 }
-.v-btn .approve {
-  background-color: black !important;
-  color: white !important;
+.wrapperFlex {
+  display: flex;
 }
 </style>

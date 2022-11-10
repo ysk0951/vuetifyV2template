@@ -20,7 +20,7 @@
           />
           <v-btn
             type="text"
-            color="black lighten-1 text-capitalize"
+            color="primary lighten-1 text-capitalize"
             depressed
             large
             block

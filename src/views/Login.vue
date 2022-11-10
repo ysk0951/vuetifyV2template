@@ -29,7 +29,7 @@
           <v-checkbox v-model="checkbox" :label="'아이디 기억하기'" />
           <v-btn
             type="submit"
-            color="black lighten-1 text-capitalize"
+            color="primary lighten-1 text-capitalize"
             depressed
             large
             block
@@ -101,7 +101,7 @@ export default {
     find(key) {
       this.SET_MODAL({
         height: 600,
-        width: 650,
+        width: 750,
         closable: true,
         customApprove: true,
       });

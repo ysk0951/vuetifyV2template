@@ -25,12 +25,12 @@
         ></v-text-field>
       </v-col>
     </v-row>
-    <div class="wrapper">
+    <div class="wrapper" style="margin-top: 245px">
       <v-card-actions>
-        <v-btn @click="closeModal">취소</v-btn>
+        <v-btn depressed @click="closeModal">취소</v-btn>
       </v-card-actions>
       <v-card-actions>
-        <v-btn class="approve" @click="onApprove">확인</v-btn>
+        <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
       </v-card-actions>
     </div>
   </div>

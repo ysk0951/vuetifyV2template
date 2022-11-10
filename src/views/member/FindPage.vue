@@ -1,11 +1,10 @@
 <template>
   <div class="wrapper">
     <v-card height="600px" width="450px">
-      <SetDialog ref="findModal" />
+      <SetDialog ref="findModal" />{{}}
       <div class="pa-10">
-        <h3 style="text-align: left">{{ `${tabKey(this.key)} 찾기` }}</h3>
+        <h3 style="text-align: left">{{ `${tabKey(this.key)}` }}</h3>
         <hr class="mb-3" />
-
         <v-tabs v-model="tab">
           <v-tab v-for="item in items" :key="item" @click="move(item)">
             {{ tabKey(item) }}
@@ -38,7 +37,7 @@
                 </v-row>
                 <v-flex class="approveWrapper" mt-6>
                   <v-btn style="right: 6px" @click="cancel">취소</v-btn>
-                  <v-btn style="right: -6px" @click="approve" class="approve"
+                  <v-btn style="right: -6px" @click="approve" color="primary"
                     >확인</v-btn
                   >
                 </v-flex>
@@ -80,9 +79,6 @@ export default {
       } else {
         return "text";
       }
-    },
-    findString() {
-      return `${FindKey[this.key]} 찾기`;
     },
   },
   mounted() {
@@ -141,9 +137,5 @@ export default {
 }
 .v-input__slot {
   margin-bottom: 0px;
-}
-
-.v-item-group div {
-  color: black !important;
 }
 </style>
