@@ -4,6 +4,8 @@ import Login from "@/views/Login.vue";
 import ModifyPwd from "@/views/member/ModifyPwd";
 import Find from "@/views/member/Find";
 import Main from "@/views/Main";
+import Signup from "@/views/member/Signup";
+// import { getMessage } from "api/language";
 Vue.use(VueRouter);
 
 const routes = [
@@ -26,6 +28,11 @@ const routes = [
     path: "/member/find",
     name: "find",
     component: Find,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: Signup,
   },
 ];
 

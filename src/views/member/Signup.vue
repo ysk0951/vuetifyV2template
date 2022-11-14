@@ -1,43 +1,16 @@
 <template>
   <div class="cardWrapper">
-    <v-card height="600px" width="450px">
+    <v-card height="800px" width="1800px">
       <SetDialog ref="signupModal" />
       <div class="pa-10">
-        <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
-        <div>
-          <v-text-field placeholder="아이디를 입력해주세요"></v-text-field>
-          <v-text-field
-            append-icon="mdi-eye"
-            :type="pwdType"
-            placeholder="비밀번호를 입력해주세요"
-            @click:append="togglePwdShow"
-          >
-          </v-text-field>
-          <v-checkbox
-            class="d-flex flex-row mb-6"
-            v-model="checkbox"
-            :label="'아이디 기억하기'"
-          />
-          <v-btn
-            type="text"
-            color="primary lighten-1 text-capitalize"
-            depressed
-            large
-            block
-            dark
-            class="mb-3"
-            @click="login"
-          >
-            Login
-          </v-btn>
-          <div class="underLogin">
-            <div>
-              <span>아이디 찾기 </span>
-              <span>비밀번호 찾기</span>
-            </div>
-            <span @click="signup">회원가입</span>
-          </div>
-        </div>
+        <h3 style="text-align: left" class="mb-3">회원가입</h3>
+        <hr class="mb-6" />
+        <h4 style="text-align: left" class="mb-3">회원가입 약관동의 (필수)</h4>
+        <hr />
+        <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
+        <hr />
+        <h4 style="text-align: left" class="mb-3">추가정보 입력 (선택)</h4>
+        <hr />
       </div>
     </v-card>
   </div>

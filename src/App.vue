@@ -1,6 +1,18 @@
 <template>
   <v-app id="inspire">
     <v-main class="blue-grey lighten-4">
+      <v-app-bar dense>
+        <div class="langBoxWrapper">
+          <div class="langBox">
+            <v-select
+              :items="language"
+              :item-text="'text'"
+              :item-value="'value'"
+              v-model="locale"
+            ></v-select>
+          </div>
+        </div>
+      </v-app-bar>
       <v-container fill-height>
         <v-layout align-center row wrap>
           <v-flex xs12>
@@ -19,16 +31,32 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "App",
   computed: {
     ...mapState("loading", ["loading"]),
   },
   data: () => ({
+    locale: "ko",
+    language: [
+      { value: "ko", text: "한국어" },
+      { value: "en", text: "영어" },
+    ],
     //
   }),
+  watch: {
+    locale: function (v) {
+      this.SET_LOCALE(v);
+    },
+  },
   components: {},
+  mounted() {
+    this.SET_LOCALE(this.locale);
+  },
+  methods: {
+    ...mapMutations("locale", ["SET_LOCALE"]),
+  },
 };
 </script>
 <style>
@@ -43,5 +71,17 @@ export default {
 }
 .wrapperFlex {
   display: flex;
+}
+
+.langBox {
+  width: 80px;
+  justify-content: end;
+  font-size: 10px;
+}
+
+.langBoxWrapper {
+  display: flex;
+  justify-content: end;
+  width: 100%;
 }
 </style>

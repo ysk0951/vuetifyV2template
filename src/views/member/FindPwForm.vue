@@ -27,7 +27,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row style="position: relative">
           <v-col cols="12" sm="3" class="pb-0 pt-0">
             <v-subheader>이메일 주소</v-subheader>
           </v-col>
@@ -37,12 +37,14 @@
               v-model="memberId"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="3" class="pb-0 pt-0">
+          <v-col cols="12" sm="2" class="pb-0 pt-0">
             <v-btn depressed color="primary" @click="certificate">{{
               this.isSend ? "재발송" : "인증번호 받기"
             }}</v-btn>
-            {{ 5000 - this.timer }}
           </v-col>
+          <div class="timer">
+            {{ (300 - this.timer) | timer }}
+          </div>
         </v-row>
         <v-row>
           <v-col cols="12" sm="3" class="pb-0 pt-0">
@@ -89,11 +91,20 @@ export default {
       isSend: false,
       timer: 0,
       certifiCode: "",
+      //timer
+      interval: undefined,
     };
   },
   computed: {},
   components: {
     SetPopup,
+  },
+  filters: {
+    timer: (v) => {
+      const secound = (0 + (v % 60).toFixed()).slice(-2);
+      const minute = Math.trunc(v / 60);
+      return `${minute} : ${secound}`;
+    },
   },
   methods: {
     ...mapMutations("popup", [
@@ -106,6 +117,9 @@ export default {
     ]),
     closeModal() {
       this.$emit("closeModal");
+      this.timer = 0;
+      clearInterval(this.interval);
+      this.send = false;
     },
     onApprove() {
       console.log("approve");
@@ -143,6 +157,16 @@ export default {
         this.openPopup("이메일 주소를 확인해주세요");
       } else {
         this.isSend = true;
+        this.timer = 0;
+        if (!_.isNumber(this.interval)) {
+          this.interval = setInterval(() => {
+            this.timer++;
+            if (this.timer === 300) {
+              clearInterval(this.interval);
+              this.send = false;
+            }
+          }, 1000);
+        }
         sendAuthNum({
           memberName: this.memberName,
           memberId: this.memberId,
@@ -152,19 +176,13 @@ export default {
             if (!_.isEmpty(body.errorCode)) {
               this.openPopup(body.errorMessage);
             } else {
-              this.timer = 0;
               this.openPopup(body.data);
-              const interval = setInterval(() => {
-                this.timer++;
-                if (this.timer === 300) {
-                  clearInterval(interval);
-                }
-              }, 1000);
-              interval;
             }
           })
-          .catch()
-          .finally();
+          .catch((res) => {
+            this.openPopup(res);
+          })
+          .finally(() => {});
       }
     },
     openPopup(text) {
@@ -205,5 +223,11 @@ export default {
 .pwHeader {
   margin-bottom: 55px;
   margin-left: 16px;
+}
+
+.timer {
+  position: absolute;
+  right: -45px;
+  top: 7px;
 }
 </style>
