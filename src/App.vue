@@ -84,4 +84,7 @@ export default {
   justify-content: end;
   width: 100%;
 }
+.v-btn.v-size--default {
+  font-size: 0.95rem !important;
+}
 </style>
