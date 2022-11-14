@@ -51,7 +51,7 @@ export default {
     },
   },
   components: {},
-  mounted() {
+  created() {
     this.SET_LOCALE(this.locale);
   },
   methods: {

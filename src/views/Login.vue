@@ -14,19 +14,19 @@
         <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
         <div>
           <v-text-field
-            placeholder="아이디를 입력해주세요"
+            :placeholder="this.getText('MSG001')"
             v-model="id"
           ></v-text-field>
           <v-text-field
             append-icon="mdi-eye"
             v-model="pw"
             :type="pwdType"
-            placeholder="비밀번호를 입력해주세요"
+            :placeholder="this.getText('MSG002')"
             @click:append="togglePwdShow"
             maxlength="20"
           >
           </v-text-field>
-          <v-checkbox v-model="checkbox" :label="'아이디 기억하기'" />
+          <v-checkbox v-model="checkbox" :label="this.getText('MSG006')" />
           <v-btn
             type="submit"
             color="primary lighten-1 text-capitalize"
@@ -41,10 +41,11 @@
           </v-btn>
           <div class="underLogin">
             <div>
-              <span @click="find(0)">아이디 찾기 </span>
-              <span @click="find(1)">비밀번호 찾기</span>
+              <span @click="find(0)">{{ this.getText("MSG003") }}</span>
+              <span> | </span>
+              <span @click="find(1)">{{ this.getText("MSG004") }}</span>
             </div>
-            <span @click="signup">회원가입</span>
+            <span @click="signup">{{ this.getText("MSG005") }}</span>
           </div>
         </div>
       </div>
@@ -56,7 +57,7 @@
 import SetDialog from "@/components/SetDialog";
 import Find from "@/views/member/Find.vue";
 import _ from "lodash";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import { login } from "api/member/member";
 import { emailRegex } from "@/assets/regex";
 export default {
@@ -74,6 +75,7 @@ export default {
     Find,
   },
   computed: {
+    ...mapState("locale", ["message"]),
     pwdType() {
       if (this.showPwd) {
         return "Password";

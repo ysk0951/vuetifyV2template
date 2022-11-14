@@ -6,6 +6,7 @@ module.exports = defineConfig({
     resolve: {
       alias: {
         api: path.resolve(__dirname, "api/"),
+        utils_c: path.resolve(__dirname, "src/assets/utils"),
       },
       extensions: [".js", ".vue", ".json"],
     },
