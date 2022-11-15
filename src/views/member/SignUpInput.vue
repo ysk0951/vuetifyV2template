@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; width: 500px">
+  <div style="display: flex; width: 500px; position: relative">
     <v-subheader class="my-4" style="width: 130px">{{
       this.label
     }}</v-subheader>
@@ -8,22 +8,35 @@
       v-model="inputValue"
       outlined
       dense
-      class="signInput"
+      :class="sideBtn ? 'signInputWithBtn' : 'signInput'"
       :type="inputType"
       :append-icon="appendIcon"
       @click:append="togglePwdShow"
       autocomplete="off"
     ></v-text-field>
+    <v-btn v-if="sideBtn" dense depressedd color="primary" class="signBtn">{{
+      btnText
+    }}</v-btn>
   </div>
 </template>
 <script>
 export default {
-  props: ["value", "placeholder", "label", "type", "appendIcon"],
+  props: [
+    "value",
+    "placeholder",
+    "label",
+    "type",
+    "appendIcon",
+    "width",
+    "sideBtn",
+    "btnText",
+  ],
   data() {
     return {
       inputValue: "",
       showPwd: false,
       inputType: this.type,
+      inputWidth: this.width ? this.width : 500,
     };
   },
   watch: {

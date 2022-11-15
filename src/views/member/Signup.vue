@@ -70,14 +70,18 @@
         </div>
         <div class="wrapperSpace inputRow">
           <SignUpInputVue
-            placeholder="이름을 입력해주세요"
+            placeholder="이메일 주소를 입력해주세요"
             label="이메일 주소"
             v-model="param.email"
+            :sideBtn="true"
+            btnText="인증번호 받기"
           />
           <SignUpInputVue
             placeholder="인증번호를 입력해주세요"
             label="이메일 인증번호"
             v-model="param.emailCode"
+            :sideBtn="true"
+            btnText="인증번호 확인"
           />
         </div>
         <div class="wrapperSpace inputRow">
@@ -102,6 +106,8 @@
             label="배송지"
             type="text"
             v-model="param.postCode"
+            :sideBtn="true"
+            btnText="배송지 등록"
           />
         </div>
         <hr class="hrUnderLine mb-6" />
@@ -232,7 +238,7 @@ export default {
 }
 
 .signUpAgree {
-  width: 81.5%;
+  width: 88%;
   margin: auto;
 }
 
@@ -242,11 +248,24 @@ export default {
   width: 300px;
 }
 
+.signInputWithBtn .v-input__slot {
+  position: absolute;
+  top: 19px;
+  width: 180px;
+}
+
 .v-select .v-input__slot {
   width: 100px;
 }
 
 .phoneInput .v-input__slot {
   width: 191px;
+}
+.signBtn {
+  position: absolute;
+  height: 39px !important;
+  top: 19px;
+  right: 69px;
+  width: 113px;
 }
 </style>
