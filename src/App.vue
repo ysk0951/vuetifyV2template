@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-main class="blue-grey lighten-4">
-      <v-app-bar dense>
+      <v-app-bar dense style="position: absolute">
         <div class="langBoxWrapper">
           <div class="langBox">
             <v-select

@@ -19,10 +19,11 @@ const member = {
         })
         .catch((res) => {
           console.error(res);
-          this.commit("locale/RESET_LOCALE");
+          this.commit("locale/SET_MESSAGE", []);
         });
     },
     SET_MESSAGE(state, value) {
+      this.commit("locale/RESET_LOCALE");
       state.message = value;
     },
     RESET_LOCALE(state) {

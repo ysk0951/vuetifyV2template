@@ -1,5 +1,6 @@
 const config = {
-  baseURL: "http://192.168.10.34:8080",
+  baseURL: "https://dongwha.sodamsoft.com/",
+  // baseURL: "http://192.168.10.34:8080",
   timeout: 3000,
 };
 
