@@ -19,7 +19,7 @@
       dense
       depressedd
       color="primary"
-      @click="click"
+      @click="click ? click : undefined"
       class="signBtn"
       >{{ btnText }}</v-btn
     >

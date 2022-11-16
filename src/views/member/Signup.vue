@@ -1,6 +1,6 @@
 <template>
   <div class="cardWrapper">
-    <v-card class="mt-12" style="width: 60%">
+    <v-card class="mt-12">
       <SetDialog ref="aggreModal"></SetDialog>
       <SetDialog ref="postModal">
         <SignupPost></SignupPost>
