@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <v-card height="600px" width="1200px">
+    <v-card>
       <SetDialog :setDialog="this.setDialog" ref="modifyModal" />
       <div class="pa-10">
         <h3 style="text-align: left">로그인</h3>

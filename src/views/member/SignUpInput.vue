@@ -14,9 +14,15 @@
       @click:append="togglePwdShow"
       autocomplete="off"
     ></v-text-field>
-    <v-btn v-if="sideBtn" dense depressedd color="primary" class="signBtn">{{
-      btnText
-    }}</v-btn>
+    <v-btn
+      v-if="sideBtn"
+      dense
+      depressedd
+      color="primary"
+      @click="click"
+      class="signBtn"
+      >{{ btnText }}</v-btn
+    >
   </div>
 </template>
 <script>
@@ -30,6 +36,7 @@ export default {
     "width",
     "sideBtn",
     "btnText",
+    "click",
   ],
   data() {
     return {

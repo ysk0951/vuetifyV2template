@@ -1,7 +1,10 @@
 <template>
   <div class="cardWrapper">
-    <v-card height="800px" width="1800px" class="mt-12">
+    <v-card class="mt-12" style="width: 60%">
       <SetDialog ref="aggreModal"></SetDialog>
+      <SetDialog ref="postModal">
+        <SignupPost></SignupPost>
+      </SetDialog>
       <div class="pa-10">
         <h3 style="text-align: left" class="mb-3">회원가입</h3>
         <hr class="mb-6" />
@@ -37,7 +40,7 @@
         <hr class="hrUnderLine mb-6" />
         <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
         <div class="wrapperSpace inputRow">
-          <SignUpInputVue
+          <SignupInputVue
             placeholder="이름을 입력해주세요"
             label="이름"
             v-model="param.name"
@@ -69,14 +72,14 @@
           </div>
         </div>
         <div class="wrapperSpace inputRow">
-          <SignUpInputVue
+          <SignupInputVue
             placeholder="이메일 주소를 입력해주세요"
             label="이메일 주소"
             v-model="param.email"
             :sideBtn="true"
             btnText="인증번호 받기"
           />
-          <SignUpInputVue
+          <SignupInputVue
             placeholder="인증번호를 입력해주세요"
             label="이메일 인증번호"
             v-model="param.emailCode"
@@ -85,14 +88,14 @@
           />
         </div>
         <div class="wrapperSpace inputRow">
-          <SignUpInputVue
+          <SignupInputVue
             placeholder="비밀번호를 입력해주세요"
             label="비밀번호"
             type="password"
             append-icon="mdi-eye"
             v-model="param.password"
           />
-          <SignUpInputVue
+          <SignupInputVue
             placeholder="비밀번호를 입력해주세요"
             label="비밀번호 재확인"
             type="password"
@@ -101,19 +104,21 @@
           />
         </div>
         <div class="wrapperSpace">
-          <SignUpInputVue
+          <SignupInputVue
             placeholder="배송지를 등록해주세요"
             label="배송지"
             type="text"
             v-model="param.postCode"
             :sideBtn="true"
             btnText="배송지 등록"
+            class="post"
+            :click="openPost"
           />
         </div>
         <hr class="hrUnderLine mb-6" />
         <h4 style="text-align: left" class="mb-3">추가정보 입력 (선택)</h4>
         <div class="wrapperSpace">
-          <SignUpInputVue
+          <SignupInputVue
             placeholder="기업명을 입력해주세요"
             label="기업명"
             type="text"
@@ -136,7 +141,8 @@
 
 <script>
 import SetDialog from "@/components/SetDialog";
-import SignUpInputVue from "@/views/member/SignUpInput.vue";
+import SignupInputVue from "@/views/member/SignupInput.vue";
+import SignupPost from "@/views/member/SignupPost.vue";
 import { mapMutations } from "vuex";
 export default {
   data() {
@@ -168,7 +174,8 @@ export default {
   },
   components: {
     SetDialog,
-    SignUpInputVue,
+    SignupPost,
+    SignupInputVue,
   },
   computed: {
     pwdType() {
@@ -188,19 +195,11 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
-    closeModal() {},
-    opApprove() {},
-    signup() {
-      this.$router.push("./member/signup");
+    closeModal() {
+      this.$router.push({ name: "login" });
     },
-    login() {
-      this.$refs.signupModal.openModal();
-    },
-    togglePwdShow() {
-      this.showPwd = !this.showPwd;
-    },
-    setDialogText(text) {
-      this.setDialog.dialogText = text;
+    opApprove() {
+      this.$router.push({ name: "signupDone" });
     },
     open_agree() {
       this.SET_MODAL({
@@ -209,6 +208,15 @@ export default {
         closable: true,
       });
       this.$refs.aggreModal.openModal();
+    },
+    openPost() {
+      this.SET_MODAL({
+        height: 600,
+        width: 750,
+        closable: true,
+      });
+      console.log("open");
+      this.$refs.postModal.openModal();
     },
   },
 };
@@ -267,5 +275,15 @@ export default {
   top: 19px;
   right: 69px;
   width: 113px;
+}
+.cardWrapper {
+  display: flex;
+  justify-content: center;
+}
+/*
+* post Code Detail 
+*/
+div.cardWrapper > div > div.pa-10 > div:nth-child(11) > div > button {
+  right: 74px;
 }
 </style>
