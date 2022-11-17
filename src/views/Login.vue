@@ -11,7 +11,16 @@
         ></Find>
       </SetDialog>
       <div class="pa-10">
-        <h1 style="text-align: center" class="mb-10">CI LOGO</h1>
+        <h1 style="text-align: center" class="mb-10">
+          <div class="wrapper" style="width: 50%; margin: auto">
+            <template v-if="this.locale === 'ko'">
+              <v-img src="../../assets/dwel_logo_ko.png" alt="" />
+            </template>
+            <template v-else>
+              <v-img src="../../assets/dwel_logo_en.png" alt="" />
+            </template>
+          </div>
+        </h1>
         <div>
           <v-text-field
             :placeholder="this.getText('MSG001')"
@@ -75,7 +84,7 @@ export default {
     Find,
   },
   computed: {
-    ...mapState("locale", ["message"]),
+    ...mapState("locale", ["message", "locale"]),
     pwdType() {
       if (this.showPwd) {
         return "Password";
@@ -100,6 +109,9 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
+    img() {
+      return `../../assets/dwel_logo_${this.locale}.png`;
+    },
     find(key) {
       this.SET_MODAL({
         height: 600,
@@ -139,7 +151,12 @@ export default {
       this.showPwd = !this.showPwd;
     },
     routing(name, message) {
-      this.SET_DIALOG_TEXT(message);
+      this.SET_MODAL({
+        title: "알림",
+        text: message,
+        height: 150,
+        width: 300,
+      });
       this.$refs.loginModal.openModal(() => {
         console.log("routing");
         this.$router.push({ name });
@@ -209,5 +226,12 @@ export default {
 }
 .v-input__slot {
   margin-bottom: 0px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 </style>

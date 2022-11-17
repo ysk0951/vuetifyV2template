@@ -7,6 +7,7 @@ const member = {
   mutations: {
     SET_LOCALE(state, value) {
       state.locale = value;
+      console.log(value, state.locale);
       const token = this.state.member.accessToken;
 
       getMessage({
@@ -25,12 +26,14 @@ const member = {
         });
     },
     SET_MESSAGE(state, value) {
-      this.commit("locale/RESET_LOCALE");
+      this.commit("locale/RESET_MESSAGE");
       state.message = value;
     },
     RESET_LOCALE(state) {
-      state.message = {};
       state.locale = "ko";
+    },
+    RESET_MESSAGE(state) {
+      state.message = {};
     },
   },
   getters: {},

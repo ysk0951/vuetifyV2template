@@ -41,12 +41,13 @@ export default {
     locale: "ko",
     language: [
       { value: "ko", text: "한국어" },
-      { value: "en", text: "영어" },
+      { value: "en", text: "English" },
     ],
     //
   }),
   watch: {
     locale: function (v) {
+      console.log(v);
       this.SET_LOCALE(v);
     },
   },
