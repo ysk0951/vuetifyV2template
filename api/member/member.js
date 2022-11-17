@@ -1,6 +1,6 @@
 import http from "../http";
 import { version } from "../version";
-const prefix = `${version}/member/`;
+const prefix = `${version}/member`;
 
 export async function login(param) {
   return http.post(prefix + "/login", param);

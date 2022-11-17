@@ -39,7 +39,7 @@ export default {
     return {
       paramProps: {},
       open: false,
-      cb: "",
+      callback: "",
     };
   },
   computed: {
@@ -55,8 +55,9 @@ export default {
     ]),
   },
   methods: {
-    openModal() {
+    openModal(cb) {
       this.open = true;
+      this.callback = cb;
     },
     closeModal() {
       this.open = false;

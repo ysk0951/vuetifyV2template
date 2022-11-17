@@ -7,9 +7,11 @@ const member = {
   mutations: {
     SET_LOCALE(state, value) {
       state.locale = value;
+      const token = this.state.member.accessToken;
+
       getMessage({
         locale: value,
-        route: location.pathname,
+        route: _.isEmpty(token) ? "/login" : location.pathname,
       })
         .then((res) => {
           const body = res.data;
@@ -36,5 +38,5 @@ const member = {
 };
 
 import { getMessage } from "api/language";
-import { _ } from "core-js";
+import _ from "lodash";
 export default member;

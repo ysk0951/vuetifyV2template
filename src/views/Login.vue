@@ -140,6 +140,11 @@ export default {
     },
     routing(name, message) {
       this.SET_DIALOG_TEXT(message);
+      this.$refs.loginModal.openModal(() => {
+        console.log("routing");
+        this.$router.push({ name });
+      });
+      //
     },
     validation() {
       let ret = false;

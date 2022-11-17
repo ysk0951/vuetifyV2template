@@ -1,7 +1,8 @@
 <template>
   <div class="cardWrapper">
     <v-card class="mt-12">
-      <SetDialog ref="aggreModal"></SetDialog>
+      <SetDialog ref="validModal" />
+      <SetDialog ref="aggreModal" />
       <SetDialog ref="postModal">
         <SignupPost
           @closeModal="this.closePost"
@@ -143,6 +144,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignupInput.vue";
 import SignupPost from "@/views/member/SignupPost.vue";
@@ -208,7 +210,22 @@ export default {
       console.log(param);
     },
     opApprove() {
-      this.$router.push({ name: "signupDone" });
+      if (this.valid()) {
+        this.$router.push({ name: "signupDone" });
+      }
+    },
+    valid() {
+      let ret = false;
+      if (_.isEmpty(this.param.name)) {
+        this.SET_MODAL({
+          title: "알림",
+          text: "아이디를 입력해주세요",
+          height: 150,
+          width: 300,
+        });
+        this.$refs.validModal.openModal();
+      }
+      return ret;
     },
     open_agree() {
       this.SET_MODAL({
