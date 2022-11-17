@@ -11,7 +11,8 @@
     }}</v-subheader>
     <v-text-field
       :placeholder="placeholder"
-      v-model="inputValue"
+      :value="value"
+      @input="input"
       outlined
       dense
       :class="sideBtn ? 'signInputWithBtn' : 'signInput'"
@@ -19,6 +20,8 @@
       :append-icon="appendIcon"
       @click:append="togglePwdShow"
       autocomplete="off"
+      :disabled="disabled"
+      :filled="disabled"
     ></v-text-field>
     <v-btn
       v-if="sideBtn"
@@ -45,10 +48,10 @@ export default {
     "sideBtn",
     "btnText",
     "click",
+    "disabled",
   ],
   data() {
     return {
-      inputValue: "",
       showPwd: false,
       inputType: this.type,
       inputWidth: this.width ? this.width : 500,
@@ -56,9 +59,6 @@ export default {
     };
   },
   watch: {
-    inputValue: function (v) {
-      this.$emit("input", v);
-    },
     showPwd: function (v) {
       if (v) {
         this.inputType = "text";
@@ -70,6 +70,9 @@ export default {
   methods: {
     togglePwdShow() {
       this.showPwd = !this.showPwd;
+    },
+    input(v) {
+      this.$emit("input", v);
     },
   },
 };

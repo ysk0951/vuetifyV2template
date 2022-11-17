@@ -20,11 +20,13 @@
       <SignupInput
         placeholder="주소를 선택해주세요"
         label="주소*"
-        type="password"
+        type="text"
         v-model="param.address"
         height="55"
         sideBtn="true"
         btnText="주소검색"
+        :disabled="true"
+        :click="daumPostCode"
       />
       <v-text-field
         v-model="param.addDetail1"
@@ -107,6 +109,14 @@ export default {
     },
     closeModal() {
       this.$emit("closeModal");
+    },
+    daumPostCode() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          this.param.address = data.zonecode;
+          this.param.addDetail1 = data.roadAddress + data.buildingName;
+        },
+      }).open();
     },
   },
 };
