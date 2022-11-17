@@ -16,4 +16,14 @@ const emailRegex =/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA
 //eslint-disable-next-line
 const verRegex = /^([0-9]{1})*\.([0-9]{1})*\.([0-9]{4})$/;
 
-export { telRegex1, telRegex2, emailRegex, verRegex };
+const lanRegex = /[^a-z|A-Z|0-9|ㄱ-ㅎ|가-힣]/g;
+const lanRegexWithNum = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
+
+export {
+  telRegex1,
+  telRegex2,
+  emailRegex,
+  verRegex,
+  lanRegex,
+  lanRegexWithNum,
+};

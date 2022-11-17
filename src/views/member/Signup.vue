@@ -148,6 +148,7 @@ import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignupInput.vue";
 import SignupPost from "@/views/member/SignupPost.vue";
+import { lanRegex } from "@/assets/regex";
 import { mapMutations } from "vuex";
 export default {
   data() {
@@ -216,10 +217,20 @@ export default {
     },
     valid() {
       let ret = false;
+      const isLang = lanRegex.test(this.name);
+      console.log(isLang);
       if (_.isEmpty(this.param.name)) {
         this.SET_MODAL({
           title: "알림",
-          text: "아이디를 입력해주세요",
+          text: "이름을 입력해주세요",
+          height: 150,
+          width: 300,
+        });
+        this.$refs.validModal.openModal();
+      } else if (!isLang) {
+        this.SET_MODAL({
+          title: "알림",
+          text: "이름은 한글과 영문만 가능합니다",
           height: 150,
           width: 300,
         });

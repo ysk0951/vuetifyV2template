@@ -50,7 +50,6 @@ export default {
       "dialogText",
       "maxWidth",
       "closable",
-      "callback",
       "customApprove",
     ]),
   },
