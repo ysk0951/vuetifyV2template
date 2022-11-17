@@ -3,7 +3,10 @@
     <v-card class="mt-12">
       <SetDialog ref="aggreModal"></SetDialog>
       <SetDialog ref="postModal">
-        <SignupPost></SignupPost>
+        <SignupPost
+          @closeModal="this.closePost"
+          @onApprove="this.approvePost"
+        ></SignupPost>
       </SetDialog>
       <div class="pa-10">
         <h3 style="text-align: left" class="mb-3">회원가입</h3>
@@ -198,6 +201,12 @@ export default {
     closeModal() {
       this.$router.push({ name: "login" });
     },
+    closePost() {
+      this.$refs.postModal.closeModal();
+    },
+    approvePost(param) {
+      console.log(param);
+    },
     opApprove() {
       this.$router.push({ name: "signupDone" });
     },
@@ -212,10 +221,10 @@ export default {
     openPost() {
       this.SET_MODAL({
         height: 600,
-        width: 750,
+        width: 650,
         closable: true,
+        customApprove: true,
       });
-      console.log("open");
       this.$refs.postModal.openModal();
     },
   },

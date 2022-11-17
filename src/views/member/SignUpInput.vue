@@ -1,5 +1,11 @@
 <template>
-  <div style="display: flex; width: 500px; position: relative">
+  <div
+    :style="
+      'display: flex; width: 500px; position: relative; height : ' +
+      height +
+      'px'
+    "
+  >
     <v-subheader class="my-4" style="width: 130px">{{
       this.label
     }}</v-subheader>
@@ -19,13 +25,14 @@
       dense
       depressedd
       color="primary"
-      @click="click ? click : undefined"
+      @click="btnClick"
       class="signBtn"
       >{{ btnText }}</v-btn
     >
   </div>
 </template>
 <script>
+import _ from "lodash";
 export default {
   props: [
     "value",
@@ -34,6 +41,7 @@ export default {
     "type",
     "appendIcon",
     "width",
+    "height",
     "sideBtn",
     "btnText",
     "click",
@@ -44,6 +52,7 @@ export default {
       showPwd: false,
       inputType: this.type,
       inputWidth: this.width ? this.width : 500,
+      btnClick: _.isFunction(this.click) ? this.click : () => {},
     };
   },
   watch: {
