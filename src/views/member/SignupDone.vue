@@ -6,7 +6,17 @@
         <hr class="mb-6" />
         <v-card class="infoCard">
           <div class="wrapper col">
-            <div class="mb-16">CI LOGO</div>
+            <div
+              class="wrapper"
+              style="width: 40%; margin: auto; margin-bottom: 25px"
+            >
+              <template v-if="this.locale === 'ko'">
+                <v-img src="../../../assets/dwel_logo_ko.png" alt="" />
+              </template>
+              <template v-else>
+                <v-img src="../../../assets/dwel_logo_en.png" alt="" />
+              </template>
+            </div>
             <div><b>회원가입</b>이 완료되었습니다.</div>
             <div class="wrapper">
               <table>
@@ -36,12 +46,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {};
   },
   components: {},
-  computed: {},
+  computed: {
+    ...mapState("locale", ["message", "locale"]),
+  },
   methods: {
     opApprove() {
       this.$router.push({ name: "main" });
