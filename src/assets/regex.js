@@ -21,7 +21,8 @@ const verRegex = /^([0-9]{1})*\.([0-9]{1})*\.([0-9]{4})$/;
 //이름 정규식
 const lanRegex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
 const lanRegexWithNum = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
-
+const companyRegex = /[a-zA-Z0-9가-힇ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴー々〆〤一-龥]/;
+//ㅎ
 export {
   telRegex1,
   telRegex2,
@@ -30,4 +31,5 @@ export {
   lanRegex,
   lanRegexWithNum,
   pwRegex,
+  companyRegex,
 };

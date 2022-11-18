@@ -119,7 +119,7 @@ export default {
       this.$emit("closeModal");
       this.timer = 0;
       clearInterval(this.interval);
-      this.send = false;
+      this.isSend = false;
     },
     onApprove() {
       console.log("approve");

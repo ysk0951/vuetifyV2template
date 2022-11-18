@@ -75,20 +75,26 @@
             ></v-text-field>
           </div>
         </div>
-        <div class="wrapperSpace inputRow">
+        <div class="wrapperSpace inputRow" style="position: relative">
           <SignupInputVue
             placeholder="이메일 주소를 입력해주세요"
-            label="이메일 주소"
+            label="이메일
+          주소"
             v-model="param.email"
             :sideBtn="true"
-            btnText="인증번호 받기"
+            :btnText="this.isSend ? '재발송' : '인증번호 받기'"
+            :click="certificate"
           />
+          <div class="timer">
+            {{ (300 - this.timer) | timer }}
+          </div>
           <SignupInputVue
             placeholder="인증번호를 입력해주세요"
             label="이메일 인증번호"
             v-model="param.emailCode"
             :sideBtn="true"
             btnText="인증번호 확인"
+            :click="checkCode"
           />
         </div>
         <div class="wrapperSpace inputRow">
@@ -148,7 +154,8 @@ import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignupInput.vue";
 import SignupPost from "@/views/member/SignupPost.vue";
-import { lanRegex, emailRegex, pwRegex } from "@/assets/regex";
+import { sendAuthNum, authNumCheck } from "api/member/member";
+import { lanRegex, emailRegex, pwRegex, companyRegex } from "@/assets/regex";
 import { mapMutations } from "vuex";
 export default {
   name: "Signup",
@@ -177,12 +184,23 @@ export default {
         companyCode: "",
         areaCode: "82",
       },
+      //timer
+      timer: 0,
+      isSend: false,
+      interval: undefined,
     };
   },
   components: {
     SetDialog,
     SignupPost,
     SignupInputVue,
+  },
+  filters: {
+    timer: (v) => {
+      const secound = (0 + (v % 60).toFixed()).slice(-2);
+      const minute = Math.trunc(v / 60);
+      return `${minute} : ${secound}`;
+    },
   },
   computed: {
     pwdType() {
@@ -219,34 +237,95 @@ export default {
     valid() {
       let ret = false;
       const isLang = lanRegex.test(this.param.name);
-      const isEmail = emailRegex.test(this.param.email);
       const isPw = pwRegex.test(this.param.password);
+      const replacedCompany = this.param.companyCode.replaceAll(/[()]/gi, "");
+      console.log(replacedCompany);
+      const isCompany = companyRegex.test(replacedCompany);
       this.SET_MODAL({
         title: "알림",
         height: 150,
         width: 300,
       });
       if (_.isEmpty(this.param.name)) {
-        this.SET_DIALOG_TEXT("이름을 입력해주세요");
-        this.$refs.validModal.openModal();
+        this.openPopup("이름을 입력해주세요");
       } else if (!isLang) {
-        this.SET_DIALOG_TEXT("이름은 한글과 영문만 가능합니다");
-        this.$refs.validModal.openModal();
-      } else if (!isEmail) {
-        this.SET_DIALOG_TEXT("이메일 주소를 확인해주세요");
+        this.openPopup("이름은 한글과 영문만 가능합니다");
         this.$refs.validModal.openModal();
       } else if (!isPw) {
-        this.SET_DIALOG_TEXT(
+        this.openPopup(
           "비밀번호는 영문 대/소문자 , 숫자 , 특수문자를 포함한 8자리 이상이 필요합니다."
         );
-        this.$refs.validModal.openModal();
       } else if (this.param.password !== this.param.passwordCode) {
-        this.SET_DIALOG_TEXT("동일한 비밀번호를 입력해주세요");
-        this.$refs.validModal.openModal();
+        this.openPopup("동일한 비밀번호를 입력해주세요");
+      } else if (!isCompany) {
+        this.openPopup("올바른 기업명을 입력해주세요");
       } else {
         ret = true;
       }
       return ret;
+    },
+    checkCode() {
+      this.SET_MODAL({
+        title: "알림",
+        height: 150,
+        width: 300,
+      });
+      if (_.isEmpty(this.certifiCode)) {
+        this.openPopup("인증번호를 입력해 주세요");
+      } else {
+        authNumCheck({
+          authNum: this.param.emailCode,
+          memberId: this.param.email,
+        })
+          .then((res) => {
+            const body = res.data;
+            if (!_.isEmpty(body.errorCode)) {
+              this.openPopup(body.errorMessage);
+            } else {
+              console.log(body.data);
+            }
+          })
+          .catch()
+          .finally();
+      }
+    },
+    certificate() {
+      const isEmail = emailRegex.test(this.param.email);
+      this.SET_MODAL({
+        title: "알림",
+        height: 150,
+        width: 300,
+      });
+      if (!isEmail) {
+        this.openPopup("이메일 주소를 확인해주세요");
+      } else {
+        this.isSend = true;
+        this.timer = 0;
+        if (!_.isNumber(this.interval)) {
+          this.interval = setInterval(() => {
+            this.timer++;
+            if (this.timer === 300) {
+              clearInterval(this.interval);
+              this.isSend = false;
+            }
+          }, 1000);
+        }
+        sendAuthNum({
+          memberId: this.memberId,
+        })
+          .then((res) => {
+            const body = res.data;
+            if (!_.isEmpty(body.errorCode)) {
+              this.openPopup(body.errorMessage);
+            } else {
+              this.openPopup(body.data);
+            }
+          })
+          .catch((res) => {
+            this.openPopup(res);
+          })
+          .finally(() => {});
+      }
     },
     open_agree() {
       this.SET_MODAL({
@@ -264,6 +343,10 @@ export default {
         customApprove: true,
       });
       this.$refs.postModal.openModal();
+    },
+    openPopup(message) {
+      this.SET_DIALOG_TEXT(message);
+      this.$refs.validModal.openModal();
     },
   },
 };
@@ -332,5 +415,10 @@ export default {
 */
 div.cardWrapper > div > div.pa-10 > div:nth-child(11) > div > button {
   right: 74px;
+}
+.timer {
+  position: absolute;
+  left: 445px;
+  top: 28px;
 }
 </style>
