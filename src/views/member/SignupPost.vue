@@ -84,6 +84,7 @@
 <script>
 import SignupInput from "@/views/member/SignupInput.vue";
 export default {
+  name: "SignupPost",
   data() {
     return {
       param: {

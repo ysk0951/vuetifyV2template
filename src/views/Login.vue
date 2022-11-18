@@ -70,6 +70,7 @@ import { mapMutations, mapState } from "vuex";
 import { login } from "api/member/member";
 import { emailRegex } from "@/assets/regex";
 export default {
+  name: "Login",
   data() {
     return {
       checkbox: false,

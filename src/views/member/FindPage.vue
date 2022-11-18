@@ -58,6 +58,7 @@ export const FindKey = {
   pw: "패스워드",
 };
 export default {
+  name: "FindPage",
   data() {
     return {
       checkbox: false,

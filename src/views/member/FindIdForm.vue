@@ -37,6 +37,7 @@
 </template>
 <script>
 export default {
+  name: "FindIdForm",
   data() {
     return {
       //id Param

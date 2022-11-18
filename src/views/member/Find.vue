@@ -55,6 +55,7 @@ import { mapState, mapMutations } from "vuex";
 import { searchUserId } from "api/member/member";
 import _ from "lodash";
 export default {
+  name: "Find",
   props: ["propsTab"],
   watch: {
     propsTab: function (v) {

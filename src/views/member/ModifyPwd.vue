@@ -52,6 +52,7 @@
 import SetDialog from "@/components/SetDialog";
 
 export default {
+  name: "ModifyPwd",
   data() {
     return {
       setDialog: {

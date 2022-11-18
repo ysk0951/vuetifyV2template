@@ -39,6 +39,7 @@
 </template>
 <script>
 export default {
+  name: "FindResult",
   props: {
     setting: {
       type: Object,

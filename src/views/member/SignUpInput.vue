@@ -50,6 +50,7 @@ export default {
     "click",
     "disabled",
   ],
+  name: "SignupInput",
   data() {
     return {
       showPwd: false,

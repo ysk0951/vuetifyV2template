@@ -12,6 +12,7 @@ import SetDialog from "@/components/SetDialog";
 import _ from "lodash";
 import { mapMutations, mapState } from "vuex";
 export default {
+  name: "Main",
   data() {
     return {
       checkbox: false,

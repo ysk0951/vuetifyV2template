@@ -80,6 +80,7 @@ import { mapMutations } from "vuex";
 import SetPopup from "@/components/SetPopup";
 import { sendAuthNum, authNumCheck } from "api/member/member";
 export default {
+  name: "FindPwForm",
   data() {
     return {
       //id Param
