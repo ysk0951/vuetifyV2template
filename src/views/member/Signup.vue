@@ -148,9 +148,10 @@ import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignupInput.vue";
 import SignupPost from "@/views/member/SignupPost.vue";
-import { lanRegex } from "@/assets/regex";
+import { lanRegex, emailRegex, pwRegex } from "@/assets/regex";
 import { mapMutations } from "vuex";
 export default {
+  name: "Signup",
   data() {
     return {
       numbers: [
@@ -217,24 +218,33 @@ export default {
     },
     valid() {
       let ret = false;
-      const isLang = lanRegex.test(this.name);
-      console.log(isLang);
+      const isLang = lanRegex.test(this.param.name);
+      const isEmail = emailRegex.test(this.param.email);
+      const isPw = pwRegex.test(this.param.password);
+      this.SET_MODAL({
+        title: "알림",
+        height: 150,
+        width: 300,
+      });
       if (_.isEmpty(this.param.name)) {
-        this.SET_MODAL({
-          title: "알림",
-          text: "이름을 입력해주세요",
-          height: 150,
-          width: 300,
-        });
+        this.SET_DIALOG_TEXT("이름을 입력해주세요");
         this.$refs.validModal.openModal();
       } else if (!isLang) {
-        this.SET_MODAL({
-          title: "알림",
-          text: "이름은 한글과 영문만 가능합니다",
-          height: 150,
-          width: 300,
-        });
+        this.SET_DIALOG_TEXT("이름은 한글과 영문만 가능합니다");
         this.$refs.validModal.openModal();
+      } else if (!isEmail) {
+        this.SET_DIALOG_TEXT("이메일 주소를 확인해주세요");
+        this.$refs.validModal.openModal();
+      } else if (!isPw) {
+        this.SET_DIALOG_TEXT(
+          "비밀번호는 영문 대/소문자 , 숫자 , 특수문자를 포함한 8자리 이상이 필요합니다."
+        );
+        this.$refs.validModal.openModal();
+      } else if (this.param.password !== this.param.passwordCode) {
+        this.SET_DIALOG_TEXT("동일한 비밀번호를 입력해주세요");
+        this.$refs.validModal.openModal();
+      } else {
+        ret = true;
       }
       return ret;
     },

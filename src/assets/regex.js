@@ -12,11 +12,14 @@ const telRegex2 = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 //eslint-disable-next-line
 const emailRegex =/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
+//비밀번호 정규식
+const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 //소수점 정규표현식(x.x.xxxx)
 //eslint-disable-next-line
 const verRegex = /^([0-9]{1})*\.([0-9]{1})*\.([0-9]{4})$/;
 
-const lanRegex = /[^a-z|A-Z|0-9|ㄱ-ㅎ|가-힣]/g;
+//이름 정규식
+const lanRegex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/;
 const lanRegexWithNum = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
 
 export {
@@ -26,4 +29,5 @@ export {
   verRegex,
   lanRegex,
   lanRegexWithNum,
+  pwRegex,
 };
