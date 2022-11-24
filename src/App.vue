@@ -13,17 +13,15 @@
           </div>
         </div>
       </v-app-bar>
-      <v-container fill-height>
+      <v-container fill-height fluid class="mu-4">
         <v-layout align-center row wrap>
-          <v-flex xs12>
-            <v-overlay :value="loading" style="z-index: 999">
-              <v-progress-circular
-                indeterminate
-                color="primary"
-              ></v-progress-circular
-            ></v-overlay>
-            <router-view />
-          </v-flex>
+          <v-overlay :value="loading" style="z-index: 999">
+            <v-progress-circular
+              indeterminate
+              color="primary"
+            ></v-progress-circular
+          ></v-overlay>
+          <router-view />
         </v-layout>
       </v-container>
     </v-main>
@@ -87,5 +85,8 @@ export default {
 }
 .v-btn.v-size--default {
   font-size: 0.95rem !important;
+}
+.container {
+  padding: 0 0 0 0px !important;
 }
 </style>

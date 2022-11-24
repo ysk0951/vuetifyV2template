@@ -6,6 +6,7 @@ import Find from "@/views/member/Find";
 import Main from "@/views/Main";
 import Signup from "@/views/member/Signup";
 import SignupDone from "@/views/member/SignupDone";
+import Admin from "@/views/admin/Admin";
 Vue.use(VueRouter);
 
 const routes = [
@@ -38,6 +39,11 @@ const routes = [
     path: "/signupDone",
     name: "signupDone",
     component: SignupDone,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: Admin,
   },
 ];
 

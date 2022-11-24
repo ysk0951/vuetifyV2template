@@ -1,152 +1,156 @@
 <template>
-  <div class="cardWrapper">
-    <v-card class="mt-12">
-      <SetDialog ref="validModal" />
-      <SetDialog ref="aggreModal" />
-      <SetDialog ref="postModal">
-        <SignupPost
-          @closeModal="this.closePost"
-          @onApprove="this.approvePost"
-        ></SignupPost>
-      </SetDialog>
-      <div class="pa-10">
-        <h3 style="text-align: left" class="mb-3">회원가입</h3>
-        <hr class="mb-6" />
-        <h4 style="text-align: left" class="mb-3">회원가입 약관동의 (필수)</h4>
-        <div class="wrapperSpace signUpAgree mb-3">
-          <div>
-            <v-checkbox v-model="agree.service">
-              <template v-slot:label>
-                <h5>서비스 이용약관 동의</h5>
-              </template>
-            </v-checkbox>
+  <v-flex xs12>
+    <div class="cardWrapper">
+      <v-card class="mt-12">
+        <SetDialog ref="validModal" />
+        <SetDialog ref="aggreModal" />
+        <SetDialog ref="postModal">
+          <SignupPost
+            @closeModal="this.closePost"
+            @onApprove="this.approvePost"
+          ></SignupPost>
+        </SetDialog>
+        <div class="pa-10">
+          <h3 style="text-align: left" class="mb-3">회원가입</h3>
+          <hr class="mb-6" />
+          <h4 style="text-align: left" class="mb-3">
+            회원가입 약관동의 (필수)
+          </h4>
+          <div class="wrapperSpace signUpAgree mb-3">
+            <div>
+              <v-checkbox v-model="agree.service">
+                <template v-slot:label>
+                  <h5>서비스 이용약관 동의</h5>
+                </template>
+              </v-checkbox>
+            </div>
+            <div>
+              <v-btn depressed color="primary" @click="open_agree"
+                >전문 보기</v-btn
+              >
+            </div>
           </div>
-          <div>
-            <v-btn depressed color="primary" @click="open_agree"
-              >전문 보기</v-btn
-            >
+          <div class="wrapperSpace signUpAgree mb-3">
+            <div>
+              <v-checkbox v-model="agree.private">
+                <template v-slot:label>
+                  <h5>개인정보활용 동의</h5>
+                </template></v-checkbox
+              >
+            </div>
+            <div>
+              <v-btn depressedd color="primary" @click="open_agree"
+                >전문 보기</v-btn
+              >
+            </div>
           </div>
-        </div>
-        <div class="wrapperSpace signUpAgree mb-3">
-          <div>
-            <v-checkbox v-model="agree.private">
-              <template v-slot:label>
-                <h5>개인정보활용 동의</h5>
-              </template></v-checkbox
-            >
+          <hr class="hrUnderLine mb-6" />
+          <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
+          <div class="wrapperSpace inputRow">
+            <SignupInputVue
+              placeholder="이름을 입력해주세요"
+              label="이름"
+              v-model="param.name"
+            />
+            <div style="display: flex; width: 500px">
+              <v-subheader class="my-4" style="width: 130px"
+                >휴대폰 번호</v-subheader
+              >
+              <v-select
+                :items="numbers"
+                outlined
+                dense
+                class="signInput select"
+                style="width: 50px"
+                v-model="param.areaCode"
+                item-text="name"
+                item-value="value"
+              ></v-select>
+              <v-text-field
+                placeholder="000-0000-0000"
+                v-model="param.phone"
+                outlined
+                dense
+                class="signInput phoneInput"
+                type="text"
+                autocomplete="off"
+                style="width: 200px"
+              ></v-text-field>
+            </div>
           </div>
-          <div>
-            <v-btn depressedd color="primary" @click="open_agree"
-              >전문 보기</v-btn
-            >
-          </div>
-        </div>
-        <hr class="hrUnderLine mb-6" />
-        <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
-        <div class="wrapperSpace inputRow">
-          <SignupInputVue
-            placeholder="이름을 입력해주세요"
-            label="이름"
-            v-model="param.name"
-          />
-          <div style="display: flex; width: 500px">
-            <v-subheader class="my-4" style="width: 130px"
-              >휴대폰 번호</v-subheader
-            >
-            <v-select
-              :items="numbers"
-              outlined
-              dense
-              class="signInput select"
-              style="width: 50px"
-              v-model="param.areaCode"
-              item-text="name"
-              item-value="value"
-            ></v-select>
-            <v-text-field
-              placeholder="000-0000-0000"
-              v-model="param.phone"
-              outlined
-              dense
-              class="signInput phoneInput"
-              type="text"
-              autocomplete="off"
-              style="width: 200px"
-            ></v-text-field>
-          </div>
-        </div>
-        <div class="wrapperSpace inputRow" style="position: relative">
-          <SignupInputVue
-            placeholder="이메일 주소를 입력해주세요"
-            label="이메일
+          <div class="wrapperSpace inputRow" style="position: relative">
+            <SignupInputVue
+              placeholder="이메일 주소를 입력해주세요"
+              label="이메일
           주소"
-            v-model="param.email"
-            :sideBtn="true"
-            :btnText="this.isSend ? '재발송' : '인증번호 받기'"
-            :click="certificate"
-          />
-          <div class="timer">
-            {{ (300 - this.timer) | timer }}
+              v-model="param.email"
+              :sideBtn="true"
+              :btnText="this.isSend ? '재발송' : '인증번호 받기'"
+              :click="certificate"
+            />
+            <div class="timer">
+              {{ (300 - this.timer) | timer }}
+            </div>
+            <SignupInputVue
+              placeholder="인증번호를 입력해주세요"
+              label="이메일 인증번호"
+              v-model="param.emailCode"
+              :sideBtn="true"
+              btnText="인증번호 확인"
+              :click="checkCode"
+            />
           </div>
-          <SignupInputVue
-            placeholder="인증번호를 입력해주세요"
-            label="이메일 인증번호"
-            v-model="param.emailCode"
-            :sideBtn="true"
-            btnText="인증번호 확인"
-            :click="checkCode"
-          />
+          <div class="wrapperSpace inputRow">
+            <SignupInputVue
+              placeholder="비밀번호를 입력해주세요"
+              label="비밀번호"
+              type="password"
+              append-icon="mdi-eye"
+              v-model="param.password"
+            />
+            <SignupInputVue
+              placeholder="비밀번호를 입력해주세요"
+              label="비밀번호 재확인"
+              type="password"
+              append-icon="mdi-eye"
+              v-model="param.passwordCode"
+            />
+          </div>
+          <div class="wrapperSpace">
+            <SignupInputVue
+              placeholder="배송지를 등록해주세요"
+              label="배송지"
+              type="text"
+              v-model="param.postCode"
+              :sideBtn="true"
+              btnText="배송지 등록"
+              class="post"
+              :click="openPost"
+            />
+          </div>
+          <hr class="hrUnderLine mb-6" />
+          <h4 style="text-align: left" class="mb-3">추가정보 입력 (선택)</h4>
+          <div class="wrapperSpace">
+            <SignupInputVue
+              placeholder="기업명을 입력해주세요"
+              label="기업명"
+              type="text"
+              v-model="param.compaynCode"
+            />
+          </div>
+          <hr class="hrUnderLine mb-6" />
+          <div class="wrapper">
+            <v-card-actions>
+              <v-btn depressed @click="closeModal">취소</v-btn>
+            </v-card-actions>
+            <v-card-actions>
+              <v-btn depressed color="primary" @click="opApprove">확인</v-btn>
+            </v-card-actions>
+          </div>
         </div>
-        <div class="wrapperSpace inputRow">
-          <SignupInputVue
-            placeholder="비밀번호를 입력해주세요"
-            label="비밀번호"
-            type="password"
-            append-icon="mdi-eye"
-            v-model="param.password"
-          />
-          <SignupInputVue
-            placeholder="비밀번호를 입력해주세요"
-            label="비밀번호 재확인"
-            type="password"
-            append-icon="mdi-eye"
-            v-model="param.passwordCode"
-          />
-        </div>
-        <div class="wrapperSpace">
-          <SignupInputVue
-            placeholder="배송지를 등록해주세요"
-            label="배송지"
-            type="text"
-            v-model="param.postCode"
-            :sideBtn="true"
-            btnText="배송지 등록"
-            class="post"
-            :click="openPost"
-          />
-        </div>
-        <hr class="hrUnderLine mb-6" />
-        <h4 style="text-align: left" class="mb-3">추가정보 입력 (선택)</h4>
-        <div class="wrapperSpace">
-          <SignupInputVue
-            placeholder="기업명을 입력해주세요"
-            label="기업명"
-            type="text"
-            v-model="param.compaynCode"
-          />
-        </div>
-        <hr class="hrUnderLine mb-6" />
-        <div class="wrapper">
-          <v-card-actions>
-            <v-btn depressed @click="closeModal">취소</v-btn>
-          </v-card-actions>
-          <v-card-actions>
-            <v-btn depressed color="primary" @click="opApprove">확인</v-btn>
-          </v-card-actions>
-        </div>
-      </div>
-    </v-card>
-  </div>
+      </v-card>
+    </div>
+  </v-flex>
 </template>
 
 <script>

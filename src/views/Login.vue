@@ -1,65 +1,67 @@
 <template>
-  <div class="wrapper">
-    <v-card height="600px" width="450px">
-      <SetDialog ref="loginModal" />
-      <SetDialog ref="findPopup">
-        <Find
-          @close="close"
-          @loginByFindId="loginByFindId"
-          :propsTab="propsTab"
-          @changeTab="changeTab"
-        ></Find>
-      </SetDialog>
-      <div class="pa-10">
-        <h1 style="text-align: center" class="mb-10">
-          <div class="wrapper" style="width: 50%; margin: auto">
-            <template v-if="this.locale === 'ko'">
-              <v-img src="../../assets/dwel_logo_ko.png" alt="" />
-            </template>
-            <template v-else>
-              <v-img src="../../assets/dwel_logo_en.png" alt="" />
-            </template>
-          </div>
-        </h1>
-        <div>
-          <v-text-field
-            :placeholder="this.getText('MSG001')"
-            v-model="id"
-          ></v-text-field>
-          <v-text-field
-            append-icon="mdi-eye"
-            v-model="pw"
-            :type="pwdType"
-            :placeholder="this.getText('MSG002')"
-            @click:append="togglePwdShow"
-            maxlength="20"
-          >
-          </v-text-field>
-          <v-checkbox v-model="checkbox" :label="this.getText('MSG006')" />
-          <v-btn
-            type="submit"
-            color="primary lighten-1 text-capitalize"
-            depressed
-            large
-            block
-            dark
-            class="mb-3"
-            @click="signin"
-          >
-            Login
-          </v-btn>
-          <div class="underLogin">
-            <div>
-              <span @click="find(0)">{{ this.getText("MSG003") }}</span>
-              <span> | </span>
-              <span @click="find(1)">{{ this.getText("MSG004") }}</span>
+  <v-flex xs12>
+    <div class="wrapper">
+      <v-card height="600px" width="450px">
+        <SetDialog ref="loginModal" />
+        <SetDialog ref="findPopup">
+          <Find
+            @close="close"
+            @loginByFindId="loginByFindId"
+            :propsTab="propsTab"
+            @changeTab="changeTab"
+          ></Find>
+        </SetDialog>
+        <div class="pa-10">
+          <h1 style="text-align: center" class="mb-10">
+            <div class="wrapper" style="width: 50%; margin: auto">
+              <template v-if="this.locale === 'ko'">
+                <v-img src="../../assets/dwel_logo_ko.png" alt="" />
+              </template>
+              <template v-else>
+                <v-img src="../../assets/dwel_logo_en.png" alt="" />
+              </template>
             </div>
-            <span @click="signup">{{ this.getText("MSG005") }}</span>
+          </h1>
+          <div>
+            <v-text-field
+              :placeholder="this.getText('MSG001')"
+              v-model="id"
+            ></v-text-field>
+            <v-text-field
+              append-icon="mdi-eye"
+              v-model="pw"
+              :type="pwdType"
+              :placeholder="this.getText('MSG002')"
+              @click:append="togglePwdShow"
+              maxlength="20"
+            >
+            </v-text-field>
+            <v-checkbox v-model="checkbox" :label="this.getText('MSG006')" />
+            <v-btn
+              type="submit"
+              color="primary lighten-1 text-capitalize"
+              depressed
+              large
+              block
+              dark
+              class="mb-3"
+              @click="signin"
+            >
+              Login
+            </v-btn>
+            <div class="underLogin">
+              <div>
+                <span @click="find(0)">{{ this.getText("MSG003") }}</span>
+                <span> | </span>
+                <span @click="find(1)">{{ this.getText("MSG004") }}</span>
+              </div>
+              <span @click="signup">{{ this.getText("MSG005") }}</span>
+            </div>
           </div>
         </div>
-      </div>
-    </v-card>
-  </div>
+      </v-card>
+    </div>
+  </v-flex>
 </template>
 
 <script>
