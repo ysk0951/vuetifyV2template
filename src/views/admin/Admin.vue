@@ -1,10 +1,7 @@
 <template>
-  <v-container fill-height fluid>
+  <v-container fill-height fluid class="mt-4">
     <SetDialog ref="modal" />
-    <div
-      class="pa-10"
-      style="background-color: wheat; height: 100%; width: 100%"
-    >
+    <div class="pa-10 full">
       <v-tabs v-model="tab">
         <v-tab v-for="item in items" :key="item.key">
           {{ item.value }}
@@ -12,7 +9,9 @@
       </v-tabs>
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
-          <v-card flat> </v-card>
+          <template v-if="item.key === 'id'">
+            <Accont />
+          </template>
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -20,6 +19,7 @@
 </template>
 <script>
 import SetDialog from "@/components/SetDialog";
+import Accont from "@/views/admin/user/Account.vue";
 export default {
   data() {
     return {
@@ -29,12 +29,27 @@ export default {
           key: "id",
           value: "아이디 관리",
         },
+        {
+          key: "pw",
+          value: "비밀번호 관리",
+        },
+        {
+          key: "menu",
+          value: "메뉴권한 관리",
+        },
       ],
     };
   },
   components: {
     SetDialog,
+    Accont,
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.full {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+</style>
