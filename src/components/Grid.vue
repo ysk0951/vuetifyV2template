@@ -1,9 +1,9 @@
 <template>
-  <div :id="setting.gridName"></div>
+  <RealGrid grid-id="realgrid1" grid-root="/lib" @rendered="gridRendered">
+  </RealGrid>
 </template>
 <script>
 import RealGrid from "realgrid";
-
 export default {
   props: {
     setting: {
@@ -42,48 +42,59 @@ export default {
     };
   },
   computed: {},
+  components: {
+    RealGrid,
+  },
   mounted() {
-    this.initGrid();
+    // this.initGrid();
   },
   methods: {
-    initGrid() {
-      const setGridData = {
-        gridName: this.setting.gridName,
-        columns: this.setting.columns,
-        fields: this.setting.fields,
-        vm: this.setting.vm,
-        existFavorite: this.setting.existFavorite,
-        layout: this.setting.layout,
-        existCalendar: this.setting.existCalendar,
-        existAddr: this.setting.existAddr,
-      };
-      console.log(setGridData);
-      const container = document.getElementById(setGridData.gridName);
-      const provider = new RealGrid.LocalDataProvider(false);
-      provider.setFields([
-        {
-          fieldName: "KorName",
-          dataType: "text",
-        },
-        {
-          fieldName: "Age",
-          dataType: "number",
-        },
-      ]);
-      const gridView = new RealGrid.GridView(container);
-      gridView.setColumns([
-        {
-          name: "KorNameColumn",
-          fieldName: "KorName",
-          type: "data",
-          width: "70",
-          header: {
-            text: "이름",
-          },
-        },
-      ]);
-      gridView.setDataSource(provider);
-    },
+    // gridRendered(provider, view) {
+    //   // RealGridJS.setRootContext("/");
+    //   this.dataProvider = provider;
+    //   this.gridView = view;
+    //   // 이벤트 처리
+    //   this.dataProvider.onRowInserted = this.onRowInserted;
+    //   this.gridView.onDataCellClicked = this.onDataCellClicked;
+    // },
+    // initGrid() {
+    //   const setGridData = {
+    //     gridName: this.setting.gridName,
+    //     columns: this.setting.columns,
+    //     fields: this.setting.fields,
+    //     vm: this.setting.vm,
+    //     existFavorite: this.setting.existFavorite,
+    //     layout: this.setting.layout,
+    //     existCalendar: this.setting.existCalendar,
+    //     existAddr: this.setting.existAddr,
+    //   };
+    //   console.log(setGridData);
+    //   const container = document.getElementById(setGridData.gridName);
+    //   const provider = new RealGrid.LocalDataProvider(false);
+    //   provider.setFields([
+    //     {
+    //       fieldName: "KorName",
+    //       dataType: "text",
+    //     },
+    //     {
+    //       fieldName: "Age",
+    //       dataType: "number",
+    //     },
+    //   ]);
+    //   const gridView = new RealGrid.GridView(container);
+    //   gridView.setColumns([
+    //     {
+    //       name: "KorNameColumn",
+    //       fieldName: "KorName",
+    //       type: "data",
+    //       width: "70",
+    //       header: {
+    //         text: "이름",
+    //       },
+    //     },
+    //   ]);
+    //   gridView.setDataSource(provider);
+    // },
   },
 };
 </script>
