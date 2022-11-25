@@ -1,9 +1,7 @@
 <template>
-  <RealGrid grid-id="realgrid1" grid-root="/lib" @rendered="gridRendered">
-  </RealGrid>
+  <div></div>
 </template>
 <script>
-import RealGrid from "realgrid";
 export default {
   props: {
     setting: {
@@ -42,9 +40,7 @@ export default {
     };
   },
   computed: {},
-  components: {
-    RealGrid,
-  },
+  components: {},
   mounted() {
     // this.initGrid();
   },
