@@ -164,7 +164,7 @@ export default {
     onApprove() {},
     add() {
       this.SET_MODAL({
-        height: 600,
+        height: 500,
         width: 750,
         closable: true,
         approveName: "저장",
@@ -209,7 +209,11 @@ export default {
   border-color: rgba(0, 0, 0, 0.02) !important;
   background-color: rgba(0, 0, 0, 0.02);
 }
-.row {
+.add .row {
+  margin: auto;
+  height: 80px;
+}
+.filter .row {
   margin: auto;
   height: 80px;
 }

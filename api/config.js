@@ -1,6 +1,6 @@
 const config = {
   baseURL: "http://smdedev.dongwha.com:8080/",
-  // baseURL: "http://192.168.10.34:8080",
+  // baseURL: "localhost:8080",
   timeout: 3000,
 };
 

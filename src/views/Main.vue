@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <v-card height="600px" width="1200px">
+    <v-card height="600px">
       <SetDialog ref="mainModal" />
       <v-btn @click="reset">초기화</v-btn>
     </v-card>
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     ...mapMutations("member", ["SET_TOKEN"]),
+    ...mapMutations("menu", ["SET_MENU"]),
     reset() {
       this.SET_TOKEN({});
     },
@@ -36,6 +37,9 @@ export default {
   created() {
     if (_.isEmpty(this.accessToken)) {
       this.$router.push({ name: "login" });
+    } else {
+      console.log("menu");
+      this.SET_MENU({ memberid: this.accessToken });
     }
   },
 };
