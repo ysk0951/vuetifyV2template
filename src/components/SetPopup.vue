@@ -18,7 +18,7 @@
               <v-btn depressed @click="closePopup">취소</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn depressed color="primary" @click="opApprove">확인</v-btn>
+              <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
             </v-card-actions>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default {
     closePopup() {
       this.open = false;
     },
-    opApprove() {
+    onApprove() {
       this.closePopup();
       if (_.isFunction(this.callback)) {
         this.callback();

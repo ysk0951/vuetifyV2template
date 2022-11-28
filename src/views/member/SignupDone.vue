@@ -34,7 +34,7 @@
         </v-card>
         <div class="wrapper">
           <v-card-actions>
-            <v-btn depressed @click="opApprove">확인</v-btn>
+            <v-btn depressed @click="onApprove">확인</v-btn>
           </v-card-actions>
           <v-card-actions>
             <v-btn depressed color="primary" @click="login">로그인</v-btn>
@@ -57,7 +57,7 @@ export default {
     ...mapState("locale", ["message", "locale"]),
   },
   methods: {
-    opApprove() {
+    onApprove() {
       this.$router.push({ name: "main" });
     },
     login() {

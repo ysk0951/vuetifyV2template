@@ -144,7 +144,7 @@
               <v-btn depressed @click="closeModal">취소</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn depressed color="primary" @click="opApprove">확인</v-btn>
+              <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
             </v-card-actions>
           </div>
         </div>
@@ -233,7 +233,7 @@ export default {
     approvePost(param) {
       console.log(param);
     },
-    opApprove() {
+    onApprove() {
       if (this.valid()) {
         this.$router.push({ name: "signupDone" });
       }

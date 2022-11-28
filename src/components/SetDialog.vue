@@ -18,7 +18,9 @@
               <v-btn depressed @click="closeModal">취소</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn depressed color="primary" @click="opApprove">확인</v-btn>
+              <v-btn depressed color="primary" @click="onApprove">{{
+                approveName
+              }}</v-btn>
             </v-card-actions>
           </div>
         </div>
@@ -30,11 +32,6 @@
 import _ from "lodash";
 import { mapState } from "vuex";
 export default {
-  props: {
-    slotProps: {
-      type: Object,
-    },
-  },
   data() {
     return {
       paramProps: {},
@@ -51,6 +48,7 @@ export default {
       "maxWidth",
       "closable",
       "customApprove",
+      "approveName",
     ]),
   },
   methods: {
@@ -61,7 +59,7 @@ export default {
     closeModal() {
       this.open = false;
     },
-    opApprove() {
+    onApprove() {
       this.closeModal();
       if (_.isFunction(this.callback)) {
         this.callback();

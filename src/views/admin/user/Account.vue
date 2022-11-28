@@ -1,7 +1,19 @@
 <template>
   <div>
+    <SetPopup ref="addPopup">
+      <div class="wrapper">
+        <template v-if="!check">
+          <v-card-actions>
+            <v-btn depressed @click="cancel">취소</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn depressed color="primary" @click="addExec">생성</v-btn>
+          </v-card-actions>
+        </template>
+      </div>
+    </SetPopup>
     <SetDialog ref="add">
-      <AddAcount />
+      <AddAcount @close="close" @save="save" />
     </SetDialog>
     <h3 class="mt-4 mb-2">아이디 관리</h3>
     <hr class="mb-4" />
@@ -95,6 +107,7 @@
 <script>
 import Grid from "@/components/Grid.vue";
 import SetDialog from "@/components/SetDialog.vue";
+import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
 import { mapMutations } from "vuex";
 export default {
@@ -115,6 +128,7 @@ export default {
         },
       ],
       type: "all",
+      check: false,
       setting: {
         gridName: "account",
         columns: [],
@@ -124,7 +138,17 @@ export default {
         existCalendar: false,
         existAddr: false,
       },
+      param: {},
     };
+  },
+  mounted() {
+    this.SET_POPUP({
+      title: "알림",
+      height: 150,
+      width: 300,
+      customApprove: true,
+    });
+    this.reset();
   },
   methods: {
     ...mapMutations("modal", [
@@ -135,6 +159,7 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
+    ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     reset() {},
     onApprove() {},
     add() {
@@ -142,13 +167,37 @@ export default {
         height: 600,
         width: 750,
         closable: true,
+        approveName: "저장",
+        customApprove: true,
       });
       this.$refs.add.openModal();
+    },
+    save(param) {
+      this.openPopup("입력된 정보로 아이디를 생성하시겠습니까?");
+      this.param = param;
+      this.close();
+    },
+    close() {
+      this.check = false;
+      this.$refs.add.closeModal();
+    },
+    openPopup(message) {
+      this.SET_POPUP_TEXT(message);
+      this.$refs.addPopup.openPopup();
+    },
+    cancel() {
+      this.param = {};
+      this.$refs.addPopup.closePopup();
+    },
+    addExec() {
+      console.log(this.param);
+      this.cancel();
     },
   },
   components: {
     Grid,
     SetDialog,
+    SetPopup,
     AddAcount,
   },
 };
@@ -169,11 +218,11 @@ export default {
   width: 70%;
 }
 
-.v-input__slot {
+.filter .v-input__slot {
   width: 266px !important;
   height: 30px !important;
 }
-.v-select__slot > div.v-select__selections {
+.filter .v-select__slot > div.v-select__selections {
   position: absolute;
   top: 0;
 }
