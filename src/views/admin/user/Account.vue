@@ -220,7 +220,7 @@ export default {
 }
 .service {
   margin: auto;
-  width: 70%;
+  width: 100%;
 }
 
 .filter .v-input__slot {

@@ -27,7 +27,7 @@ export default {
     console.log(this.gridName);
     this.dp = new LocalDataProvider(false);
     this.gv = new GridView(this.gridName);
-
+    this.gv.displayOptions.fitStyle = "even";
     this.gv.setDataSource(this.dp);
     this.dp.setFields(fields);
     this.gv.setColumns(columns);
