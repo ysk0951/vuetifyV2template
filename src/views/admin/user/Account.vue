@@ -100,15 +100,15 @@
         </div>
       </h3>
       <hr class="mb-4" />
-      <Grid :setting="setting" />
+      <RealGrid :domName="grid" />
     </div>
   </div>
 </template>
 <script>
-import Grid from "@/components/Grid.vue";
 import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
+import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations } from "vuex";
 export default {
   data() {
@@ -130,7 +130,7 @@ export default {
       type: "all",
       check: false,
       setting: {
-        gridName: "account",
+        id: "account",
         columns: [],
         fields: [],
         existFavorite: false,
@@ -139,6 +139,7 @@ export default {
         existAddr: false,
       },
       param: {},
+      grid: "acouunt",
     };
   },
   mounted() {
@@ -195,10 +196,10 @@ export default {
     },
   },
   components: {
-    Grid,
     SetDialog,
     SetPopup,
     AddAcount,
+    RealGrid,
   },
 };
 </script>

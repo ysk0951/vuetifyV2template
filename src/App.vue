@@ -61,6 +61,8 @@ export default {
       { value: "ko", text: "한국어" },
       { value: "en", text: "English" },
     ],
+    dom1: "realgrid1",
+    dom2: "realgrid2",
   }),
   watch: {
     locale: function (v) {
