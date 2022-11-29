@@ -56,6 +56,7 @@ export const columns = [
       type: "text",
       showTooltip: true,
     },
+    editable: false,
   },
   {
     name: "type",
@@ -68,6 +69,7 @@ export const columns = [
       text: "계정 구분",
       showTooltip: false,
     },
+    editable: false,
   },
   {
     name: "name",
@@ -77,6 +79,7 @@ export const columns = [
       textAlignment: "center",
     },
     header: "이름",
+    editable: false,
   },
   {
     name: "email",
@@ -89,6 +92,7 @@ export const columns = [
       text: "이메일",
       showTooltip: false,
     },
+    editable: false,
   },
   {
     name: "coName",
@@ -101,6 +105,7 @@ export const columns = [
       text: "기업명",
       showTooltip: false,
     },
+    editable: false,
   },
   {
     name: "phone",
@@ -113,6 +118,7 @@ export const columns = [
       text: "휴대폰 번호",
       showTooltip: false,
     },
+    editable: false,
   },
   {
     name: "coNumber",
@@ -125,6 +131,7 @@ export const columns = [
       text: "사번",
       showTooltip: false,
     },
+    editable: false,
   },
   {
     name: "work",
@@ -137,6 +144,7 @@ export const columns = [
       text: "재직",
       showTooltip: false,
     },
+    editable: false,
   },
   {
     name: "etc",
@@ -149,6 +157,7 @@ export const columns = [
       text: "비고",
       showTooltip: false,
     },
+    editable: false,
   },
 ];
 

@@ -1,21 +1,18 @@
 <template>
   <div>
-    <SetPopup ref="addPopup">
+    <SetPopup ref="pwPopup">
       <div class="wrapper">
         <template v-if="!check">
           <v-card-actions>
             <v-btn depressed @click="cancel">취소</v-btn>
           </v-card-actions>
           <v-card-actions>
-            <v-btn depressed color="primary" @click="addExec">생성</v-btn>
+            <v-btn depressed color="primary" @click="resetExec">초기화</v-btn>
           </v-card-actions>
         </template>
       </div>
     </SetPopup>
-    <SetDialog ref="add">
-      <AddAcount @close="close" @save="save" />
-    </SetDialog>
-    <h3 class="mt-4 mb-2">아이디 관리</h3>
+    <h3 class="mt-4 mb-2">비밀번호 관리</h3>
     <hr class="mb-4" />
     <div class="service">
       <div class="filter">
@@ -94,7 +91,9 @@
       <h3 class="mt-16 mb-2 pl-1 pr-1">
         <div class="wrapperSpace">
           목록
-          <v-btn depressed color="primary" @click="add">신규생성</v-btn>
+          <v-btn depressed color="primary" @click="resetPw" :width="'237px'"
+            >비밀번호초기화</v-btn
+          >
         </div>
       </h3>
       <hr class="mb-4" />
@@ -104,9 +103,7 @@
 </template>
 <script>
 import { columns, fields, rows } from "@/assets/account";
-import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
-import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations } from "vuex";
 export default {
@@ -155,7 +152,7 @@ export default {
         rows,
       },
       param: {},
-      grid: "acouunt",
+      grid: "password",
     };
   },
   mounted() {
@@ -190,20 +187,8 @@ export default {
     onApprove() {
       this.$refs.grid.search();
     },
-    add() {
-      this.SET_MODAL({
-        height: 500,
-        width: 750,
-        closable: true,
-        approveName: "저장",
-        customApprove: true,
-      });
-      this.$refs.add.openModal();
-    },
-    save(param) {
-      this.openPopup("입력된 정보로 아이디를 생성하시겠습니까?");
-      this.param = param;
-      this.close();
+    resetPw() {
+      this.openPopup("선택한 아이디의 비밀번호를 초기화 하시겠습니까?");
     },
     close() {
       this.check = false;
@@ -211,20 +196,18 @@ export default {
     },
     openPopup(message) {
       this.SET_POPUP_TEXT(message);
-      this.$refs.addPopup.openPopup();
+      this.$refs.pwPopup.openPopup();
     },
     cancel() {
       this.param = {};
-      this.$refs.addPopup.closePopup();
+      this.$refs.pwPopup.closePopup();
     },
-    addExec() {
+    resetExec() {
       this.cancel();
     },
   },
   components: {
-    SetDialog,
     SetPopup,
-    AddAcount,
     RealGrid,
   },
 };

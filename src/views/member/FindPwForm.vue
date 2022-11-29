@@ -122,9 +122,7 @@ export default {
       clearInterval(this.interval);
       this.isSend = false;
     },
-    onApprove() {
-      console.log("approve");
-    },
+    onApprove() {},
     checkCode() {
       if (_.isEmpty(this.certifiCode)) {
         this.openPopup("인증번호를 입력해 주세요");

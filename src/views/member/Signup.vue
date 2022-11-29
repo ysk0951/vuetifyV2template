@@ -243,7 +243,6 @@ export default {
       const isLang = lanRegex.test(this.param.name);
       const isPw = pwRegex.test(this.param.password);
       const replacedCompany = this.param.companyCode.replaceAll(/[()]/gi, "");
-      console.log(replacedCompany);
       const isCompany = companyRegex.test(replacedCompany);
       this.SET_MODAL({
         title: "알림",

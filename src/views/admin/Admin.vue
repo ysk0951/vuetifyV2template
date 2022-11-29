@@ -12,6 +12,9 @@
           <template v-if="item.key === 'id'">
             <Accont />
           </template>
+          <template v-if="item.key === 'pw'">
+            <AccontPw />
+          </template>
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -20,6 +23,7 @@
 <script>
 import SetDialog from "@/components/SetDialog";
 import Accont from "@/views/admin/user/Account.vue";
+import AccontPw from "@/views/admin/user/AccountPw.vue";
 export default {
   data() {
     return {
@@ -43,6 +47,7 @@ export default {
   components: {
     SetDialog,
     Accont,
+    AccontPw,
   },
 };
 </script>

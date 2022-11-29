@@ -161,7 +161,6 @@ export default {
         width: 300,
       });
       this.$refs.loginModal.openModal(() => {
-        console.log("routing");
         this.$router.push({ name });
       });
       //

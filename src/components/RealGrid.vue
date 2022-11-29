@@ -6,10 +6,9 @@
 
 <script>
 import { GridView, LocalDataProvider } from "realgrid";
-import { columns, fields, rows } from "./realgrid-data";
 export default {
   name: "RealGrid",
-  props: ["domName"],
+  props: ["domName", "settings"],
   data: function () {
     return {
       gridName: this.domName,
@@ -19,17 +18,19 @@ export default {
   },
   methods: {
     loadData: function () {
-      this.dp.setRows(rows);
+      this.dp.setRows(this.settings.rows);
+    },
+    search() {
+      this.loadData();
     },
   },
   mounted() {
-    console.log(this.gridName);
     this.dp = new LocalDataProvider(false);
     this.gv = new GridView(this.gridName);
     this.gv.displayOptions.fitStyle = "even";
     this.gv.setDataSource(this.dp);
-    this.dp.setFields(fields);
-    this.gv.setColumns(columns);
+    this.dp.setFields(this.settings.fields);
+    this.gv.setColumns(this.settings.columns);
   },
 };
 </script>
