@@ -38,7 +38,6 @@ export default {
     if (_.isEmpty(this.accessToken)) {
       this.$router.push({ name: "login" });
     } else {
-      console.log("menu");
       this.SET_MENU({ memberid: this.accessToken });
     }
   },
