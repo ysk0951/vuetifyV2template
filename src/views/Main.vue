@@ -34,7 +34,7 @@ export default {
       this.SET_TOKEN({});
     },
   },
-  created() {
+  async created() {
     if (_.isEmpty(this.accessToken)) {
       this.$router.push({ name: "login" });
     } else {

@@ -5,8 +5,10 @@ const menu = {
   },
   mutations: {
     SET_MENU(state, value) {
+      console.log("SETMENU");
       this.commit("menu/RESET_MENU");
-      value = { memberid: "test@test.com" };
+      value = { Authorization: this.state.member.accessToken };
+      console.log(value);
       getMenu(value)
         .then((res) => {
           if (res.status === 200) {
