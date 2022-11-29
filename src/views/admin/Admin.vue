@@ -15,6 +15,9 @@
           <template v-if="item.key === 'pw'">
             <AccontPw />
           </template>
+          <template v-if="item.key === 'menu'">
+            <MenuMgn />
+          </template>
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -24,6 +27,7 @@
 import SetDialog from "@/components/SetDialog";
 import Accont from "@/views/admin/user/Account.vue";
 import AccontPw from "@/views/admin/user/AccountPw.vue";
+import MenuMgn from "@/views/admin/user/MenuMng.vue";
 export default {
   data() {
     return {
@@ -48,6 +52,7 @@ export default {
     SetDialog,
     Accont,
     AccontPw,
+    MenuMgn,
   },
 };
 </script>
