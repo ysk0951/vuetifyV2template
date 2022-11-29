@@ -1,7 +1,6 @@
 <template>
   <div class="real">
-    <div :id="gridName" style="width: 100%; height: 400px"></div>
-    <button @click="loadData">load data~~!!</button>
+    <div :id="gridName" style="width: 100%; height: 480px"></div>
   </div>
 </template>
 

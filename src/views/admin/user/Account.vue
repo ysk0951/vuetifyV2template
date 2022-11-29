@@ -20,7 +20,7 @@
     <div class="service">
       <div class="filter">
         <v-row class="row">
-          <v-col cols="11" sm="3">
+          <v-col cols="12" sm="2">
             <h4>계정 구분</h4>
             <v-select
               :items="accountType"
@@ -31,8 +31,7 @@
               :id="'account'"
             ></v-select>
           </v-col>
-          <v-col cols="11" sm="1"></v-col>
-          <v-col cols="11" sm="3">
+          <v-col cols="12" sm="2">
             <h4>이름</h4>
             <v-text-field
               outlined
@@ -40,8 +39,7 @@
               placeholder="이름을 입력해주세요"
             ></v-text-field>
           </v-col>
-          <v-col cols="11" sm="1"></v-col>
-          <v-col cols="11" sm="3" style="padding-left: 0px">
+          <v-col cols="12" sm="2">
             <h4>이메일</h4>
             <v-text-field
               outlined
@@ -49,9 +47,7 @@
               placeholder="이메일 주소를 입력해주세요"
             ></v-text-field>
           </v-col>
-        </v-row>
-        <v-row class="row mb-3">
-          <v-col cols="11" sm="3">
+          <v-col cols="12" sm="2">
             <h4>기업명</h4>
             <v-text-field
               outlined
@@ -59,8 +55,7 @@
               placeholder="기업명을 입력해주세요"
             ></v-text-field>
           </v-col>
-          <v-col cols="11" sm="1"></v-col>
-          <v-col cols="11" sm="3">
+          <v-col cols="12" sm="2">
             <h4>사번</h4>
             <v-text-field
               outlined
@@ -68,8 +63,7 @@
               placeholder="이름을 입력해주세요"
             ></v-text-field>
           </v-col>
-          <v-col cols="11" sm="1"></v-col>
-          <v-col cols="11" sm="3" style="padding-left: 0px">
+          <v-col cols="12" sm="2">
             <h4>재직</h4>
             <v-select
               :items="accountType"
@@ -209,6 +203,8 @@ export default {
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.02) !important;
   background-color: rgba(0, 0, 0, 0.02);
+  padding-bottom: 13px;
+  padding-right: 15px;
 }
 .add .row {
   margin: auto;
