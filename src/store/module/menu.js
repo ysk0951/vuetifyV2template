@@ -5,7 +5,6 @@ const menu = {
   },
   mutations: {
     SET_MENU(state, value) {
-      console.log("SETMENU");
       this.commit("menu/RESET_MENU");
       value = { Authorization: this.state.member.accessToken };
       console.log(value);
