@@ -12,6 +12,7 @@
         </template>
       </div>
     </SetPopup>
+    <SetPopup ref="pwConfirm" />
     <h3 class="mt-4 mb-2">비밀번호 관리</h3>
     <hr class="mb-4" />
     <div class="service">
@@ -156,12 +157,6 @@ export default {
     };
   },
   mounted() {
-    this.SET_POPUP({
-      title: "알림",
-      height: 150,
-      width: 300,
-      customApprove: true,
-    });
     this.reset();
   },
   methods: {
@@ -189,12 +184,19 @@ export default {
     },
     resetPw() {
       this.openPopup("선택한 아이디의 비밀번호를 초기화 하시겠습니까?");
+      this.close();
     },
     close() {
       this.check = false;
       this.$refs.add.closeModal();
     },
     openPopup(message) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        customApprove: true,
+      });
       this.SET_POPUP_TEXT(message);
       this.$refs.pwPopup.openPopup();
     },
@@ -204,6 +206,14 @@ export default {
     },
     resetExec() {
       this.cancel();
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        customApprove: false,
+      });
+      this.SET_POPUP_TEXT("비밀번호가 초기화 되었습니다");
+      this.$refs.pwConfirm.openPopup();
     },
   },
   components: {
