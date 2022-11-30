@@ -61,7 +61,7 @@ export default {
     MenuMgn,
   },
   async created() {
-    this.SET_MENU({ memberid: this.accessToken });
+    this.SET_MENU();
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),

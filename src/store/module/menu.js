@@ -4,11 +4,9 @@ const menu = {
     menu: [],
   },
   mutations: {
-    SET_MENU(state, value) {
+    SET_MENU(state) {
       this.commit("menu/RESET_MENU");
-      value = { Authorization: this.state.member.accessToken };
-      console.log(value);
-      getMenu(value)
+      getMenu()
         .then((res) => {
           if (res.status === 200) {
             const response = res.data;

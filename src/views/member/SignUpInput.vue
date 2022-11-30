@@ -22,6 +22,7 @@
       autocomplete="off"
       :disabled="disabled"
       :filled="disabled"
+      :required="required"
     ></v-text-field>
     <v-btn
       v-if="sideBtn"
@@ -49,6 +50,7 @@ export default {
     "btnText",
     "click",
     "disabled",
+    "required",
   ],
   name: "SignupInput",
   data() {

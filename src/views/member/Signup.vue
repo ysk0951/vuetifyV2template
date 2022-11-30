@@ -165,13 +165,6 @@ export default {
   name: "Signup",
   data() {
     return {
-      numbers: [
-        {
-          name: "한국",
-          value: 82,
-        },
-      ],
-      checkbox: false,
       showPwd: false,
       agree: {
         service: false,
@@ -193,6 +186,8 @@ export default {
       timer: 0,
       isSend: false,
       interval: undefined,
+      //emailAuth
+      emailAuth: false,
     };
   },
   components: {
@@ -274,7 +269,7 @@ export default {
         height: 150,
         width: 300,
       });
-      if (_.isEmpty(this.certifiCode)) {
+      if (_.isEmpty(this.param.emailCode)) {
         this.openPopup("인증번호를 입력해 주세요");
       } else {
         authNumCheck({
@@ -286,7 +281,11 @@ export default {
             if (!_.isEmpty(body.errorCode)) {
               this.openPopup(body.errorMessage);
             } else {
-              console.log(body.data);
+              console.log(1);
+              this.openPopup(body.message);
+              this.clearTime();
+              this.interval = undefined;
+              this.emailAuth = true;
             }
           })
           .catch()
@@ -315,26 +314,29 @@ export default {
           }, 1000);
         }
         sendAuthNum({
-          memberId: this.memberId,
+          gubun: 0,
+          memberId: this.param.email,
         })
           .then((res) => {
             const body = res.data;
             console.log(body);
             if (!_.isEmpty(body.errorCode)) {
               this.openPopup(body.errorMessage);
-              this.timer = 0;
-              clearInterval(this.interval);
+              this.clearTime();
             } else {
-              this.openPopup(body.data);
+              this.openPopup(body.message);
             }
           })
           .catch((res) => {
             this.openPopup(res);
-            this.timer = 0;
-            clearInterval(this.interval);
+            this.clearTime();
           })
           .finally(() => {});
       }
+    },
+    clearTime() {
+      this.timer = 0;
+      clearInterval(this.interval);
     },
     open_agree() {
       this.SET_MODAL({

@@ -6,16 +6,18 @@
       <SignupInput
         placeholder="배송지 입력해주세요"
         label="배송지 명*"
-        type="password"
+        type="text"
         v-model="param.postName"
         height="55"
+        required
       />
       <SignupInput
         placeholder="수령인을 입력해주세요"
         label="수령인*"
-        type="password"
+        type="text"
         v-model="param.personName"
         height="55"
+        required
       />
       <SignupInput
         placeholder="주소를 선택해주세요"
@@ -27,6 +29,7 @@
         btnText="주소검색"
         :disabled="true"
         :click="daumPostCode"
+        required
       />
       <v-text-field
         v-model="param.addDetail1"
