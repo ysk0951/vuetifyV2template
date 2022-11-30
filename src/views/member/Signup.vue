@@ -13,140 +13,163 @@
         <div class="pa-10">
           <h3 style="text-align: left" class="mb-3">회원가입</h3>
           <hr class="mb-6" />
-          <h4 style="text-align: left" class="mb-3">
-            회원가입 약관동의 (필수)
-          </h4>
-          <div class="wrapperSpace signUpAgree mb-3">
-            <div>
-              <v-checkbox v-model="agree.service">
-                <template v-slot:label>
-                  <h5>서비스 이용약관 동의</h5>
-                </template>
-              </v-checkbox>
-            </div>
-            <div>
-              <v-btn depressed color="primary" @click="open_agree"
-                >전문 보기</v-btn
-              >
-            </div>
-          </div>
-          <div class="wrapperSpace signUpAgree mb-3">
-            <div>
-              <v-checkbox v-model="agree.private">
-                <template v-slot:label>
-                  <h5>개인정보활용 동의</h5>
-                </template></v-checkbox
-              >
-            </div>
-            <div>
-              <v-btn depressedd color="primary" @click="open_agree"
-                >전문 보기</v-btn
-              >
-            </div>
-          </div>
-          <hr class="hrUnderLine mb-6" />
-          <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
-          <div class="wrapperSpace inputRow">
-            <SignupInputVue
-              placeholder="이름을 입력해주세요"
-              label="이름"
-              v-model="param.name"
-            />
-            <div style="display: flex; width: 500px">
-              <v-subheader class="my-4" style="width: 130px"
-                >휴대폰 번호</v-subheader
-              >
-              <div class="wrapper">
-                <v-text-field
-                  placeholder="82"
-                  v-model="param.area"
-                  outlined
-                  dense
-                  class="signInput areaInput"
-                  type="text"
-                  autocomplete="off"
-                ></v-text-field>
-                <v-text-field
-                  placeholder="000-0000-0000"
-                  v-model="param.phone"
-                  outlined
-                  dense
-                  class="signInput phoneInput"
-                  type="text"
-                  autocomplete="off"
-                ></v-text-field>
+          <v-form ref="signup" lazy-validation>
+            <h4 style="text-align: left" class="mb-3">
+              회원가입 약관동의 (필수)
+            </h4>
+            <div class="wrapperSpace signUpAgree mb-3">
+              <div>
+                <v-checkbox
+                  v-model="agree.service"
+                  :rules="[this.validSet.check]"
+                >
+                  <template v-slot:label>
+                    <h5>서비스 이용약관 동의</h5>
+                  </template>
+                </v-checkbox>
+              </div>
+              <div>
+                <v-btn depressed color="primary" @click="open_agree"
+                  >전문 보기</v-btn
+                >
               </div>
             </div>
-          </div>
-          <div class="wrapperSpace inputRow" style="position: relative">
-            <SignupInputVue
-              placeholder="ex) email@gmail.com"
-              label="이메일
-          주소"
-              v-model="param.email"
-              :sideBtn="true"
-              :btnText="this.isSend ? '재발송' : '인증번호 받기'"
-              :click="certificate"
-            />
-            <div class="timer">
-              {{ (300 - this.timer) | timer }}
+            <div class="wrapperSpace signUpAgree mb-3">
+              <div>
+                <v-checkbox
+                  v-model="agree.private"
+                  :rules="[this.validSet.check]"
+                >
+                  <template v-slot:label>
+                    <h5>개인정보활용 동의</h5>
+                  </template></v-checkbox
+                >
+              </div>
+              <div>
+                <v-btn depressedd color="primary" @click="open_agree"
+                  >전문 보기</v-btn
+                >
+              </div>
             </div>
-            <SignupInputVue
-              placeholder="인증번호를 입력해주세요"
-              label="이메일 인증번호"
-              v-model="param.emailCode"
-              :sideBtn="true"
-              btnText="인증번호 확인"
-              :click="checkCode"
-            />
-          </div>
-          <div class="wrapperSpace inputRow">
-            <SignupInputVue
-              placeholder="비밀번호를 입력해주세요"
-              label="비밀번호"
-              type="password"
-              append-icon="mdi-eye"
-              v-model="param.password"
-            />
-            <SignupInputVue
-              placeholder="비밀번호를 입력해주세요"
-              label="비밀번호 재확인"
-              type="password"
-              append-icon="mdi-eye"
-              v-model="param.passwordCode"
-            />
-          </div>
-          <div class="wrapperSpace">
-            <SignupInputVue
-              placeholder="배송지를 등록해주세요"
-              label="배송지"
-              type="text"
-              v-model="param.postCode"
-              :sideBtn="true"
-              btnText="배송지 등록"
-              class="post"
-              :click="openPost"
-            />
-          </div>
-          <hr class="hrUnderLine mb-6" />
-          <h4 style="text-align: left" class="mb-3">추가정보 입력 (선택)</h4>
-          <div class="wrapperSpace">
-            <SignupInputVue
-              placeholder="기업명을 입력해주세요"
-              label="기업명"
-              type="text"
-              v-model="param.compaynCode"
-            />
-          </div>
-          <hr class="hrUnderLine mb-6" />
-          <div class="wrapper">
-            <v-card-actions>
-              <v-btn depressed @click="closeModal">취소</v-btn>
-            </v-card-actions>
-            <v-card-actions>
-              <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
-            </v-card-actions>
-          </div>
+            <hr class="hrUnderLine mb-6" />
+            <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
+            <div class="wrapperSpace inputRow">
+              <SignupInputVue
+                placeholder="이름을 입력해주세요"
+                label="이름"
+                v-model="param.name"
+                :rules="[this.validSet.empty, this.validSet.name]"
+              />
+              <div style="display: flex; width: 500px">
+                <v-subheader class="my-4" style="width: 130px"
+                  >휴대폰 번호</v-subheader
+                >
+                <div class="wrapper">
+                  <v-text-field
+                    placeholder="82"
+                    v-model="param.area"
+                    outlined
+                    dense
+                    class="signInput areaInput"
+                    type="text"
+                    autocomplete="off"
+                    :rules="[this.validSet.empty, this.validSet.number]"
+                  ></v-text-field>
+                  <v-text-field
+                    placeholder="000-0000-0000"
+                    v-model="param.phone"
+                    outlined
+                    dense
+                    class="signInput phoneInput"
+                    type="text"
+                    autocomplete="off"
+                    :rules="[this.validSet.empty, this.validSet.number]"
+                  ></v-text-field>
+                </div>
+              </div>
+            </div>
+            <div class="wrapperSpace inputRow" style="position: relative">
+              <SignupInputVue
+                placeholder="ex) email@gmail.com"
+                label="이메일
+          주소"
+                v-model="param.email"
+                :sideBtn="true"
+                :btnText="this.isSend ? '재발송' : '인증번호 받기'"
+                :click="certificate"
+                :rules="[this.validSet.empty, this.validSet.email]"
+              />
+              <div class="timer">
+                {{ (300 - this.timer) | timer }}
+              </div>
+              <SignupInputVue
+                placeholder="인증번호를 입력해주세요"
+                label="이메일 인증번호"
+                v-model="param.emailCode"
+                :sideBtn="true"
+                btnText="인증번호 확인"
+                :click="checkCode"
+                :rules="[this.validSet.empty, this.validSet.number]"
+              />
+            </div>
+            <div class="wrapperSpace inputRow">
+              <SignupInputVue
+                placeholder="비밀번호를 입력해주세요"
+                label="비밀번호"
+                type="password"
+                append-icon="mdi-eye"
+                v-model="param.password"
+                :rules="[this.validSet.empty, this.validSet.password]"
+              />
+              <SignupInputVue
+                placeholder="비밀번호를 입력해주세요"
+                label="비밀번호 재확인"
+                type="password"
+                append-icon="mdi-eye"
+                v-model="param.passwordCode"
+                :rules="[
+                  this.validSet.empty,
+                  this.validSet.passwordCode(
+                    param.password,
+                    param.passwordCode
+                  ),
+                ]"
+              />
+            </div>
+            <div class="wrapperSpace">
+              <SignupInputVue
+                placeholder="배송지를 등록해주세요"
+                label="배송지"
+                type="text"
+                v-model="param.postCode"
+                :sideBtn="true"
+                btnText="배송지 등록"
+                class="post"
+                :click="openPost"
+                :rules="[this.validSet.empty]"
+              />
+            </div>
+            <hr class="hrUnderLine mb-6" />
+            <h4 style="text-align: left" class="mb-3">추가정보 입력 (선택)</h4>
+            <div class="wrapperSpace">
+              <SignupInputVue
+                placeholder="기업명을 입력해주세요"
+                label="기업명"
+                type="text"
+                v-model="param.compaynCode"
+                :rules="[this.validSet.empty]"
+              />
+            </div>
+            <hr class="hrUnderLine mb-6" />
+            <div class="wrapper">
+              <v-card-actions>
+                <v-btn depressed @click="closeModal">취소</v-btn>
+              </v-card-actions>
+              <v-card-actions>
+                <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
+              </v-card-actions>
+            </div>
+          </v-form>
         </div>
       </v-card>
     </div>
@@ -159,8 +182,8 @@ import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignupInput.vue";
 import SignupPost from "@/views/member/SignupPost.vue";
 import { sendAuthNum, authNumCheck } from "api/member/member";
-import { lanRegex, emailRegex, pwRegex, companyRegex } from "@/assets/regex";
 import { mapMutations } from "vuex";
+import validSet from "@/assets/valid";
 export default {
   name: "Signup",
   data() {
@@ -170,6 +193,7 @@ export default {
         service: false,
         private: false,
       },
+      validSet,
       param: {
         area: 82,
         name: "",
@@ -227,6 +251,7 @@ export default {
       this.$refs.postModal.closeModal();
     },
     approvePost(param) {
+      this.$refs.form.reset();
       console.log(param);
     },
     onApprove() {
@@ -235,33 +260,7 @@ export default {
       }
     },
     valid() {
-      let ret = false;
-      const isLang = lanRegex.test(this.param.name);
-      const isPw = pwRegex.test(this.param.password);
-      const replacedCompany = this.param.companyCode.replaceAll(/[()]/gi, "");
-      const isCompany = companyRegex.test(replacedCompany);
-      this.SET_MODAL({
-        title: "알림",
-        height: 150,
-        width: 300,
-      });
-      if (_.isEmpty(this.param.name)) {
-        this.openPopup("이름을 입력해주세요");
-      } else if (!isLang) {
-        this.openPopup("이름은 한글과 영문만 가능합니다");
-        this.$refs.validModal.openModal();
-      } else if (!isPw) {
-        this.openPopup(
-          "비밀번호는 영문 대/소문자 , 숫자 , 특수문자를 포함한 8자리 이상이 필요합니다."
-        );
-      } else if (this.param.password !== this.param.passwordCode) {
-        this.openPopup("동일한 비밀번호를 입력해주세요");
-      } else if (!isCompany) {
-        this.openPopup("올바른 기업명을 입력해주세요");
-      } else {
-        ret = true;
-      }
-      return ret;
+      return this.$refs.signup.validate();
     },
     checkCode() {
       this.SET_MODAL({
@@ -293,46 +292,43 @@ export default {
       }
     },
     certificate() {
-      const isEmail = emailRegex.test(this.param.email);
       this.SET_MODAL({
         title: "알림",
         height: 150,
         width: 300,
       });
-      if (!isEmail) {
-        this.openPopup("이메일 주소를 확인해주세요");
-      } else {
-        this.isSend = true;
-        this.timer = 0;
-        if (!_.isNumber(this.interval)) {
-          this.interval = setInterval(() => {
-            this.timer++;
-            if (this.timer === 300) {
-              clearInterval(this.interval);
-              this.isSend = false;
-            }
-          }, 1000);
-        }
-        sendAuthNum({
-          gubun: 0,
-          memberId: this.param.email,
-        })
-          .then((res) => {
-            const body = res.data;
-            console.log(body);
-            if (!_.isEmpty(body.errorCode)) {
-              this.openPopup(body.errorMessage);
-              this.clearTime();
-            } else {
-              this.openPopup(body.message);
-            }
-          })
-          .catch((res) => {
-            this.openPopup(res);
-            this.clearTime();
-          })
-          .finally(() => {});
+
+      // this.openPopup("이메일 주소를 확인해주세요");
+      this.isSend = true;
+      this.timer = 0;
+      if (!_.isNumber(this.interval)) {
+        this.interval = setInterval(() => {
+          this.timer++;
+          if (this.timer === 300) {
+            clearInterval(this.interval);
+            this.isSend = false;
+          }
+        }, 1000);
       }
+      sendAuthNum({
+        gubun: 0,
+        memberId: this.param.email,
+      })
+        .then((res) => {
+          const body = res.data;
+          console.log(body);
+          if (!_.isEmpty(body.errorCode)) {
+            this.openPopup(body.errorMessage);
+            this.clearTime();
+          } else {
+            this.openPopup(body.message);
+          }
+        })
+        .catch((res) => {
+          this.openPopup(res);
+          this.clearTime();
+        })
+        .finally(() => {});
     },
     clearTime() {
       this.timer = 0;
@@ -373,7 +369,7 @@ export default {
   justify-content: space-between;
 }
 .inputRow {
-  height: 60px;
+  height: 65px;
 }
 .underLogin span {
   cursor: pointer;
@@ -408,16 +404,16 @@ export default {
 }
 
 .phoneInput {
-  width: 190px;
+  width: 160px;
   .v-input__slot {
-    width: 190px;
+    width: 160px;
   }
 }
 .areaInput {
-  width: 100px;
-  margin-right: 10px !important;
+  width: 135px;
+  margin-right: 5px !important;
   .v-input__slot {
-    width: 100px;
+    width: 135px;
   }
 }
 .signBtn {

@@ -23,6 +23,7 @@
       :disabled="disabled"
       :filled="disabled"
       :required="required"
+      :rules="rules"
     ></v-text-field>
     <v-btn
       v-if="sideBtn"
@@ -51,6 +52,7 @@ export default {
     "click",
     "disabled",
     "required",
+    "rules",
   ],
   name: "SignupInput",
   data() {
