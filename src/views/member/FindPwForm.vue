@@ -226,7 +226,7 @@ export default {
 
 .timer {
   position: absolute;
-  right: -45px;
+  left: 357px;
   top: 7px;
 }
 </style>
