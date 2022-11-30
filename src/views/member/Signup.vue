@@ -147,6 +147,7 @@
                 class="post"
                 :click="openPost"
                 :rules="[this.validSet.empty]"
+                :disabled="true"
               />
             </div>
             <hr class="hrUnderLine mb-6" />

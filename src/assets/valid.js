@@ -5,8 +5,7 @@ import {
   emailRegex,
   numberRegex,
 } from "./regex";
-
-const empty = (v) => !!v | "값이 비었습니다";
+const empty = (v) => !!v || "값이 비었습니다";
 const name = (v) => !!lanRegex.test(v) || "이름은 한글과 영문만 가능합니다";
 const password = (v) =>
   !!pwRegex.test(v) ||
