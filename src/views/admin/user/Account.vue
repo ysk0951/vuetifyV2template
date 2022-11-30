@@ -20,7 +20,7 @@
     <div class="service">
       <div class="filter">
         <v-row class="row">
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="1">
             <h4>계정 구분</h4>
             <v-select
               :items="accountType"
@@ -40,7 +40,7 @@
               v-model="input.name"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="3">
             <h4>이메일</h4>
             <v-text-field
               outlined
@@ -49,7 +49,7 @@
               placeholder="이메일 주소를 입력해주세요"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="3">
             <h4>기업명</h4>
             <v-text-field
               outlined
@@ -67,7 +67,7 @@
               placeholder="사번을 입력해주세요"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="1">
             <h4>재직</h4>
             <v-select
               :items="workType"
@@ -251,10 +251,6 @@ export default {
   width: 100%;
 }
 
-.filter .v-input__slot {
-  width: 266px !important;
-  height: 30px !important;
-}
 .filter .v-select__slot > div.v-select__selections {
   position: absolute;
   top: 0;
