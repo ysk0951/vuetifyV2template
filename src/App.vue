@@ -4,20 +4,9 @@
       <v-app-bar dense style="position: absolute">
         <template v-if="accessToken">
           <div class="text-center" v-for="(item, idx) in menu" v-bind:key="idx">
-            <v-menu offset-y open-on-hover>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn depressed v-bind="attrs" v-on="on">
-                  {{ item.menu }}
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item v-for="(item, index) in item.subMenu" :key="index">
-                  <v-list-item-title @click="routing(item.menu)">{{
-                    item.menu
-                  }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+            <v-btn depressed v-bind="attrs" v-on="on">
+              {{ item.menu }}
+            </v-btn>
           </div>
         </template>
         <div class="langBoxWrapper">

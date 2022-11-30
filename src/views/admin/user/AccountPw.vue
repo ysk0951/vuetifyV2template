@@ -229,7 +229,6 @@ export default {
   border-color: rgba(0, 0, 0, 0.02) !important;
   background-color: rgba(0, 0, 0, 0.02);
   padding-bottom: 13px;
-  padding-right: 15px;
 }
 .add .row {
   margin: auto;

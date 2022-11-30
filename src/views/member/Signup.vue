@@ -80,7 +80,7 @@
           </div>
           <div class="wrapperSpace inputRow" style="position: relative">
             <SignupInputVue
-              placeholder="이메일 주소를 입력해주세요"
+              placeholder="ex) email@gmail.com"
               label="이메일
           주소"
               v-model="param.email"
