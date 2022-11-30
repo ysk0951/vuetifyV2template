@@ -56,26 +56,26 @@
               <v-subheader class="my-4" style="width: 130px"
                 >휴대폰 번호</v-subheader
               >
-              <v-select
-                :items="numbers"
-                outlined
-                dense
-                class="signInput select"
-                style="width: 50px"
-                v-model="param.areaCode"
-                item-text="name"
-                item-value="value"
-              ></v-select>
-              <v-text-field
-                placeholder="000-0000-0000"
-                v-model="param.phone"
-                outlined
-                dense
-                class="signInput phoneInput"
-                type="text"
-                autocomplete="off"
-                style="width: 200px"
-              ></v-text-field>
+              <div class="wrapper">
+                <v-text-field
+                  placeholder="82"
+                  v-model="param.area"
+                  outlined
+                  dense
+                  class="signInput areaInput"
+                  type="text"
+                  autocomplete="off"
+                ></v-text-field>
+                <v-text-field
+                  placeholder="000-0000-0000"
+                  v-model="param.phone"
+                  outlined
+                  dense
+                  class="signInput phoneInput"
+                  type="text"
+                  autocomplete="off"
+                ></v-text-field>
+              </div>
             </div>
           </div>
           <div class="wrapperSpace inputRow" style="position: relative">
@@ -178,6 +178,7 @@ export default {
         private: false,
       },
       param: {
+        area: 82,
         name: "",
         phone: "",
         email: "",
@@ -354,7 +355,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 .v-text-field {
   margin-top: 0;
   padding-top: 0;
@@ -399,8 +400,18 @@ export default {
   width: 100px;
 }
 
-.phoneInput .v-input__slot {
-  width: 191px;
+.phoneInput {
+  width: 190px;
+  .v-input__slot {
+    width: 190px;
+  }
+}
+.areaInput {
+  width: 100px;
+  margin-right: 10px !important;
+  .v-input__slot {
+    width: 100px;
+  }
 }
 .signBtn {
   position: absolute;
@@ -414,7 +425,7 @@ export default {
   justify-content: center;
 }
 /*
-* post Code Detail 
+* post Code Detail
 */
 div.cardWrapper > div > div.pa-10 > div:nth-child(11) > div > button {
   right: 74px;
