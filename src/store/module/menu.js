@@ -12,7 +12,13 @@ const menu = {
         .then((res) => {
           if (res.status === 200) {
             const response = res.data;
-            state.menu = response.data;
+            const menu = _.filter(response.data, (v) => {
+              if (v.subMenu.length > 0) {
+                return v;
+              }
+            });
+            console.log(menu);
+            state.menu = menu;
           }
         })
         .catch((err) => {
@@ -27,5 +33,6 @@ const menu = {
   getters: {},
   actions: {},
 };
+import _ from "lodash";
 import { getMenu } from "api/menu";
 export default menu;

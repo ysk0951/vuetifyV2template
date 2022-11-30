@@ -4,7 +4,7 @@
       <v-app-bar dense style="position: absolute">
         <template v-if="accessToken">
           <div class="text-center" v-for="(item, idx) in menu" v-bind:key="idx">
-            <v-btn depressed v-bind="attrs" v-on="on">
+            <v-btn depressed @click="routing(item)">
               {{ item.menu }}
             </v-btn>
           </div>
@@ -65,7 +65,7 @@ export default {
   methods: {
     ...mapMutations("locale", ["SET_LOCALE"]),
     routing(v) {
-      console.log(v);
+      this.$router.push(v.url);
     },
   },
 };

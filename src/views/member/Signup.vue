@@ -319,14 +319,19 @@ export default {
         })
           .then((res) => {
             const body = res.data;
+            console.log(body);
             if (!_.isEmpty(body.errorCode)) {
               this.openPopup(body.errorMessage);
+              this.timer = 0;
+              clearInterval(this.interval);
             } else {
               this.openPopup(body.data);
             }
           })
           .catch((res) => {
             this.openPopup(res);
+            this.timer = 0;
+            clearInterval(this.interval);
           })
           .finally(() => {});
       }
