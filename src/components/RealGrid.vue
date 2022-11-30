@@ -17,11 +17,9 @@ export default {
     };
   },
   methods: {
-    loadData: function () {
-      this.dp.setRows(this.settings.rows);
-    },
-    search() {
-      this.loadData();
+    loadData: function (row) {
+      console.log(row);
+      this.dp.setRows(row);
     },
   },
   mounted() {

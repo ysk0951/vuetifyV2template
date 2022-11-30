@@ -9,10 +9,6 @@ export async function searchUserId(param) {
   return http.post(prefix + "/searchUserId", param);
 }
 
-export async function memberList(param) {
-  return http.post(prefix + "/memberlist", param);
-}
-
 export async function sendAuthNum(param) {
   return http.post(prefix + "/sendAuthNum", param);
 }

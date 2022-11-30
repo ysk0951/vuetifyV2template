@@ -296,37 +296,38 @@ export default {
         width: 300,
       });
 
-      // this.openPopup("이메일 주소를 확인해주세요");
       this.isSend = true;
       this.timer = 0;
-      if (!_.isNumber(this.interval)) {
-        this.interval = setInterval(() => {
-          this.timer++;
-          if (this.timer === 300) {
-            clearInterval(this.interval);
-            this.isSend = false;
-          }
-        }, 1000);
-      }
-      sendAuthNum({
-        gubun: 0,
-        memberId: this.param.email,
-      })
-        .then((res) => {
-          const body = res.data;
-          console.log(body);
-          if (!_.isEmpty(body.errorCode)) {
-            this.openPopup(body.errorMessage);
+      if (this.valid()) {
+        if (!_.isNumber(this.interval)) {
+          this.interval = setInterval(() => {
+            this.timer++;
+            if (this.timer === 300) {
+              clearInterval(this.interval);
+              this.isSend = false;
+            }
+          }, 1000);
+        }
+        sendAuthNum({
+          gubun: 0,
+          memberId: this.param.email,
+        })
+          .then((res) => {
+            const body = res.data;
+            console.log(body);
+            if (!_.isEmpty(body.errorCode)) {
+              this.openPopup(body.errorMessage);
+              this.clearTime();
+            } else {
+              this.openPopup(body.message);
+            }
+          })
+          .catch((res) => {
+            this.openPopup(res);
             this.clearTime();
-          } else {
-            this.openPopup(body.message);
-          }
-        })
-        .catch((res) => {
-          this.openPopup(res);
-          this.clearTime();
-        })
-        .finally(() => {});
+          })
+          .finally(() => {});
+      }
     },
     clearTime() {
       this.timer = 0;

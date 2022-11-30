@@ -2,15 +2,15 @@ import { ValueType } from "realgrid";
 
 export const fields = [
   {
-    fieldName: "no",
-    dataType: ValueType.NUMBER,
+    fieldName: "memberidx",
+    dataType: ValueType.INT,
   },
   {
-    fieldName: "type",
+    fieldName: "roles",
     dataType: ValueType.TEXT,
   },
   {
-    fieldName: "name",
+    fieldName: "member_name",
     dataType: ValueType.TEXT,
   },
   {
@@ -18,7 +18,7 @@ export const fields = [
     dataType: ValueType.TEXT,
   },
   {
-    fieldName: "coName",
+    fieldName: "company",
     dataType: ValueType.TEXT,
   },
   {
@@ -26,7 +26,7 @@ export const fields = [
     dataType: ValueType.TEXT,
   },
   {
-    fieldName: "coNumber",
+    fieldName: "employee_code",
     dataType: ValueType.TEXT,
   },
   {
@@ -41,8 +41,8 @@ export const fields = [
 
 export const columns = [
   {
-    name: "no",
-    fieldName: "no",
+    name: "memberidx",
+    fieldName: "memberidx",
     type: "data",
     styles: {
       textAlignment: "center",
@@ -59,8 +59,8 @@ export const columns = [
     editable: false,
   },
   {
-    name: "type",
-    fieldName: "type",
+    name: "roles",
+    fieldName: "roles",
     type: "data",
     styles: {
       textAlignment: "center",
@@ -72,8 +72,8 @@ export const columns = [
     editable: false,
   },
   {
-    name: "name",
-    fieldName: "name",
+    name: "member_name",
+    fieldName: "member_name",
     type: "data",
     styles: {
       textAlignment: "center",
@@ -95,8 +95,8 @@ export const columns = [
     editable: false,
   },
   {
-    name: "coName",
-    fieldName: "coName",
+    name: "company",
+    fieldName: "company",
     type: "data",
     styles: {
       textAlignment: "center",
@@ -121,8 +121,8 @@ export const columns = [
     editable: false,
   },
   {
-    name: "coNumber",
-    fieldName: "coNumber",
+    name: "employee_code",
+    fieldName: "employee_code",
     type: "data",
     styles: {
       textAlignment: "center",

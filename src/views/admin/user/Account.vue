@@ -108,7 +108,9 @@ import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
+import { memberList } from "api/member/member";
 import { mapMutations } from "vuex";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -188,7 +190,32 @@ export default {
       };
     },
     onApprove() {
-      this.$refs.grid.search();
+      const param = {
+        company: "",
+        currentPage: "1",
+        employeeCode: "",
+        employeeStatus: 0,
+        gubun: "",
+        memberId: "",
+        memberName: "",
+        pageSize: "10",
+        roles: "",
+      };
+      memberList(param)
+        .then((res) => {
+          console.log(res.data);
+          const response = res.data;
+          const items = response.data.items;
+          _.each(items, function (v) {
+            v.work = v.employee_status === 1 ? "재직중" : "퇴사자";
+          });
+          this.$refs.grid.loadData(items);
+          console.log(response.data);
+        })
+        .catch((res) => {
+          console.error(res);
+        })
+        .finally();
     },
     add() {
       this.SET_MODAL({
