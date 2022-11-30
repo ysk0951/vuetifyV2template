@@ -29,7 +29,6 @@ import Accont from "@/views/admin/user/Account.vue";
 import AccontPw from "@/views/admin/user/AccountPw.vue";
 import MenuMgn from "@/views/admin/user/MenuMng.vue";
 import { mapState, mapMutations } from "vuex";
-import _ from "lodash";
 export default {
   data() {
     return {
@@ -62,11 +61,7 @@ export default {
     MenuMgn,
   },
   async created() {
-    if (_.isEmpty(this.accessToken)) {
-      this.$router.push({ name: "login" });
-    } else {
-      this.SET_MENU({ memberid: this.accessToken });
-    }
+    this.SET_MENU({ memberid: this.accessToken });
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),

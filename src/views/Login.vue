@@ -49,6 +49,18 @@
             >
               Login
             </v-btn>
+            <v-btn
+              type="submit"
+              color="primary lighten-1 text-capitalize"
+              depressed
+              large
+              block
+              dark
+              class="mb-3"
+              @click="admin"
+            >
+              임시 관리자 로그인
+            </v-btn>
             <div class="underLogin">
               <div>
                 <span @click="find(0)">{{ this.getText("MSG003") }}</span>
@@ -112,6 +124,9 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
+    admin() {
+      this.$router.push({ name: "admin" });
+    },
     img() {
       return `../../assets/dwel_logo_${this.locale}.png`;
     },
