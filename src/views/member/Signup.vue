@@ -91,8 +91,7 @@
             <div class="wrapperSpace inputRow" style="position: relative">
               <SignupInputVue
                 placeholder="ex) email@gmail.com"
-                label="이메일
-          주소"
+                label="이메일 주소"
                 v-model="param.email"
                 :sideBtn="true"
                 :btnText="this.isSend ? '재발송' : '인증번호 받기'"
@@ -141,7 +140,7 @@
                 placeholder="배송지를 등록해주세요"
                 label="배송지"
                 type="text"
-                v-model="param.postCode"
+                v-model="param.post.address"
                 :sideBtn="true"
                 btnText="배송지 등록"
                 class="post"
@@ -203,7 +202,7 @@ export default {
         emailCode: "",
         password: "",
         passwordCode: "",
-        postCode: "",
+        post: {},
         companyCode: "",
         areaCode: "82",
       },
@@ -251,9 +250,8 @@ export default {
     closePost() {
       this.$refs.postModal.closeModal();
     },
-    approvePost(param) {
-      this.$refs.form.reset();
-      console.log(param);
+    approvePost(post) {
+      this.param.post = post;
     },
     onApprove() {
       if (this.valid()) {
@@ -281,7 +279,6 @@ export default {
             if (!_.isEmpty(body.errorCode)) {
               this.openPopup(body.errorMessage);
             } else {
-              console.log(1);
               this.openPopup(body.message);
               this.clearTime();
               this.interval = undefined;
