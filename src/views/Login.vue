@@ -157,7 +157,11 @@ export default {
             if (this.checkbox) {
               sessionStorage.setItem("id", this.id);
             }
-            this.routing("main", "로그인 되었습니다.");
+            if (resBody.data.temPass > 0) {
+              console.log("임시 비밀번호 로그인");
+            } else {
+              this.routing("main", "로그인 되었습니다.");
+            }
           })
           .catch(() => {
             this.routing("login", "로그인 에 실패하였습니다.");

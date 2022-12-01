@@ -121,8 +121,6 @@ export default {
     ]),
     closeModal() {
       this.$emit("closeModal");
-      this.timer = 0;
-      this.isSend = false;
     },
     valid() {
       return this.$refs.pwFind.validate();
@@ -134,9 +132,11 @@ export default {
           const body = res.data;
           if (!_.isEmpty(body.errorCode)) {
             this.openPopup(body.errorMessage);
+            this.closeModal();
           } else {
-            this.openPopup(body.message);
             this.emailAuth = true;
+            this.openPopup(body.message);
+            this.closeModal();
           }
         });
       }

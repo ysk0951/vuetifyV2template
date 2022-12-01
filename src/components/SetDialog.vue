@@ -5,11 +5,9 @@
         :style="'height:' + this.height + 'px; width:100%'"
         class="tableParent"
       >
-        <v-card-title v-if="this.dialogTitle">{{
-          this.dialogTitle
-        }}</v-card-title>
+        <v-card-title v-if="this.dialogTitle"></v-card-title>
         <v-card-text v-if="this.dialogText">
-          <p :v-html="this.dialogText"></p>
+          <p v-html="this.dialogText"></p>
         </v-card-text>
         <slot ref="slot"></slot>
         <div class="tableChild" v-if="!this.customApprove">
