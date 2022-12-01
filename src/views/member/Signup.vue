@@ -74,6 +74,7 @@
                     type="text"
                     autocomplete="off"
                     :rules="[this.validSet.empty]"
+                    v-mask="'+##'"
                   ></v-text-field>
                   <v-text-field
                     placeholder="000-0000-0000"
@@ -84,6 +85,7 @@
                     type="text"
                     autocomplete="off"
                     :rules="[this.validSet.empty, this.validSet.number]"
+                    v-mask="'###-####-####'"
                   ></v-text-field>
                 </div>
               </div>

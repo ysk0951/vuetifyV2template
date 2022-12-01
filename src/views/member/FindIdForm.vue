@@ -25,6 +25,7 @@
           placeholder="+82"
           v-model="areacode"
           :rules="[this.validSet.empty]"
+          v-mask="'+##'"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6" style="padding-left: 0px">
@@ -34,6 +35,7 @@
           outlined
           dense
           :rules="[this.validSet.empty]"
+          v-mask="'###-####-####'"
         ></v-text-field>
       </v-col>
     </v-row>

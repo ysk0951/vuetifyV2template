@@ -6,8 +6,9 @@ import vuetify from "./plugins/vuetify";
 import _ from "lodash";
 import moment from "moment";
 import FunctionCustom from "./plugins/function";
-
+import { VueMaskDirective } from "v-mask";
 Vue.config.productionTip = false;
+Vue.directive("mask", VueMaskDirective);
 new Vue({
   moment,
   router,

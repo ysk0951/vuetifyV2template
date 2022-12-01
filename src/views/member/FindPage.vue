@@ -29,10 +29,13 @@
                     <v-subheader>휴대폰 번호</v-subheader>
                   </v-col>
                   <v-col cols="12" sm="3">
-                    <v-select :items="numbers"></v-select>
+                    <v-select :items="numbers" v-mask="'+##'"></v-select>
                   </v-col>
                   <v-col cols="12" sm="6" style="padding-left: 0px">
-                    <v-text-field placeholder="000-0000-0000"></v-text-field>
+                    <v-text-field
+                      placeholder="000-0000-0000"
+                      v-mask="'###-####-####'"
+                    ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-flex class="approveWrapper" mt-6>
