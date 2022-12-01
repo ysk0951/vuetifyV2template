@@ -7,6 +7,7 @@ import Main from "@/views/Main";
 import Signup from "@/views/member/Signup";
 import SignupDone from "@/views/member/SignupDone";
 import Admin from "@/views/admin/Admin";
+import NotFoundPage from "@/views/NotFoundPage";
 Vue.use(VueRouter);
 
 const routes = [
@@ -44,6 +45,10 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: Admin,
+  },
+  {
+    path: "*",
+    component: NotFoundPage,
   },
 ];
 

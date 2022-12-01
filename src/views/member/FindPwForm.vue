@@ -126,8 +126,9 @@ export default {
       return this.$refs.pwFind.validate();
     },
     onApprove() {
-      if (this.valid()) {
-        this.emailAuth = false;
+      if (!this.emailAuth) {
+        this.openPopup("인증번호 인증이 완료되어야 합니다");
+      } else if (this.valid()) {
         sendTempPass(this.param).then((res) => {
           const body = res.data;
           if (!_.isEmpty(body.errorCode)) {
@@ -135,8 +136,9 @@ export default {
             this.closeModal();
           } else {
             this.emailAuth = true;
-            this.openPopup(body.message);
-            this.closeModal();
+            this.openPopup(body.message, () => {
+              this.$router.push({ name: "modifyPwd" });
+            });
           }
         });
       }
@@ -180,9 +182,10 @@ export default {
         });
       }
     },
-    openPopup(text) {
+    openPopup(text, cb) {
+      console.log(cb);
       this.SET_POPUP_TEXT(text);
-      this.$refs.sertificatePopup.openPopup();
+      this.$refs.sertificatePopup.openPopup(cb);
     },
   },
 };

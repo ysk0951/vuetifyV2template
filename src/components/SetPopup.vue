@@ -39,7 +39,7 @@ export default {
     return {
       paramProps: {},
       open: false,
-      cb: "",
+      callback: "",
     };
   },
   computed: {
@@ -55,8 +55,9 @@ export default {
     ]),
   },
   methods: {
-    openPopup() {
+    openPopup(cb) {
       this.open = true;
+      this.callback = cb;
     },
     closePopup() {
       this.open = false;

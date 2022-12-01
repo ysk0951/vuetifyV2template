@@ -156,17 +156,8 @@ export default {
             if (this.checkbox) {
               sessionStorage.setItem("id", this.id);
             }
-            if (resBody.data.temp_pass > 0) {
-              this.SET_TOKEN({});
-              this.routing(
-                "modifyPwd",
-                "임시비밀번호로 로그인 되었습니다.",
-                resBody.data
-              );
-            } else {
-              this.SET_TOKEN(resBody.data);
-              this.routing("main", "로그인 되었습니다.");
-            }
+            this.SET_TOKEN(resBody.data);
+            this.routing("main", "로그인 되었습니다.");
           })
           .catch(() => {
             this.routing("login", "로그인 에 실패하였습니다.");
