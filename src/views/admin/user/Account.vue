@@ -26,7 +26,7 @@
               :items="accountType"
               :item-text="'text'"
               :item-value="'key'"
-              v-model="input.type"
+              v-model="input.roles"
               outlined
               :id="'account'"
             ></v-select>
@@ -37,7 +37,7 @@
               outlined
               dense
               placeholder="이름을 입력해주세요"
-              v-model="input.name"
+              v-model="input.memberName"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="3">
@@ -45,7 +45,7 @@
             <v-text-field
               outlined
               dense
-              v-model="input.email"
+              v-model="input.memberId"
               placeholder="이메일 주소를 입력해주세요"
             ></v-text-field>
           </v-col>
@@ -54,7 +54,7 @@
             <v-text-field
               outlined
               dense
-              v-model="input.coName"
+              v-model="input.company"
               placeholder="기업명을 입력해주세요"
             ></v-text-field>
           </v-col>
@@ -63,7 +63,7 @@
             <v-text-field
               outlined
               dense
-              v-model="input.coNumber"
+              v-model="input.employeeCode"
               placeholder="사번을 입력해주세요"
             ></v-text-field>
           </v-col>
@@ -73,7 +73,7 @@
               :items="workType"
               :item-text="'text'"
               :item-value="'key'"
-              v-model="input.work"
+              v-model="input.employeeStatus"
               outlined
               id="work"
             ></v-select>
@@ -115,38 +115,25 @@ export default {
   data() {
     return {
       input: {
-        work: "all",
-        type: "all",
-        name: "",
-        email: "",
-        coName: "",
-        coNumber: "",
+        employeeStatus: "all",
+        roles: "all",
+        memberName: "",
+        memberId: "",
+        company: "",
+        employeeCode: "",
       },
-      accountType: [
-        {
-          key: "all",
-          text: "전체",
-        },
-        {
-          key: "admin",
-          text: "관리자",
-        },
-        {
-          key: "user",
-          text: "회원",
-        },
-      ],
+      accountType: [],
       workType: [
         {
-          key: "all",
+          key: 0,
           text: "전체",
         },
         {
-          key: "work",
+          key: 1,
           text: "재직중",
         },
         {
-          key: "resign",
+          key: 2,
           text: "퇴사",
         },
       ],
@@ -158,6 +145,8 @@ export default {
       },
       param: {},
       grid: "acouunt",
+      currentPage: 1,
+      pageSize: 20,
     };
   },
   mounted() {
@@ -190,18 +179,11 @@ export default {
       };
     },
     onApprove() {
-      const param = {
-        company: "",
-        currentPage: "1",
-        employeeCode: "",
-        employeeStatus: 0,
-        gubun: "",
-        memberId: "",
-        memberName: "",
-        pageSize: "10",
-        roles: "",
-      };
-      memberList(param)
+      memberList({
+        ...this.input,
+        currentPage: this.currentPage,
+        pageSize: this.pageSize,
+      })
         .then((res) => {
           const response = res.data;
           const items = response.data.items;
