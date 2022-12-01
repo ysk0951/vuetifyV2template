@@ -1,5 +1,5 @@
 <template>
-  <div class="cardWrapper">
+  <div class="cardWrapper" style="width: 100%">
     <v-card class="mt-12" style="width: 60%">
       <div class="pa-10">
         <h3 style="text-align: left" class="mb-3">회원가입</h3>

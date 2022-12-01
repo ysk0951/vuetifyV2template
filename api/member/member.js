@@ -20,3 +20,7 @@ export async function sendAuthNum(param) {
 export async function authNumCheck(param) {
   return http.post(prefix + "/authNumCheck", param);
 }
+
+export async function memberJoin(param) {
+  return http.post(prefix + "/memberJoin", param);
+}

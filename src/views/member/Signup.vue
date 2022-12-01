@@ -156,7 +156,7 @@
                 placeholder="기업명을 입력해주세요"
                 label="기업명"
                 type="text"
-                v-model="param.compaynCode"
+                v-model="param.company"
                 :rules="[this.validSet.empty]"
               />
             </div>
@@ -181,7 +181,7 @@ import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignupInput.vue";
 import SignupPost from "@/views/member/SignupPost.vue";
-import { sendAuthNum, authNumCheck } from "api/member/member";
+import { sendAuthNum, authNumCheck, memberJoin } from "api/member/member";
 import { mapMutations } from "vuex";
 import validSet from "@/assets/valid";
 export default {
@@ -254,7 +254,35 @@ export default {
       this.param.post = post;
     },
     onApprove() {
-      if (this.valid()) {
+      this.SET_MODAL({
+        title: "알림",
+        height: 150,
+        width: 300,
+      });
+      if (!this.emailAuth) {
+        this.openPopup("이메일 인증을 완료 주세요");
+      } else if (this.valid()) {
+        const param = {
+          address: this.param.post.addDetail1,
+          address2: this.param.post.addDetail2,
+          areacode: this.param.areaCode,
+          company: this.param.company,
+          member_name: this.param.name,
+          memberid: this.param.email,
+          memberpw: this.param.password,
+          name: this.param.post.postName,
+          phone: this.param.phone,
+          postcode: this.param.post.postcode,
+          roles: "회원",
+          memo: "",
+        };
+        memberJoin(param)
+          .then((res) => {
+            const response = res.body;
+            console.log(response.data);
+          })
+          .catch(() => {})
+          .finally();
         this.$router.push({ name: "signupDone" });
       }
     },
@@ -295,10 +323,10 @@ export default {
         height: 150,
         width: 300,
       });
-
-      this.isSend = true;
-      this.timer = 0;
-      if (this.valid()) {
+      const valid = this.validSet.email(this.param.email);
+      if (valid === true) {
+        this.isSend = true;
+        this.timer = 0;
         if (!_.isNumber(this.interval)) {
           this.interval = setInterval(() => {
             this.timer++;
@@ -327,6 +355,8 @@ export default {
             this.clearTime();
           })
           .finally(() => {});
+      } else {
+        this.openPopup("인증번호를 위한 이메일 형식이 잘못되었습니다.");
       }
     },
     clearTime() {
