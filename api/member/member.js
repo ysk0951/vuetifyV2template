@@ -24,3 +24,7 @@ export async function authNumCheck(param) {
 export async function memberJoin(param) {
   return http.post(prefix + "/memberJoin", param);
 }
+
+export async function sendTempPass(param) {
+  return http.post(prefix + "/sendTempPass", param);
+}

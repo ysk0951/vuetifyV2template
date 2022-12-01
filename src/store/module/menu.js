@@ -15,7 +15,6 @@ const menu = {
                 return v;
               }
             });
-            console.log(menu);
             state.menu = menu;
           }
         })

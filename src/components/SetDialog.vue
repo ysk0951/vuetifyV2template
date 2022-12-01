@@ -9,7 +9,7 @@
           this.dialogTitle
         }}</v-card-title>
         <v-card-text v-if="this.dialogText">
-          {{ this.dialogText }}
+          <p :v-html="this.dialogText"></p>
         </v-card-text>
         <slot ref="slot"></slot>
         <div class="tableChild" v-if="!this.customApprove">

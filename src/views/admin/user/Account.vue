@@ -203,14 +203,12 @@ export default {
       };
       memberList(param)
         .then((res) => {
-          console.log(res.data);
           const response = res.data;
           const items = response.data.items;
           _.each(items, function (v) {
             v.work = v.employee_status === 1 ? "재직중" : "퇴사자";
           });
           this.$refs.grid.loadData(items);
-          console.log(response.data);
         })
         .catch((res) => {
           console.error(res);

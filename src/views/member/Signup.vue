@@ -347,23 +347,17 @@ export default {
             console.log(body);
             if (!_.isEmpty(body.errorCode)) {
               this.openPopup(body.errorMessage);
-              this.clearTime();
             } else {
               this.openPopup(body.message);
             }
           })
           .catch((res) => {
             this.openPopup(res);
-            this.clearTime();
           })
           .finally(() => {});
       } else {
         this.openPopup("인증번호를 위한 이메일 형식이 잘못되었습니다.");
       }
-    },
-    clearTime() {
-      this.timer = 0;
-      clearInterval(this.interval);
     },
     open_agree() {
       this.SET_MODAL({

@@ -48,7 +48,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="6">
-          <h4>휴대폰 번호</h4>
+          <h4>이메일 주소</h4>
           <v-text-field
             outlined
             dense
