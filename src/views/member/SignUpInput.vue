@@ -24,6 +24,9 @@
       :filled="disabled"
       :required="required"
       :rules="rules"
+      :readonly="!focus"
+      @focus="focus = true"
+      @blur="focus = false"
     ></v-text-field>
     <v-btn
       v-if="sideBtn"
@@ -57,6 +60,7 @@ export default {
   name: "SignupInput",
   data() {
     return {
+      focus: false,
       showPwd: false,
       inputType: this.type,
       inputWidth: this.width ? this.width : 500,

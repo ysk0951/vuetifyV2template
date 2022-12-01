@@ -109,7 +109,7 @@ export default {
     },
   },
   mounted() {
-    const id = localStorage.getItem("id");
+    const id = sessionStorage.getItem("id");
     if (!_.isEmpty(id)) {
       this.id = id;
     }
@@ -155,7 +155,7 @@ export default {
             const resBody = res.data;
             this.SET_TOKEN(resBody.data);
             if (this.checkbox) {
-              localStorage.setItem("id", this.id);
+              sessionStorage.setItem("id", this.id);
             }
             this.routing("main", "로그인 되었습니다.");
           })

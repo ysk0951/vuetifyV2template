@@ -66,14 +66,14 @@
                 >
                 <div class="wrapper">
                   <v-text-field
-                    placeholder="82"
+                    placeholder="+82"
                     v-model="param.area"
                     outlined
                     dense
                     class="signInput areaInput"
                     type="text"
                     autocomplete="off"
-                    :rules="[this.validSet.empty, this.validSet.number]"
+                    :rules="[this.validSet.empty]"
                   ></v-text-field>
                   <v-text-field
                     placeholder="000-0000-0000"
@@ -195,7 +195,7 @@ export default {
       },
       validSet,
       param: {
-        area: 82,
+        area: "+82",
         name: "",
         phone: "",
         email: "",
