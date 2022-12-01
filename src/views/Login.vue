@@ -153,13 +153,18 @@ export default {
         })
           .then((res) => {
             const resBody = res.data;
-            this.SET_TOKEN(resBody.data);
             if (this.checkbox) {
               sessionStorage.setItem("id", this.id);
             }
-            if (resBody.data.temPass > 0) {
-              console.log("임시 비밀번호 로그인");
+            if (resBody.data.temp_pass > 0) {
+              this.SET_TOKEN({});
+              this.routing(
+                "modifyPwd",
+                "임시비밀번호로 로그인 되었습니다.",
+                resBody.data
+              );
             } else {
+              this.SET_TOKEN(resBody.data);
               this.routing("main", "로그인 되었습니다.");
             }
           })
@@ -172,7 +177,7 @@ export default {
     togglePwdShow() {
       this.showPwd = !this.showPwd;
     },
-    routing(name, message) {
+    routing(name, message, params) {
       this.SET_MODAL({
         title: "알림",
         text: message,
@@ -180,7 +185,7 @@ export default {
         width: 300,
       });
       this.$refs.loginModal.openModal(() => {
-        this.$router.push({ name });
+        this.$router.push({ name, params });
       });
       //
     },
