@@ -28,3 +28,7 @@ export async function memberJoin(param) {
 export async function sendTempPass(param) {
   return http.post(prefix + "/sendTempPass", param);
 }
+
+export async function getRoleList() {
+  return http.post(prefix + "/getRoleList");
+}

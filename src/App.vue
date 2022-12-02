@@ -60,10 +60,12 @@ export default {
   },
   components: {},
   async created() {
-    this.SET_LOCALE(this.locale);
+    await this.SET_LOCALE(this.locale);
+    await this.SET_ROLE_TYPE();
   },
   methods: {
     ...mapMutations("locale", ["SET_LOCALE"]),
+    ...mapMutations("select", ["SET_ROLE_TYPE"]),
     routing(v) {
       this.$router.push(v.url);
     },

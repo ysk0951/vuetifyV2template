@@ -23,7 +23,7 @@
           <v-col cols="12" sm="1">
             <h4>계정 구분</h4>
             <v-select
-              :items="accountType"
+              :items="this.roleType"
               :item-text="'text'"
               :item-value="'key'"
               v-model="input.roles"
@@ -70,7 +70,7 @@
           <v-col cols="12" sm="1">
             <h4>재직</h4>
             <v-select
-              :items="workType"
+              :items="this.workType"
               :item-text="'text'"
               :item-value="'key'"
               v-model="input.employeeStatus"
@@ -109,34 +109,20 @@ import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import { memberList } from "api/member/member";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import _ from "lodash";
 export default {
   data() {
     return {
       input: {
-        employeeStatus: "all",
-        roles: "all",
+        employeeStatus: 0,
+        roles: 0,
         memberName: "",
         memberId: "",
         company: "",
         employeeCode: "",
       },
       accountType: [],
-      workType: [
-        {
-          key: 0,
-          text: "전체",
-        },
-        {
-          key: 1,
-          text: "재직중",
-        },
-        {
-          key: 2,
-          text: "퇴사",
-        },
-      ],
       check: false,
       settings: {
         columns,
@@ -149,6 +135,9 @@ export default {
       pageSize: 20,
     };
   },
+  computed: {
+    ...mapState("select", ["workType", "roleType"]),
+  },
   mounted() {
     this.SET_POPUP({
       title: "알림",
@@ -156,7 +145,6 @@ export default {
       width: 300,
       customApprove: true,
     });
-    this.reset();
   },
   methods: {
     ...mapMutations("modal", [
@@ -170,12 +158,12 @@ export default {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     reset() {
       this.input = {
-        work: "all",
-        type: "all",
-        name: "",
-        email: "",
-        coName: "",
-        coNumber: "",
+        employeeStatus: 0,
+        roles: 0,
+        memberName: "",
+        memberId: "",
+        company: "",
+        employeeCode: "",
       };
     },
     onApprove() {

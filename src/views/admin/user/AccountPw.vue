@@ -21,10 +21,10 @@
           <v-col cols="12" sm="1">
             <h4>계정 구분</h4>
             <v-select
-              :items="accountType"
+              :items="this.roleType"
               :item-text="'text'"
               :item-value="'key'"
-              v-model="input.type"
+              v-model="input.employeeStatus"
               outlined
               :id="'account'"
             ></v-select>
@@ -35,7 +35,7 @@
               outlined
               dense
               placeholder="이름을 입력해주세요"
-              v-model="input.name"
+              v-model="input.memberName"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="3">
@@ -43,7 +43,7 @@
             <v-text-field
               outlined
               dense
-              v-model="input.email"
+              v-model="input.memberId"
               placeholder="이메일 주소를 입력해주세요"
             ></v-text-field>
           </v-col>
@@ -52,7 +52,7 @@
             <v-text-field
               outlined
               dense
-              v-model="input.coName"
+              v-model="input.company"
               placeholder="기업명을 입력해주세요"
             ></v-text-field>
           </v-col>
@@ -61,17 +61,17 @@
             <v-text-field
               outlined
               dense
-              v-model="input.coNumber"
+              v-model="input.employeeCode"
               placeholder="사번을 입력해주세요"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="1">
             <h4>재직</h4>
             <v-select
-              :items="workType"
+              :items="this.workType"
               :item-text="'text'"
               :item-value="'key'"
-              v-model="input.work"
+              v-model="input.employeeStatus"
               outlined
               id="work"
             ></v-select>
@@ -106,46 +106,19 @@
 import { columns, fields, rows } from "@/assets/account";
 import SetPopup from "@/components/SetPopup.vue";
 import RealGrid from "@/components/RealGrid.vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   data() {
     return {
       input: {
-        work: "all",
-        type: "all",
-        name: "",
-        email: "",
-        coName: "",
-        coNumber: "",
+        employeeStatus: 0,
+        roles: 0,
+        memberName: "",
+        memberId: "",
+        company: "",
+        employeeCode: "",
       },
-      accountType: [
-        {
-          key: "all",
-          text: "전체",
-        },
-        {
-          key: "admin",
-          text: "관리자",
-        },
-        {
-          key: "user",
-          text: "회원",
-        },
-      ],
-      workType: [
-        {
-          key: "all",
-          text: "전체",
-        },
-        {
-          key: "work",
-          text: "재직중",
-        },
-        {
-          key: "resign",
-          text: "퇴사",
-        },
-      ],
+
       check: false,
       settings: {
         columns,
@@ -171,12 +144,12 @@ export default {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     reset() {
       this.input = {
-        work: "all",
-        type: "all",
-        name: "",
-        email: "",
-        coName: "",
-        coNumber: "",
+        employeeStatus: 0,
+        roles: 0,
+        memberName: "",
+        memberId: "",
+        company: "",
+        employeeCode: "",
       };
     },
     onApprove() {
@@ -215,6 +188,9 @@ export default {
       this.SET_POPUP_TEXT("비밀번호가 초기화 되었습니다");
       this.$refs.pwConfirm.openPopup();
     },
+  },
+  computed: {
+    ...mapState("select", ["workType", "roleType"]),
   },
   components: {
     SetPopup,

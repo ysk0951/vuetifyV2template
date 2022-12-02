@@ -8,7 +8,6 @@ const member = {
     SET_LOCALE(state, value) {
       state.locale = value;
       const token = this.state.member.accessToken;
-
       getMessage({
         locale: value,
         route: _.isEmpty(token) ? "/login" : location.pathname,
