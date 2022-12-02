@@ -103,6 +103,8 @@ import { columns, fields, rows } from "@/assets/account";
 import SetPopup from "@/components/SetPopup.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations, mapState } from "vuex";
+import { memberList } from "api/member/member";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -150,7 +152,36 @@ export default {
       };
     },
     onApprove() {
-      this.$refs.grid.search();
+      const param = _.cloneDeep(this.input);
+      switch (param.employeeStatus) {
+        case "재직중":
+          param.employeeStatus = 1;
+          break;
+        case "퇴사":
+          param.employeeStatus = 2;
+          break;
+        case "전체":
+          param.employeeStatus = "";
+          break;
+      }
+
+      memberList({
+        ...param,
+        currentPage: this.currentPage,
+        pageSize: this.pageSize,
+      })
+        .then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          _.each(items, function (v) {
+            v.work = v.employee_status;
+          });
+          this.$refs.grid.loadData(items);
+        })
+        .catch((res) => {
+          console.error(res);
+        })
+        .finally();
     },
     resetPw() {
       this.openPopup("선택한 아이디의 비밀번호를 초기화 하시겠습니까?");

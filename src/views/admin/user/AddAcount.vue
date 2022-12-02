@@ -7,10 +7,8 @@
         <v-col cols="12" sm="6" class="select">
           <h4>계정 구분</h4>
           <v-select
-            :items="accountType"
-            :item-text="'text'"
-            :item-value="'key'"
-            v-model="param.type"
+            :items="this.roleType"
+            v-model="input.roles"
             outlined
             :id="'account'"
           ></v-select>
@@ -21,7 +19,7 @@
             outlined
             dense
             placeholder="이름을 입력해주세요"
-            v-model="param.name"
+            v-model="input.memberName"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -32,7 +30,7 @@
             outlined
             dense
             placeholder="이메일 주소를 입력해주세요"
-            v-model="param.email"
+            v-model="input.memberId"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
@@ -42,7 +40,7 @@
             dense
             type="password"
             placeholder="비밀번호를 입력해주세요"
-            v-model="param.password"
+            v-model="input.password"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -53,7 +51,7 @@
             outlined
             dense
             placeholder="이메일 주소를 입력해주세요"
-            v-model="param.phone"
+            v-model="input.memberId"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
@@ -62,7 +60,7 @@
             outlined
             dense
             placeholder="기업을 입력해주세요"
-            v-model="param.coName"
+            v-model="input.company"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -73,18 +71,16 @@
             outlined
             dense
             placeholder="사번을 입력해주세요"
-            v-model="param.coNumber"
+            v-model="input.employeeCode"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" class="select">
           <h4>재직</h4>
           <v-select
-            :items="accountType"
-            :item-text="'text'"
-            :item-value="'key'"
-            v-model="param.work"
+            :items="this.workType"
+            v-model="input.employeeStatus"
             outlined
-            :id="'account'"
+            id="work"
           ></v-select>
         </v-col>
       </v-row>
@@ -95,7 +91,7 @@
             outlined
             dense
             placeholder="내용을 입력해주세요"
-            v-model="param.etc"
+            v-model="input.etc"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -111,9 +107,18 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
+      input: {
+        employeeStatus: "전체",
+        roles: "",
+        memberName: "",
+        memberId: "",
+        company: "",
+        employeeCode: "",
+      },
       accountType: [
         {
           key: "all",
@@ -136,32 +141,20 @@ export default {
         layout: undefined,
         existCalendar: false,
         existAddr: false,
-      },
-      param: {
-        type: "all",
-        name: "",
-        email: "",
-        password: "",
-        phone: "",
-        coName: "",
-        coNumber: "",
-        work: "",
         etc: "",
+        password: "",
       },
     };
   },
   methods: {
     reset() {
-      this.param = {
-        type: "all",
-        name: "",
-        email: "",
-        password: "",
-        phone: "",
-        coName: "",
-        coNumber: "",
-        work: "",
-        etc: "",
+      this.input = {
+        employeeStatus: "전체",
+        roles: "",
+        memberName: "",
+        memberId: "",
+        company: "",
+        employeeCode: "",
       };
     },
     closeModal() {
@@ -169,11 +162,16 @@ export default {
       this.reset();
     },
     onApprove() {
-      this.$emit("save", this.param);
+      this.$emit("save", this.input);
       this.reset();
     },
   },
+  mounted() {
+    this.reset();
+    this.input.roles = this.roleType[0];
+  },
   components: {},
+  computed: { ...mapState("select", ["workType", "roleType"]) },
 };
 </script>
 <style>
