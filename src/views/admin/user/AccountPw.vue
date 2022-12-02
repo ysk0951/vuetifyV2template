@@ -22,9 +22,7 @@
             <h4>계정 구분</h4>
             <v-select
               :items="this.roleType"
-              :item-text="'text'"
-              :item-value="'key'"
-              v-model="input.employeeStatus"
+              v-model="input.roles"
               outlined
               :id="'account'"
             ></v-select>
@@ -69,8 +67,6 @@
             <h4>재직</h4>
             <v-select
               :items="this.workType"
-              :item-text="'text'"
-              :item-value="'key'"
               v-model="input.employeeStatus"
               outlined
               id="work"
@@ -111,8 +107,8 @@ export default {
   data() {
     return {
       input: {
-        employeeStatus: 0,
-        roles: 0,
+        employeeStatus: "전체",
+        roles: "",
         memberName: "",
         memberId: "",
         company: "",
@@ -131,6 +127,7 @@ export default {
   },
   mounted() {
     this.reset();
+    this.input.roles = this.roleType[0];
   },
   methods: {
     ...mapMutations("modal", [
@@ -144,8 +141,8 @@ export default {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     reset() {
       this.input = {
-        employeeStatus: 0,
-        roles: 0,
+        employeeStatus: "전체",
+        roles: "",
         memberName: "",
         memberId: "",
         company: "",

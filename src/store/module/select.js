@@ -1,21 +1,9 @@
 const select = {
   namespaced: true,
   state: {
-    workType: [
-      {
-        key: 0,
-        text: "전체",
-      },
-      {
-        key: 1,
-        text: "재직중",
-      },
-      {
-        key: 2,
-        text: "퇴사",
-      },
-    ],
+    workType: ["전체", "재직중", "퇴사"],
     roleType: [],
+    roleSet: [],
   },
   mutations: {
     SET_ROLE_TYPE(state) {
@@ -25,17 +13,15 @@ const select = {
           const response = res.data;
           if (!_.isEmpty(response)) {
             console.log(response.data);
-            _.forEach(response.data, function (v, idx) {
-              result.push({
-                key: idx,
-                text: v.roleName,
-              });
+            _.forEach(response.data, function (v) {
+              result.push(v.roleName);
             });
           }
+          state.roleType = result;
+          state.roleSet = response.data;
         })
         .catch()
         .finally();
-      state.roleType = result;
     },
   },
   getters: {},

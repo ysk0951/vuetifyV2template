@@ -24,8 +24,6 @@
             <h4>계정 구분</h4>
             <v-select
               :items="this.roleType"
-              :item-text="'text'"
-              :item-value="'key'"
               v-model="input.roles"
               outlined
               :id="'account'"
@@ -71,8 +69,6 @@
             <h4>재직</h4>
             <v-select
               :items="this.workType"
-              :item-text="'text'"
-              :item-value="'key'"
               v-model="input.employeeStatus"
               outlined
               id="work"
@@ -115,8 +111,8 @@ export default {
   data() {
     return {
       input: {
-        employeeStatus: 0,
-        roles: 0,
+        employeeStatus: "전체",
+        roles: "",
         memberName: "",
         memberId: "",
         company: "",
@@ -145,6 +141,7 @@ export default {
       width: 300,
       customApprove: true,
     });
+    this.input.roles = this.roleType[0];
   },
   methods: {
     ...mapMutations("modal", [
@@ -158,15 +155,27 @@ export default {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     reset() {
       this.input = {
-        employeeStatus: 0,
-        roles: 0,
+        employeeStatus: "전체",
+        roles: "",
         memberName: "",
         memberId: "",
-        company: "",
+        company: this.company,
         employeeCode: "",
       };
     },
     onApprove() {
+      switch (this.input.employeeStatus) {
+        case "재직중":
+          this.input.employeeStatus = 1;
+          break;
+        case "퇴사":
+          this.input.employeeStatus = 2;
+          break;
+        case "전체":
+          this.input.employeeStatus = "";
+          break;
+      }
+
       memberList({
         ...this.input,
         currentPage: this.currentPage,
@@ -176,7 +185,7 @@ export default {
           const response = res.data;
           const items = response.data.items;
           _.each(items, function (v) {
-            v.work = v.employee_status === 1 ? "재직중" : "퇴사자";
+            v.work = v.employee_status;
           });
           this.$refs.grid.loadData(items);
         })
@@ -216,6 +225,7 @@ export default {
       this.cancel();
     },
   },
+
   components: {
     SetDialog,
     SetPopup,
