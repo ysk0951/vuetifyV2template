@@ -164,20 +164,21 @@ export default {
       };
     },
     onApprove() {
-      switch (this.input.employeeStatus) {
+      const param = _.cloneDeep(this.input);
+      switch (param.employeeStatus) {
         case "재직중":
-          this.input.employeeStatus = 1;
+          param.employeeStatus = 1;
           break;
         case "퇴사":
-          this.input.employeeStatus = 2;
+          param.employeeStatus = 2;
           break;
         case "전체":
-          this.input.employeeStatus = "";
+          param.employeeStatus = "";
           break;
       }
 
       memberList({
-        ...this.input,
+        ...param,
         currentPage: this.currentPage,
         pageSize: this.pageSize,
       })
