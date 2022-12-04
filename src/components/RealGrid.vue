@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import _ from "lodash";
 import { GridView, LocalDataProvider } from "realgrid";
 export default {
   name: "RealGrid",
@@ -18,8 +19,22 @@ export default {
   },
   methods: {
     loadData: function (row) {
-      console.log(row);
       this.dp.setRows(row);
+    },
+    getRow: function () {
+      return this.dp.getRows(0, -1);
+    },
+    getCol: function () {
+      return this.gv.getColumns();
+    },
+    getCheckedRow: function () {
+      const idx = this.gv.getCheckedRows(true, false, false);
+      const allRows = this.dp.getRows(0, -1);
+      const rows = [];
+      _.each(idx, function (v) {
+        rows.push(allRows[v]);
+      });
+      return rows;
     },
   },
   mounted() {

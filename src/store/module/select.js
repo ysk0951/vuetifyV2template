@@ -12,7 +12,6 @@ const select = {
         .then((res) => {
           const response = res.data;
           if (!_.isEmpty(response)) {
-            console.log(response.data);
             _.forEach(response.data, function (v) {
               result.push(v.roleName);
             });

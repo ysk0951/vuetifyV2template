@@ -34,7 +34,7 @@ export const fields = [
     dataType: ValueType.TEXT,
   },
   {
-    fieldName: "etc",
+    fieldName: "memo",
     dataType: ValueType.TEXT,
   },
 ];
@@ -147,8 +147,8 @@ export const columns = [
     editable: false,
   },
   {
-    name: "etc",
-    fieldName: "etc",
+    name: "memo",
+    fieldName: "memo",
     type: "data",
     styles: {
       textAlignment: "center",
@@ -171,6 +171,6 @@ export const rows = [
     coName: "123",
     phone: "123",
     work: "Arcu Et Pede Incorporated",
-    etc: "17",
+    memo: "17",
   },
 ];

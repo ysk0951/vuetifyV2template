@@ -1,17 +1,6 @@
 <template>
   <div>
-    <SetPopup ref="pwPopup">
-      <div class="wrapper">
-        <template v-if="!check">
-          <v-card-actions>
-            <v-btn depressed @click="cancel">취소</v-btn>
-          </v-card-actions>
-          <v-card-actions>
-            <v-btn depressed color="primary" @click="resetExec">초기화</v-btn>
-          </v-card-actions>
-        </template>
-      </div>
-    </SetPopup>
+    <SetPopup ref="pwPopup" />
     <SetPopup ref="pwConfirm" />
     <h3 class="mt-4 mb-2">비밀번호 관리</h3>
     <hr class="mb-4" />
@@ -103,7 +92,7 @@ import { columns, fields, rows } from "@/assets/account";
 import SetPopup from "@/components/SetPopup.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations, mapState } from "vuex";
-import { memberList } from "api/member/member";
+import { memberList, resetPass } from "api/member/member";
 import _ from "lodash";
 export default {
   data() {
@@ -164,7 +153,6 @@ export default {
           param.employeeStatus = "";
           break;
       }
-
       memberList({
         ...param,
         currentPage: this.currentPage,
@@ -185,21 +173,38 @@ export default {
     },
     resetPw() {
       this.openPopup("선택한 아이디의 비밀번호를 초기화 하시겠습니까?");
-      this.close();
-    },
-    close() {
-      this.check = false;
-      this.$refs.add.closeModal();
     },
     openPopup(message) {
       this.SET_POPUP({
         title: "알림",
         height: 150,
         width: 300,
-        customApprove: true,
+        closable: true,
+        approveName: "초기화",
       });
       this.SET_POPUP_TEXT(message);
-      this.$refs.pwPopup.openPopup();
+      this.$refs.pwPopup.openPopup(() => {
+        const rows = this.$refs.grid.getCheckedRow();
+        const col = this.$refs.grid.getCol();
+        const emailIDx = _.findIndex(col, function (v) {
+          return v.fieldName === "email";
+        });
+        const resetEmail = _.reduce(
+          rows,
+          function (a, v) {
+            console.log();
+            a.push(v[emailIDx]);
+            return a;
+          },
+          []
+        ).join(" - ");
+        resetPass({ memberId: resetEmail })
+          .then((res) => {
+            const response = res.data;
+            console.log(response.data);
+          })
+          .catch(() => {});
+      });
     },
     cancel() {
       this.param = {};

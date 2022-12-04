@@ -183,7 +183,6 @@ export default {
       }
     },
     openPopup(text, cb) {
-      console.log(cb);
       this.SET_POPUP_TEXT(text);
       this.$refs.sertificatePopup.openPopup(cb);
     },

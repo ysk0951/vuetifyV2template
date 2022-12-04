@@ -18,7 +18,9 @@
               <v-btn depressed @click="closePopup">취소</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
+              <v-btn depressed color="primary" @click="onApprove">{{
+                approveName
+              }}</v-btn>
             </v-card-actions>
           </div>
         </div>
@@ -51,6 +53,7 @@ export default {
       "maxWidth",
       "closable",
       "customApprove",
+      "approveName",
     ]),
   },
   methods: {

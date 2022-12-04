@@ -104,7 +104,7 @@ import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
-import { memberList } from "api/member/member";
+import { memberList, memberJoin } from "api/member/member";
 import { mapMutations, mapState } from "vuex";
 import _ from "lodash";
 export default {
@@ -125,10 +125,10 @@ export default {
         fields,
         rows,
       },
-      param: {},
       grid: "acouunt",
       currentPage: 1,
       pageSize: 20,
+      saveParam: {},
     };
   },
   computed: {
@@ -206,24 +206,45 @@ export default {
       this.$refs.add.openModal();
     },
     save(param) {
-      this.openPopup("입력된 정보로 아이디를 생성하시겠습니까?");
-      this.param = param;
       this.close();
+      this.openPopup("입력된 정보로 아이디를 생성하시겠습니까?");
+      this.saveParam = param;
     },
     close() {
       this.check = false;
       this.$refs.add.closeModal();
     },
-    openPopup(message) {
+    openPopup(message, cb) {
       this.SET_POPUP_TEXT(message);
-      this.$refs.addPopup.openPopup();
+      this.$refs.addPopup.openPopup(cb);
     },
     cancel() {
-      this.param = {};
+      this.saveParam = {};
       this.$refs.addPopup.closePopup();
     },
     addExec() {
-      this.cancel();
+      const param = _.cloneDeep(this.saveParam);
+      switch (param.employeeStatus) {
+        case "재직중":
+          param.employeeStatus = 1;
+          break;
+        case "퇴사":
+          param.employeeStatus = 2;
+          break;
+        case "전체":
+          param.employeeStatus = "";
+          break;
+      }
+      console.log("exec");
+      memberJoin(param)
+        .then((res) => {
+          const response = res.data;
+
+          console.log(response);
+        })
+        .catch(() => {
+          this.cancel();
+        });
     },
   },
 

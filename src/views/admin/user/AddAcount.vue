@@ -20,6 +20,9 @@
             dense
             placeholder="이름을 입력해주세요"
             v-model="input.memberName"
+            :readonly="!focus"
+            @focus="focus = true"
+            @blur="focus = false"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -31,6 +34,9 @@
             dense
             placeholder="이메일 주소를 입력해주세요"
             v-model="input.memberId"
+            :readonly="!focus"
+            @focus="focus = true"
+            @blur="focus = false"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
@@ -41,17 +47,24 @@
             type="password"
             placeholder="비밀번호를 입력해주세요"
             v-model="input.password"
+            :readonly="!focus"
+            @focus="focus = true"
+            @blur="focus = false"
           ></v-text-field>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" sm="6">
-          <h4>이메일 주소</h4>
+          <h4>휴대폰 번호</h4>
           <v-text-field
             outlined
             dense
-            placeholder="이메일 주소를 입력해주세요"
-            v-model="input.memberId"
+            placeholder="휴대폰 번호를 입력해주세요"
+            v-model="input.phone"
+            :readonly="!focus"
+            @focus="focus = true"
+            @blur="focus = false"
+            v-mask="'###-####-####'"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
@@ -61,6 +74,9 @@
             dense
             placeholder="기업을 입력해주세요"
             v-model="input.company"
+            :readonly="!focus"
+            @focus="focus = true"
+            @blur="focus = false"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -91,7 +107,10 @@
             outlined
             dense
             placeholder="내용을 입력해주세요"
-            v-model="input.etc"
+            v-model="input.memo"
+            :readonly="!focus"
+            @focus="focus = true"
+            @blur="focus = false"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -111,6 +130,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      focus: false,
       input: {
         employeeStatus: "전체",
         roles: "",
@@ -118,6 +138,7 @@ export default {
         memberId: "",
         company: "",
         employeeCode: "",
+        phone: "",
       },
       accountType: [
         {
@@ -141,7 +162,7 @@ export default {
         layout: undefined,
         existCalendar: false,
         existAddr: false,
-        etc: "",
+        memo: "",
         password: "",
       },
     };

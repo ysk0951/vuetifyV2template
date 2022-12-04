@@ -9,6 +9,7 @@ const popup = {
     closable: false,
     callback: undefined,
     customApprove: false,
+    approveName: "확인",
   },
   mutations: {
     SET_PARAM(state, value) {
@@ -42,6 +43,7 @@ const popup = {
       state.closable = value.closable;
       state.callback = value.callback;
       state.customApprove = value.customApprove;
+      state.approveName = value.approveName ? value.approveName : "확인";
     },
     RESET_POPUP(state) {
       state.param = {};
@@ -52,6 +54,7 @@ const popup = {
       state.closable = false;
       state.callback = undefined;
       state.customApprove = false;
+      state.approveName = "확인";
     },
     SET_CALL_BACK(state, value) {
       state.callback = value;
