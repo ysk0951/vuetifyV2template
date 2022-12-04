@@ -198,12 +198,27 @@ export default {
           },
           []
         ).join(" - ");
+        //팝업 재사용
+        this.SET_POPUP({
+          title: "알림",
+          height: 150,
+          width: 300,
+        });
         resetPass({ memberId: resetEmail })
           .then((res) => {
-            const response = res.data;
-            console.log(response.data);
+            const body = res.data;
+            if (!_.isEmpty(body.errorCode)) {
+              this.SET_POPUP_TEXT(body.errorMessage);
+              this.$refs.pwPopup.openPopup();
+            } else {
+              this.SET_POPUP_TEXT(body.message);
+              this.$refs.pwPopup.openPopup();
+            }
           })
-          .catch(() => {});
+          .catch((err) => {
+            this.SET_POPUP_TEXT(err);
+            this.$refs.pwPopup.openPopup();
+          });
       });
     },
     cancel() {
