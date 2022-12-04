@@ -82,6 +82,10 @@ export default {
   justify-content: space-between;
   display: flex;
 }
+.wrapperEnd {
+  justify-content: end;
+  display: flex;
+}
 .wrapperFlex {
   display: flex;
 }
