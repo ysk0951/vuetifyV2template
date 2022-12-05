@@ -29,7 +29,7 @@
 </template>
 <script>
 import RealGrid from "@/components/RealGrid";
-import { columns, fields, rows } from "@/assets/group";
+import { columns, fields, rows } from "@/assets/grid/group";
 export default {
   name: "AddGroup",
   components: {

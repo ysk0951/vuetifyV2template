@@ -9,6 +9,7 @@ import SignupDone from "@/views/member/SignupDone";
 import Admin from "@/views/admin/Admin";
 import AddGroup from "@/views/admin/user/AddGroup";
 import NotFoundPage from "@/views/NotFoundPage";
+import Sample from "@/views/sample/Sample";
 Vue.use(VueRouter);
 
 const routes = [
@@ -51,6 +52,11 @@ const routes = [
     path: "/admin/addGroup",
     name: "addGroup",
     component: AddGroup,
+  },
+  {
+    path: "/sample",
+    name: "sample",
+    component: Sample,
   },
   {
     path: "*",

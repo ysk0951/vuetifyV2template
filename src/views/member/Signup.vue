@@ -181,8 +181,8 @@
 <script>
 import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
-import SignupInputVue from "@/views/member/SignupInput.vue";
-import SignupPost from "@/views/member/SignupPost.vue";
+import SignupInputVue from "@/views/member/SignupInput";
+import SignupPost from "@/views/member/SignupPost";
 import { sendAuthNum, authNumCheck, memberJoin } from "api/member/member";
 import { mapMutations } from "vuex";
 import validSet from "@/assets/valid";
