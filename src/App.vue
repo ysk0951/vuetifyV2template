@@ -116,4 +116,8 @@ export default {
 div.v-menu__content.theme--light.menuable__content__active > div {
   padding: 0px;
 }
+
+.background {
+  background-color: rgba(0, 0, 0, 0.02);
+}
 </style>

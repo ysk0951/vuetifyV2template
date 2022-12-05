@@ -31,7 +31,7 @@
             </div>
           </v-col>
           <v-col cols="12" sm="9" class="menuCol">
-            <div class="pa-9" style="background-color: rgba(0, 0, 0, 0.02)">
+            <div class="pa-9 background">
               <h4>그룹명</h4>
               <v-text-field
                 :width="'300px'"
