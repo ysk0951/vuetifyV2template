@@ -197,14 +197,14 @@ export default {
             return a;
           },
           []
-        ).join(" - ");
+        ).join(",");
         //팝업 재사용
         this.SET_POPUP({
           title: "알림",
           height: 150,
           width: 300,
         });
-        resetPass({ memberId: resetEmail })
+        resetPass(resetEmail)
           .then((res) => {
             const body = res.data;
             if (!_.isEmpty(body.errorCode)) {

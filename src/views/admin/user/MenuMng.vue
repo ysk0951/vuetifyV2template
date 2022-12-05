@@ -1,5 +1,8 @@
 <template>
   <div>
+    <SetDialogVue ref="add">
+      <AddGroup />
+    </SetDialogVue>
     <h3 class="mt-4 mb-2">메뉴 관리</h3>
     <hr class="mb-4" />
     <div class="service">
@@ -165,11 +168,6 @@
                     <h5>물질명 index 마스터 관리</h5>
                   </template></v-checkbox
                 >
-                <v-checkbox v-model="main.MASTERDILUTION">
-                  <template v-slot:label>
-                    <h5>희석 용매 마스터 관리</h5>
-                  </template></v-checkbox
-                >
               </div>
             </div>
             <div class="wrapperEnd">
@@ -184,14 +182,27 @@
         </v-row>
       </div>
     </div>
+    <h3 class="mt-4 mb-2">그룹 목록</h3>
+    <hr class="mb-4" />
+    <RealGrid :domName="grid" ref="grid" :settings="settings" />
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
+import SetDialogVue from "@/components/SetDialog";
+import RealGrid from "@/components/RealGrid";
+import RolesEnum from "@/assets/rolesEnum";
+import { columns, fields, rows } from "@/assets/account";
+import AddGroup from "@/views/admin/user/AddGroup";
 export default {
   computed: {
     ...mapState("select", ["workType", "roleType", "roleSet"]),
+  },
+  components: {
+    RealGrid,
+    SetDialogVue,
+    AddGroup,
   },
   data() {
     return {
@@ -218,12 +229,21 @@ export default {
         MASTERPRODUCT: false,
         MASTERINDEX: false,
         MASTERMENSTRUUM: false,
-        MASTERDILUTION: false,
       },
       curBtnValue: "",
+      grid: "menuMgn",
+      settings: { columns, fields, rows },
     };
   },
   methods: {
+    ...mapMutations("modal", [
+      "SET_DIALOG_TITLE",
+      "SET_DIALOG_TEXT",
+      "SET_HIGHT",
+      "SET_MAX_WIDTH",
+      "SET_MODAL",
+      "RESET_MODAL",
+    ]),
     curBtn(v) {
       this.curBtnValue = v;
       const idx = _.findIndex(this.roleSet, function (o) {
@@ -231,8 +251,16 @@ export default {
       });
       const roles = this.roleSet[idx].roles;
       console.log(roles);
+      console.log(RolesEnum.CURRENT);
     },
-    addGroup() {},
+    addGroup() {
+      this.SET_MODAL({
+        height: 600,
+        width: 750,
+        closable: true,
+      });
+      this.$refs.add.openModal();
+    },
     delGroup() {},
     cancle() {},
     save() {},

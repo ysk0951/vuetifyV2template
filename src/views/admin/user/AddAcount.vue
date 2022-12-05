@@ -19,7 +19,7 @@
             outlined
             dense
             placeholder="이름을 입력해주세요"
-            v-model="input.memberName"
+            v-model="input.member_name"
             :readonly="!focus"
             @focus="focus = true"
             @blur="focus = false"
@@ -33,7 +33,7 @@
             outlined
             dense
             placeholder="이메일 주소를 입력해주세요"
-            v-model="input.memberId"
+            v-model="input.memberid"
             :readonly="!focus"
             @focus="focus = true"
             @blur="focus = false"
@@ -46,7 +46,7 @@
             dense
             type="password"
             placeholder="비밀번호를 입력해주세요"
-            v-model="input.password"
+            v-model="input.memberpw"
             :readonly="!focus"
             @focus="focus = true"
             @blur="focus = false"
@@ -134,8 +134,8 @@ export default {
       input: {
         employeeStatus: "전체",
         roles: "",
-        memberName: "",
-        memberId: "",
+        member_name: "",
+        memberid: "",
         company: "",
         employeeCode: "",
         phone: "",
@@ -163,7 +163,7 @@ export default {
         existCalendar: false,
         existAddr: false,
         memo: "",
-        password: "",
+        memberpw: "",
       },
     };
   },
@@ -172,8 +172,8 @@ export default {
       this.input = {
         employeeStatus: "전체",
         roles: "",
-        memberName: "",
-        memberId: "",
+        member_name: "",
+        memberid: "",
         company: "",
         employeeCode: "",
       };

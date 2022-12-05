@@ -1,4 +1,4 @@
-export const roles = {
+export const RolesEnum = {
   CURRENT: "현황확인",
   NEW: "신규 리스트",
   DELAY: "지연 리스트",
@@ -21,5 +21,4 @@ export const roles = {
   MASTERPRODUCT: "상품마스터관리",
   MASTERMENSTRUUM: "용매조성마스터관리",
   MASTERINDEX: "물질명INDEX마스터관리",
-  MASTERDILUTION: "희석용매마스터관리",
 };

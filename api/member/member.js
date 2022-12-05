@@ -33,5 +33,5 @@ export async function getRoleList() {
   return http.post(prefix + "/getRoleList");
 }
 export async function resetPass(param) {
-  return http.post(prefix + "/resetPass", param);
+  return http.post(prefix + "/resetPass?memberId=" + param);
 }

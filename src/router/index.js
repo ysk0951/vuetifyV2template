@@ -7,6 +7,7 @@ import Main from "@/views/Main";
 import Signup from "@/views/member/Signup";
 import SignupDone from "@/views/member/SignupDone";
 import Admin from "@/views/admin/Admin";
+import AddGroup from "@/views/admin/user/AddGroup";
 import NotFoundPage from "@/views/NotFoundPage";
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: Admin,
+  },
+  {
+    path: "/admin/addGroup",
+    name: "addGroup",
+    component: AddGroup,
   },
   {
     path: "*",
