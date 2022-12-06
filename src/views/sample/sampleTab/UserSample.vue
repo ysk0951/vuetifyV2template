@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows } from "@/assets/grid/sampleRequest";
+import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 
 export default {
@@ -27,6 +27,7 @@ export default {
         columns,
         fields,
         rows,
+        height,
       },
     };
   },

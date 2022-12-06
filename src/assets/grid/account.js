@@ -160,7 +160,7 @@ export const columns = [
     editable: false,
   },
 ];
-
+export const height = 480;
 export const rows = [
   {
     no: 1,

@@ -1,6 +1,9 @@
 <template>
   <div class="real">
-    <div :id="gridName" style="width: 100%; height: 480px"></div>
+    <div
+      :id="gridName"
+      :style="'width: 100%; height: ' + settings.height + 'px'"
+    ></div>
   </div>
 </template>
 

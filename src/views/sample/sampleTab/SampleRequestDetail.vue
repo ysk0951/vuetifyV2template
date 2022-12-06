@@ -1,33 +1,6 @@
 <template>
   <div class="address">
-    <h3 class="mt-4 mb-2">신규 샘플 요청</h3>
-    <hr class="mb-4" />
-    <div>
-      <h4 class="mt-4 mb-2">파일 업로드</h4>
-    </div>
-    <div class="wrapperSpace">
-      <div class="wrapperFlex file">
-        <v-text-field
-          placeholder="파일을 선택해주세요"
-          type="text"
-          v-model="fileName"
-          outlined
-          dense
-          disabled
-          filled
-        />
-        <v-btn depressed class="ml-3 mr-3 fileBtn" @click="read"
-          >불러오기</v-btn
-        >
-        <v-btn depressed color="primary fileBtn" @click="select"
-          >파일선택</v-btn
-        >
-      </div>
-    </div>
-    <div class="mb-3">
-      <a class="aLink">샘플 다운로드</a>
-    </div>
-    <h3 class="mt-4 mb-2">요청 목록</h3>
+    <h3 class="mt-4 mb-2">샘플 요청 검수</h3>
     <hr class="mb-4" />
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
     <h3 class="mt-4 mb-2">추가 정보</h3>
@@ -42,14 +15,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
-        <div class="wrapperSpace" style="height: 24px">
-          <h4>수령자</h4>
-          <v-checkbox>
-            <template v-slot:label>
-              <h5>요청자와 동일</h5>
-            </template></v-checkbox
-          >
-        </div>
+        <h4>수령자</h4>
         <v-text-field
           outlined
           dense
@@ -61,46 +27,33 @@
         <v-select :items="price" outlined id="work"></v-select>
       </v-col>
     </v-row>
-    <h4>배송지 선택</h4>
-    <v-row style="height: 46px">
-      <v-col cols="12" sm="3" class="mb-0">
-        <v-radio-group row v-model="param.default">
-          <v-radio
-            v-for="(n, i) in address"
-            :key="n.key"
-            :label="n.text"
-            :value="i"
-          ></v-radio
-        ></v-radio-group>
+    <h4>배송지</h4>
+    <v-row style="height: 63px">
+      <v-col cols="12" sm="2">
+        <div class="wrapper address">
+          <v-text-field
+            type="text"
+            v-model="fileName"
+            outlined
+            dense
+            disabled
+            filled
+          />
+        </div>
+      </v-col>
+      <v-col cols="12" sm="4">
+        <div class="wrapper address">
+          <v-text-field
+            type="text"
+            v-model="fileName"
+            outlined
+            dense
+            disabled
+            filled
+          />
+        </div>
       </v-col>
     </v-row>
-    <template v-if="param.default === 1">
-      <v-row style="height: 63px">
-        <v-col cols="12" sm="6">
-          <div class="wrapper address">
-            <v-text-field
-              placeholder="주소를 입력해주세요"
-              type="text"
-              v-model="fileName"
-              outlined
-              dense
-              disabled
-              filled
-            />
-            <v-btn
-              depressed
-              color="primary"
-              class="ml-3 mr-3 fileBtn"
-              @click="read"
-              >주소검색</v-btn
-            >
-            <v-btn depressed color="primary" class="fileBtn" @click="select"
-              >주소록</v-btn
-            >
-          </div>
-        </v-col>
-      </v-row>
-    </template>
     <v-row>
       <v-col cols="12" sm="2">
         <h4>Qty(kg)</h4>
@@ -126,7 +79,13 @@
         <h4>포장 요청사항</h4>
         <v-select :items="this.package" outlined id="work"></v-select>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="2">
+        <h4>포장 요청사항</h4>
+        <v-select :items="this.package" outlined id="work"></v-select>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" sm="6">
         <h4>기타 요청사항</h4>
         <v-text-field
           outlined
@@ -141,24 +100,24 @@
           <v-btn depressed @click="cancle">취소</v-btn>
         </v-card-actions>
         <v-card-actions>
-          <v-btn depressed color="primary" @click="request">샘플 요청</v-btn>
+          <v-btn depressed color="primary" @click="request">완료</v-btn>
         </v-card-actions>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import { columns, fields, rows } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 export default {
   data() {
     return {
-      grid: "newSample",
+      grid: "sampleRequestDetail",
       settings: {
         columns,
         fields,
         rows,
-        height,
+        height: 100,
       },
       fileName: "",
       price: ["전체", "유상", "무상"],

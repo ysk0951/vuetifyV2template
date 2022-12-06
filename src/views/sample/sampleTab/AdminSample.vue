@@ -1,6 +1,6 @@
 <template>
   <div class="address">
-    <h3 class="mt-4 mb-2">신규 샘플 요청</h3>
+    <h3 class="mt-4 mb-2">관리자 샘플 요청</h3>
     <hr class="mb-4" />
     <div>
       <h4 class="mt-4 mb-2">파일 업로드</h4>
@@ -39,6 +39,14 @@
           outlined
           dense
           placeholder="요청자 이름을 입력해주세요"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="2">
+        <h4>요청자 이메일</h4>
+        <v-text-field
+          outlined
+          dense
+          placeholder="요청자 이메일을 입력해주세요"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
