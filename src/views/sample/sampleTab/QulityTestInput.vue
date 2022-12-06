@@ -1,16 +1,16 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">회원 샘플 요청</h3>
+    <h3 class="mt-4 mb-2">품질검사 결과입력</h3>
     <hr class="mb-4" />
-    <div class="wrapperSpace">
-      <div>
-        <h4 class="mt-4 mb-2">요청 내역</h4>
-      </div>
-      <div>
-        <v-btn depressed color="primary" @click="newSample">샘플 요청</v-btn>
-      </div>
-    </div>
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <div class="wrapper">
+      <v-card-actions>
+        <v-btn depressed @click="reset">초기화</v-btn>
+      </v-card-actions>
+      <v-card-actions>
+        <v-btn depressed color="primary" @click="search">저장</v-btn>
+      </v-card-actions>
+    </div>
   </div>
 </template>
 <script>
@@ -20,7 +20,7 @@ import RealGrid from "@/components/RealGrid.vue";
 export default {
   data() {
     return {
-      grid: "userSample",
+      grid: "qulityTestInput",
       settings: {
         columns,
         fields,
@@ -34,9 +34,21 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
+    reset() {},
+    search() {},
   },
   components: {
     RealGrid,
   },
 };
 </script>
+<style lang="scss">
+.searchProcess {
+  .v-input__slot {
+    width: 100% !important;
+  }
+  .v-text-field__details {
+    display: none;
+  }
+}
+</style>

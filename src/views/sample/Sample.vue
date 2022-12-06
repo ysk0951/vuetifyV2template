@@ -27,8 +27,20 @@
           <template v-if="item.key === 'searchProcess'">
             <SearchProcess />
           </template>
+          <template v-if="item.key === 'searchProcessCustom'">
+            <SearchProcessCustom />
+          </template>
           <template v-if="item.key === 'delivaryReport'">
             <DeliveryReport />
+          </template>
+          <template v-if="item.key === 'delivaryReportDetail'">
+            <DeliveryReportDetail />
+          </template>
+          <template v-if="item.key === 'resultInput'">
+            <ResultInput />
+          </template>
+          <template v-if="item.key === 'qulityTestInput'">
+            <QulityTestInput />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -43,7 +55,11 @@ import AdminSample from "@/views/sample/sampleTab/AdminSample";
 import ConfirmSample from "@/views/sample/sampleTab/ConfirmSample";
 import SampleRequestDetail from "@/views/sample/sampleTab/SampleRequestDetail";
 import SearchProcess from "@/views/sample/sampleTab/SearchProcess";
+import SearchProcessCustom from "@/views/sample/sampleTab/SearchProcessCustom";
 import DeliveryReport from "@/views/sample/sampleTab/DeliveryReport";
+import DeliveryReportDetail from "@/views/sample/sampleTab/DeliveryReportDetail";
+import ResultInput from "@/views/sample/sampleTab/ResultInput";
+import QulityTestInput from "@/views/sample/sampleTab/QulityTestInput";
 import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 export default {
@@ -68,12 +84,28 @@ export default {
           value: "샘플 요청 상세",
         },
         {
+          key: "searchProcessCustom",
+          value: "진행사항 조회(사용자)",
+        },
+        {
           key: "searchProcess",
-          value: "진행사항 조회",
+          value: "진행사항 조회(관리자)",
         },
         {
           key: "delivaryReport",
           value: "납품 일보",
+        },
+        {
+          key: "delivaryReportDetail",
+          value: "납품 일보상세",
+        },
+        {
+          key: "resultInput",
+          value: "결과 입력",
+        },
+        {
+          key: "qulityTestInput",
+          value: "품질검사 결과 입력",
         },
       ],
     };
@@ -91,7 +123,11 @@ export default {
     ConfirmSample,
     SampleRequestDetail,
     SearchProcess,
+    SearchProcessCustom,
     DeliveryReport,
+    DeliveryReportDetail,
+    ResultInput,
+    QulityTestInput,
   },
   async created() {
     this.SET_MENU();
@@ -99,13 +135,16 @@ export default {
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
     newSample() {
-      const newSampleIdx = _.findIndex(this.items, function (v) {
+      let newSampleIdx = _.findIndex(this.items, function (v) {
         return v.key === "newSample";
       });
       if (newSampleIdx === -1) {
         this.items.push({
           key: "newSample",
           value: "신규 샘플 요청",
+        });
+        newSampleIdx = _.findIndex(this.items, function (v) {
+          return v.key === "newSample";
         });
       }
       this.tab = newSampleIdx;

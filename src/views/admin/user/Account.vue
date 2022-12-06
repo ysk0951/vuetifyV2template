@@ -99,7 +99,7 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows } from "@/assets/grid/account";
+import { columns, fields, rows, height } from "@/assets/grid/account";
 import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
@@ -124,6 +124,7 @@ export default {
         columns,
         fields,
         rows,
+        height,
       },
       grid: "acouunt",
       currentPage: 1,

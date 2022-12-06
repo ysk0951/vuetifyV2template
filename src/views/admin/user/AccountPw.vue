@@ -88,7 +88,7 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows } from "@/assets/grid/account";
+import { columns, fields, rows, height } from "@/assets/grid/account";
 import SetPopup from "@/components/SetPopup.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations, mapState } from "vuex";
@@ -111,6 +111,7 @@ export default {
         columns,
         fields,
         rows,
+        height,
       },
       param: {},
       grid: "password",

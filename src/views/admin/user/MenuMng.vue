@@ -193,7 +193,7 @@ import _ from "lodash";
 import SetDialogVue from "@/components/SetDialog";
 import RealGrid from "@/components/RealGrid";
 import RolesEnum from "@/assets/rolesEnum";
-import { columns, fields, rows } from "@/assets/grid/account";
+import { columns, fields, rows, height } from "@/assets/grid/account";
 import AddGroup from "@/views/admin/user/AddGroup";
 export default {
   computed: {
@@ -232,7 +232,7 @@ export default {
       },
       curBtnValue: "",
       grid: "menuMgn",
-      settings: { columns, fields, rows },
+      settings: { columns, fields, rows, height },
     };
   },
   methods: {

@@ -16,16 +16,18 @@
           disabled
           filled
         />
-        <v-btn depressed class="ml-3 mr-3 fileBtn" @click="read"
-          >불러오기</v-btn
-        >
-        <v-btn depressed color="primary fileBtn" @click="select"
+        <v-btn
+          depressed
+          class="ml-3 mr-3"
+          color="primary fileBtn"
+          @click="select"
           >파일선택</v-btn
         >
+        <v-btn depressed class="fileBtn" @click="read">불러오기</v-btn>
       </div>
-    </div>
-    <div class="mb-3">
-      <a class="aLink">샘플 다운로드</a>
+      <v-btn depressed color="info mr-3" class="fileBtn" @click="select"
+        >샘플 양식</v-btn
+      >
     </div>
     <h3 class="mt-4 mb-2">요청 목록</h3>
     <hr class="mb-4" />
