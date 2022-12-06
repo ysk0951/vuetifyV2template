@@ -41,133 +41,22 @@
                 class="menuColText"
                 v-model="curBtnValue"
               ></v-text-field>
-              <h4>메인화면</h4>
-              <div class="checkbox ml-8">
-                <v-checkbox v-model="main.CURRENT">
-                  <template v-slot:label>
-                    <h5>현황확인</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.NEW">
-                  <template v-slot:label>
-                    <h5>신규 리스트</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.DELAY">
-                  <template v-slot:label>
-                    <h5>지연 리스트</h5>
-                  </template></v-checkbox
-                >
-              </div>
-              <h4>회원가입</h4>
-              <div class="checkbox ml-8">
-                <v-checkbox v-model="main.SINGUP">
-                  <template v-slot:label>
-                    <h5>회원가입</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.FINDID">
-                  <template v-slot:label>
-                    <h5>아이디 찾기</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.FINDPW">
-                  <template v-slot:label>
-                    <h5>비밀번호 찾기</h5>
-                  </template></v-checkbox
-                >
-              </div>
-              <h4>사용자 계정 관리</h4>
-              <div class="checkbox ml-8">
-                <v-checkbox v-model="main.MGNID">
-                  <template v-slot:label>
-                    <h5>아이디 관리</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MGNPW">
-                  <template v-slot:label>
-                    <h5>비밀번호 관리</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MGNMENU">
-                  <template v-slot:label>
-                    <h5>메뉴권한 관리</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MGNCODE">
-                  <template v-slot:label>
-                    <h5>공통코드 관리</h5>
-                  </template></v-checkbox
-                >
-              </div>
-              <h4>샘플요청</h4>
-              <div class="checkbox ml-8">
-                <v-checkbox v-model="main.USERSAMPLE">
-                  <template v-slot:label>
-                    <h5>회원 샘플요청</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MGNSAMPLE">
-                  <template v-slot:label>
-                    <h5>관리자 샘플요청</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.SEARCHPROCESS">
-                  <template v-slot:label>
-                    <h5>진행사항 조회</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.SAMPLECOMFIRM">
-                  <template v-slot:label>
-                    <h5>샘플요청 확인/확정</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.INPUTRESULT">
-                  <template v-slot:label>
-                    <h5>결과 입력</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.SENDEMAIL">
-                  <template v-slot:label>
-                    <h5>이메일 발송</h5>
-                  </template></v-checkbox
-                >
-              </div>
-              <h4>서류관리</h4>
-              <div class="checkbox ml-8">
-                <v-checkbox v-model="main.CDAMGN">
-                  <template v-slot:label>
-                    <h5>CDA 관리</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MSDMGN">
-                  <template v-slot:label>
-                    <h5>MSDS 보증서 관리</h5>
-                  </template></v-checkbox
-                >
-              </div>
-              <h4>마스터 관리</h4>
-              <div class="checkbox ml-8">
-                <v-checkbox v-model="main.MASTERUSER">
-                  <template v-slot:label>
-                    <h5>회원 마스터 관리</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MASTERPRODUCT">
-                  <template v-slot:label>
-                    <h5>상품 마스터 관리</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MASTERMENSTRUUM">
-                  <template v-slot:label>
-                    <h5>용매조성 마스터 관리</h5>
-                  </template></v-checkbox
-                >
-                <v-checkbox v-model="main.MASTERINDEX">
-                  <template v-slot:label>
-                    <h5>물질명 index 마스터 관리</h5>
-                  </template></v-checkbox
-                >
+              <div v-for="(item, index) in allMenu" :key="index">
+                <h4>{{ item.menu }}</h4>
+                <div style="display: flex">
+                  <div
+                    class="checkbox ml-8"
+                    v-for="(box, idx) in item.subMenu"
+                    :key="idx"
+                  >
+                    <!-- <v-checkbox @click="check(box.code)" :refs="box.code"> -->
+                    <v-checkbox v-model="checkBox[box.code]">
+                      <template v-slot:label>
+                        <h5>{{ box.menu }}</h5>
+                      </template></v-checkbox
+                    >
+                  </div>
+                </div>
               </div>
             </div>
             <div class="wrapperEnd">
@@ -192,12 +81,12 @@ import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 import SetDialogVue from "@/components/SetDialog";
 import RealGrid from "@/components/RealGrid";
-import RolesEnum from "@/assets/rolesEnum";
 import { columns, fields, rows, height } from "@/assets/grid/account";
 import AddGroup from "@/views/admin/user/AddGroup";
 export default {
   computed: {
     ...mapState("select", ["workType", "roleType", "roleSet"]),
+    ...mapState("menu", ["allMenu"]),
   },
   components: {
     RealGrid,
@@ -206,34 +95,15 @@ export default {
   },
   data() {
     return {
-      main: {
-        CURRENT: false,
-        NEW: false,
-        DELAY: false,
-        SINGUP: false,
-        FINDID: false,
-        FINDPW: false,
-        MGNID: false,
-        MGNPW: false,
-        MGNMENU: false,
-        MGNCODE: false,
-        USERSAMPLE: false,
-        MGNSAMPLE: false,
-        SEARCHPROCESS: false,
-        SAMPLECOMFIRM: false,
-        INPUTRESULT: false,
-        SENDEMAIL: false,
-        CDAMGN: false,
-        MSDMGN: false,
-        MASTERUSER: false,
-        MASTERPRODUCT: false,
-        MASTERINDEX: false,
-        MASTERMENSTRUUM: false,
-      },
       curBtnValue: "",
       grid: "menuMgn",
       settings: { columns, fields, rows, height },
+      checkBox: {},
+      originCode: {},
     };
+  },
+  mounted() {
+    this.checkBoxReset();
   },
   methods: {
     ...mapMutations("modal", [
@@ -244,14 +114,33 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
+    check(v) {
+      this.checkBox[v] = !this.checkBox[v];
+    },
     curBtn(v) {
       this.curBtnValue = v;
       const idx = _.findIndex(this.roleSet, function (o) {
         return o.roleName === v;
       });
       const roles = this.roleSet[idx].roles;
-      console.log(roles);
-      console.log(RolesEnum.CURRENT);
+      this.checkBoxReset();
+      _.forEach(roles.split(","), (v) => {
+        this.checkBox[v] = true;
+      });
+    },
+    checkBoxReset() {
+      this.checkBox = _.reduce(
+        this.allMenu,
+        function (a, v) {
+          _.each(v.subMenu, function (o) {
+            if (o.code) {
+              a[o.code] = false;
+            }
+          });
+          return a;
+        },
+        {}
+      );
     },
     addGroup() {
       this.SET_MODAL({
@@ -273,9 +162,6 @@ export default {
   padding-top: 20px !important;
   padding-bottom: 20px !important;
   border: solid;
-}
-.menuMngCol {
-  height: 650px !important;
 }
 .menuCol {
   display: flex;

@@ -2,6 +2,7 @@ const menu = {
   namespaced: true,
   state: {
     menu: [],
+    allMenu: [],
   },
   mutations: {
     SET_MENU(state) {
@@ -23,6 +24,19 @@ const menu = {
         })
         .finally();
     },
+    SET_ALL_MENU(state) {
+      getAllMenu()
+        .then((res) => {
+          if (res.status === 200) {
+            const response = res.data;
+            state.allMenu = response.data;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally();
+    },
     RESET_MENU(state) {
       state.menu = {};
     },
@@ -31,5 +45,5 @@ const menu = {
   actions: {},
 };
 import _ from "lodash";
-import { getMenu } from "api/menu";
+import { getMenu, getAllMenu } from "api/menu";
 export default menu;

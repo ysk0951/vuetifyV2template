@@ -10,14 +10,14 @@
           </div>
         </template>
         <div class="langBoxWrapper">
-          <div class="langBox">
-            <v-select
-              :items="language"
-              :item-text="'text'"
-              :item-value="'value'"
-              v-model="locale"
-            ></v-select>
-          </div>
+          <v-btn
+            v-for="(item, idx) in language"
+            depressed
+            :key="idx"
+            @click="changeLang(item.value)"
+          >
+            {{ item.text }}
+          </v-btn>
         </div>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4">
@@ -62,12 +62,17 @@ export default {
   async created() {
     await this.SET_LOCALE(this.locale);
     await this.SET_ROLE_TYPE();
+    await this.SET_ALL_MENU();
   },
   methods: {
     ...mapMutations("locale", ["SET_LOCALE"]),
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
+    ...mapMutations("menu", ["SET_ALL_MENU"]),
     routing(v) {
       this.$router.push(v.url);
+    },
+    changeLang(v) {
+      this.locale = v;
     },
   },
 };
