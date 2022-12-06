@@ -35,3 +35,9 @@ export async function getRoleList() {
 export async function resetPass(param) {
   return http.post(prefix + "/resetPass?memberId=" + param);
 }
+
+export async function updateRole(param) {
+  return http.post(
+    prefix + `/updateRole?roleName=${param.roleName}&roles=${param.roles}`
+  );
+}

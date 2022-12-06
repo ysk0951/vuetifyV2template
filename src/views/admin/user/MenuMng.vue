@@ -3,6 +3,7 @@
     <SetDialogVue ref="add">
       <AddGroup />
     </SetDialogVue>
+    <SetPopupVue ref="addConfirm" />
     <h3 class="mt-4 mb-2">메뉴 관리</h3>
     <hr class="mb-4" />
     <div class="service">
@@ -83,6 +84,8 @@ import SetDialogVue from "@/components/SetDialog";
 import RealGrid from "@/components/RealGrid";
 import { columns, fields, rows, height } from "@/assets/grid/account";
 import AddGroup from "@/views/admin/user/AddGroup";
+import SetPopupVue from "@/components/SetPopup.vue";
+import { updateRole } from "api/member/member";
 export default {
   computed: {
     ...mapState("select", ["workType", "roleType", "roleSet"]),
@@ -92,6 +95,7 @@ export default {
     RealGrid,
     SetDialogVue,
     AddGroup,
+    SetPopupVue,
   },
   data() {
     return {
@@ -114,6 +118,7 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
+    ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     check(v) {
       this.checkBox[v] = !this.checkBox[v];
     },
@@ -151,8 +156,38 @@ export default {
       this.$refs.add.openModal();
     },
     delGroup() {},
-    cancle() {},
-    save() {},
+    cancle() {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable: true,
+        text: "취소하시겠습니까?",
+      });
+      this.$refs.addConfirm.openPopup();
+    },
+    save() {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable: true,
+        text: "저장하시곘습니까?",
+      });
+      this.$refs.addConfirm.openPopup(this.saveExec);
+    },
+    saveExec() {
+      const checked = _.pickBy(this.checkBox, function (v) {
+        return v;
+      });
+      const key = _.keys(checked).join(",");
+      updateRole({
+        roleName: this.curBtnValue,
+        roles: key,
+      })
+        .then(() => {})
+        .catch(() => {});
+    },
   },
 };
 </script>
