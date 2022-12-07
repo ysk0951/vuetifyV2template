@@ -61,6 +61,22 @@
             >
               임시 관리자 로그인
             </v-btn>
+            <v-btn
+              type="submit"
+              color="primary lighten-1 text-capitalize"
+              depressed
+              large
+              block
+              dark
+              class="mb-3"
+              @click="
+                () => {
+                  this.$router.push({ name: 'sample' });
+                }
+              "
+            >
+              임시 샘플관리 페이지
+            </v-btn>
             <div class="underLogin">
               <div>
                 <span @click="find(0)">{{ this.getText("MSG003") }}</span>
