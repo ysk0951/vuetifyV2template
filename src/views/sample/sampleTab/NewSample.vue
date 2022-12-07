@@ -10,22 +10,29 @@
         <v-text-field
           placeholder="파일을 선택해주세요"
           type="text"
-          v-model="fileName"
+          v-model="file.name"
           outlined
           dense
           disabled
           filled
         />
+        <input
+          class="d-none"
+          ref="uploader"
+          type="file"
+          @change="onFileChanged"
+        />
         <v-btn
           depressed
           class="ml-3 mr-3"
           color="primary fileBtn"
-          @click="select"
+          @click="upload"
+          :loading="isSelecting"
           >파일선택</v-btn
         >
         <v-btn depressed class="fileBtn" @click="read">불러오기</v-btn>
       </div>
-      <v-btn depressed color="info mr-3" class="fileBtn" @click="select"
+      <v-btn depressed color="info mr-3" class="fileBtn" @click="downloadSample"
         >샘플 양식</v-btn
       >
     </div>
@@ -150,6 +157,7 @@
   </div>
 </template>
 <script>
+import { getSample } from "api/file";
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 export default {
@@ -162,12 +170,13 @@ export default {
         rows,
         height,
       },
-      fileName: "",
+      file: "",
       price: ["전체", "유상", "무상"],
       package: ["선택", "AI", "P", "S", "18L", "50L", "200L", "말통"],
       param: {
         default: 0,
       },
+      isSelecting: false,
       address: [
         {
           key: "default",
@@ -185,10 +194,28 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
+    upload() {
+      this.isSelecting = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelecting = false;
+        },
+        { once: true }
+      );
+      this.$refs.uploader.click();
+    },
+    onFileChanged(e) {
+      this.file = e.target.files[0];
+      console.log(this.file);
+    },
     read() {},
     select() {},
     cancle() {},
     request() {},
+    downloadSample() {
+      getSample();
+    },
   },
   components: {
     RealGrid,

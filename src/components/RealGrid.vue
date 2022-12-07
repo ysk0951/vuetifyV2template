@@ -48,8 +48,10 @@ export default {
     this.dp = new LocalDataProvider(false);
     this.gv = new GridView(this.gridName);
     this.gv.displayOptions.fitStyle = "even";
+    this.gv.displayOptions.rowHeight = 30;
     this.gv.setDataSource(this.dp);
     this.dp.setFields(this.settings.fields);
+    this.gv.header.height = 40;
     this.gv.setColumns(this.settings.columns);
   },
 };
