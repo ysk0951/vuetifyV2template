@@ -1,5 +1,6 @@
 <template>
   <div class="address">
+    <SetPopup ref="sampledownload" />
     <h3 class="mt-4 mb-2">샘플 요청</h3>
     <hr class="mb-4" />
     <div>
@@ -160,6 +161,9 @@
 import { getSample } from "api/file";
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
+import SetPopup from "@/components/SetPopup.vue";
+import { mapMutations } from "vuex";
+import * as XLSX from "xlsx";
 export default {
   data() {
     return {
@@ -190,8 +194,8 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     newSample() {
-      console.log("newSample");
       this.$emit("newSample");
     },
     upload() {
@@ -207,18 +211,51 @@ export default {
     },
     onFileChanged(e) {
       this.file = e.target.files[0];
-      console.log(this.file);
     },
-    read() {},
+    read() {
+      // get File object from input tag
+      const file = this.file;
+
+      // declare FileReader, temp result
+      const reader = new FileReader();
+      let tmpResult = {};
+
+      // if you use "this", don't use "function(e) {...}"
+      reader.onload = (e) => {
+        let data = e.target.result;
+        data = new Uint8Array(data);
+        // get excel file
+        let excelFile = XLSX.read(data, { type: "array" });
+
+        // get prased object
+        excelFile.SheetNames.forEach(function (sheetName) {
+          const roa = XLSX.utils.sheet_to_json(excelFile.Sheets[sheetName], {
+            header: 1,
+          });
+          if (roa.length) tmpResult[sheetName] = roa;
+        });
+        this.result = tmpResult.Sheet1;
+      };
+      reader.readAsArrayBuffer(file);
+      console.log(tmpResult);
+    },
     select() {},
     cancle() {},
     request() {},
     downloadSample() {
-      getSample();
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text: "샘플을 다운로드 하시겠습니까",
+        closable: true,
+      });
+      this.$refs.sampledownload.openPopup(getSample);
     },
   },
   components: {
     RealGrid,
+    SetPopup,
   },
   computed: {
     otherAddress() {
