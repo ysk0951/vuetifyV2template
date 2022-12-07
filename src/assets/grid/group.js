@@ -111,4 +111,4 @@ export const columns = [
 ];
 
 export const rows = [];
-export const height = 480;
+export const height = 350;

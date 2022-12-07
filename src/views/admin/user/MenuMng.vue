@@ -50,7 +50,6 @@
                     v-for="(box, idx) in item.subMenu"
                     :key="idx"
                   >
-                    <!-- <v-checkbox @click="check(box.code)" :refs="box.code"> -->
                     <v-checkbox v-model="checkBox[box.code]">
                       <template v-slot:label>
                         <h5>{{ box.menu }}</h5>
@@ -72,7 +71,16 @@
         </v-row>
       </div>
     </div>
-    <h3 class="mt-4 mb-2">그룹 목록</h3>
+    <div class="wrapperSpace mt-10">
+      <h3 class="mt-4 mb-2">그룹 목록</h3>
+      <div>
+        <v-btn class="mr-2" depressed color="primary" @click="search"
+          >검색</v-btn
+        >
+        <v-btn class="mr-2" depressed @click="add">삭제</v-btn>
+        <v-btn depressed color="primary" @click="add">저장</v-btn>
+      </div>
+    </div>
     <hr class="mb-4" />
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
   </div>
@@ -119,9 +127,7 @@ export default {
       "RESET_MODAL",
     ]),
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
-    check(v) {
-      this.checkBox[v] = !this.checkBox[v];
-    },
+    ...mapMutations("select", ["SET_ROLE_TYPE"]),
     curBtn(v) {
       this.curBtnValue = v;
       const idx = _.findIndex(this.roleSet, function (o) {
@@ -147,7 +153,7 @@ export default {
         {}
       );
     },
-    addGroup() {
+    search() {
       this.SET_MODAL({
         height: 600,
         width: 750,
@@ -157,24 +163,20 @@ export default {
     },
     delGroup() {},
     cancle() {
+      this.setModal("취소하시겠습니까", true);
+    },
+    setModal(msg, closable, cb) {
       this.SET_POPUP({
         title: "알림",
         height: 150,
         width: 300,
-        closable: true,
-        text: "취소하시겠습니까?",
+        closable: closable,
+        text: msg,
       });
-      this.$refs.addConfirm.openPopup();
+      this.$refs.addConfirm.openPopup(cb);
     },
     save() {
-      this.SET_POPUP({
-        title: "알림",
-        height: 150,
-        width: 300,
-        closable: true,
-        text: "저장하시곘습니까?",
-      });
-      this.$refs.addConfirm.openPopup(this.saveExec);
+      this.setModal("저장 하시겠습니까", true, this.saveExec);
     },
     saveExec() {
       const checked = _.pickBy(this.checkBox, function (v) {
@@ -185,7 +187,10 @@ export default {
         roleName: this.curBtnValue,
         roles: key,
       })
-        .then(() => {})
+        .then(async () => {
+          await this.SET_ROLE_TYPE();
+          this.setModal("저장되었습니다", false, () => {});
+        })
         .catch(() => {});
     },
   },
