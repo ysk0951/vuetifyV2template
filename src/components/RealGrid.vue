@@ -4,6 +4,9 @@
       :id="gridName"
       :style="'width: 100%; height: ' + settings.height + 'px'"
     ></div>
+    <div class="text-center mt-2">
+      <v-pagination depressed v-model="page" :length="10"></v-pagination>
+    </div>
   </div>
 </template>
 
@@ -18,6 +21,7 @@ export default {
       gridName: this.domName,
       gv: null,
       dp: null,
+      page: 1,
     };
   },
   methods: {
@@ -50,3 +54,8 @@ export default {
   },
 };
 </script>
+<style>
+.v-pagination__item {
+  box-shadow: none !important;
+}
+</style>
