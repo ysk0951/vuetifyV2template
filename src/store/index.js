@@ -7,6 +7,7 @@ import popup from "./module/popup";
 import locale from "./module/locale";
 import menu from "./module/menu";
 import select from "./module/select";
+import common from "./module/common";
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 export default new Vuex.Store({
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     locale,
     menu,
     select,
+    common,
   },
   plugins: [
     createPersistedState({

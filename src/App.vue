@@ -63,11 +63,14 @@ export default {
     await this.SET_LOCALE(this.locale);
     await this.SET_ROLE_TYPE();
     await this.SET_ALL_MENU();
+    await this.SET_CODE("C");
+    await this.SET_CODE("D");
   },
   methods: {
     ...mapMutations("locale", ["SET_LOCALE"]),
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
     ...mapMutations("menu", ["SET_ALL_MENU"]),
+    ...mapMutations("common", ["SET_CODE"]),
     routing(v) {
       this.$router.push(v.url);
     },
@@ -124,5 +127,10 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 
 .background {
   background-color: rgba(0, 0, 0, 0.02);
+}
+
+.v-select__selections {
+  position: absolute !important;
+  top: -2px !important;
 }
 </style>

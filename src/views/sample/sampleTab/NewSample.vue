@@ -134,7 +134,13 @@
       </v-col>
       <v-col cols="12" sm="2">
         <h4>포장 요청사항</h4>
-        <v-select :items="this.package" outlined id="work"></v-select>
+        <v-select
+          :items="code.C"
+          v-model="this.package"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+        ></v-select>
       </v-col>
       <v-col cols="12" sm="4">
         <h4>기타 요청사항</h4>
@@ -159,11 +165,18 @@
 </template>
 <script>
 import { getSample } from "api/file";
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import {
+  columns,
+  fields,
+  rows,
+  height,
+  rowSet,
+} from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import * as XLSX from "xlsx";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -174,9 +187,10 @@ export default {
         rows,
         height,
       },
+      codeSet: {},
       file: "",
       price: ["전체", "유상", "무상"],
-      package: ["선택", "AI", "P", "S", "18L", "50L", "200L", "말통"],
+      package: "",
       param: {
         default: 0,
       },
@@ -191,8 +205,14 @@ export default {
           text: "다른 배송지",
         },
       ],
-      tmpResult: {},
+      tmpResult: [],
     };
+  },
+  computed: {
+    ...mapState("common", ["code"]),
+    otherAddress() {
+      return !this.param.default;
+    },
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
@@ -212,22 +232,36 @@ export default {
     },
     onFileChanged(e) {
       const input = e.target;
+      const that = this;
       let reader = new FileReader();
       reader.onload = function () {
         let fileData = reader.result;
         let wb = XLSX.read(fileData, { type: "binary" });
-        wb.SheetNames.forEach(function (sheetName) {
+        wb.SheetNames.forEach((sheetName) => {
           let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], {
             header: 1,
           });
-          console.log(rowObj);
-          console.log(JSON.stringify(rowObj));
+          rowObj.shift();
+          that.tmpResult = rowObj;
         });
       };
       this.file = input.files[0];
       reader.readAsArrayBuffer(input.files[0]);
     },
-    read() {},
+    read() {
+      const rows = _.cloneDeep(this.tmpResult);
+      rows.shift();
+      rows.pop();
+      let rowsForGrid = [];
+      _.forEach(rows, (row) => {
+        let obj = {};
+        _.forEach(row, (col, idx) => {
+          obj[rowSet[idx]] = col;
+        });
+        rowsForGrid.push(obj);
+      });
+      this.$refs.grid.loadData(rowsForGrid);
+    },
     select() {},
     cancle() {},
     request() {},
@@ -246,11 +280,7 @@ export default {
     RealGrid,
     SetPopup,
   },
-  computed: {
-    otherAddress() {
-      return !this.param.default;
-    },
-  },
+  mounted() {},
 };
 </script>
 <style lang="scss">

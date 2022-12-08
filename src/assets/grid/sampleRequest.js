@@ -48,7 +48,7 @@ makeCell(3, [
     needIndex: false,
   },
 ]);
-makeCell(3, [
+makeCell(10, [
   {
     field: "Add.",
     needIndex: true,
@@ -58,5 +58,14 @@ makeCell(3, [
     needIndex: false,
   },
 ]);
+
+export const rowSet = _.reduce(
+  fields,
+  (a, v) => {
+    a.push(v.fieldName);
+    return a;
+  },
+  []
+);
 const height = 480;
 export { fields, columns, height };
