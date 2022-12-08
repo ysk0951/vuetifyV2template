@@ -191,6 +191,7 @@ export default {
           text: "다른 배송지",
         },
       ],
+      tmpResult: {},
     };
   },
   methods: {
@@ -210,35 +211,23 @@ export default {
       this.$refs.uploader.click();
     },
     onFileChanged(e) {
-      this.file = e.target.files[0];
-    },
-    read() {
-      // get File object from input tag
-      const file = this.file;
-
-      // declare FileReader, temp result
-      const reader = new FileReader();
-      let tmpResult = {};
-
-      // if you use "this", don't use "function(e) {...}"
-      reader.onload = (e) => {
-        let data = e.target.result;
-        data = new Uint8Array(data);
-        // get excel file
-        let excelFile = XLSX.read(data, { type: "array" });
-
-        // get prased object
-        excelFile.SheetNames.forEach(function (sheetName) {
-          const roa = XLSX.utils.sheet_to_json(excelFile.Sheets[sheetName], {
+      const input = e.target;
+      let reader = new FileReader();
+      reader.onload = function () {
+        let fileData = reader.result;
+        let wb = XLSX.read(fileData, { type: "binary" });
+        wb.SheetNames.forEach(function (sheetName) {
+          let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], {
             header: 1,
           });
-          if (roa.length) tmpResult[sheetName] = roa;
+          console.log(rowObj);
+          console.log(JSON.stringify(rowObj));
         });
-        this.result = tmpResult.Sheet1;
       };
-      reader.readAsArrayBuffer(file);
-      console.log(tmpResult);
+      this.file = input.files[0];
+      reader.readAsArrayBuffer(input.files[0]);
     },
+    read() {},
     select() {},
     cancle() {},
     request() {},

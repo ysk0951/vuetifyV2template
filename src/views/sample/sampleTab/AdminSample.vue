@@ -163,7 +163,7 @@ import RealGrid from "@/components/RealGrid.vue";
 export default {
   data() {
     return {
-      grid: "newSample",
+      grid: "newAdminSample",
       settings: {
         columns,
         fields,
