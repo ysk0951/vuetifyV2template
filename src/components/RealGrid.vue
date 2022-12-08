@@ -53,6 +53,9 @@ export default {
     this.dp.setFields(this.settings.fields);
     this.gv.header.height = 40;
     this.gv.setColumns(this.settings.columns);
+    this.gv.setCheckBar({
+      exclusive: this.settings.exclusive,
+    });
   },
 };
 </script>

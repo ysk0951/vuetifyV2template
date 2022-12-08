@@ -49,12 +49,13 @@
           outlined
           dense
           placeholder="요청자 이름을 입력해주세요"
+          v-model="param.request"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <div class="wrapperSpace" style="height: 24px">
           <h4>수령자</h4>
-          <v-checkbox>
+          <v-checkbox v-model="param.same">
             <template v-slot:label>
               <h5>요청자와 동일</h5>
             </template></v-checkbox
@@ -64,11 +65,18 @@
           outlined
           dense
           placeholder="수령자 이름을 입력해주세요"
+          v-model="param.response"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>유무상</h4>
-        <v-select :items="price" outlined id="work"></v-select>
+        <v-select
+          :items="code.P"
+          v-model="param.price"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+        ></v-select>
       </v-col>
     </v-row>
     <h4>배송지 선택</h4>
@@ -91,20 +99,24 @@
             <v-text-field
               placeholder="주소를 입력해주세요"
               type="text"
-              v-model="fileName"
               outlined
               dense
               disabled
               filled
+              v-model="param.address"
             />
             <v-btn
               depressed
               color="primary"
               class="ml-3 mr-3 fileBtn"
-              @click="read"
+              @click="searchAddress"
               >주소검색</v-btn
             >
-            <v-btn depressed color="primary" class="fileBtn" @click="select"
+            <v-btn
+              depressed
+              color="primary"
+              class="fileBtn"
+              @click="searchAddress"
               >주소록</v-btn
             >
           </div>
@@ -114,7 +126,12 @@
     <v-row>
       <v-col cols="12" sm="2">
         <h4>Qty(kg)</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="00:00"
+          v-model="param.qty"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>요청 자재코드</h4>
@@ -122,6 +139,7 @@
           outlined
           dense
           placeholder="요청 자재코드를 입력해주세요"
+          v-model="param.requestCode"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
@@ -130,13 +148,14 @@
           outlined
           dense
           placeholder="분석 요청사항을 입력해주세요"
+          v-model="param.analysisRequest"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>포장 요청사항</h4>
         <v-select
           :items="code.C"
-          v-model="this.package"
+          v-model="param.package"
           placeholder="선택해주세요"
           outlined
           id="work"
@@ -148,6 +167,7 @@
           outlined
           dense
           placeholder="기타 요청사항을 입력해주세요"
+          v-model="param.memo"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -178,6 +198,13 @@ import { mapMutations, mapState } from "vuex";
 import * as XLSX from "xlsx";
 import _ from "lodash";
 export default {
+  watch: {
+    "param.same": function (v) {
+      if (v) {
+        this.param.response = this.param.request;
+      }
+    },
+  },
   data() {
     return {
       grid: "newSample",
@@ -186,13 +213,20 @@ export default {
         fields,
         rows,
         height,
+        exclusive: true,
       },
       codeSet: {},
       file: "",
-      price: ["전체", "유상", "무상"],
-      package: "",
       param: {
         default: 0,
+        price: "",
+        package: "",
+        memo: "",
+        same: false,
+        address: "",
+        qty: "",
+        requestCode: "",
+        analysisRequest: "",
       },
       isSelecting: false,
       address: [
@@ -252,6 +286,10 @@ export default {
       const rows = _.cloneDeep(this.tmpResult);
       rows.shift();
       rows.pop();
+      let rowsForGrid = this.makeRowForm(rows);
+      this.$refs.grid.loadData(rowsForGrid);
+    },
+    makeRowForm(rows) {
       let rowsForGrid = [];
       _.forEach(rows, (row) => {
         let obj = {};
@@ -260,11 +298,16 @@ export default {
         });
         rowsForGrid.push(obj);
       });
-      this.$refs.grid.loadData(rowsForGrid);
+      return rowsForGrid;
     },
     select() {},
     cancle() {},
-    request() {},
+    request() {
+      const row = this.$refs.grid.getCheckedRow();
+      const ret = this.makeRowForm(row);
+      console.log(this.param);
+      console.log(ret);
+    },
     downloadSample() {
       this.SET_POPUP({
         title: "알림",
@@ -274,6 +317,14 @@ export default {
         closable: true,
       });
       this.$refs.sampledownload.openPopup(getSample);
+    },
+    searchAddress() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          this.param.address = data.zonecode;
+          // this.param.addDetail1 = data.roadAddress + data.buildingName;
+        },
+      }).open();
     },
   },
   components: {
