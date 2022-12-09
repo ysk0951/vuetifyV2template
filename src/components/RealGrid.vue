@@ -49,13 +49,13 @@ export default {
     },
     getCheckedRow: function () {
       const idx = this.gv.getCheckedRows(true, false, false);
-      const allRows = this.dp.getRows(0, -1);
       const rows = [];
-      _.each(idx, function (v) {
-        rows.push(allRows[v]);
+      _.each(idx, (v) => {
+        rows.push(this.dp.getJsonRow(v));
       });
       return rows;
     },
+    setColor() {},
     setPage: function (v) {
       this.page = {
         currentPage: Number(v.currentPage),

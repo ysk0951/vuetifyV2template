@@ -16,6 +16,7 @@
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
+import { memberSampleList } from "api/sample/sample";
 
 export default {
   data() {
@@ -31,12 +32,31 @@ export default {
   },
   methods: {
     newSample() {
-      console.log("newSample");
       this.$emit("newSample");
+    },
+    loadData() {
+      memberSampleList({
+        currentPage: "1",
+        memberid: "yskimweb@gmail.com",
+        pageSize: "10",
+      })
+        .then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          const page = response.data.params;
+          this.$refs.grid.loadData(items);
+          this.$refs.grid.setPage(page);
+        })
+        .catch((res) => {
+          console.error(res);
+        });
     },
   },
   components: {
     RealGrid,
+  },
+  mounted() {
+    this.loadData();
   },
 };
 </script>

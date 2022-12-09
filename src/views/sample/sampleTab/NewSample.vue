@@ -1,6 +1,6 @@
 <template>
   <div class="address">
-    <SetPopup ref="sampledownload" />
+    <SetPopup ref="confirm" />
     <h3 class="mt-4 mb-2">샘플 요청</h3>
     <hr class="mb-4" />
     <div>
@@ -49,7 +49,7 @@
           outlined
           dense
           placeholder="요청자 이름을 입력해주세요"
-          v-model="param.request"
+          v-model="param.request_name"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
@@ -65,14 +65,14 @@
           outlined
           dense
           placeholder="수령자 이름을 입력해주세요"
-          v-model="param.response"
+          v-model="param.pick_name"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>유무상</h4>
         <v-select
           :items="code.P"
-          v-model="param.price"
+          v-model="param.price_type"
           placeholder="선택해주세요"
           outlined
           id="work"
@@ -139,7 +139,7 @@
           outlined
           dense
           placeholder="요청 자재코드를 입력해주세요"
-          v-model="param.requestCode"
+          v-model="param.request_code"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
@@ -148,14 +148,14 @@
           outlined
           dense
           placeholder="분석 요청사항을 입력해주세요"
-          v-model="param.analysisRequest"
+          v-model="param.analysis"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>포장 요청사항</h4>
         <v-select
           :items="code.C"
-          v-model="param.package"
+          v-model="param.packing"
           placeholder="선택해주세요"
           outlined
           id="work"
@@ -167,7 +167,7 @@
           outlined
           dense
           placeholder="기타 요청사항을 입력해주세요"
-          v-model="param.memo"
+          v-model="param.etc"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -197,11 +197,12 @@ import SetPopup from "@/components/SetPopup.vue";
 import { mapMutations, mapState } from "vuex";
 import * as XLSX from "xlsx";
 import _ from "lodash";
+import { insertSample } from "api/sample/sample";
 export default {
   watch: {
     "param.same": function (v) {
       if (v) {
-        this.param.response = this.param.request;
+        this.param.pick_name = this.param.request_name;
       }
     },
   },
@@ -219,14 +220,16 @@ export default {
       file: "",
       param: {
         default: 0,
-        price: "",
-        package: "",
-        memo: "",
+        price_type: "",
+        packing: "",
+        etc: "",
         same: false,
         address: "",
         qty: "",
-        requestCode: "",
-        analysisRequest: "",
+        request_code: "",
+        request_name: "",
+        pick_name: "",
+        analysis: "",
       },
       isSelecting: false,
       address: [
@@ -250,6 +253,21 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
+    reset() {
+      this.param = {
+        default: 0,
+        price_type: "",
+        packing: "",
+        etc: "",
+        same: false,
+        address: "",
+        qty: "",
+        request_code: "",
+        request_name: "",
+        pick_name: "",
+        analysis: "",
+      };
+    },
     newSample() {
       this.$emit("newSample");
     },
@@ -272,10 +290,7 @@ export default {
         let fileData = reader.result;
         let wb = XLSX.read(fileData, { type: "binary" });
         wb.SheetNames.forEach((sheetName) => {
-          let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName], {
-            header: 1,
-          });
-          rowObj.shift();
+          let rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
           that.tmpResult = rowObj;
         });
       };
@@ -284,45 +299,64 @@ export default {
     },
     read() {
       const rows = _.cloneDeep(this.tmpResult);
-      rows.shift();
-      rows.pop();
       let rowsForGrid = this.makeRowForm(rows);
       this.$refs.grid.loadData(rowsForGrid);
     },
     makeRowForm(rows) {
       let rowsForGrid = [];
       _.forEach(rows, (row) => {
-        let obj = {};
-        _.forEach(row, (col, idx) => {
-          obj[rowSet[idx]] = col;
+        _.forEach(rowSet, (o) => {
+          row[o.key] = row[o.value];
         });
-        rowsForGrid.push(obj);
+        rowsForGrid.push(row);
       });
+      console.log(rowsForGrid);
       return rowsForGrid;
     },
     select() {},
     cancle() {},
     request() {
       const row = this.$refs.grid.getCheckedRow();
-      const ret = this.makeRowForm(row);
-      console.log(this.param);
-      console.log(ret);
+      if (row.length > 0) {
+        _.each(row, (v) => {
+          const data = {
+            ...this.param,
+            ...v,
+            memberid: "yskimweb@gmail.com",
+          };
+          insertSample(data).then((res) => {
+            const body = res.data;
+            if (!_.isEmpty(body.errorCode)) {
+              this.openConfirm(body.errorMessage);
+            } else {
+              this.openConfirm(body.message, false, () => {
+                this.$refs.grid.setColor();
+              });
+            }
+          });
+          console.log(data);
+        });
+      } else {
+        this.openConfirm("샘플을 선택해주세요", false);
+      }
     },
     downloadSample() {
+      this.openConfirm("샘플을 다운로드 하시겠습니까", true, getSample);
+    },
+    openConfirm(message, closable, cb) {
       this.SET_POPUP({
         title: "알림",
         height: 150,
         width: 300,
-        text: "샘플을 다운로드 하시겠습니까",
-        closable: true,
+        text: message,
+        closable: closable,
       });
-      this.$refs.sampledownload.openPopup(getSample);
+      this.$refs.confirm.openPopup(cb);
     },
     searchAddress() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          this.param.address = data.zonecode;
-          // this.param.addDetail1 = data.roadAddress + data.buildingName;
+          this.param.address = `[${data.zonecode}] ${data.roadAddress}`;
         },
       }).open();
     },
@@ -331,7 +365,9 @@ export default {
     RealGrid,
     SetPopup,
   },
-  mounted() {},
+  mounted() {
+    this.reset();
+  },
 };
 </script>
 <style lang="scss">
