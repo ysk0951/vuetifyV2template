@@ -94,7 +94,12 @@
         </div>
       </h3>
       <hr class="mb-4" />
-      <RealGrid :domName="grid" ref="grid" :settings="settings" />
+      <RealGrid
+        :domName="grid"
+        ref="grid"
+        :settings="settings"
+        @changePage="loadData"
+      />
     </div>
   </div>
 </template>
@@ -128,7 +133,7 @@ export default {
       },
       grid: "acouunt",
       currentPage: 1,
-      pageSize: 20,
+      pageSize: 10,
       saveParam: {},
     };
   },
@@ -164,6 +169,10 @@ export default {
         employeeCode: "",
       };
     },
+    loadData(v) {
+      this.currentPage = v;
+      this.onApprove();
+    },
     onApprove() {
       const param = _.cloneDeep(this.input);
       switch (param.employeeStatus) {
@@ -186,10 +195,12 @@ export default {
         .then((res) => {
           const response = res.data;
           const items = response.data.items;
+          const page = response.data.params;
           _.each(items, function (v) {
             v.work = v.employee_status;
           });
           this.$refs.grid.loadData(items);
+          this.$refs.grid.setPage(page);
         })
         .catch((res) => {
           console.error(res);

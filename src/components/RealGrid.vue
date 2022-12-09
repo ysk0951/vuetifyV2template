@@ -5,7 +5,11 @@
       :style="'width: 100%; height: ' + settings.height + 'px'"
     ></div>
     <div class="text-center mt-2">
-      <v-pagination depressed v-model="page" :length="10"></v-pagination>
+      <v-pagination
+        depressed
+        v-model="page.currentPage"
+        :length="Math.ceil(page.totalRows / page.pageSize)"
+      ></v-pagination>
     </div>
   </div>
 </template>
@@ -21,8 +25,17 @@ export default {
       gridName: this.domName,
       gv: null,
       dp: null,
-      page: 1,
+      page: {
+        currentPage: 1,
+        totalRows: 10,
+        pageSize: 10,
+      },
     };
+  },
+  watch: {
+    "page.currentPage": function (v) {
+      this.$emit("changePage", v);
+    },
   },
   methods: {
     loadData: function (row) {
@@ -42,6 +55,16 @@ export default {
         rows.push(allRows[v]);
       });
       return rows;
+    },
+    setPage: function (v) {
+      this.page = {
+        currentPage: Number(v.currentPage),
+        totalRows: v.totalRows,
+        pageSize: Number(v.pageSize),
+      };
+    },
+    getPage: function () {
+      return this.page;
     },
   },
   mounted() {
