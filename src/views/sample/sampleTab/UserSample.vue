@@ -10,7 +10,12 @@
         <v-btn depressed color="primary" @click="newSample">샘플 요청</v-btn>
       </div>
     </div>
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+    />
   </div>
 </template>
 <script>
@@ -34,9 +39,9 @@ export default {
     newSample() {
       this.$emit("newSample");
     },
-    loadData() {
+    loadData(v) {
       memberSampleList({
-        currentPage: "1",
+        currentPage: v ? v : 1,
         memberid: "yskimweb@gmail.com",
         pageSize: "10",
       })
