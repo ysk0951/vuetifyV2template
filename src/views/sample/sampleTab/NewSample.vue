@@ -322,7 +322,7 @@ export default {
           const data = {
             ...this.param,
             ...v,
-            memberid: "yskimweb@gmail.com",
+            memberId: "yskimweb@gmail.com",
           };
           insertSample(data).then((res) => {
             const body = res.data;

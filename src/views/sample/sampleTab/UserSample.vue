@@ -42,7 +42,7 @@ export default {
     loadData(v) {
       memberSampleList({
         currentPage: v ? v : 1,
-        memberid: "yskimweb@gmail.com",
+        memberId: "yskimweb@gmail.com",
         pageSize: "10",
       })
         .then((res) => {

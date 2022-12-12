@@ -121,7 +121,7 @@ export default {
               this.errorMessage = resBody.errorMessage;
             } else {
               this.isSuccessFindId = true;
-              this.memberId = resBody.data.item.memberid;
+              this.memberId = resBody.data.item.memberId;
             }
           })
           .catch(() => {})

@@ -270,7 +270,7 @@ export default {
           areacode: this.param.areaCode,
           company: this.param.company,
           member_name: this.param.name,
-          memberid: this.param.email,
+          memberId: this.param.email,
           memberpw: this.param.password,
           name: this.param.post.postName,
           phone: this.param.phone,

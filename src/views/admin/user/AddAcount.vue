@@ -33,7 +33,7 @@
             outlined
             dense
             placeholder="이메일 주소를 입력해주세요"
-            v-model="input.memberid"
+            v-model="input.memberId"
             :readonly="!focus"
             @focus="focus = true"
             @blur="focus = false"
@@ -135,7 +135,7 @@ export default {
         employeeStatus: "전체",
         roles: "",
         member_name: "",
-        memberid: "",
+        memberId: "",
         company: "",
         employeeCode: "",
         phone: "",
@@ -173,7 +173,7 @@ export default {
         employeeStatus: "전체",
         roles: "",
         member_name: "",
-        memberid: "",
+        memberId: "",
         company: "",
         employeeCode: "",
       };

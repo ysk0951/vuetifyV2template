@@ -164,7 +164,7 @@ export default {
         return;
       } else {
         login({
-          memberid: this.id,
+          memberId: this.id,
           memberpw: this.pw,
         })
           .then((res) => {
