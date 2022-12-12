@@ -8,19 +8,19 @@ const data = [
     field: "번호",
   },
   {
-    field: "이름",
+    field: "단위",
   },
   {
-    field: "휴대폰번호",
+    field: "요청 SPEC",
   },
   {
-    field: "배송지",
+    field: "하한",
   },
   {
-    field: "이메일주소",
+    field: "중한",
   },
   {
-    field: "기업명",
+    field: "상한",
   },
   {
     field: "비고",
@@ -32,5 +32,5 @@ _.each(data, function (o) {
   makeCell(1, [o], fields, columns);
 });
 
-const height = 480;
+const height = 700;
 export { height, fields, columns };

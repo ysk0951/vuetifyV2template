@@ -1,27 +1,46 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">기본 정보</h3>
+    <h3 class="mt-4 mb-2">샘플 마스터 등록</h3>
     <hr class="mb-4" />
     <div class="confirmSample wrapperSpace">
+      <v-col cols="12" sm="4">
+        <h4>마스터 복사</h4>
+        <div class="wrapper">
+          <v-text-field
+            v-model="param.code_grade"
+            outlined
+            dense
+            placeholder="Code Grade를 입력해주세요"
+          ></v-text-field>
+          <v-btn style="height: 40px" depressed color="primary" class="ml-2"
+            >불러오기</v-btn
+          >
+        </div>
+      </v-col>
+    </div>
+    <h3 class="mt-4 mb-2 pl-1 pr-1">
+      <div class="wrapperSpace">기본 정보</div>
+    </h3>
+    <hr class="mb-4" />
+    <v-row>
       <v-col cols="12" sm="2">
         <h4>Code Grade</h4>
-        <v-text-field
-          v-model="param.solvent"
-          outlined
-          dense
-          placeholder="solvent/solvent/solvent/solvent/solvent/solvent/solvent/solvent/"
-        ></v-text-field>
+        <div class="wrapper">
+          <v-text-field outlined dense disabled filled></v-text-field>
+        </div>
       </v-col>
       <v-col cols="12" sm="10">
         <h4>품명</h4>
-        <v-text-field
-          v-model="param.solventVol"
-          outlined
-          dense
-          placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
-        ></v-text-field>
+        <div class="wrapper">
+          <v-text-field
+            v-model="param.name"
+            outlined
+            dense
+            placeholder="품명을 입력해 주세요"
+          ></v-text-field>
+        </div>
       </v-col>
-    </div>
+    </v-row>
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">조성</div>
     </h3>
@@ -62,14 +81,6 @@
       :settings="settings_spec"
       :nonePage="true"
     />
-    <div class="wrapper mt-4">
-      <v-card-actions>
-        <v-btn depressed @click="closeModal">취소</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="onApprove">저장</v-btn>
-      </v-card-actions>
-    </div>
   </div>
 </template>
 <script>
@@ -80,14 +91,10 @@ export default {
   data() {
     return {
       param: {
-        solvent: "",
-        solventVol: "",
-        salt: "",
-        saltVol: "",
-        add: "",
-        addVol: "",
+        name: "",
+        code_grdae: "",
       },
-      grid: "sampleMasterDetail",
+      grid: "sampleMaster",
       settings_sample: { ...sample, height: 150 },
       settings_real: { ...sample, height: 150 },
       settings_make: { ...sample, height: 150 },

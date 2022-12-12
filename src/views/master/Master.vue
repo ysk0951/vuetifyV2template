@@ -21,8 +21,17 @@
           <template v-if="item.key === 'sampleDetail'">
             <SmapleMasterDetail />
           </template>
+          <template v-if="item.key === 'sampleAdd'">
+            <SampleAdd />
+          </template>
           <template v-if="item.key === 'menstruum'">
             <MenstruumMaster />
+          </template>
+          <template v-if="item.key === 'menstruumDetail'">
+            <MenstruumDetail />
+          </template>
+          <template v-if="item.key === 'menstruumAdd'">
+            <MenstruumAdd />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -34,6 +43,9 @@ import SetDialog from "@/components/SetDialog";
 import UserMaster from "@/views/master/masterTap/UserMaster";
 import UserMasterDetail from "@/views/master/masterTap/UserMasterDetail";
 import MenstruumMaster from "@/views/master/masterTap/MenstruumMaster";
+import MenstruumDetail from "@/views/master/masterTap/MenstruumDetail";
+import MenstruumAdd from "@/views/master/masterTap/MenstruumAdd";
+import SampleAdd from "@/views/master/masterTap/SampleAdd";
 import SmapleMaster from "@/views/master/masterTap/SmapleMaster";
 import SmapleMasterDetail from "@/views/master/masterTap/SmapleMasterDetail";
 
@@ -60,8 +72,20 @@ export default {
           value: "샘플 마스터 상세",
         },
         {
+          key: "sampleAdd",
+          value: "샘플 마스터 등록",
+        },
+        {
           key: "menstruum",
           value: "용매조성 마스터관리",
+        },
+        {
+          key: "menstruumDetail",
+          value: "용매조성 마스터 상세",
+        },
+        {
+          key: "menstruumAdd",
+          value: "용매조성 마스터등록",
         },
       ],
     };
@@ -78,6 +102,9 @@ export default {
     MenstruumMaster,
     SmapleMaster,
     SmapleMasterDetail,
+    SampleAdd,
+    MenstruumDetail,
+    MenstruumAdd,
   },
   async created() {
     this.SET_MENU();

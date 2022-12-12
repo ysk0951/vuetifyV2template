@@ -2,7 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">샘플 마스터 관리</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace background px-10">
+    <div class="confirmSample wrapperSpace">
       <v-col cols="12" sm="6">
         <h4>Solvent</h4>
         <v-text-field
@@ -22,7 +22,7 @@
         ></v-text-field>
       </v-col>
     </div>
-    <div class="confirmSample wrapperSpace background px-10">
+    <div class="confirmSample wrapperSpace">
       <v-col cols="12" sm="6">
         <h4>Salt</h4>
         <v-text-field
@@ -42,7 +42,7 @@
         ></v-text-field>
       </v-col>
     </div>
-    <div class="confirmSample wrapperSpace background px-10">
+    <div class="confirmSample wrapperSpace">
       <v-col cols="12" sm="6">
         <h4>Add</h4>
         <v-text-field
