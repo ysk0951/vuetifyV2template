@@ -2,7 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">진행사항 조회</h3>
     <hr class="mb-4" />
-    <div class="searchProcess wrapperSpace background px-10 py-2">
+    <div class="searchProcess wrapperSpace pr-2">
       <v-row>
         <v-col cols="12" sm="3">
           <h4>Lot Co</h4>

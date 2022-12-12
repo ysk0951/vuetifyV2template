@@ -2,7 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">회원 마스터 관리</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace background px-10 py-1">
+    <div class="confirmSample wrapperSpace">
       <v-row>
         <v-col cols="12" sm="2">
           <h4>이름</h4>

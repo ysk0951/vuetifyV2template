@@ -18,6 +18,9 @@
           <template v-if="item.key === 'sample'">
             <SmapleMaster />
           </template>
+          <template v-if="item.key === 'sampleDetail'">
+            <SmapleMasterDetail />
+          </template>
           <template v-if="item.key === 'menstruum'">
             <MenstruumMaster />
           </template>
@@ -32,6 +35,7 @@ import UserMaster from "@/views/master/masterTap/UserMaster";
 import UserMasterDetail from "@/views/master/masterTap/UserMasterDetail";
 import MenstruumMaster from "@/views/master/masterTap/MenstruumMaster";
 import SmapleMaster from "@/views/master/masterTap/SmapleMaster";
+import SmapleMasterDetail from "@/views/master/masterTap/SmapleMasterDetail";
 
 import { mapState, mapMutations } from "vuex";
 export default {
@@ -52,6 +56,10 @@ export default {
           value: "샘플 마스터 관리",
         },
         {
+          key: "sampleDetail",
+          value: "샘플 마스터 상세",
+        },
+        {
           key: "menstruum",
           value: "용매조성 마스터관리",
         },
@@ -69,6 +77,7 @@ export default {
     UserMasterDetail,
     MenstruumMaster,
     SmapleMaster,
+    SmapleMasterDetail,
   },
   async created() {
     this.SET_MENU();

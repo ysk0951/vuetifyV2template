@@ -249,11 +249,6 @@ export default {
 </script>
 <style>
 .filter {
-  /* background-color: wheat; */
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.02) !important;
-  background-color: rgba(0, 0, 0, 0.02);
-  padding-bottom: 13px;
 }
 .add .row {
   margin: auto;

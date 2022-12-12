@@ -271,11 +271,7 @@ export default {
 <style>
 .filter {
   /* background-color: wheat; */
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.02) !important;
-  background-color: rgba(0, 0, 0, 0.02);
-  padding-bottom: 13px;
-  padding-right: 15px;
+  padding-right: 7px;
 }
 .add .row {
   margin: auto;

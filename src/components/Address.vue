@@ -22,6 +22,7 @@
 <script>
 import { mapMutations } from "vuex";
 import SetDialogVue from "./SetDialog.vue";
+import { addressbookList } from "api/address/address";
 export default {
   name: "Address",
   // props: ["domName", "settings", "nonePage"],
@@ -40,6 +41,12 @@ export default {
         closable: true,
         customApprove: true,
       });
+      addressbookList()
+        .then((res) => {
+          const response = res.data;
+          console.log(response);
+        })
+        .catch(() => {});
       this.$refs.dialog.openModal();
     },
     addAddress() {
@@ -50,7 +57,9 @@ export default {
         },
       }).open();
     },
-    approve() {},
+    approve() {
+      this.$emit("onApprove", this.param);
+    },
   },
   mounted() {},
   components: {

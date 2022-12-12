@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">샘플 마스터 관리</h3>
+    <h3 class="mt-4 mb-2">기본 정보</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace background px-10">
-      <v-col cols="12" sm="6">
-        <h4>Solvent</h4>
+    <div class="confirmSample wrapperSpace">
+      <v-col cols="12" sm="2">
+        <h4>Code Grade</h4>
         <v-text-field
           v-model="param.solvent"
           outlined
@@ -12,53 +12,13 @@
           placeholder="solvent/solvent/solvent/solvent/solvent/solvent/solvent/solvent/"
         ></v-text-field>
       </v-col>
-      <v-col cols="12" sm="6">
-        <h4>Solvent Vol</h4>
+      <v-col cols="12" sm="10">
+        <h4>품명</h4>
         <v-text-field
           v-model="param.solventVol"
           outlined
           dense
           placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
-        ></v-text-field>
-      </v-col>
-    </div>
-    <div class="confirmSample wrapperSpace background px-10">
-      <v-col cols="12" sm="6">
-        <h4>Salt</h4>
-        <v-text-field
-          v-model="param.salt"
-          outlined
-          dense
-          placeholder="salt/salt/salt"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <h4>Salt vol</h4>
-        <v-text-field
-          v-model="param.saltVol"
-          outlined
-          dense
-          placeholder="00.00/00.00/00.00"
-        ></v-text-field>
-      </v-col>
-    </div>
-    <div class="confirmSample wrapperSpace background px-10">
-      <v-col cols="12" sm="6">
-        <h4>Add</h4>
-        <v-text-field
-          v-model="param.add"
-          outlined
-          dense
-          placeholder="add/add/add/add/add/add/add/add/add/add"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <h4>Add Vol</h4>
-        <v-text-field
-          v-model="param.addVol"
-          outlined
-          dense
-          placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
         ></v-text-field>
       </v-col>
     </div>
