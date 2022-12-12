@@ -310,7 +310,6 @@ export default {
         });
         rowsForGrid.push(row);
       });
-      console.log(rowsForGrid);
       return rowsForGrid;
     },
     select() {},

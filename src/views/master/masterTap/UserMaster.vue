@@ -5,19 +5,19 @@
     <div class="confirmSample wrapperSpace background px-10 py-1">
       <v-row>
         <v-col cols="12" sm="2">
-          <h4>Lot Co</h4>
+          <h4>이름</h4>
           <v-text-field
             outlined
             dense
-            placeholder="Lot Co를 입력해주세요"
+            placeholder="이름을 입력해주세요"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
-          <h4>요청자</h4>
+          <h4>기업명</h4>
           <v-text-field
             outlined
             dense
-            placeholder="요청자를 입력해주세요"
+            placeholder="기업명을 입력해주세요"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -30,26 +30,23 @@
         <v-btn depressed color="primary" @click="search">검색</v-btn>
       </v-card-actions>
     </div>
-    <div class="wrapperSpace">
-      <div>
-        <h4 class="mt-4 mb-2">요청 내역</h4>
-      </div>
-    </div>
+    <h3 class="mt-16 mb-2 pl-1 pr-1">
+      <div class="wrapperSpace">목록</div>
+    </h3>
+    <hr class="mb-4" />
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import { columns, fields, height } from "@/assets/grid/userMaster";
 import RealGrid from "@/components/RealGrid.vue";
-
 export default {
   data() {
     return {
-      grid: "confirmSample",
+      grid: "userMaster",
       settings: {
         columns,
         fields,
-        rows,
         height,
       },
     };

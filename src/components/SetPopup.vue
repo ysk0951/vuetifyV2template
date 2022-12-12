@@ -30,7 +30,7 @@
 </template>
 <script>
 import _ from "lodash";
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   props: {
     slotProps: {
@@ -57,12 +57,14 @@ export default {
     ]),
   },
   methods: {
+    ...mapMutations("popup", ["RESET_POPUP"]),
     openPopup(cb) {
       this.open = true;
       this.callback = cb;
     },
     closePopup() {
       this.open = false;
+      this.RESET_POPUP();
     },
     onApprove() {
       this.closePopup();

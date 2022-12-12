@@ -28,7 +28,7 @@
 </template>
 <script>
 import _ from "lodash";
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -50,12 +50,14 @@ export default {
     ]),
   },
   methods: {
+    ...mapMutations("modal", ["RESET_MODAL"]),
     openModal(cb) {
       this.open = true;
       this.callback = cb;
     },
     closeModal() {
       this.open = false;
+      this.RESET_MODAL();
     },
     onApprove() {
       this.closeModal();

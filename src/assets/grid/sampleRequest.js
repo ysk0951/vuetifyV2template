@@ -1,83 +1,56 @@
 import _ from "lodash";
-import { ValueType } from "realgrid";
-
+import { makeCell } from "./gridUtill";
 let fields = [];
 let columns = [];
-function makeCell(count, value) {
-  for (var v = 1; v <= count; v++) {
+makeCell(
+  8,
+  [
     {
-      _.each(value, (o) => {
-        const field = o.field;
-        const alias = o.alias;
-        let excelKey;
-        if (o.excelKey) {
-          v > 1
-            ? (excelKey = `${o.excelKey}${v - 1}`)
-            : (excelKey = o.excelKey.slice(0, -1));
-        }
-        const indexExclusive = o.indexExclusive;
-        let headerText = "";
-        if (indexExclusive) {
-          headerText = alias ? `${alias}` : `${field}`;
-        } else {
-          headerText = alias ? `${alias}${v}` : `${field}${v}`;
-        }
-        fields.push({
-          fieldName: `${field}${v}`,
-          dataType: ValueType.TEXT,
-          excelKey,
-        });
-        columns.push({
-          name: `${field}${v}`,
-          fieldName: `${field}${v}`,
-          type: "data",
-          styles: {
-            textAlignment: "center",
-          },
-          header: {
-            text: headerText,
-            showTooltip: true,
-          },
-          editable: true,
-        });
-      });
-    }
-  }
-}
-makeCell(8, [
-  {
-    field: "solvent",
-    alias: "solvent",
-  },
-  {
-    field: "solventVol",
-    alias: "vol%",
-    indexExclusive: true,
-    excelKey: "vol%_",
-  },
-]);
-makeCell(3, [
-  {
-    field: "salt",
-  },
-  {
-    field: "soltVal",
-    alias: "M,wt%",
-    indexExclusive: true,
-    excelKey: "M,wt%_",
-  },
-]);
-makeCell(10, [
-  {
-    field: "add",
-  },
-  {
-    alias: "wt%",
-    field: "addVol",
-    indexExclusive: true,
-    excelKey: "wt%_",
-  },
-]);
+      field: "solvent",
+      alias: "solvent",
+    },
+    {
+      field: "solventVol",
+      alias: "vol%",
+      indexExclusive: true,
+      excelKey: "vol%_",
+    },
+  ],
+  fields,
+  columns
+);
+makeCell(
+  3,
+  [
+    {
+      field: "salt",
+    },
+    {
+      field: "soltVal",
+      alias: "M,wt%",
+      indexExclusive: true,
+      excelKey: "M,wt%_",
+    },
+  ],
+  fields,
+  columns
+);
+makeCell(
+  10,
+  [
+    {
+      field: "add",
+    },
+    {
+      alias: "wt%",
+      field: "addVol",
+      indexExclusive: true,
+      excelKey: "wt%_",
+    },
+  ],
+  fields,
+  columns
+);
 
 const rowSet = _.reduce(
   fields,

@@ -12,6 +12,9 @@
           <template v-if="item.key === 'user'">
             <UserMaster />
           </template>
+          <template v-if="item.key === 'userDetail'">
+            <UserMasterDetail />
+          </template>
           <template v-if="item.key === 'sample'">
             <SmapleMaster />
           </template>
@@ -26,6 +29,7 @@
 <script>
 import SetDialog from "@/components/SetDialog";
 import UserMaster from "@/views/master/masterTap/UserMaster";
+import UserMasterDetail from "@/views/master/masterTap/UserMasterDetail";
 import MenstruumMaster from "@/views/master/masterTap/MenstruumMaster";
 import SmapleMaster from "@/views/master/masterTap/SmapleMaster";
 
@@ -38,6 +42,10 @@ export default {
         {
           key: "user",
           value: "회원 마스터 관리",
+        },
+        {
+          key: "userDetail",
+          value: "회원 상세",
         },
         {
           key: "sample",
@@ -58,6 +66,7 @@ export default {
   components: {
     SetDialog,
     UserMaster,
+    UserMasterDetail,
     MenstruumMaster,
     SmapleMaster,
   },

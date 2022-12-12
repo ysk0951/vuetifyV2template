@@ -4,7 +4,7 @@
       :id="gridName"
       :style="'width: 100%; height: ' + settings.height + 'px'"
     ></div>
-    <div class="text-center mt-2">
+    <div class="text-center mt-2" v-if="!nonePage">
       <v-pagination
         depressed
         v-model="page.currentPage"
@@ -19,7 +19,7 @@ import _ from "lodash";
 import { GridView, LocalDataProvider } from "realgrid";
 export default {
   name: "RealGrid",
-  props: ["domName", "settings"],
+  props: ["domName", "settings", "nonePage"],
   data: function () {
     return {
       gridName: this.domName,
