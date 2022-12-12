@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12>
     <div class="wrapper">
-      <v-card height="600px" width="450px">
+      <v-card height="650px" width="450px">
         <SetDialog ref="loginModal" />
         <SetDialog ref="findPopup">
           <Find
@@ -76,6 +76,38 @@
               "
             >
               임시 샘플관리 페이지
+            </v-btn>
+            <v-btn
+              type="submit"
+              color="primary lighten-1 text-capitalize"
+              depressed
+              large
+              block
+              dark
+              class="mb-3"
+              @click="
+                () => {
+                  this.$router.push({ name: 'master' });
+                }
+              "
+            >
+              임시 마스터관리 페이지
+            </v-btn>
+            <v-btn
+              type="submit"
+              color="primary lighten-1 text-capitalize"
+              depressed
+              large
+              block
+              dark
+              class="mb-6"
+              @click="
+                () => {
+                  this.$router.push({ name: 'document' });
+                }
+              "
+            >
+              임시 서류관리 페이지
             </v-btn>
             <div class="underLogin">
               <div>

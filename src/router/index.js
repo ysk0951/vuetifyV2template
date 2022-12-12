@@ -10,6 +10,8 @@ import Admin from "@/views/admin/Admin";
 import AddGroup from "@/views/admin/user/AddGroup";
 import NotFoundPage from "@/views/NotFoundPage";
 import Sample from "@/views/sample/Sample";
+import Master from "@/views/master/Master";
+import Document from "@/views/document/document";
 Vue.use(VueRouter);
 
 const routes = [
@@ -57,6 +59,16 @@ const routes = [
     path: "/sample",
     name: "sample",
     component: Sample,
+  },
+  {
+    path: "/master",
+    name: "master",
+    component: Master,
+  },
+  {
+    path: "/document",
+    name: "document",
+    component: Document,
   },
   {
     path: "*",
