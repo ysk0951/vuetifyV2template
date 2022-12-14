@@ -46,7 +46,7 @@
     </h3>
     <hr class="mb-4" />
     <RealGrid
-      domName="settings_sample"
+      domName="settings_sample_add"
       ref="grid"
       :settings="settings_sample"
       :nonePage="true"
@@ -56,7 +56,7 @@
     </h3>
     <hr class="mb-4" />
     <RealGrid
-      domName="settings_real"
+      domName="settings_real_add"
       ref="grid"
       :settings="settings_real"
       :nonePage="true"
@@ -66,7 +66,7 @@
     </h3>
     <hr class="mb-4" />
     <RealGrid
-      domName="settings_make"
+      domName="settings_make_add"
       ref="grid"
       :settings="settings_make"
       :nonePage="true"
