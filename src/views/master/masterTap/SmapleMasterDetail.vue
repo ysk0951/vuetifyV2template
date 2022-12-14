@@ -64,10 +64,10 @@
     />
     <div class="wrapper mt-4">
       <v-card-actions>
-        <v-btn depressed @click="closeModal">취소</v-btn>
+        <v-btn depressed @click="cancle">취소</v-btn>
       </v-card-actions>
       <v-card-actions>
-        <v-btn depressed color="primary" @click="onApprove">저장</v-btn>
+        <v-btn depressed color="primary" @click="save">저장</v-btn>
       </v-card-actions>
     </div>
   </div>
@@ -99,7 +99,8 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
-    search() {},
+    cancle() {},
+    save() {},
     reset() {
       this.param = {
         solvent: "",

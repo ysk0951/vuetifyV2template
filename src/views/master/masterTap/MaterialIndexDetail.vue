@@ -12,7 +12,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      grid: "materialIndex",
+      grid: "materialIndexDetail",
       settings: {
         columns,
         fields,

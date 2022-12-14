@@ -94,7 +94,7 @@ export default {
         name: "",
         code_grdae: "",
       },
-      grid: "sampleMaster",
+      grid: "sampleMasterAdd",
       settings_sample: { ...sample, height: 150 },
       settings_real: { ...sample, height: 150 },
       settings_make: { ...sample, height: 150 },

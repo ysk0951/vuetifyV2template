@@ -21,13 +21,14 @@ export function makeCell(count, value, fields, columns) {
           headerText = alias ? `${alias}${v}` : `${field}${v}`;
         }
         fields.push({
-          fieldName: indexExclusive ? `${field}` : `${field}${v}`,
+          fieldName: `${field}${v}`,
           dataType: ValueType.TEXT,
           excelKey,
         });
         columns.push({
-          name: indexExclusive ? `${field}` : `${field}${v}`,
-          fieldName: indexExclusive ? `${field}` : `${field}${v}`,
+          name: `${field}${v}`,
+          fieldName: `${field}${v}`,
+          key: field,
           type: "data",
           styles: {
             textAlignment: "center",

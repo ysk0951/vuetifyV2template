@@ -107,6 +107,7 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
+    addSample() {},
     search() {},
     reset() {
       this.param = {

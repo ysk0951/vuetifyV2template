@@ -31,7 +31,7 @@ import _ from "lodash";
 export default {
   data() {
     return {
-      grid: "materialIndex",
+      grid: "materialIndexAdd",
       material: "",
       settings: materialIndex,
       layout: materialIndex.columns,
@@ -69,9 +69,9 @@ export default {
     setData() {
       const obj = {};
       const key = [];
-      _.each(this.settings.fields, (v) => {
-        key.push(v.fieldName);
-        obj[v.fieldName] = "";
+      _.each(this.settings.columns, (v) => {
+        key.push(v.key);
+        obj[v.key] = "";
       });
       this.bindKey = key;
       this.param = obj;

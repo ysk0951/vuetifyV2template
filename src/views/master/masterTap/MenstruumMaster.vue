@@ -82,6 +82,7 @@ export default {
       this.$emit("newSample");
     },
     search() {},
+    addSample() {},
     reset() {
       this.param = {
         solvent: "",
