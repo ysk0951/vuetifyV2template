@@ -33,6 +33,15 @@
           <template v-if="item.key === 'menstruumAdd'">
             <MenstruumAdd />
           </template>
+          <template v-if="item.key === 'materialIndex'">
+            <MaterialIndex />
+          </template>
+          <template v-if="item.key === 'materialIndexDetail'">
+            <MaterialIndexDetail />
+          </template>
+          <template v-if="item.key === 'materialIndexAdd'">
+            <MaterialIndexAdd />
+          </template>
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -48,7 +57,9 @@ import MenstruumAdd from "@/views/master/masterTap/MenstruumAdd";
 import SampleAdd from "@/views/master/masterTap/SampleAdd";
 import SmapleMaster from "@/views/master/masterTap/SmapleMaster";
 import SmapleMasterDetail from "@/views/master/masterTap/SmapleMasterDetail";
-
+import MaterialIndex from "@/views/master/masterTap/MaterialIndex";
+import MaterialIndexDetail from "@/views/master/masterTap/MaterialIndexDetail";
+import MaterialIndexAdd from "@/views/master/masterTap/MaterialIndexAdd";
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
@@ -87,6 +98,18 @@ export default {
           key: "menstruumAdd",
           value: "용매조성 마스터등록",
         },
+        {
+          key: "materialIndex",
+          value: "물질명 INDEX",
+        },
+        {
+          key: "materialIndexDetail",
+          value: "물질명 INDEX 상세",
+        },
+        {
+          key: "materialIndexAdd",
+          value: "물질명 INDEX 등록",
+        },
       ],
     };
   },
@@ -105,6 +128,9 @@ export default {
     SampleAdd,
     MenstruumDetail,
     MenstruumAdd,
+    MaterialIndex,
+    MaterialIndexDetail,
+    MaterialIndexAdd,
   },
   async created() {
     this.SET_MENU();

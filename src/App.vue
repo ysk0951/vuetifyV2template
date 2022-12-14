@@ -66,6 +66,7 @@ export default {
     await this.SET_CODE("C");
     await this.SET_CODE("D");
     await this.SET_CODE("P");
+    await this.SET_CODE("M");
   },
   methods: {
     ...mapMutations("locale", ["SET_LOCALE"]),
