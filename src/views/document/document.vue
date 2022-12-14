@@ -1,6 +1,5 @@
 <template>
   <v-container fill-height fluid class="mt-4">
-    <SetDialog ref="modal" />
     <div class="pa-10 full">
       <v-tabs v-model="tab">
         <v-tab v-for="item in items" :key="item.key">
@@ -9,11 +8,11 @@
       </v-tabs>
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
-          <template v-if="item.key === 'user'">
-            <UserMaster />
+          <template v-if="item.key === 'coa'">
+            <COA />
           </template>
-          <template v-if="item.key === 'userDetail'">
-            <UserMasterDetail />
+          <template v-if="item.key === 'cda'">
+            <CDA />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -21,11 +20,13 @@
   </v-container>
 </template>
 <script>
+import CDA from "@/views/document/documentTap/CDA";
+import COA from "@/views/document/documentTap/COA";
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      tab: 0,
+      tab: 1,
       items: [
         {
           key: "cda",
@@ -43,7 +44,10 @@ export default {
     ...mapState("member", ["accessToken"]),
     ...mapState("menu", ["menu"]),
   },
-  components: {},
+  components: {
+    CDA,
+    COA,
+  },
   async created() {
     this.SET_MENU();
   },

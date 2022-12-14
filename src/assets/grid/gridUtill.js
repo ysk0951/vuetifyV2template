@@ -43,3 +43,21 @@ export function makeCell(count, value, fields, columns) {
     }
   }
 }
+
+export function makeGroup(columns, addIndex, name) {
+  const col = [];
+  _.each(addIndex, (v) => {
+    col.push(columns[v]);
+  });
+  const obj = {
+    type: "group",
+    name,
+    columns: col,
+  };
+  columns.push({
+    type: "group",
+    name,
+    orientation: "vertical",
+    columns: [obj],
+  });
+}
