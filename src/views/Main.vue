@@ -1,46 +1,40 @@
 <template>
-  <div class="wrapper">
-    <v-card height="600px">
-      <SetDialog ref="mainModal" />
-      <v-btn @click="reset">초기화</v-btn>
-    </v-card>
-  </div>
-</template>
+  <v-container fill-height fluid class="mt-4">
+    <SetDialog ref="modal" />
+    <div class="pa-10 full">
+      <v-row>
+        <v-col cols="12" sm="3">
+          <v-btn>123</v-btn>
+        </v-col>
+      </v-row>
 
+      <div>그래프</div>
+    </div>
+  </v-container>
+</template>
 <script>
 import SetDialog from "@/components/SetDialog";
-import _ from "lodash";
-import { mapMutations, mapState } from "vuex";
+import { mapState } from "vuex";
 export default {
-  name: "Main",
   data() {
-    return {
-      checkbox: false,
-      showPwd: false,
-      id: "",
-      pw: "",
-    };
+    return {};
+  },
+  computed: {
+    ...mapState("menu", ["menu"]),
   },
   components: {
     SetDialog,
   },
-  computed: {
-    ...mapState("member", ["accessToken"]),
-  },
+  async created() {},
   methods: {
-    ...mapMutations("member", ["SET_TOKEN"]),
-    ...mapMutations("menu", ["SET_MENU"]),
-    reset() {
-      this.SET_TOKEN({});
-    },
-  },
-  async created() {
-    if (_.isEmpty(this.accessToken)) {
-      this.$router.push({ name: "login" });
-    } else {
-      this.SET_MENU();
-    }
+    newSample() {},
   },
 };
 </script>
-<style></style>
+<style scoped>
+.full {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+</style>

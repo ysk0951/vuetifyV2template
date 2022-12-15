@@ -19,6 +19,12 @@
             {{ item.text }}
           </v-btn>
         </div>
+        <v-avatar tile>
+          <v-icon> mdi-account </v-icon>
+        </v-avatar>
+        <v-btn depressed @click="account">{{
+          this.accessToken ? "로그아웃" : "로그인"
+        }}</v-btn>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4">
         <v-layout align-center row wrap>
@@ -73,11 +79,20 @@ export default {
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
     ...mapMutations("menu", ["SET_ALL_MENU"]),
     ...mapMutations("common", ["SET_CODE"]),
+    ...mapMutations("member", ["SET_TOKEN"]),
     routing(v) {
       this.$router.push(v.url);
     },
     changeLang(v) {
       this.locale = v;
+    },
+    account() {
+      if (this.accessToken) {
+        this.SET_TOKEN({});
+        this.$router.push({ name: "login" });
+      } else {
+        this.$router.push({ name: "login" });
+      }
     },
   },
 };
