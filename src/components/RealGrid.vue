@@ -47,6 +47,9 @@ export default {
     getCol: function () {
       return this.gv.getColumns();
     },
+    setGroup(groupingInfo) {
+      this.gv.setColumnLayout(groupingInfo);
+    },
     getCheckedRow: function () {
       const idx = this.gv.getCheckedRows(true, false, false);
       const rows = [];
@@ -79,6 +82,10 @@ export default {
     this.gv.setCheckBar({
       exclusive: this.settings.exclusive,
     });
+    // this.gv.setColumnLayout(["ITEM1", "UNIT1", "RESULT1"]);
+    if (this.settings.grouping) {
+      this.setGroup(this.settings.grouping);
+    }
   },
 };
 </script>

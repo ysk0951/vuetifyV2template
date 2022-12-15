@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/coa";
+import { columns, fields, rows, height, grouping } from "@/assets/grid/coa";
 import RealGrid from "@/components/RealGrid.vue";
 
 export default {
@@ -50,6 +50,7 @@ export default {
         fields,
         rows,
         height,
+        grouping,
       },
     };
   },

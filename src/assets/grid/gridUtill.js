@@ -44,20 +44,25 @@ export function makeCell(count, value, fields, columns) {
   }
 }
 
-export function makeGroup(columns, addIndex, name) {
-  const col = [];
-  _.each(addIndex, (v) => {
-    col.push(columns[v]);
+export function makeGroup(data, start, end, name) {
+  const ret = [];
+  const items = [];
+  _.each(data, (v, i) => {
+    if (i >= start && i < end) {
+      items.push(v.field + "1");
+    } else if (i === end) {
+      items.push(v.field + "1");
+      ret.push({
+        name,
+        items,
+        direction: "horizontal",
+        header: {
+          text: name,
+        },
+      });
+    } else {
+      ret.push(v.field + "1");
+    }
   });
-  const obj = {
-    type: "group",
-    name,
-    columns: col,
-  };
-  columns.push({
-    type: "group",
-    name,
-    orientation: "vertical",
-    columns: [obj],
-  });
+  return ret;
 }

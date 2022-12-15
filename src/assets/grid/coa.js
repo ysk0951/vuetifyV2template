@@ -4,23 +4,23 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "no",
+    field: "ITEM",
     alias: "ITEM",
   },
   {
-    field: "1",
+    field: "LCL",
     alias: "LCL",
   },
   {
-    field: "2",
+    field: "UCL",
     alias: "UCL",
   },
   {
-    field: "3",
+    field: "UNIT",
     alias: "UNIT",
   },
   {
-    field: "4",
+    field: "RESULT",
     alias: "RESULT",
   },
 ];
@@ -29,8 +29,6 @@ _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
 });
-
-makeGroup(columns, [1, 2], "SPECIFICATION");
-console.log(columns);
 const height = 480;
-export { height, fields, columns };
+const grouping = makeGroup(data, 1, 2, "SPECIFICATION");
+export { height, fields, columns, grouping };
