@@ -134,7 +134,7 @@ export default {
           .finally(() => {});
       } else if (key === "pw") {
         console.log("pw Approve");
-        this.closeModal({ name: "modifyPwd", params });
+        this.closeModal({ name: "modifyPwd", params: { params } });
       }
     },
     loginByFindId(id) {
