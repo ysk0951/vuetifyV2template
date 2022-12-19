@@ -280,8 +280,10 @@ export default {
       }
       return ret;
     },
-    close() {
+    close(route) {
       this.$refs.findPopup.closeModal();
+      console.log(route);
+      this.$router.push(route);
     },
     loginByFindId(id) {
       this.$refs.findPopup.closeModal();

@@ -41,7 +41,6 @@
                 @closeModal="closeModal"
                 @onApprove="onApprove"
                 :memberId="memberId"
-                @modifyPwd="this.$router.push({ name: 'modifyPwd' })"
               />
             </template>
           </v-card>
@@ -113,12 +112,13 @@ export default {
     changeTab(tab) {
       this.$emit("changeTab", tab);
     },
-    closeModal() {
-      this.$emit("close");
+    closeModal(route) {
+      console.log(route);
+      this.$emit("close", route);
     },
-    onApprove(param, key) {
+    onApprove(params, key) {
       if (key === "id") {
-        searchUserId(param)
+        searchUserId(params)
           .then((res) => {
             const resBody = res.data;
             this.isApproved = true;
@@ -133,7 +133,8 @@ export default {
           .catch(() => {})
           .finally(() => {});
       } else if (key === "pw") {
-        key;
+        console.log("pw Approve");
+        this.closeModal({ name: "modifyPwd", params });
       }
     },
     loginByFindId(id) {

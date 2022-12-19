@@ -83,7 +83,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-const defaultPath = ["/login", "/signup"];
+const defaultPath = ["/login", "/signup", "/modifyPwd"];
 const adminPath = ["/admin"];
 const path = defaultPath.concat(adminPath);
 console.log(path);

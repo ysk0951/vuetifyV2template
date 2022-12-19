@@ -120,6 +120,14 @@ export default {
       "SET_POPUP",
       "RESET_POPUP",
     ]),
+    reset() {
+      this.param = {
+        memberName: "",
+        memberId: "",
+        certifiCode: "",
+        gubun: 1,
+      };
+    },
     closeModal() {
       this.$emit("closeModal");
     },
@@ -127,12 +135,11 @@ export default {
       return this.$refs.pwFind.validate();
     },
     onApprove() {
-      console.log("onApprove");
       if (!this.emailAuth) {
         this.openPopup("인증번호 인증이 완료되어야 합니다");
       } else if (this.valid()) {
-        this.closeModal();
-        this.$emit("modifyPwd");
+        this.$emit("onApprove", this.param.memberId, "pw");
+        this.reset();
       }
     },
     checkCode() {
