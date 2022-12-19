@@ -9,7 +9,7 @@
           <v-text-field
             placeholder="이름을 입력해주요"
             v-model="memberName"
-            :rules="[this.validSet.empty]"
+            :rules="[this.validSet.empty, this.validSet.name]"
             outlined
             dense
           ></v-text-field>
@@ -26,7 +26,7 @@
             placeholder="+82"
             v-model="areacode"
             :rules="[this.validSet.empty]"
-            v-mask="'+##'"
+            v-mask="'+###'"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" style="padding-left: 0px">
@@ -76,7 +76,8 @@ export default {
       if (this.valid()) {
         const param = {
           memberName: this.memberName,
-          phone: this.phone,
+          phone: this.phone.replaceAll("-", ""),
+          // phone: this.phone,
           areacode: this.areacode.replace("+", ""),
         };
         this.$emit("onApprove", param, "id");

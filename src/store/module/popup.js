@@ -4,7 +4,7 @@ const popup = {
     param: {},
     dialogTitle: "",
     dialogText: "",
-    maxWidth: 150,
+    maxWidth: 300,
     height: 150,
     closable: false,
     callback: undefined,
@@ -49,7 +49,7 @@ const popup = {
       state.param = {};
       state.dialogTitle = "";
       state.dialogText = "";
-      state.maxWidth = 150;
+      state.maxWidth = 300;
       state.height = 150;
       state.closable = false;
       state.callback = undefined;

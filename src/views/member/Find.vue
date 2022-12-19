@@ -32,11 +32,17 @@
                   }"
                   @loginByFindId="loginByFindId"
                   @back="back"
+                  @findPwFromId="findPwFromId"
                 />
               </template>
             </template>
             <template v-if="tab === 1">
-              <FindPwForm @closeModal="closeModal" @onApprove="onApprove" />
+              <FindPwForm
+                @closeModal="closeModal"
+                @onApprove="onApprove"
+                :memberId="memberId"
+                @modifyPwd="this.$router.push({ name: 'modifyPwd' })"
+              />
             </template>
           </v-card>
         </v-tab-item>
@@ -133,6 +139,11 @@ export default {
     loginByFindId(id) {
       this.clearSetting();
       this.$emit("loginByFindId", id);
+    },
+    findPwFromId(id) {
+      this.clearSetting();
+      this.memberId = id;
+      this.tab = 1;
     },
     back() {
       this.clearSetting();

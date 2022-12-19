@@ -80,10 +80,11 @@
 import _ from "lodash";
 import { mapMutations } from "vuex";
 import SetPopup from "@/components/SetPopup";
-import { sendAuthNum, authNumCheck, sendTempPass } from "api/member/member";
+import { sendAuthNum, authNumCheck } from "api/member/member";
 import validSet from "@/assets/valid";
 export default {
   name: "FindPwForm",
+  props: ["memberId"],
   data() {
     return {
       validSet,
@@ -93,7 +94,7 @@ export default {
       isSend: false,
       param: {
         memberName: "",
-        memberId: "",
+        memberId: this.memberId ? this.memberId : "",
         certifiCode: "",
         gubun: 1,
       },
@@ -126,21 +127,12 @@ export default {
       return this.$refs.pwFind.validate();
     },
     onApprove() {
+      console.log("onApprove");
       if (!this.emailAuth) {
         this.openPopup("인증번호 인증이 완료되어야 합니다");
       } else if (this.valid()) {
-        sendTempPass(this.param).then((res) => {
-          const body = res.data;
-          if (!_.isEmpty(body.errorCode)) {
-            this.openPopup(body.errorMessage);
-            this.closeModal();
-          } else {
-            this.emailAuth = true;
-            this.openPopup(body.message, () => {
-              this.$router.push({ name: "modifyPwd" });
-            });
-          }
-        });
+        this.closeModal();
+        this.$emit("modifyPwd");
       }
     },
     checkCode() {
@@ -183,6 +175,7 @@ export default {
       }
     },
     openPopup(text, cb) {
+      this.SET_POPUP_TITLE("알림");
       this.SET_POPUP_TEXT(text);
       this.$refs.sertificatePopup.openPopup(cb);
     },

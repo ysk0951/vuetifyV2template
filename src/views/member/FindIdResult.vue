@@ -58,7 +58,9 @@ export default {
     back() {
       this.$emit("back");
     },
-    findPw() {},
+    findPw() {
+      this.$emit("findPwFromId", this.setting.memberId);
+    },
   },
 };
 </script>
