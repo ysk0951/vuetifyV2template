@@ -12,6 +12,8 @@ import NotFoundPage from "@/views/NotFoundPage";
 import Sample from "@/views/sample/Sample";
 import Master from "@/views/master/Master";
 import Document from "@/views/document/document";
+import store from "@/store/index";
+import _ from "lodash";
 Vue.use(VueRouter);
 
 const routes = [
@@ -81,9 +83,18 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
+const defaultPath = ["/login", "/signup"];
+const adminPath = ["/admin"];
+const path = defaultPath.concat(adminPath);
+console.log(path);
 router.beforeEach((to, from, next) => {
-  next();
+  if (path.includes(to.path)) {
+    next();
+  } else if (_.isEmpty(store.state.member.accessToken)) {
+    router.push({ name: "login" });
+  } else {
+    next();
+  }
 });
 
 //NavigationDuplicated Error ignore

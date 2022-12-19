@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12>
-    <div class="wrapper">
+    <div class="wrapper login">
       <v-card height="650px" width="450px">
         <SetDialog ref="loginModal" />
         <SetDialog ref="findPopup">
@@ -22,101 +22,111 @@
               </template>
             </div>
           </h1>
-          <div>
-            <v-text-field
-              :placeholder="this.getText('MSG001')"
-              v-model="id"
-            ></v-text-field>
-            <v-text-field
-              append-icon="mdi-eye"
-              v-model="pw"
-              :type="pwdType"
-              :placeholder="this.getText('MSG002')"
-              @click:append="togglePwdShow"
-              maxlength="20"
-            >
-            </v-text-field>
-            <v-checkbox v-model="checkbox" :label="this.getText('MSG006')" />
-            <v-btn
-              type="submit"
-              color="primary lighten-1 text-capitalize"
-              depressed
-              large
-              block
-              dark
-              class="mb-3"
-              @click="signin"
-            >
-              Login
-            </v-btn>
-            <v-btn
-              type="submit"
-              color="primary lighten-1 text-capitalize"
-              depressed
-              large
-              block
-              dark
-              class="mb-3"
-              @click="admin"
-            >
-              임시 관리자 로그인
-            </v-btn>
-            <v-btn
-              type="submit"
-              color="primary lighten-1 text-capitalize"
-              depressed
-              large
-              block
-              dark
-              class="mb-3"
-              @click="
-                () => {
-                  this.$router.push({ name: 'sample' });
-                }
-              "
-            >
-              임시 샘플관리 페이지
-            </v-btn>
-            <v-btn
-              type="submit"
-              color="primary lighten-1 text-capitalize"
-              depressed
-              large
-              block
-              dark
-              class="mb-3"
-              @click="
-                () => {
-                  this.$router.push({ name: 'master' });
-                }
-              "
-            >
-              임시 마스터관리 페이지
-            </v-btn>
-            <v-btn
-              type="submit"
-              color="primary lighten-1 text-capitalize"
-              depressed
-              large
-              block
-              dark
-              class="mb-6"
-              @click="
-                () => {
-                  this.$router.push({ name: 'document' });
-                }
-              "
-            >
-              임시 서류관리 페이지
-            </v-btn>
-            <div class="underLogin">
-              <div>
-                <span @click="find(0)">{{ this.getText("MSG003") }}</span>
-                <span> | </span>
-                <span @click="find(1)">{{ this.getText("MSG004") }}</span>
-              </div>
-              <span @click="signup">{{ this.getText("MSG005") }}</span>
+          <v-form ref="loginValid" lazy-validation>
+            <div>
+              <v-text-field
+                :placeholder="this.getText('MSG001')"
+                v-model="id"
+                :rules="[this.validSet.empty]"
+                :readonly="!focus"
+                @focus="focus = true"
+                @blur="focus = false"
+              ></v-text-field>
+              <v-text-field
+                append-icon="mdi-eye"
+                v-model="pw"
+                :type="pwdType"
+                :placeholder="this.getText('MSG002')"
+                @click:append="togglePwdShow"
+                maxlength="20"
+                :readonly="!focus"
+                :rules="[this.validSet.empty, this.validSet.password]"
+                @focus="focus = true"
+                @blur="focus = false"
+              >
+              </v-text-field>
+              <v-checkbox v-model="checkbox" :label="this.getText('MSG006')" />
+              <v-btn
+                type="button"
+                color="primary lighten-1 text-capitalize"
+                depressed
+                large
+                block
+                dark
+                class="mb-3"
+                @click="signin"
+              >
+                Login
+              </v-btn>
+              <v-btn
+                type="button"
+                color="primary lighten-1 text-capitalize"
+                depressed
+                large
+                block
+                dark
+                class="mb-3"
+                @click="admin"
+              >
+                임시 관리자 로그인
+              </v-btn>
+              <v-btn
+                type="button"
+                color="primary lighten-1 text-capitalize"
+                depressed
+                large
+                block
+                dark
+                class="mb-3"
+                @click="
+                  () => {
+                    this.$router.push({ name: 'sample' });
+                  }
+                "
+              >
+                임시 샘플관리 페이지
+              </v-btn>
+              <v-btn
+                type="button"
+                color="primary lighten-1 text-capitalize"
+                depressed
+                large
+                block
+                dark
+                class="mb-3"
+                @click="
+                  () => {
+                    this.$router.push({ name: 'master' });
+                  }
+                "
+              >
+                임시 마스터관리 페이지
+              </v-btn>
+              <v-btn
+                type="button"
+                color="primary lighten-1 text-capitalize"
+                depressed
+                large
+                block
+                dark
+                class="mb-6"
+                @click="
+                  () => {
+                    this.$router.push({ name: 'document' });
+                  }
+                "
+              >
+                임시 서류관리 페이지
+              </v-btn>
             </div>
+          </v-form>
+          <div class="underLogin">
+            <div>
+              <span @click="find(0)">{{ this.getText("MSG003") }}</span>
+              <span> | </span>
+              <span @click="find(1)">{{ this.getText("MSG004") }}</span>
+            </div>
+            <span @click="signup">{{ this.getText("MSG005") }}</span>
           </div>
         </div>
       </v-card>
@@ -131,6 +141,7 @@ import _ from "lodash";
 import { mapMutations, mapState } from "vuex";
 import { login } from "api/member/member";
 import { emailRegex } from "@/assets/regex";
+import validSet from "@/assets/valid";
 export default {
   name: "Login",
   data() {
@@ -140,6 +151,8 @@ export default {
       id: "",
       pw: "",
       propsTab: 0,
+      validSet,
+      focus: false,
     };
   },
   components: {
@@ -149,7 +162,7 @@ export default {
   computed: {
     ...mapState("locale", ["message", "locale"]),
     pwdType() {
-      if (this.showPwd) {
+      if (!this.showPwd) {
         return "Password";
       } else {
         return "text";
@@ -161,6 +174,7 @@ export default {
     if (!_.isEmpty(id)) {
       this.id = id;
     }
+    this.showPwd = false;
   },
   methods: {
     ...mapMutations("member", ["SET_TOKEN"]),
@@ -172,6 +186,9 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
+    valid() {
+      return this.$refs.loginValid.validate();
+    },
     admin() {
       this.$router.push({ name: "admin" });
     },
@@ -192,9 +209,10 @@ export default {
       this.$router.push({ name: "signup" });
     },
     signin() {
-      if (this.validation()) {
+      if (!this.valid()) {
         return;
       } else {
+        console.log(1);
         login({
           memberId: this.id,
           memberpw: this.pw,
@@ -276,6 +294,10 @@ export default {
 };
 </script>
 <style>
+.login .v-text-field__details {
+  margin-top: 3px;
+}
+
 .v-text-field {
   margin-top: 0;
   padding-top: 0;

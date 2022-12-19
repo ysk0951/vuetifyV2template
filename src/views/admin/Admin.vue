@@ -15,8 +15,20 @@
           <template v-if="item.key === 'pw'">
             <AccontPw />
           </template>
+          <template v-if="item.key === 'login'">
+            <LoginMgn />
+          </template>
           <template v-if="item.key === 'menu'">
             <MenuMgn />
+          </template>
+          <template v-if="item.key === 'code'">
+            <CodeMgn />
+          </template>
+          <template v-if="item.key === 'codeDetail'">
+            <CodeDetail />
+          </template>
+          <template v-if="item.key === 'lang'">
+            <LangCode />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -28,6 +40,10 @@ import SetDialog from "@/components/SetDialog";
 import Accont from "@/views/admin/user/Account.vue";
 import AccontPw from "@/views/admin/user/AccountPw.vue";
 import MenuMgn from "@/views/admin/user/MenuMng.vue";
+import LoginMgn from "@/views/admin/user/LoginMgn.vue";
+import CodeMgn from "@/views/admin/user/CodeMgn.vue";
+import CodeDetail from "@/views/admin/user/CodeDetail.vue";
+import LangCode from "@/views/admin/user/LangCode";
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
@@ -43,8 +59,24 @@ export default {
           value: "비밀번호 관리",
         },
         {
+          key: "login",
+          value: "로그인 관리",
+        },
+        {
           key: "menu",
           value: "메뉴권한 관리",
+        },
+        {
+          key: "code",
+          value: "공통코드 관리",
+        },
+        {
+          key: "codeDetail",
+          value: "공통코드 상세",
+        },
+        {
+          key: "lang",
+          value: "다국어 지원관리",
         },
       ],
     };
@@ -59,6 +91,10 @@ export default {
     Accont,
     AccontPw,
     MenuMgn,
+    LoginMgn,
+    CodeMgn,
+    CodeDetail,
+    LangCode,
   },
   async created() {
     this.SET_MENU();

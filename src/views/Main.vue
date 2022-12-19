@@ -7,13 +7,13 @@
           <v-btn>123</v-btn>
         </v-col>
       </v-row>
-
-      <div>그래프</div>
+      <Chart />
     </div>
   </v-container>
 </template>
 <script>
 import SetDialog from "@/components/SetDialog";
+import Chart from "@/components/Chart";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -24,6 +24,7 @@ export default {
   },
   components: {
     SetDialog,
+    Chart,
   },
   async created() {},
   methods: {
