@@ -41,3 +41,9 @@ export async function updateRole(param) {
     prefix + `/updateRole?roleName=${param.roleName}&roles=${param.roles}`
   );
 }
+
+export async function newPass(param) {
+  return http.post(
+    prefix + `/newPass?memberId=${param.memberId}&memberPw=${param.memberPw}`
+  );
+}

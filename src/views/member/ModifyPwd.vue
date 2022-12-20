@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper tmpPass" style="width: 100%">
     <v-card style="width: 530px">
-      <SetDialog :setDialog="this.setDialog" ref="modifyModal" />
+      <SetPopup :setPopup="this.setPopup" ref="modifyModal" />
       <div class="pa-10">
         <v-form ref="modifyPw" lazy-validation>
           <h3 style="text-align: left">로그인</h3>
@@ -34,13 +34,13 @@
                     this.validSet.empty,
                     this.validSet.passwordCode(
                       param.password,
-                      param.passwordCode
+                      param.passwordCheck
                     ),
                   ]"
                 >
                 </v-text-field>
               </div>
-              <v-btn @click="login" depressed color="primary" class="mt-6"
+              <v-btn @click="changePwd" depressed color="primary" class="mt-6"
                 >확인</v-btn
               >
             </div>
@@ -52,14 +52,17 @@
 </template>
 
 <script>
-import SetDialog from "@/components/SetDialog";
+import SetPopup from "@/components/SetPopup";
 import validSet from "@/assets/valid";
+import { newPass } from "api/member/member";
+import { mapMutations } from "vuex";
+import _ from "lodash";
 export default {
   name: "ModifyPwd",
   data() {
     return {
       validSet,
-      setDialog: {
+      setPopup: {
         dialogTitle: "알림",
         dialogText: "변경된 비밀번호로 로그인해주세요",
         maxWidth: 500,
@@ -73,30 +76,67 @@ export default {
     };
   },
   components: {
-    SetDialog,
+    SetPopup,
   },
   computed: {
     pwdType() {
-      if (this.showPwd) {
+      if (!this.showPwd) {
         return "Password";
       } else {
         return "text";
       }
     },
   },
+  mounted() {
+    this.reset();
+  },
   methods: {
-    find() {},
+    ...mapMutations("popup", [
+      "SET_POPUP_TITLE",
+      "SET_POPUP_TEXT",
+      "SET_HIGHT",
+      "SET_MAX_WIDTH",
+      "SET_POPUP",
+      "RESET_POPUP",
+    ]),
+    reset() {
+      this.param = {
+        password: "",
+        passwordCheck: "",
+      };
+      this.checkbox = false;
+      this.showPwd = false;
+    },
     signup() {
       this.$router.push("./member/signup");
     },
     valid() {
       return this.$refs.modifyPw.validate();
     },
-    login() {
+    openPopup(text, cb) {
+      this.SET_POPUP_TITLE("알림");
+      this.SET_POPUP_TEXT(text);
+      console.log(text, cb);
+      this.$refs.modifyModal.openPopup(cb);
+    },
+    changePwd() {
       if (this.valid()) {
-        this.$refs.modifyModal.openModal(() => {
-          this.$router.push({ name: "login" });
-        });
+        console.log("changePwd");
+        newPass({
+          memberId: this.$route.params.params,
+          memberPw: this.param.password,
+        })
+          .then((res) => {
+            const body = res.data;
+            if (!_.isEmpty(body.errorCode)) {
+              this.openPopup(body.errorMessage);
+            } else {
+              this.openPopup(body.message, () => {
+                this.$router.push({ name: "login" });
+              });
+            }
+          })
+          .catch(() => {});
       }
     },
     togglePwdShow() {
