@@ -83,6 +83,7 @@ export default {
       exclusive: this.settings.exclusive,
     });
     this.gv.onCellClicked = (grid, clickData) => {
+      this.gv.setAllCheck(false);
       this.gv.checkRow(clickData.dataRow, true);
       this.$emit("click", { grid, clickData });
     };
