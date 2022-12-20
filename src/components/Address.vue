@@ -71,12 +71,6 @@ export default {
         customApprove: true,
       });
       this.$refs.postModal.openModal();
-      // new window.daum.Postcode({
-      //   oncomplete: (data) => {
-      //     this.param.address = data.zonecode;
-      //     this.param.addDetail1 = data.roadAddress + data.buildingName;
-      //   },
-      // }).open();
     },
     approve() {
       this.$refs.dialog.closeModal();

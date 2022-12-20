@@ -12,3 +12,7 @@ export async function addressbookList(param) {
 export async function insertBook(param) {
   return http.post(prefix + "/insertBook", param);
 }
+
+export async function addressbookDefault(param) {
+  return http.post(prefix + "/addressbookDefault", param);
+}

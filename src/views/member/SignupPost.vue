@@ -19,7 +19,7 @@
           placeholder="수령인을 입력해주세요"
           label="수령인*"
           type="text"
-          v-model="param.personName"
+          v-model="param.pickName"
           height="65"
           required
           :rules="[this.validSet.empty]"
@@ -43,7 +43,7 @@
             placeholder="주소를 선택해주세요"
             label="주소*"
             type="text"
-            v-model="param.address"
+            v-model="param.postcode"
             height="55"
             sideBtn="true"
             btnText="주소검색"
@@ -52,7 +52,7 @@
             :rules="[this.validSet.empty]"
           />
           <v-text-field
-            v-model="param.addDetail1"
+            v-model="param.address"
             outlined
             dense
             autocomplete="off"
@@ -60,7 +60,7 @@
             :rules="[this.validSet.empty]"
           ></v-text-field>
           <v-text-field
-            v-model="param.addDetail2"
+            v-model="param.address2"
             outlined
             dense
             autocomplete="off"
@@ -70,7 +70,7 @@
         </template>
         <template v-else>
           <v-text-field
-            v-model="param.addDetail1"
+            v-model="param.address"
             outlined
             dense
             autocomplete="off"
@@ -99,7 +99,7 @@
             기본배송지
           </v-subheader>
           <v-checkbox
-            v-model="param.default"
+            v-model="param.defaultYn"
             style="align-items: center; padding-top: 14px"
           >
             <template v-slot:label>
@@ -132,14 +132,14 @@ export default {
     return {
       validSet,
       param: {
-        postName: "",
+        pickName: "",
         phone1: "",
         phone2: "",
-        address: "",
+        postCode: "",
         name: "",
-        default: false,
-        addDetail1: "",
-        addDetail2: "",
+        defaultYn: false,
+        address: "",
+        address2: "",
         country: "N",
       },
       countrySet: [
