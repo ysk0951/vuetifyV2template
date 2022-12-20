@@ -86,12 +86,17 @@ const router = new VueRouter({
 const defaultPath = ["/login", "/signup", "/modifyPwd"];
 const adminPath = ["/admin"];
 const path = defaultPath.concat(adminPath);
+const dev = true;
 console.log(path);
 router.beforeEach((to, from, next) => {
-  if (path.includes(to.path)) {
-    next();
-  } else if (_.isEmpty(store.state.member.accessToken)) {
-    router.push({ name: "login" });
+  if (!dev) {
+    if (path.includes(to.path)) {
+      next();
+    } else if (_.isEmpty(store.state.member.accessToken)) {
+      router.push({ name: "login" });
+    } else {
+      next();
+    }
   } else {
     next();
   }

@@ -10,7 +10,7 @@
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
           <template v-if="item.key === 'userSample'">
-            <UserSample @newSample="newSample" />
+            <UserSample @newSample="newSample" ref="user" />
           </template>
           <template v-if="item.key === 'newSample'">
             <NewSample @newSample="newSample" />
@@ -109,6 +109,14 @@ export default {
         },
       ],
     };
+  },
+  watch: {
+    tab: function (v) {
+      if (v === 0) {
+        this.$refs.user[0].loadData();
+      }
+      console.log(v);
+    },
   },
   computed: {
     ...mapState("loading", ["loading"]),

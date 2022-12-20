@@ -27,6 +27,7 @@
       :readonly="!focus"
       @focus="focus = true"
       @blur="focus = false"
+      :maxlength="maxlength ? maxlength : 999"
     ></v-text-field>
     <v-btn
       v-if="sideBtn"
@@ -56,6 +57,7 @@ export default {
     "disabled",
     "required",
     "rules",
+    "maxlength",
   ],
   name: "SignupInput",
   data() {

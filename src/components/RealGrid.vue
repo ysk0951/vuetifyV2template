@@ -82,6 +82,10 @@ export default {
     this.gv.setCheckBar({
       exclusive: this.settings.exclusive,
     });
+    this.gv.onCellClicked = (grid, clickData) => {
+      this.$emit("click", { grid, clickData });
+    };
+
     // this.gv.setColumnLayout(["ITEM1", "UNIT1", "RESULT1"]);
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);

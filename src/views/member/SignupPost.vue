@@ -1,17 +1,19 @@
 <template>
-  <div class="pa-10">
+  <div class="pa-10 signupPost">
     <h3 style="text-align: left" class="mb-3">배송지 등록</h3>
     <hr />
+    <SetPopup ref="postConfirm" />
     <div class="cardWrapperLeft">
       <v-form ref="signupPost" lazy-validation>
         <SignupInput
           placeholder="배송지 입력해주세요"
           label="배송지 명*"
           type="text"
-          v-model="param.postName"
+          v-model="param.name"
           height="65"
           required
           :rules="[this.validSet.empty]"
+          :maxlength="30"
         />
         <SignupInput
           placeholder="수령인을 입력해주세요"
@@ -21,45 +23,75 @@
           height="65"
           required
           :rules="[this.validSet.empty]"
+          :maxlength="30"
         />
-        <SignupInput
-          placeholder="주소를 선택해주세요"
-          label="주소*"
-          type="text"
-          v-model="param.address"
-          height="55"
-          sideBtn="true"
-          btnText="주소검색"
-          :click="daumPostCode"
-          required
-          :rules="[this.validSet.empty]"
-        />
-        <v-text-field
-          v-model="param.addDetail1"
-          outlined
-          dense
-          autocomplete="off"
-          class="addDetail"
-        ></v-text-field>
-        <v-text-field
-          v-model="param.addDetail2"
-          outlined
-          dense
-          autocomplete="off"
-          class="addDetail"
-        ></v-text-field>
+        <div class="addressSelect">
+          <v-subheader class="my-4" style="width: 130px"
+            >배송지 구분</v-subheader
+          >
+          <v-radio-group v-model="param.country" row>
+            <v-radio
+              v-for="i in countrySet"
+              :key="i.key"
+              :label="`${i.text}`"
+              :value="i.key"
+            ></v-radio>
+          </v-radio-group>
+        </div>
+        <template v-if="param.country === 'N'">
+          <SignupInput
+            placeholder="주소를 선택해주세요"
+            label="주소*"
+            type="text"
+            v-model="param.address"
+            height="55"
+            sideBtn="true"
+            btnText="주소검색"
+            :click="daumPostCode"
+            required
+            :rules="[this.validSet.empty]"
+          />
+          <v-text-field
+            v-model="param.addDetail1"
+            outlined
+            dense
+            autocomplete="off"
+            class="addDetail"
+            :rules="[this.validSet.empty]"
+          ></v-text-field>
+          <v-text-field
+            v-model="param.addDetail2"
+            outlined
+            dense
+            autocomplete="off"
+            class="addDetail"
+            :rules="[this.validSet.empty]"
+          ></v-text-field>
+        </template>
+        <template v-else>
+          <v-text-field
+            v-model="param.addDetail1"
+            outlined
+            dense
+            autocomplete="off"
+            class="addDetail"
+            :rules="[this.validSet.empty]"
+          ></v-text-field>
+        </template>
         <SignupInput
           placeholder="000-0000-0000"
           label="배송지 연락처1"
-          type="password"
+          type="text"
           v-model="param.phone1"
           height="55"
+          :rules="[this.validSet.number]"
         />
         <SignupInput
           placeholder="000-0000-0000"
           label="배송지 연락처2"
-          type="password"
+          type="text"
           v-model="param.phone2"
+          :rules="[this.validSet.number]"
           height="55"
         />
         <div style="display: flex">
@@ -91,6 +123,9 @@
 <script>
 import validSet from "@/assets/valid";
 import SignupInput from "@/views/member/SignupInput.vue";
+import SetPopup from "@/components/SetPopup.vue";
+import { mapMutations } from "vuex";
+import { insertBook } from "api/address/address";
 export default {
   name: "SignupPost",
   data() {
@@ -101,25 +136,44 @@ export default {
         phone1: "",
         phone2: "",
         address: "",
-        personName: "",
+        name: "",
         default: false,
         addDetail1: "",
         addDetail2: "",
+        country: "N",
       },
+      countrySet: [
+        { key: "N", text: "국내배송지" },
+        { key: "Y", text: "해외배송지" },
+      ],
     };
   },
   components: {
     SignupInput,
+    SetPopup,
   },
   computed: {},
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     valid() {
       return this.$refs.signupPost.validate();
     },
     onApprove() {
       if (this.valid()) {
-        this.$emit("onApprove", this.param);
-        this.closeModal();
+        insertBook(this.param)
+          .then(() => {
+            this.SET_POPUP({
+              title: "알림",
+              text: "배송지가 등록되었습니다",
+              height: 150,
+              width: 300,
+            });
+            this.$refs.postConfirm.openPopup(() => {
+              // this.$emit("onApprove", this.param);
+              this.closeModal();
+            });
+          })
+          .catch(() => {});
       }
     },
     closeModal() {
@@ -136,28 +190,40 @@ export default {
   },
 };
 </script>
-<style scoped>
-.cardWrapper {
-  display: flex;
-  justify-content: center;
-}
-.col {
-  flex-direction: column;
-}
-.addDetail {
-  width: 400px;
-  margin-top: 17px;
-  margin-left: 130px;
-  height: 33px;
-}
-table {
-  border: 1px solid;
-  border-collapse: collapse;
-  width: 60%;
-  margin-top: 15px;
-}
-th,
-td {
-  border: 1px solid;
+<style lang="scss">
+.signupPost {
+  .cardWrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .col {
+    flex-direction: column;
+  }
+  .addDetail {
+    width: 400px;
+    margin-top: 17px;
+    margin-left: 130px;
+    height: 33px;
+  }
+  table {
+    border: 1px solid;
+    border-collapse: collapse;
+    width: 60%;
+    margin-top: 15px;
+  }
+  th,
+  td {
+    border: 1px solid;
+  }
+  .v-input--radio-group--row .v-messages.theme--light {
+    display: none !important;
+  }
+  .addressSelect {
+    display: flex;
+    width: 500px;
+    position: relative;
+    align-items: center;
+    height: 56px;
+  }
 }
 </style>

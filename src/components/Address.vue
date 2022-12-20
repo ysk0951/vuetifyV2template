@@ -1,5 +1,11 @@
 <template>
   <div class="address">
+    <SetDialogVue ref="postModal">
+      <SignupPost
+        @closeModal="this.closePost"
+        @onApprove="this.approvePost"
+      ></SignupPost>
+    </SetDialogVue>
     <SetDialogVue ref="dialog">
       <div class="pa-5">
         <h4>주소록</h4>
@@ -23,17 +29,25 @@
 import { mapMutations } from "vuex";
 import SetDialogVue from "./SetDialog.vue";
 import { addressbookList } from "api/address/address";
+import SignupPost from "@/views/member/SignupPost";
 export default {
   name: "Address",
-  // props: ["domName", "settings", "nonePage"],
   data: function () {
     return {
       param: {},
+      addresList: [],
     };
   },
   watch: {},
   methods: {
     ...mapMutations("modal", ["SET_MODAL"]),
+    ...mapMutations("popup", ["SET_POPUP"]),
+    closePost() {
+      this.$refs.postModal.closeModal();
+    },
+    approvePost(post) {
+      this.param.post = post;
+    },
     open() {
       this.SET_MODAL({
         height: 600,
@@ -44,26 +58,35 @@ export default {
       addressbookList()
         .then((res) => {
           const response = res.data;
-          console.log(response);
+          this.addresList = response;
         })
         .catch(() => {});
       this.$refs.dialog.openModal();
     },
     addAddress() {
-      new window.daum.Postcode({
-        oncomplete: (data) => {
-          this.param.address = data.zonecode;
-          this.param.addDetail1 = data.roadAddress + data.buildingName;
-        },
-      }).open();
+      this.SET_MODAL({
+        height: 600,
+        width: 650,
+        closable: true,
+        customApprove: true,
+      });
+      this.$refs.postModal.openModal();
+      // new window.daum.Postcode({
+      //   oncomplete: (data) => {
+      //     this.param.address = data.zonecode;
+      //     this.param.addDetail1 = data.roadAddress + data.buildingName;
+      //   },
+      // }).open();
     },
     approve() {
+      this.$refs.dialog.closeModal();
       this.$emit("onApprove", this.param);
     },
   },
   mounted() {},
   components: {
     SetDialogVue,
+    SignupPost,
   },
 };
 </script>

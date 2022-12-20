@@ -1,6 +1,7 @@
 <template>
   <div class="address">
     <SetPopup ref="confirm" />
+    <Address ref="address" @approve="onAddress" />
     <h3 class="mt-4 mb-2">샘플 요청</h3>
     <hr class="mb-4" />
     <div>
@@ -39,138 +40,148 @@
     </div>
     <h3 class="mt-4 mb-2">요청 목록</h3>
     <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
-    <h3 class="mt-4 mb-2">추가 정보</h3>
-    <hr class="mb-4" />
-    <v-row>
-      <v-col cols="12" sm="2">
-        <h4>요청자</h4>
-        <v-text-field
-          outlined
-          dense
-          placeholder="요청자 이름을 입력해주세요"
-          v-model="param.request_name"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="2">
-        <div class="wrapperSpace" style="height: 24px">
-          <h4>수령자</h4>
-          <v-checkbox v-model="param.same">
-            <template v-slot:label>
-              <h5>요청자와 동일</h5>
-            </template></v-checkbox
-          >
-        </div>
-        <v-text-field
-          outlined
-          dense
-          placeholder="수령자 이름을 입력해주세요"
-          v-model="param.pick_name"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="2">
-        <h4>유무상</h4>
-        <v-select
-          :items="code.P"
-          v-model="param.price_type"
-          placeholder="선택해주세요"
-          outlined
-          id="work"
-        ></v-select>
-      </v-col>
-    </v-row>
-    <h4>배송지 선택</h4>
-    <v-row style="height: 46px">
-      <v-col cols="12" sm="3" class="mb-0">
-        <v-radio-group row v-model="param.default">
-          <v-radio
-            v-for="(n, i) in address"
-            :key="n.key"
-            :label="n.text"
-            :value="i"
-          ></v-radio
-        ></v-radio-group>
-      </v-col>
-    </v-row>
-    <template v-if="param.default === 1">
-      <v-row style="height: 63px">
-        <v-col cols="12" sm="6">
-          <div class="wrapper address">
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @click="checkRow"
+    />
+    <template v-if="checkRows">
+      <v-form lazy-validation ref="newSample">
+        <h3 class="mt-4 mb-2">추가 정보</h3>
+        <hr class="mb-4" />
+        <v-row>
+          <v-col cols="12" sm="2">
+            <h4>요청자</h4>
             <v-text-field
-              placeholder="주소를 입력해주세요"
-              type="text"
               outlined
               dense
-              disabled
+              v-model="param.request_name"
               filled
-              v-model="param.address"
-            />
-            <v-btn
-              depressed
-              color="primary"
-              class="ml-3 mr-3 fileBtn"
-              @click="searchAddress"
-              >주소검색</v-btn
-            >
-            <v-btn
-              depressed
-              color="primary"
-              class="fileBtn"
-              @click="searchAddress"
-              >주소록</v-btn
-            >
-          </div>
-        </v-col>
-      </v-row>
+              disabled
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <div class="wrapperSpace" style="height: 24px">
+              <h4>수령자</h4>
+              <v-checkbox v-model="param.same">
+                <template v-slot:label>
+                  <h5>요청자와 동일</h5>
+                </template></v-checkbox
+              >
+            </div>
+            <v-text-field
+              outlined
+              dense
+              placeholder="수령자 이름을 입력해주세요"
+              v-model="param.pick_name"
+              :rules="[this.validSet.empty, this.validSet.name]"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>유무상</h4>
+            <v-select
+              :items="code.P"
+              v-model="param.price_type"
+              placeholder="선택해주세요"
+              outlined
+              id="work"
+            ></v-select>
+          </v-col>
+        </v-row>
+        <h4>배송지 선택</h4>
+        <v-row style="height: 46px">
+          <v-col cols="12" sm="3" class="mb-0">
+            <v-radio-group row v-model="param.default">
+              <v-radio
+                v-for="(n, i) in address"
+                :key="n.key"
+                :label="n.text"
+                :value="i"
+              ></v-radio
+            ></v-radio-group>
+          </v-col>
+        </v-row>
+        <template v-if="param.default === 1">
+          <v-row style="height: 63px">
+            <v-col cols="12" sm="6">
+              <div class="wrapper address">
+                <v-text-field
+                  placeholder="주소를 입력해주세요"
+                  type="text"
+                  outlined
+                  dense
+                  disabled
+                  filled
+                  v-model="param.address"
+                />
+                <v-btn
+                  depressed
+                  color="primary"
+                  class="ml-3 mr-3 fileBtn"
+                  @click="searchAddress"
+                  >주소검색</v-btn
+                >
+                <v-btn
+                  depressed
+                  color="primary"
+                  class="fileBtn"
+                  @click="addressBook"
+                  >주소록</v-btn
+                >
+              </div>
+            </v-col>
+          </v-row>
+        </template>
+        <v-row>
+          <v-col cols="12" sm="2">
+            <h4>Qty(kg)</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="00:00"
+              v-model="param.qty"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>요청 자재코드</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청 자재코드를 입력해주세요"
+              v-model="param.request_code"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>분석 요청사항</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="분석 요청사항을 입력해주세요"
+              v-model="param.analysis"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>포장 요청사항</h4>
+            <v-select
+              :items="code.C"
+              v-model="param.packing"
+              placeholder="선택해주세요"
+              outlined
+              id="work"
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="4">
+            <h4>기타 요청사항</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="기타 요청사항을 입력해주세요"
+              v-model="param.etc"
+            ></v-text-field>
+          </v-col> </v-row
+      ></v-form>
     </template>
-    <v-row>
-      <v-col cols="12" sm="2">
-        <h4>Qty(kg)</h4>
-        <v-text-field
-          outlined
-          dense
-          placeholder="00:00"
-          v-model="param.qty"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="2">
-        <h4>요청 자재코드</h4>
-        <v-text-field
-          outlined
-          dense
-          placeholder="요청 자재코드를 입력해주세요"
-          v-model="param.request_code"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="2">
-        <h4>분석 요청사항</h4>
-        <v-text-field
-          outlined
-          dense
-          placeholder="분석 요청사항을 입력해주세요"
-          v-model="param.analysis"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="2">
-        <h4>포장 요청사항</h4>
-        <v-select
-          :items="code.C"
-          v-model="param.packing"
-          placeholder="선택해주세요"
-          outlined
-          id="work"
-        ></v-select>
-      </v-col>
-      <v-col cols="12" sm="4">
-        <h4>기타 요청사항</h4>
-        <v-text-field
-          outlined
-          dense
-          placeholder="기타 요청사항을 입력해주세요"
-          v-model="param.etc"
-        ></v-text-field>
-      </v-col>
-    </v-row>
     <div class="wrapper">
       <div class="wrapper mt-16">
         <v-card-actions>
@@ -185,6 +196,7 @@
 </template>
 <script>
 import { getSample } from "api/file";
+import validSet from "@/assets/valid";
 import {
   columns,
   fields,
@@ -194,10 +206,12 @@ import {
 } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
+import Address from "@/components/Address.vue";
 import { mapMutations, mapState } from "vuex";
 import * as XLSX from "xlsx";
 import _ from "lodash";
 import { insertSample } from "api/sample/sample";
+
 export default {
   watch: {
     "param.same": function (v) {
@@ -210,12 +224,17 @@ export default {
     return {
       grid: "newSample",
       settings: {
-        columns,
+        columns: _.map(_.cloneDeep(columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
         fields,
         rows,
         height,
         exclusive: true,
       },
+      validSet,
+      checkRows: false,
       codeSet: {},
       file: "",
       param: {
@@ -253,6 +272,14 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
+    checkRow(v) {
+      if (v.clickData) {
+        this.checkRows = true;
+      }
+    },
+    onAddress(v) {
+      console.log(v);
+    },
     reset() {
       this.param = {
         default: 0,
@@ -267,6 +294,10 @@ export default {
         pick_name: "",
         analysis: "",
       };
+      this.checkRows = false;
+    },
+    valid() {
+      return this.$refs.newSample.validate();
     },
     newSample() {
       this.$emit("newSample");
@@ -312,11 +343,15 @@ export default {
       });
       return rowsForGrid;
     },
-    select() {},
-    cancle() {},
+    addressBook() {
+      this.$refs.address.open();
+    },
+    cancle() {
+      this.reset();
+    },
     request() {
       const row = this.$refs.grid.getCheckedRow();
-      if (row.length > 0) {
+      if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
           const data = {
             ...this.param,
@@ -333,10 +368,7 @@ export default {
               });
             }
           });
-          console.log(data);
         });
-      } else {
-        this.openConfirm("샘플을 선택해주세요", false);
       }
     },
     downloadSample() {
@@ -362,6 +394,7 @@ export default {
   },
   components: {
     RealGrid,
+    Address,
     SetPopup,
   },
   mounted() {

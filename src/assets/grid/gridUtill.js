@@ -37,7 +37,7 @@ export function makeCell(count, value, fields, columns) {
             text: headerText,
             showTooltip: true,
           },
-          editable: true,
+          editable: false,
         });
       });
     }
