@@ -19,7 +19,10 @@
             <AdminSample @newSample="newSample" />
           </template>
           <template v-if="item.key === 'confirmSample'">
-            <ConfirmSample @newSample="newSample" />
+            <ConfirmSample
+              @confirmDetail="confirmDetail"
+              :confirmDetailData="confirmDetailData"
+            />
           </template>
           <template v-if="item.key === 'sampleRequestDetail'">
             <SampleRequestDetail @newSample="newSample" />
@@ -66,6 +69,7 @@ export default {
   data() {
     return {
       tab: 0,
+      confirmDetailData: {},
       items: [
         {
           key: "userSample",
@@ -115,6 +119,7 @@ export default {
       if (v === 0) {
         this.$refs.user[0].loadData();
       }
+      this.confirmDetailData = {};
       console.log(v);
     },
   },
@@ -155,6 +160,22 @@ export default {
           return v.key === "newSample";
         });
       }
+      this.tab = newSampleIdx;
+    },
+    confirmDetail(data) {
+      let newSampleIdx = _.findIndex(this.items, function (v) {
+        return v.key === "newSample";
+      });
+      if (newSampleIdx === -1) {
+        this.items.push({
+          key: "sampleRequestDetail",
+          value: "샘플 요청 상세",
+        });
+        newSampleIdx = _.findIndex(this.items, function (v) {
+          return v.key === "sampleRequestDetail";
+        });
+      }
+      this.confirmDetailData = data;
       this.tab = newSampleIdx;
     },
   },

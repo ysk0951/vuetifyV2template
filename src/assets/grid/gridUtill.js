@@ -18,16 +18,16 @@ export function makeCell(count, value, fields, columns) {
         if (indexExclusive) {
           headerText = alias ? `${alias}` : `${field}`;
         } else {
-          headerText = alias ? `${alias}${v}` : `${field}${v}`;
+          headerText = alias ? `${alias}` : `${field}${v}`;
         }
         fields.push({
-          fieldName: `${field}${v}`,
+          fieldName: indexExclusive ? `${field}` : `${field}${v}`,
           dataType: ValueType.TEXT,
           excelKey,
         });
         columns.push({
           name: `${field}${v}`,
-          fieldName: `${field}${v}`,
+          fieldName: indexExclusive ? `${field}` : `${field}${v}`,
           key: field,
           type: "data",
           styles: {

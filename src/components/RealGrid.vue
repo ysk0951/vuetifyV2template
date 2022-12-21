@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     loadData: function (row) {
+      console.log(row);
       this.dp.setRows(row);
     },
     getRow: function () {
@@ -86,6 +87,10 @@ export default {
       this.gv.setAllCheck(false);
       this.gv.checkRow(clickData.dataRow, true);
       this.$emit("click", { grid, clickData });
+    };
+
+    this.gv.onCellDblClicked = (grid, clickData) => {
+      this.$emit("dbClick", { grid, clickData });
     };
 
     // this.gv.setColumnLayout(["ITEM1", "UNIT1", "RESULT1"]);

@@ -83,7 +83,12 @@
         </div>
       </h3>
       <hr class="mb-4" />
-      <RealGrid :domName="grid" ref="grid" :settings="settings" />
+      <RealGrid
+        :domName="grid"
+        ref="grid"
+        :settings="settings"
+        @changePage="loadData"
+      />
     </div>
   </div>
 </template>
@@ -105,7 +110,6 @@ export default {
         company: "",
         employeeCode: "",
       },
-
       check: false,
       settings: {
         columns,
@@ -130,7 +134,7 @@ export default {
       "SET_MODAL",
       "RESET_MODAL",
     ]),
-    ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
+
     reset() {
       this.input = {
         employeeStatus: "전체",
@@ -140,6 +144,9 @@ export default {
         company: "",
         employeeCode: "",
       };
+    },
+    loadData(v) {
+      this.onApprove(v);
     },
     onApprove() {
       const param = _.cloneDeep(this.input);

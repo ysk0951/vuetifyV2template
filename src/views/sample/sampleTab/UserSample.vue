@@ -40,6 +40,7 @@ export default {
       this.$emit("newSample");
     },
     loadData(v) {
+      console.log(this.settings);
       memberSampleList({
         currentPage: v ? v : 1,
         memberId: "yskimweb@gmail.com",

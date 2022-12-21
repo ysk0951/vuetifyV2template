@@ -37,13 +37,18 @@
         <h4 class="mt-4 mb-2">요청 내역</h4>
       </div>
     </div>
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+      @dbClick="dbClick"
+    />
   </div>
 </template>
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/confirmSearch";
 import RealGrid from "@/components/RealGrid.vue";
-import _ from "lodash";
 import { sampleSearch } from "api/sample/sample";
 export default {
   data() {
@@ -58,7 +63,6 @@ export default {
       param: {
         request_name: "",
         lot_no: "",
-        currentPage: 1,
         pageSize: 10,
       },
     };
@@ -67,18 +71,23 @@ export default {
     this.reset();
   },
   methods: {
+    loadData(v) {
+      this.search(v);
+    },
+    dbClick(data) {
+      this.$emit("confirmDetail", data);
+    },
     newSample() {
       console.log("newSample");
       this.$emit("newSample");
     },
-    search() {
-      sampleSearch(this.param)
+    search(v) {
+      console.log(v);
+      console.log(this.settings);
+      sampleSearch({ ...this.param, currentPage: 1 })
         .then((res) => {
           const response = res.data;
           const items = response.data.items;
-          _.each(items, function (v) {
-            v.work = v.employee_status;
-          });
           this.$refs.grid.loadData(items);
         })
         .catch(() => {});
