@@ -19,10 +19,7 @@
             <AdminSample @newSample="newSample" />
           </template>
           <template v-if="item.key === 'confirmSample'">
-            <ConfirmSample
-              @confirmDetail="confirmDetail"
-              :confirmDetailData="confirmDetailData"
-            />
+            <ConfirmSample @confirmDetail="confirmDetail" />
           </template>
           <template v-if="item.key === 'sampleRequestDetail'">
             <SampleRequestDetail @newSample="newSample" />
@@ -69,7 +66,6 @@ export default {
   data() {
     return {
       tab: 0,
-      confirmDetailData: {},
       items: [
         {
           key: "userSample",
@@ -116,11 +112,17 @@ export default {
   },
   watch: {
     tab: function (v) {
+      let sampleRequestDetailIdx = _.findIndex(this.items, function (v) {
+        return v.key === "sampleRequestDetail";
+      });
       if (v === 0) {
         this.$refs.user[0].loadData();
+      } else if (v === sampleRequestDetailIdx) {
+        console.log(this.sampleRequestDetailData);
+        this.$refs.sampleRequestDetail[0].loadData(
+          this.sampleRequestDetailData
+        );
       }
-      this.confirmDetailData = {};
-      console.log(v);
     },
   },
   computed: {
@@ -164,7 +166,7 @@ export default {
     },
     confirmDetail(data) {
       let newSampleIdx = _.findIndex(this.items, function (v) {
-        return v.key === "newSample";
+        return v.key === "sampleRequestDetail";
       });
       if (newSampleIdx === -1) {
         this.items.push({
@@ -175,8 +177,8 @@ export default {
           return v.key === "sampleRequestDetail";
         });
       }
-      this.confirmDetailData = data;
       this.tab = newSampleIdx;
+      this.sampleRequestDetailData = data;
     },
   },
 };

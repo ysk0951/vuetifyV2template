@@ -112,7 +112,6 @@ import RealGrid from "@/components/RealGrid.vue";
 export default {
   data() {
     return {
-      grid: "sampleRequestDetail",
       settings: {
         columns,
         fields,
@@ -141,6 +140,10 @@ export default {
     newSample() {
       console.log("newSample");
       this.$emit("newSample");
+    },
+    loadData(data) {
+      console.log(data);
+      this.$refs.grid.loadData(data);
     },
     read() {},
     select() {},

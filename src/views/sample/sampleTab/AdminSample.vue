@@ -221,7 +221,7 @@ export default {
   },
   data() {
     return {
-      grid: "newSample",
+      grid: "adminSample",
       settings: {
         columns: _.map(_.cloneDeep(columns), function (v) {
           v.editable = true;

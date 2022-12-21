@@ -147,6 +147,7 @@ export default {
       },
       price: ["전체", "유상", "무상"],
       package: ["선택", "AI", "P", "S", "18L", "50L", "200L", "말통"],
+      fileName: "",
     };
   },
   methods: {
@@ -156,6 +157,10 @@ export default {
     },
     search() {},
     reset() {},
+    read() {},
+    select() {},
+    cancle() {},
+    save() {},
   },
   components: {
     RealGrid,
