@@ -29,6 +29,5 @@ _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
 });
-const height = 480;
 const grouping = makeGroup(data, 1, 2, "SPECIFICATION");
-export { height, fields, columns, grouping };
+export { fields, columns, grouping };

@@ -59,6 +59,7 @@ export default {
         fields,
         rows,
         height,
+        errorMessage: "샘플 요청 내역이 없습니다",
       },
       param: {
         request_name: "",

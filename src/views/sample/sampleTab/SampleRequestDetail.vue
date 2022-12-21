@@ -2,7 +2,12 @@
   <div class="address">
     <h3 class="mt-4 mb-2">샘플 요청 검수</h3>
     <hr class="mb-4" />
-    <RealGrid domName="sampleRequestDeatil" ref="grid" :settings="settings" />
+    <RealGrid
+      domName="sampleRequestDeatil"
+      ref="grid"
+      :settings="settings"
+      :nonePage="true"
+    />
     <h3 class="mt-4 mb-2">추가 정보</h3>
     <hr class="mb-4" />
     <v-row>
@@ -154,7 +159,6 @@ export default {
         }),
         fields,
         rows,
-        height: 130,
         hideCheckBar: true,
       },
       fileName: "",

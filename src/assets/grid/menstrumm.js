@@ -98,5 +98,4 @@ const rowSet = _.reduce(
   },
   []
 );
-const height = 480;
-export { fields, columns, height, rowSet };
+export { fields, columns, rowSet };

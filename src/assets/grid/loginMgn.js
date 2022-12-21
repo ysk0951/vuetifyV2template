@@ -34,5 +34,4 @@ _.each(data, function (o) {
   o.field = o.alias;
   makeCell(1, [o], fields, columns);
 });
-const height = 400;
-export { height, fields, columns };
+export { fields, columns };

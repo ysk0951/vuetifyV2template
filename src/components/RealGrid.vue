@@ -3,8 +3,14 @@
     <div
       :id="gridName"
       :style="'width: 100%; height: ' + settings.height + 'px'"
+      v-show="existRow"
     ></div>
-    <div class="text-center mt-2" v-if="!nonePage">
+    <div v-show="!existRow">
+      <div class="wrapper ma-16">
+        <h4>{{ settings.errorMessage }}</h4>
+      </div>
+    </div>
+    <div class="text-center mt-2" v-if="!nonePage && existRow">
       <v-pagination
         depressed
         v-model="page.currentPage"
@@ -20,6 +26,11 @@ import { GridView, LocalDataProvider } from "realgrid";
 export default {
   name: "RealGrid",
   props: ["domName", "settings", "nonePage"],
+  computed: {
+    existRow() {
+      return this.dp && this.dp.getRowCount() > 0;
+    },
+  },
   data: function () {
     return {
       gridName: this.domName,
@@ -82,6 +93,9 @@ export default {
     this.dp.setFields(this.settings.fields);
     this.gv.header.height = 40;
     this.gv.setColumns(this.settings.columns);
+    this.gv.setFooter({
+      visible: false,
+    });
     this.gv.setCheckBar({
       exclusive: this.settings.exclusive,
     });
@@ -99,7 +113,7 @@ export default {
         this.$emit("click", { grid, clickData });
       };
     }
-
+    this.gv.displayOptions.syncGridHeight = "always";
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);
     }
