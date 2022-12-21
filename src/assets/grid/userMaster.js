@@ -5,25 +5,28 @@ let columns = [];
 
 const data = [
   {
-    field: "번호",
+    field: "member_name",
+    alias: "이름",
   },
   {
-    field: "이름",
+    field: "phone",
+    alias: "휴대폰번호",
   },
   {
-    field: "휴대폰번호",
+    field: "test",
+    alias: "기본 배송지",
   },
   {
-    field: "배송지",
+    field: "email",
+    alias: "이메일주소",
   },
   {
-    field: "이메일주소",
+    field: "company",
+    alias: "기업명",
   },
   {
-    field: "기업명",
-  },
-  {
-    field: "비고",
+    field: "idx",
+    alias: "비고",
   },
 ];
 

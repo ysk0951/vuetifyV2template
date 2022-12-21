@@ -10,10 +10,10 @@
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
           <template v-if="item.key === 'user'">
-            <UserMaster />
+            <UserMaster @dbClick="userDetail" />
           </template>
           <template v-if="item.key === 'userDetail'">
-            <UserMasterDetail />
+            <UserMasterDetail :data="userDetailData" />
           </template>
           <template v-if="item.key === 'sample'">
             <SmapleMaster />
@@ -61,18 +61,16 @@ import MaterialIndex from "@/views/master/masterTap/MaterialIndex";
 import MaterialIndexDetail from "@/views/master/masterTap/MaterialIndexDetail";
 import MaterialIndexAdd from "@/views/master/masterTap/MaterialIndexAdd";
 import { mapState, mapMutations } from "vuex";
+import _ from "lodash";
 export default {
   data() {
     return {
       tab: 0,
+      userDetailData: {},
       items: [
         {
           key: "user",
           value: "회원 마스터 관리",
-        },
-        {
-          key: "userDetail",
-          value: "회원 상세",
         },
         {
           key: "sample",
@@ -137,6 +135,23 @@ export default {
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
+    userDetail(data) {
+      console.log(data);
+      let idx = _.findIndex(this.items, function (v) {
+        return v.key === "userDetail";
+      });
+      if (idx === -1) {
+        this.items.push({
+          key: "userDetail",
+          value: "회원 마스터 상세",
+        });
+        idx = _.findIndex(this.items, function (v) {
+          return v.key === "userDetail";
+        });
+      }
+      this.tab = idx;
+      this.userDetailData = data;
+    },
   },
 };
 </script>

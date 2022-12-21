@@ -5,7 +5,7 @@
     <Address ref="address" />
     <RealGrid
       domName="gridDetail"
-      ref="grid"
+      ref="gridDetail"
       :settings="settingDetail"
       :nonePage="true"
     />
@@ -18,7 +18,11 @@
       </div>
     </h3>
     <hr class="mb-4" />
-    <RealGrid domName="gridSample" ref="grid" :settings="settingsSample" />
+    <RealGrid
+      domName="gridSample"
+      ref="gridSample"
+      :settings="settingsSample"
+    />
   </div>
 </template>
 <script>
@@ -27,17 +31,37 @@ import * as sample from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 import Address from "@/components/Address.vue";
 export default {
+  props: ["data"],
+  watch: {
+    data: {
+      deep: true,
+      handler: function (v) {
+        this.loadData([v]);
+      },
+    },
+  },
   data() {
     return {
       grid: "userMasterDetail",
-      settingsSample: sample,
-      settingDetail: { ...detail, height: 100 },
+      settingsSample: { ...sample, errorMessage: "샘플요청내역이 비었습니다" },
+      settingDetail: {
+        ...detail,
+        height: 100,
+        errorMessage: "회원내용이 비었습니다",
+      },
     };
   },
   methods: {
     updateAddress() {
       this.$refs.address.open();
     },
+    loadData() {
+      console.log("loadData");
+      this.$refs.gridDetail.loadData([this.data]);
+    },
+  },
+  mounted() {
+    this.loadData();
   },
   components: {
     RealGrid,

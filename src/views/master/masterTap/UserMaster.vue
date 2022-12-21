@@ -10,6 +10,7 @@
             outlined
             dense
             placeholder="이름을 입력해주세요"
+            v-model="param.memberName"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
@@ -18,6 +19,7 @@
             outlined
             dense
             placeholder="기업명을 입력해주세요"
+            v-model="param.company"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -34,12 +36,19 @@
       <div class="wrapperSpace">목록</div>
     </h3>
     <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+      @dbClick="dbClick"
+    />
   </div>
 </template>
 <script>
 import { columns, fields, height } from "@/assets/grid/userMaster";
 import RealGrid from "@/components/RealGrid.vue";
+import { memberList } from "api/member/member";
 export default {
   data() {
     return {
@@ -48,7 +57,14 @@ export default {
         columns,
         fields,
         height,
+        errorMessage: "검색이 필요합니다",
       },
+      param: {
+        memberName: "",
+        company: "",
+      },
+      currentPage: 1,
+      pageSize: 10,
     };
   },
   methods: {
@@ -56,7 +72,30 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
-    search() {},
+    loadData(v) {
+      this.search(v);
+    },
+    search() {
+      memberList({
+        ...this.param,
+        currentPage: this.currentPage,
+        pageSize: this.pageSize,
+      })
+        .then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          const page = response.data.params;
+          this.$refs.grid.loadData(items);
+          this.$refs.grid.setPage(page);
+        })
+        .catch((res) => {
+          console.error(res);
+        })
+        .finally();
+    },
+    dbClick(data) {
+      this.$emit("dbClick", data);
+    },
     reset() {},
   },
   components: {
