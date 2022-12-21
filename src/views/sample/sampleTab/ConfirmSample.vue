@@ -10,6 +10,7 @@
             outlined
             dense
             placeholder="Lot Co를 입력해주세요"
+            v-model="param.lot_no"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
@@ -18,6 +19,7 @@
             outlined
             dense
             placeholder="요청자를 입력해주세요"
+            v-model="param.request_name"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -39,9 +41,10 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import { columns, fields, rows, height } from "@/assets/grid/confirmSearch";
 import RealGrid from "@/components/RealGrid.vue";
-
+import _ from "lodash";
+import { sampleSearch } from "api/sample/sample";
 export default {
   data() {
     return {
@@ -52,15 +55,42 @@ export default {
         rows,
         height,
       },
+      param: {
+        request_name: "",
+        lot_no: "",
+        currentPage: 1,
+        pageSize: 10,
+      },
     };
+  },
+  mounted() {
+    this.reset();
   },
   methods: {
     newSample() {
       console.log("newSample");
       this.$emit("newSample");
     },
-    search() {},
-    reset() {},
+    search() {
+      sampleSearch(this.param)
+        .then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          _.each(items, function (v) {
+            v.work = v.employee_status;
+          });
+          this.$refs.grid.loadData(items);
+        })
+        .catch(() => {});
+    },
+    reset() {
+      this.param = {
+        request_name: "",
+        lot_no: "",
+        currentPage: 1,
+        pageSize: 10,
+      };
+    },
   },
   components: {
     RealGrid,
