@@ -78,12 +78,10 @@ export default {
       this.$emit("confirmDetail", data);
     },
     newSample() {
-      console.log("newSample");
       this.$emit("newSample");
     },
     search(v) {
       console.log(v);
-      console.log(this.settings);
       sampleSearch({ ...this.param, currentPage: 1 })
         .then((res) => {
           const response = res.data;

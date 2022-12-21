@@ -2,7 +2,7 @@
   <div class="address">
     <h3 class="mt-4 mb-2">샘플 요청 검수</h3>
     <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid domName="sampleRequestDeatil" ref="grid" :settings="settings" />
     <h3 class="mt-4 mb-2">추가 정보</h3>
     <hr class="mb-4" />
     <v-row>
@@ -12,6 +12,7 @@
           outlined
           dense
           placeholder="요청자 이름을 입력해주세요"
+          v-model="param.request_name"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
@@ -20,11 +21,18 @@
           outlined
           dense
           placeholder="수령자 이름을 입력해주세요"
+          v-model="param.pick_name"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>유무상</h4>
-        <v-select :items="price" outlined id="work"></v-select>
+        <v-select
+          :items="code.P"
+          v-model="param.price_type"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+        ></v-select>
       </v-col>
     </v-row>
     <h4>배송지</h4>
@@ -33,7 +41,7 @@
         <div class="wrapper address">
           <v-text-field
             type="text"
-            v-model="fileName"
+            v-model="param.postCode"
             outlined
             dense
             disabled
@@ -45,7 +53,7 @@
         <div class="wrapper address">
           <v-text-field
             type="text"
-            v-model="fileName"
+            v-model="param.address"
             outlined
             dense
             disabled
@@ -65,6 +73,7 @@
           outlined
           dense
           placeholder="요청 자재코드를 입력해주세요"
+          v-model="param.request_code"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
@@ -73,15 +82,28 @@
           outlined
           dense
           placeholder="분석 요청사항을 입력해주세요"
+          v-model="param.analysis"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>포장 요청사항</h4>
-        <v-select :items="this.package" outlined id="work"></v-select>
+        <v-select
+          :items="code.C"
+          v-model="param.packing"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+        ></v-select>
       </v-col>
       <v-col cols="12" sm="2">
-        <h4>포장 요청사항</h4>
-        <v-select :items="this.package" outlined id="work"></v-select>
+        <h4>배송방법</h4>
+        <v-select
+          :items="code.D"
+          v-model="param.delivery_type"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+        ></v-select>
       </v-col>
     </v-row>
     <v-row>
@@ -91,6 +113,7 @@
           outlined
           dense
           placeholder="기타 요청사항을 입력해주세요"
+          v-model="param.etc"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -108,21 +131,45 @@
 </template>
 <script>
 import { columns, fields, rows } from "@/assets/grid/sampleRequest";
+import { sampleSearch, updateSample } from "api/sample/sample";
+import { mapState } from "vuex";
 import RealGrid from "@/components/RealGrid.vue";
+import _ from "lodash";
 export default {
+  props: ["data"],
+  watch: {
+    data: {
+      deep: true,
+      handler: function (v) {
+        this.loadData(v);
+      },
+    },
+  },
   data() {
     return {
       settings: {
-        columns,
+        columns: _.map(_.cloneDeep(columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
         fields,
         rows,
-        height: 100,
+        height: 130,
+        hideCheckBar: true,
       },
       fileName: "",
-      price: ["전체", "유상", "무상"],
-      package: ["선택", "AI", "P", "S", "18L", "50L", "200L", "말통"],
       param: {
         default: 0,
+        postCode: this.data.postCode,
+        address: this.data.address,
+        price_type: "",
+        packing: "",
+        delivery_type: "",
+        request_name: "",
+        pick_name: "",
+        request_code: "",
+        analysis: "",
+        etc: "",
       },
       address: [
         {
@@ -141,22 +188,57 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
-    loadData(data) {
-      console.log(data);
-      this.$refs.grid.loadData(data);
+    loadData() {
+      if (this.data) {
+        sampleSearch(this.data)
+          .then((res) => {
+            const response = res.data;
+            const items = response.data.items;
+            this.$refs.grid.loadData(items);
+          })
+          .catch(() => {});
+      }
     },
     read() {},
     select() {},
-    cancle() {},
-    request() {},
+    cancle() {
+      this.param = {
+        default: 0,
+        postCode: this.data.postCode,
+        address: this.data.address,
+        price_type: "",
+        packing: "",
+        delivery_type: "",
+        request_name: "",
+        pick_name: "",
+        request_code: "",
+        analysis: "",
+        etc: "",
+      };
+    },
+    valid() {
+      return true;
+    },
+    request() {
+      const row = this.$refs.grid.getJsonRow();
+      console.log(this.param);
+      if (this.valid()) {
+        console.log(this.param);
+        updateSample({ ...this.param, ...row });
+      }
+    },
   },
   components: {
     RealGrid,
   },
   computed: {
+    ...mapState("common", ["code"]),
     otherAddress() {
       return !this.param.default;
     },
+  },
+  mounted() {
+    this.loadData();
   },
 };
 </script>

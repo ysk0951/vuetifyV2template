@@ -162,7 +162,7 @@
             <h4>배송방법</h4>
             <v-select
               :items="code.D"
-              v-model="param.packing"
+              v-model="param.delivery_type"
               placeholder="선택해주세요"
               outlined
               id="work"
@@ -249,6 +249,7 @@ export default {
         pick_name: "",
         memberId: "",
         analysis: "",
+        delivery_type: "",
       },
       isSelecting: false,
       address: [
@@ -292,7 +293,9 @@ export default {
         request_code: "",
         request_name: "",
         pick_name: "",
+        memberId: "",
         analysis: "",
+        delivery_type: "",
       };
       this.checkRows = false;
     },

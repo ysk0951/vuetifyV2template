@@ -22,7 +22,10 @@
             <ConfirmSample @confirmDetail="confirmDetail" />
           </template>
           <template v-if="item.key === 'sampleRequestDetail'">
-            <SampleRequestDetail @newSample="newSample" />
+            <SampleRequestDetail
+              ref="sampleRequestDetail"
+              :data="sampleRequestDetailData"
+            />
           </template>
           <template v-if="item.key === 'searchProcess'">
             <SearchProcess />
@@ -66,6 +69,7 @@ export default {
   data() {
     return {
       tab: 0,
+      sampleRequestDetailData: {},
       items: [
         {
           key: "userSample",
@@ -78,10 +82,6 @@ export default {
         {
           key: "confirmSample",
           value: "샘플 요청 검수",
-        },
-        {
-          key: "sampleRequestDetail",
-          value: "샘플 요청 상세",
         },
         {
           key: "searchProcessCustom",
@@ -112,16 +112,10 @@ export default {
   },
   watch: {
     tab: function (v) {
-      let sampleRequestDetailIdx = _.findIndex(this.items, function (v) {
-        return v.key === "sampleRequestDetail";
-      });
-      if (v === 0) {
-        this.$refs.user[0].loadData();
-      } else if (v === sampleRequestDetailIdx) {
-        console.log(this.sampleRequestDetailData);
-        this.$refs.sampleRequestDetail[0].loadData(
-          this.sampleRequestDetailData
-        );
+      switch (v) {
+        case 0:
+          this.$refs.user[0].loadData();
+          break;
       }
     },
   },
@@ -165,19 +159,19 @@ export default {
       this.tab = newSampleIdx;
     },
     confirmDetail(data) {
-      let newSampleIdx = _.findIndex(this.items, function (v) {
+      let idx = _.findIndex(this.items, function (v) {
         return v.key === "sampleRequestDetail";
       });
-      if (newSampleIdx === -1) {
+      if (idx === -1) {
         this.items.push({
           key: "sampleRequestDetail",
           value: "샘플 요청 상세",
         });
-        newSampleIdx = _.findIndex(this.items, function (v) {
+        idx = _.findIndex(this.items, function (v) {
           return v.key === "sampleRequestDetail";
         });
       }
-      this.tab = newSampleIdx;
+      this.tab = idx;
       this.sampleRequestDetailData = data;
     },
   },

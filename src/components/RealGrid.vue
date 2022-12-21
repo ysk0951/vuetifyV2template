@@ -39,11 +39,13 @@ export default {
   },
   methods: {
     loadData: function (row) {
-      console.log(row);
       this.dp.setRows(row);
     },
     getRow: function () {
       return this.dp.getRows(0, -1);
+    },
+    getJsonRow: function () {
+      return this.dp.getJsonRow(0);
     },
     getCol: function () {
       return this.gv.getColumns();
@@ -83,17 +85,21 @@ export default {
     this.gv.setCheckBar({
       exclusive: this.settings.exclusive,
     });
-    this.gv.onCellClicked = (grid, clickData) => {
-      this.gv.setAllCheck(false);
-      this.gv.checkRow(clickData.dataRow, true);
-      this.$emit("click", { grid, clickData });
-    };
 
     this.gv.onCellDblClicked = (grid, clickData) => {
-      this.$emit("dbClick", { grid, clickData });
+      const idx = clickData.dataRow;
+      const dbClickRow = this.dp.getJsonRow(idx);
+      this.$emit("dbClick", dbClickRow);
     };
+    this.gv.setCheckBar({ visible: !this.settings.hideCheckBar });
+    if (!this.settings.hideCheckBar) {
+      this.gv.onCellClicked = (grid, clickData) => {
+        this.gv.setAllCheck(false);
+        this.gv.checkRow(clickData.dataRow, true);
+        this.$emit("click", { grid, clickData });
+      };
+    }
 
-    // this.gv.setColumnLayout(["ITEM1", "UNIT1", "RESULT1"]);
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);
     }

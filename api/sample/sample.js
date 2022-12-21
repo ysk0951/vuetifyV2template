@@ -13,3 +13,7 @@ export async function memberSampleList(param) {
 export async function sampleSearch(param) {
   return http.post(prefix + `/sampleSearch`, param);
 }
+
+export async function updateSample(param) {
+  return http.post(prefix + `/updateSample`, param);
+}
