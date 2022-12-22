@@ -10,13 +10,21 @@
         <h4>{{ settings.errorMessage }}</h4>
       </div>
     </div>
-    <div class="text-center mt-2" v-if="!nonePage && existRow">
+
+    <div class="text-center mt-2 wrapper" v-if="!nonePage && existRow">
+      <v-btn icon large>
+        <v-icon>mdi-menu-left</v-icon>
+      </v-btn>
       <v-pagination
         depressed
         v-model="page.currentPage"
         :length="Math.ceil(page.totalRows / page.pageSize)"
         :total-visible="10"
-      ></v-pagination>
+      >
+      </v-pagination>
+      <v-btn icon large>
+        <v-icon>mdi-menu-right</v-icon>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -52,7 +60,6 @@ export default {
   methods: {
     loadData: function (row) {
       this.dp.setRows(row);
-      console.log(row);
     },
     getRow: function () {
       return this.dp.getRows(0, -1);
