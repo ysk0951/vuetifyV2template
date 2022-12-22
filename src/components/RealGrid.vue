@@ -98,7 +98,7 @@ export default {
       visible: false,
     });
     this.gv.setCheckBar({
-      exclusive: this.settings.exclusive,
+      exclusive: this.settings.radio,
     });
 
     this.gv.onCellDblClicked = (grid, clickData) => {
@@ -109,8 +109,6 @@ export default {
     this.gv.setCheckBar({ visible: !this.settings.hideCheckBar });
     if (!this.settings.hideCheckBar) {
       this.gv.onCellClicked = (grid, clickData) => {
-        this.gv.setAllCheck(false);
-        this.gv.checkRow(clickData.dataRow, true);
         this.$emit("click", { grid, clickData });
       };
     }

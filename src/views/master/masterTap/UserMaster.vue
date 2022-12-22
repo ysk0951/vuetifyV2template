@@ -58,6 +58,7 @@ export default {
         fields,
         height,
         errorMessage: "검색이 필요합니다",
+        hideCheckBar: true,
       },
       param: {
         memberName: "",

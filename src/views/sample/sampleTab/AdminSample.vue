@@ -230,7 +230,7 @@ export default {
         fields,
         rows,
         height,
-        exclusive: true,
+        radio: true,
       },
       validSet,
       checkRows: false,

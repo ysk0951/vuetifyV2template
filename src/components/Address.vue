@@ -7,7 +7,7 @@
       ></SignupPost>
     </SetDialogVue>
     <SetDialogVue ref="dialog">
-      <div class="pa-5">
+      <div class="pa-5 addressSelect">
         <h4>주소록</h4>
         <hr class="mt-3 mb-3" />
         <div class="wrapperSpace mb-3">
@@ -16,7 +16,23 @@
             >배송지 추가</v-btn
           >
         </div>
-        <div class="pa-5 border mb-3">123</div>
+        <div class="pa-5 border mb-3">
+          <div
+            v-for="(item, idx) in addresList"
+            :key="idx"
+            class="wrapperSpace my-2"
+          >
+            <div class="wrapperSpace" style="width: 100%">
+              <div>
+                <v-subheader>{{ item.postcode }}</v-subheader>
+                {{ `${item.address} ${item.address2}` }}
+              </div>
+              <div>
+                <v-btn depressed color="primary">선택</v-btn>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="wrapper">
           <v-btn depressed color="primary" @click="approve">확인</v-btn>
         </div>
@@ -44,21 +60,27 @@ export default {
     ...mapMutations("popup", ["SET_POPUP"]),
     closePost() {
       this.$refs.postModal.closeModal();
+      this.SET_MODAL({
+        height: 600,
+        width: 800,
+        closable: true,
+        customApprove: true,
+      });
     },
     approvePost(post) {
       this.param.post = post;
     },
     open() {
       this.SET_MODAL({
-        height: 600,
-        width: 600,
+        height: 100,
+        width: 800,
         closable: true,
         customApprove: true,
       });
       addressbookList()
         .then((res) => {
           const response = res.data;
-          this.addresList = response;
+          this.addresList = response.data;
         })
         .catch(() => {});
       this.$refs.dialog.openModal();
@@ -84,9 +106,12 @@ export default {
   },
 };
 </script>
-<style>
+<style scss>
 .border {
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.15) !important;
+}
+.addressSelect .v-subheader {
+  display: inline;
 }
 </style>
