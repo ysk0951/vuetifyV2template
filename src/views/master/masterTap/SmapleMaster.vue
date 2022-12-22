@@ -77,12 +77,19 @@
       </div>
     </h3>
     <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="search"
+    />
   </div>
 </template>
 <script>
 import { columns, fields, height } from "@/assets/grid/sampleMaster";
+import { sampleMasterList } from "api/sample/sample";
 import RealGrid from "@/components/RealGrid.vue";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -93,6 +100,7 @@ export default {
         saltVol: "",
         add: "",
         addVol: "",
+        pageSize: "10",
       },
       grid: "sampleMaster",
       settings: {
@@ -107,8 +115,22 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
+    search(v) {
+      sampleMasterList({
+        ...this.param,
+        currentPage: _.isNumber(v) ? v : 1,
+      }).then((res) => {
+        const response = res.data;
+        const items = response.data.items;
+        const page = response.data.params;
+        _.each(items, function (v) {
+          v.work = v.employee_status;
+        });
+        this.$refs.grid.loadData(items);
+        this.$refs.grid.setPage(page);
+      });
+    },
     addSample() {},
-    search() {},
     reset() {
       this.param = {
         solvent: "",

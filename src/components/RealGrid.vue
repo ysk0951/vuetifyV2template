@@ -15,6 +15,7 @@
         depressed
         v-model="page.currentPage"
         :length="Math.ceil(page.totalRows / page.pageSize)"
+        :total-visible="10"
       ></v-pagination>
     </div>
   </div>

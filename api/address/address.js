@@ -3,7 +3,7 @@ import { version } from "../version";
 const prefix = `${version}/addressbook`;
 
 export async function addressbookDel(param) {
-  return http.post(prefix + "/addressbookDel", param);
+  return http.post(prefix + `/addressbookDel?idx=${param.idx}`);
 }
 export async function addressbookList(param) {
   return http.post(prefix + "/addressbookList", param);

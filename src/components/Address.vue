@@ -17,24 +17,33 @@
           >
         </div>
         <div class="pa-5 border mb-3">
-          <div
-            v-for="(item, idx) in addresList"
-            :key="idx"
-            class="wrapperSpace my-2"
-          >
-            <div class="wrapperSpace" style="width: 100%">
+          <div v-for="(item, idx) in addresList" :key="idx" class="my-2">
+            <div class="wrapperSpace mb-3" style="width: 100%; height: 20px">
+              <div class="ml-4">
+                <span style="color: blue">
+                  {{ item.defaultYn ? "기본배송지 " : "" }}
+                </span>
+                {{ `${item.name} ${item.pickname}` }}
+              </div>
+              <div>
+                <v-btn small depressed @click="deleteAdd(item)">삭제</v-btn>
+              </div>
+            </div>
+            <div class="wrapperSpace mb-5" style="width: 100%; height: 20px">
               <div>
                 <v-subheader>{{ item.postcode }}</v-subheader>
                 {{ `${item.address} ${item.address2}` }}
               </div>
               <div>
-                <v-btn depressed color="primary">선택</v-btn>
+                <v-btn small depressed color="primary" @click="selectAdd(item)"
+                  >선택</v-btn
+                >
               </div>
             </div>
           </div>
         </div>
         <div class="wrapper">
-          <v-btn depressed color="primary" @click="approve">확인</v-btn>
+          <v-btn depressed color="primary" @click="approve">닫기</v-btn>
         </div>
       </div>
     </SetDialogVue>
@@ -44,7 +53,7 @@
 <script>
 import { mapMutations } from "vuex";
 import SetDialogVue from "./SetDialog.vue";
-import { addressbookList } from "api/address/address";
+import { addressbookList, addressbookDel } from "api/address/address";
 import SignupPost from "@/views/member/SignupPost";
 export default {
   name: "Address",
@@ -58,6 +67,15 @@ export default {
   methods: {
     ...mapMutations("modal", ["SET_MODAL"]),
     ...mapMutations("popup", ["SET_POPUP"]),
+    deleteAdd(v) {
+      addressbookDel({ idx: v.idx }).then(() => {
+        this.loadData();
+      });
+    },
+    selectAdd(v) {
+      this.$emit("select", v);
+      this.close();
+    },
     closePost() {
       this.$refs.postModal.closeModal();
       this.SET_MODAL({
@@ -77,13 +95,21 @@ export default {
         closable: true,
         customApprove: true,
       });
+      this.loadData(() => {
+        this.$refs.dialog.openModal();
+      });
+    },
+    loadData(cb) {
       addressbookList()
         .then((res) => {
           const response = res.data;
           this.addresList = response.data;
+          cb();
         })
         .catch(() => {});
-      this.$refs.dialog.openModal();
+    },
+    close() {
+      this.$refs.dialog.closeModal();
     },
     addAddress() {
       this.SET_MODAL({
@@ -95,7 +121,7 @@ export default {
       this.$refs.postModal.openModal();
     },
     approve() {
-      this.$refs.dialog.closeModal();
+      this.close();
       this.$emit("onApprove", this.param);
     },
   },
@@ -106,12 +132,18 @@ export default {
   },
 };
 </script>
-<style scss>
+<style lang="scss">
 .border {
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.15) !important;
 }
-.addressSelect .v-subheader {
-  display: inline;
+.addressSelect {
+  .v-subheader {
+    display: inline;
+  }
+  .scroll {
+    max-height: 395px;
+    overflow: auto;
+  }
 }
 </style>

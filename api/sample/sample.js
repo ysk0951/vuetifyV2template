@@ -17,3 +17,7 @@ export async function sampleSearch(param) {
 export async function updateSample(param) {
   return http.post(prefix + `/updateSample`, param);
 }
+
+export async function sampleMasterList(param) {
+  return http.post(prefix + `/sampleMasterList`, param);
+}

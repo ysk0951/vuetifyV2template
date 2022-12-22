@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-2">회원 상세</h3>
     <hr class="mb-4" />
     <SetPopup ref="alert" />
-    <Address ref="address" />
+    <Address ref="address" @select="addressSelect" />
     <RealGrid
       domName="gridDetail"
       ref="gridDetail"
@@ -91,10 +91,16 @@ export default {
         });
         this.$refs.alert.openPopup();
       }
-      console.log(row);
     },
     loadData() {
       this.$refs.gridDetail.loadData([this.data]);
+    },
+    addressSelect(v) {
+      const row = this.$refs.gridSample.getCheckedRow();
+      row[0].address = v.address;
+      //update 로직
+      //update 이후 셀 업데이트
+      this.loadData();
     },
   },
   mounted() {

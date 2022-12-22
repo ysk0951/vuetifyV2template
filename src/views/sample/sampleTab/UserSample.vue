@@ -22,6 +22,7 @@
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 import { memberSampleList } from "api/sample/sample";
+import _ from "lodash";
 
 export default {
   data() {
@@ -42,7 +43,7 @@ export default {
     loadData(v) {
       console.log(this.settings);
       memberSampleList({
-        currentPage: v ? v : 1,
+        currentPage: _.isNumber(v) ? v : 1,
         memberId: "yskimweb@gmail.com",
         pageSize: "10",
       })
