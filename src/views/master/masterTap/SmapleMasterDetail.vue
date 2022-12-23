@@ -180,6 +180,7 @@ export default {
         text: "저장하시겟습니까?",
       });
       this.$refs.confirm.openPopup(() => {
+        console.log("update");
         updateSampleMaster({
           sample: this.$refs.sample_grid.getJsonRow(),
           sampleA: this.$refs.real_grid.getJsonRow(),

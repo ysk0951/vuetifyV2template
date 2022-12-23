@@ -120,9 +120,13 @@ export default {
         this.$emit("click", { grid, clickData });
       };
     }
-    this.gv.onGetEditValue = (grid) => {
+    this.gv.onEditCommit = (grid) => {
       grid.commit();
     };
+    // this.dp.onRowUpdated = function (provider, row) {
+    //   this.loadData([provider.getJsonRow(row)]);
+    //   console.log(this.getJsonRow());
+    // };
     this.gv.displayOptions.syncGridHeight = "always";
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);
