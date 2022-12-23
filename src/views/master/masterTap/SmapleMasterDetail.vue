@@ -78,7 +78,7 @@ import * as sample from "@/assets/grid/sampleRequest";
 import * as sampleSum from "@/assets/grid/sampleRequestSum";
 import * as spce from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
-import { makeARow } from "@/assets/grid/gridUtill";
+// import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
   props: ["data"],
@@ -96,10 +96,6 @@ export default {
       grid: "sampleMasterDetail",
       settings_sample: {
         ...sample,
-        columns: _.map(_.cloneDeep(sample.columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
         hideCheckBar: true,
         height: 150,
       },
@@ -121,15 +117,28 @@ export default {
         hideCheckBar: true,
         height: 150,
       },
-      settings_spec: { ...spce, height: 700 },
+      settings_spec: {
+        ...spce,
+        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        height: 700,
+      },
     };
   },
   methods: {
     loadData() {
       this.param.code = this.data.code;
-      this.$refs.sample_grid.loadData(makeARow(this.settings_sample.rowSet));
-      this.$refs.real_grid.loadData(makeARow(this.settings_sample.rowSet));
-      this.$refs.make_grid.loadData(makeARow(this.settings_sample.rowSet));
+      this.$refs.sample_grid.loadData([this.data]);
+      this.$refs.real_grid.loadData([this.data]);
+      this.$refs.make_grid.loadData([this.data]);
+      this.$refs.spec_grid.loadData([this.data]);
+
+      //TODO
+      // this.$refs.real_grid.loadData(makeARow(this.settings_sample.rowSet));
+      // this.$refs.make_grid.loadData(makeARow(this.settings_sample.rowSet));
+      // this.$refs.spec_grid.loadData(makeARow(this.settings_spec.rowSet));
     },
     cancle() {},
     save() {},

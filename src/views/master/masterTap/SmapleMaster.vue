@@ -130,7 +130,9 @@ export default {
         this.$refs.grid.setPage(page);
       });
     },
-    addSample() {},
+    addSample() {
+      this.$emit("sampleAdd");
+    },
     reset() {
       this.param = {
         solvent: "",

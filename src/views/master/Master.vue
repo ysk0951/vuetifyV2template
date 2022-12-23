@@ -3,8 +3,15 @@
     <SetDialog ref="modal" />
     <div class="pa-10 full">
       <v-tabs v-model="tab">
-        <v-tab v-for="item in items" :key="item.key">
+        <v-tab v-for="(item, index) in items" :key="item.key">
           {{ item.value }}
+          <v-btn
+            icon
+            @click="removeTab(index)"
+            class="ml-2"
+            v-if="item.closeable"
+            ><v-icon x-small>mdi-close</v-icon></v-btn
+          >
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
@@ -16,7 +23,10 @@
             <UserMasterDetail :data="userDetailData" />
           </template>
           <template v-if="item.key === 'sample'">
-            <SmapleMaster @sampleMasterDetail="sampleMasterDetail" />
+            <SmapleMaster
+              @sampleMasterDetail="sampleMasterDetail"
+              @sampleAdd="sampleAdd"
+            />
           </template>
           <template v-if="item.key === 'sampleDetail'">
             <SmapleMasterDetail :data="sampleDetailData" />
@@ -68,6 +78,7 @@ export default {
       tab: 0,
       userDetailData: {},
       sampleDetailData: {},
+      sampleAddData: {},
       items: [
         {
           key: "user",
@@ -76,10 +87,6 @@ export default {
         {
           key: "sample",
           value: "샘플 마스터 관리",
-        },
-        {
-          key: "sampleAdd",
-          value: "샘플 마스터 등록",
         },
         {
           key: "menstruum",
@@ -130,39 +137,61 @@ export default {
   async created() {
     this.SET_MENU();
   },
+  watch: {
+    tab: function (v) {
+      if (v === 0) {
+        this.reset();
+      }
+    },
+  },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
-    userDetail(data) {
+    reset() {
+      this.userDetailData = {};
+      this.sampleDetailData = {};
+      this.sampleAddData = {};
+    },
+    removeTab(index) {
+      this.items.splice(index, 1);
+      this.tab = 0;
+    },
+    findTab(key, value, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {
-        return v.key === "userDetail";
+        return v.key === key;
       });
       if (idx === -1) {
         this.items.push({
-          key: "userDetail",
-          value: "회원 마스터 상세",
+          key,
+          value,
+          closeable,
         });
         idx = _.findIndex(this.items, function (v) {
-          return v.key === "userDetail";
+          return v.key === key;
         });
       }
       this.tab = idx;
-      this.userDetailData = data;
+      this[target] = data;
+    },
+    userDetail(data) {
+      this.findTab(
+        "userDetail",
+        "회원 마스터 상세",
+        "userDetailData",
+        true,
+        data
+      );
     },
     sampleMasterDetail(data) {
-      let idx = _.findIndex(this.items, function (v) {
-        return v.key === "sampleDetail";
-      });
-      if (idx === -1) {
-        this.items.push({
-          key: "sampleDetail",
-          value: "샘플 마스터 상세",
-        });
-        idx = _.findIndex(this.items, function (v) {
-          return v.key === "sampleDetail";
-        });
-      }
-      this.tab = idx;
-      this.sampleDetailData = data;
+      this.findTab(
+        "sampleDetail",
+        "샘플 마스터 상세",
+        "sampleDetailData",
+        true,
+        data
+      );
+    },
+    sampleAdd() {
+      this.findTab("sampleAdd", "샘플 마스터 등록", "sampleAddData");
     },
   },
 };

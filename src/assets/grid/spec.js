@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { makeCell } from "./gridUtill";
+import { makeCell, makeRowSet } from "./gridUtill";
 let fields = [];
 let columns = [];
 
@@ -45,5 +45,6 @@ _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
 });
+const rowSet = makeRowSet(fields);
 
-export { fields, columns };
+export { fields, columns, rowSet };
