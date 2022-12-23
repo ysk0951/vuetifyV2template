@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     loadData: function (row) {
+      console.log(row);
       this.dp.setRows(row);
     },
     getRow: function () {
@@ -108,7 +109,6 @@ export default {
     this.gv.setCheckBar({
       exclusive: this.settings.radio,
     });
-
     this.gv.onCellDblClicked = (grid, clickData) => {
       const idx = clickData.dataRow;
       const dbClickRow = this.dp.getJsonRow(idx);

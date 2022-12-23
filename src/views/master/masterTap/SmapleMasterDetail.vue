@@ -2,6 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">기본 정보</h3>
     <hr class="mb-4" />
+    <SetPopup ref="confirm" />
     <div class="confirmSample wrapperSpace">
       <v-col cols="12" sm="2">
         <h4>Code Grade</h4>
@@ -78,6 +79,9 @@ import * as sample from "@/assets/grid/sampleRequest";
 import * as sampleSum from "@/assets/grid/sampleRequestSum";
 import * as spce from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
+import SetPopup from "@/components/SetPopup.vue";
+import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
+import { mapMutations } from "vuex";
 // import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
@@ -96,6 +100,10 @@ export default {
       grid: "sampleMasterDetail",
       settings_sample: {
         ...sample,
+        columns: _.map(_.cloneDeep(sample.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
         hideCheckBar: true,
         height: 150,
       },
@@ -128,20 +136,58 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     loadData() {
       this.param.code = this.data.code;
-      this.$refs.sample_grid.loadData([this.data]);
-      this.$refs.real_grid.loadData([this.data]);
-      this.$refs.make_grid.loadData([this.data]);
-      this.$refs.spec_grid.loadData([this.data]);
-
+      this.search(this.param.code);
       //TODO
       // this.$refs.real_grid.loadData(makeARow(this.settings_sample.rowSet));
       // this.$refs.make_grid.loadData(makeARow(this.settings_sample.rowSet));
       // this.$refs.spec_grid.loadData(makeARow(this.settings_spec.rowSet));
     },
-    cancle() {},
-    save() {},
+    search(code) {
+      sampleMasterDetail(code)
+        .then((res) => {
+          const response = res.data.data;
+          const code = response.CodeDB;
+          const code_real = response.CodeDB_A;
+          const code_make = response.CodeDB_B;
+          const spec = response.CodeDB_Dt;
+          this.$refs.sample_grid.loadData([code]);
+          this.$refs.real_grid.loadData([code_real]);
+          this.$refs.make_grid.loadData([code_make]);
+          this.$refs.spec_grid.loadData([spec]);
+        })
+        .catch((res) => {
+          console.error(res);
+        });
+    },
+    cancle() {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable: true,
+        text: "저장하시겟습니까?",
+      });
+    },
+    save() {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable: true,
+        text: "저장하시겟습니까?",
+      });
+      this.$refs.confirm.openPopup(() => {
+        updateSampleMaster({
+          sample: this.$refs.sample_grid.getJsonRow(),
+          sampleA: this.$refs.real_grid.getJsonRow(),
+          sampleB: this.$refs.make_grid.getJsonRow(),
+          sampleDetail: this.$refs.spec_grid.getJsonRow(),
+        }).then(() => {});
+      });
+    },
     reset() {
       this.param = {
         solvent: "",
@@ -158,6 +204,7 @@ export default {
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>

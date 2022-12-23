@@ -7,12 +7,17 @@
         <h4>마스터 복사</h4>
         <div class="wrapper">
           <v-text-field
-            v-model="param.code_grade"
+            v-model="input.code_grade"
             outlined
             dense
             placeholder="Code Grade를 입력해주세요"
           ></v-text-field>
-          <v-btn style="height: 40px" depressed color="primary" class="ml-2"
+          <v-btn
+            style="height: 40px"
+            depressed
+            color="primary"
+            class="ml-2"
+            @click="search"
             >불러오기</v-btn
           >
         </div>
@@ -33,7 +38,7 @@
         <h4>품명</h4>
         <div class="wrapper">
           <v-text-field
-            v-model="param.name"
+            v-model="param.code_grade"
             outlined
             dense
             placeholder="품명을 입력해 주세요"
@@ -47,7 +52,7 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_sample_add"
-      ref="grid"
+      ref="sample_grid"
       :settings="settings_sample"
       :nonePage="true"
     />
@@ -57,7 +62,7 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_real_add"
-      ref="grid"
+      ref="real_grid"
       :settings="settings_real"
       :nonePage="true"
     />
@@ -67,7 +72,7 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_make_add"
-      ref="grid"
+      ref="make_grid"
       :settings="settings_make"
       :nonePage="true"
     />
@@ -77,36 +82,92 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_spec"
-      ref="grid"
+      ref="spec_grid"
       :settings="settings_spec"
       :nonePage="true"
     />
   </div>
 </template>
 <script>
+import { sampleMasterDetail } from "api/sample/sample";
+import _ from "lodash";
 import * as sample from "@/assets/grid/sampleRequest";
+import * as sampleSum from "@/assets/grid/sampleRequestSum";
 import * as spce from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
 export default {
   data() {
     return {
+      input: {
+        code_grade: "",
+      },
       param: {
         name: "",
-        code_grdae: "",
+        code_grade: "",
       },
       grid: "sampleMasterAdd",
-      settings_sample: { ...sample, height: 150 },
-      settings_real: { ...sample, height: 150 },
-      settings_make: { ...sample, height: 150 },
-      settings_spec: { ...spce, height: 700 },
+      settings_sample: {
+        ...sample,
+        columns: _.map(_.cloneDeep(sample.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        hideCheckBar: true,
+        height: 150,
+      },
+      settings_real: {
+        ...sample,
+        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        hideCheckBar: true,
+        height: 150,
+      },
+      settings_make: {
+        ...sample,
+        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        hideCheckBar: true,
+        height: 150,
+      },
+      settings_spec: {
+        ...spce,
+        columns: _.map(_.cloneDeep(spce.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        height: 700,
+      },
     };
+  },
+  mounted() {
+    this.search();
   },
   methods: {
     newSample() {
-      console.log("newSample");
       this.$emit("newSample");
     },
-    search() {},
+    search() {
+      sampleMasterDetail(this.input.code_grade)
+        .then((res) => {
+          const response = res.data.data;
+          const code = response.CodeDB;
+          const code_real = response.CodeDB_A;
+          const code_make = response.CodeDB_B;
+          const spec = response.CodeDB_Dt;
+          this.$refs.sample_grid.loadData([code]);
+          this.$refs.real_grid.loadData([code_real]);
+          this.$refs.make_grid.loadData([code_make]);
+          this.$refs.spec_grid.loadData([spec]);
+          this.param.code_grade = this.input.code_grade;
+        })
+        .catch((res) => {
+          console.error(res);
+        });
+    },
     reset() {
       this.param = {
         solvent: "",

@@ -25,3 +25,7 @@ export async function sampleMasterList(param) {
 export async function sampleMasterDetail(param) {
   return http.post(prefix + `/sampleMasterDetail?code=${param}`);
 }
+
+export async function updateSampleMaster(param) {
+  return http.post(prefix + `/updateSampleMaster`, param);
+}
