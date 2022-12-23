@@ -6,10 +6,11 @@
       <v-col cols="12" sm="2">
         <h4>Code Grade</h4>
         <v-text-field
-          v-model="param.solvent"
+          v-model="param.code"
           outlined
           dense
-          placeholder="solvent/solvent/solvent/solvent/solvent/solvent/solvent/solvent/"
+          filled
+          disabled
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="10">
@@ -28,7 +29,7 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_sample_detail"
-      ref="grid"
+      ref="sample_grid"
       :settings="settings_sample"
       :nonePage="true"
     />
@@ -38,7 +39,7 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_real_detail"
-      ref="grid"
+      ref="real_grid"
       :settings="settings_real"
       :nonePage="true"
     />
@@ -48,7 +49,7 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_make_detail"
-      ref="grid"
+      ref="make_grid"
       :settings="settings_make"
       :nonePage="true"
     />
@@ -58,7 +59,7 @@
     <hr class="mb-4" />
     <RealGrid
       domName="settings_spec_detail"
-      ref="grid"
+      ref="spec_grid"
       :settings="settings_spec"
       :nonePage="true"
     />
@@ -74,12 +75,17 @@
 </template>
 <script>
 import * as sample from "@/assets/grid/sampleRequest";
+import * as sampleSum from "@/assets/grid/sampleRequestSum";
 import * as spce from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
+import { makeARow } from "@/assets/grid/gridUtill";
+import _ from "lodash";
 export default {
+  props: ["data"],
   data() {
     return {
       param: {
+        code: "",
         solvent: "",
         solventVol: "",
         salt: "",
@@ -88,13 +94,43 @@ export default {
         addVol: "",
       },
       grid: "sampleMasterDetail",
-      settings_sample: { ...sample, height: 150 },
-      settings_real: { ...sample, height: 150 },
-      settings_make: { ...sample, height: 150 },
+      settings_sample: {
+        ...sample,
+        columns: _.map(_.cloneDeep(sample.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        hideCheckBar: true,
+        height: 150,
+      },
+      settings_real: {
+        ...sample,
+        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        hideCheckBar: true,
+        height: 150,
+      },
+      settings_make: {
+        ...sample,
+        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
+          v.editable = true;
+          return v;
+        }),
+        hideCheckBar: true,
+        height: 150,
+      },
       settings_spec: { ...spce, height: 700 },
     };
   },
   methods: {
+    loadData() {
+      this.param.code = this.data.code;
+      this.$refs.sample_grid.loadData(makeARow(this.settings_sample.rowSet));
+      this.$refs.real_grid.loadData(makeARow(this.settings_sample.rowSet));
+      this.$refs.make_grid.loadData(makeARow(this.settings_sample.rowSet));
+    },
     cancle() {},
     save() {},
     reset() {
@@ -107,6 +143,9 @@ export default {
         addVol: "",
       };
     },
+  },
+  mounted() {
+    this.loadData();
   },
   components: {
     RealGrid,

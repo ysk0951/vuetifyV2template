@@ -47,5 +47,16 @@ makeCell(
   fields,
   columns
 );
+makeCell(
+  1,
+  [
+    {
+      field: "sum",
+      indexExclusive: true,
+    },
+  ],
+  fields,
+  columns
+);
 const rowSet = makeRowSet(fields);
 export { fields, columns, rowSet };

@@ -67,3 +67,30 @@ export function makeGroup(data, start, end, name) {
   });
   return ret;
 }
+export function makeRowSet(fields) {
+  _.reduce(
+    fields,
+    (a, v) => {
+      if (v.excelKey) {
+        a.push({
+          key: v.fieldName,
+          value: v.excelKey,
+        });
+      }
+      return a;
+    },
+    []
+  );
+}
+export function makeARow(rowSet) {
+  return [
+    _.reduce(
+      rowSet,
+      (a, v) => {
+        a[v.key] = "";
+        return a;
+      },
+      {}
+    ),
+  ];
+}

@@ -82,6 +82,7 @@
       ref="grid"
       :settings="settings"
       @changePage="search"
+      @dbClick="dbClick"
     />
   </div>
 </template>
@@ -115,10 +116,9 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
-    search(v) {
+    search() {
       sampleMasterList({
         ...this.param,
-        currentPage: _.isNumber(v) ? v : 1,
       }).then((res) => {
         const response = res.data;
         const items = response.data.items;
@@ -140,6 +140,9 @@ export default {
         add: "",
         addVol: "",
       };
+    },
+    dbClick(v) {
+      this.$emit("sampleMasterDetail", v);
     },
   },
   components: {

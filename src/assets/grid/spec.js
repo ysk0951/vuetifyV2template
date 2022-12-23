@@ -5,25 +5,39 @@ let columns = [];
 
 const data = [
   {
-    field: "번호",
+    field: "name",
+    alias: "스펙명",
+    indexExclusive: true,
   },
   {
-    field: "단위",
+    field: "dan",
+    alias: "단위",
+    indexExclusive: true,
   },
   {
-    field: "요청 SPEC",
+    field: "request_spec",
+    alias: "요청 SPEC",
+    indexExclusive: true,
   },
   {
-    field: "하한",
+    field: "b",
+    alias: "하한",
+    indexExclusive: true,
   },
   {
-    field: "중한",
+    field: "m",
+    alias: "중한",
+    indexExclusive: true,
   },
   {
-    field: "상한",
+    field: "u",
+    alias: "상한",
+    indexExclusive: true,
   },
   {
-    field: "비고",
+    field: "etc",
+    alias: "비고",
+    indexExclusive: true,
   },
 ];
 

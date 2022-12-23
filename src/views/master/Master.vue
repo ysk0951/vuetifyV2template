@@ -16,10 +16,10 @@
             <UserMasterDetail :data="userDetailData" />
           </template>
           <template v-if="item.key === 'sample'">
-            <SmapleMaster />
+            <SmapleMaster @sampleMasterDetail="sampleMasterDetail" />
           </template>
           <template v-if="item.key === 'sampleDetail'">
-            <SmapleMasterDetail />
+            <SmapleMasterDetail :data="sampleDetailData" />
           </template>
           <template v-if="item.key === 'sampleAdd'">
             <SampleAdd />
@@ -67,6 +67,7 @@ export default {
     return {
       tab: 0,
       userDetailData: {},
+      sampleDetailData: {},
       items: [
         {
           key: "user",
@@ -75,10 +76,6 @@ export default {
         {
           key: "sample",
           value: "샘플 마스터 관리",
-        },
-        {
-          key: "sampleDetail",
-          value: "샘플 마스터 상세",
         },
         {
           key: "sampleAdd",
@@ -136,7 +133,6 @@ export default {
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
     userDetail(data) {
-      console.log(data);
       let idx = _.findIndex(this.items, function (v) {
         return v.key === "userDetail";
       });
@@ -151,6 +147,22 @@ export default {
       }
       this.tab = idx;
       this.userDetailData = data;
+    },
+    sampleMasterDetail(data) {
+      let idx = _.findIndex(this.items, function (v) {
+        return v.key === "sampleDetail";
+      });
+      if (idx === -1) {
+        this.items.push({
+          key: "sampleDetail",
+          value: "샘플 마스터 상세",
+        });
+        idx = _.findIndex(this.items, function (v) {
+          return v.key === "sampleDetail";
+        });
+      }
+      this.tab = idx;
+      this.sampleDetailData = data;
     },
   },
 };
