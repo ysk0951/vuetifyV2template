@@ -120,6 +120,9 @@ export default {
         this.$emit("click", { grid, clickData });
       };
     }
+    this.gv.onGetEditValue = (grid) => {
+      grid.commit();
+    };
     this.gv.displayOptions.syncGridHeight = "always";
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);
