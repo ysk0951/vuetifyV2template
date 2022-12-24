@@ -178,11 +178,12 @@ export default {
       });
       this.$refs.confirm.openPopup(() => {
         console.log("update");
+        const code = this.param.code;
         updateSampleMaster({
-          sample: this.$refs.sample_grid.getJsonRow(),
-          sampleA: this.$refs.real_grid.getJsonRow(),
-          sampleB: this.$refs.make_grid.getJsonRow(),
-          sampleDetail: this.$refs.spec_grid.getJsonRow(),
+          sample: { ...this.$refs.sample_grid.getJsonRow(), code },
+          sampleA: { ...this.$refs.real_grid.getJsonRow(), code },
+          sampleB: { ...this.$refs.make_grid.getJsonRow(), code },
+          sampleDetail: { ...this.$refs.spec_grid.getJsonRow(), code },
         }).then(() => {});
       });
     },
@@ -194,6 +195,7 @@ export default {
         saltVol: "",
         add: "",
         addVol: "",
+        code: "",
       };
     },
   },
