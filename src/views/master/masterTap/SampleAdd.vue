@@ -31,7 +31,13 @@
       <v-col cols="12" sm="2">
         <h4>Code Grade</h4>
         <div class="wrapper">
-          <v-text-field outlined dense disabled filled></v-text-field>
+          <v-text-field
+            outlined
+            dense
+            disabled
+            filled
+            v-model="input.code_grade"
+          ></v-text-field>
         </div>
       </v-col>
       <v-col cols="12" sm="10">
@@ -86,11 +92,19 @@
       :settings="settings_spec"
       :nonePage="true"
     />
+    <div class="wrapper mt-4">
+      <v-card-actions>
+        <v-btn depressed @click="reset">초기화</v-btn>
+      </v-card-actions>
+      <v-card-actions>
+        <v-btn depressed color="primary" @click="save">저장</v-btn>
+      </v-card-actions>
+    </div>
   </div>
 </template>
 <script>
 import { sampleMasterDetail } from "api/sample/sample";
-import { makeSum } from "@/assets/grid/gridUtill";
+import { makeSum, makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 import * as sample from "@/assets/grid/sampleRequest";
 import * as sampleSum from "@/assets/grid/sampleRequestSum";
@@ -145,11 +159,18 @@ export default {
     };
   },
   mounted() {
-    this.search();
+    this.setGrid();
   },
   methods: {
     newSample() {
       this.$emit("newSample");
+    },
+    setGrid() {
+      console.log(makeARow(sample.fields));
+      this.$refs.sample_grid.loadData(makeARow(sample.fields));
+      this.$refs.real_grid.loadData(makeARow(sampleSum.fields));
+      this.$refs.make_grid.loadData(makeARow(sampleSum.fields));
+      this.$refs.spec_grid.loadData(makeARow(spec.fields));
     },
     search() {
       sampleMasterDetail(this.input.code_grade)
@@ -165,6 +186,7 @@ export default {
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
           this.$refs.spec_grid.loadData([{ ...CodeDB_Dt, code }]);
           this.param.code_grade = code;
+          console.log(CodeDB);
         })
         .catch((res) => {
           console.error(res);
@@ -172,14 +194,15 @@ export default {
     },
     reset() {
       this.param = {
-        solvent: "",
-        solventVol: "",
-        salt: "",
-        saltVol: "",
-        add: "",
-        addVol: "",
+        name: "",
+        code_grade: "",
       };
+      this.input = {
+        code_grade: "",
+      };
+      this.setGrid();
     },
+    save() {},
   },
   components: {
     RealGrid,

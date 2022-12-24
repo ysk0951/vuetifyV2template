@@ -121,11 +121,8 @@ export default {
     }
     this.gv.onEditCommit = (grid) => {
       grid.commit();
+      console.log(grid);
     };
-    // this.dp.onRowUpdated = function (provider, row) {
-    //   this.loadData([provider.getJsonRow(row)]);
-    //   console.log(this.getJsonRow());
-    // };
     this.gv.displayOptions.syncGridHeight = "always";
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);

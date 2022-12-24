@@ -82,7 +82,8 @@ export function makeRowSet(fields) {
     []
   );
 }
-export function makeARow(rowSet) {
+export function makeARow(fields) {
+  const rowSet = makeRowSet(fields);
   return [
     _.reduce(
       rowSet,
