@@ -94,3 +94,14 @@ export function makeARow(rowSet) {
     ),
   ];
 }
+
+export function makeSum(row) {
+  const key = _.keys(row).filter((v) => v.includes("Vol"));
+  let sum = 0;
+  _.each(key, function (v) {
+    sum += row[v];
+  });
+  row.sum = Math.floor(sum * 100) / 100;
+  console.log(row);
+  return row;
+}

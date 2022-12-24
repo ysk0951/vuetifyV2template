@@ -77,11 +77,12 @@
 <script>
 import * as sample from "@/assets/grid/sampleRequest";
 import * as sampleSum from "@/assets/grid/sampleRequestSum";
-import * as spce from "@/assets/grid/spec";
+import * as spec from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
 import { mapMutations } from "vuex";
+import { makeSum } from "@/assets/grid/gridUtill";
 // import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
@@ -108,7 +109,7 @@ export default {
         height: 150,
       },
       settings_real: {
-        ...sample,
+        ...sampleSum,
         columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
           v.editable = true;
           return v;
@@ -117,7 +118,7 @@ export default {
         height: 150,
       },
       settings_make: {
-        ...sample,
+        ...sampleSum,
         columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
           v.editable = true;
           return v;
@@ -126,8 +127,8 @@ export default {
         height: 150,
       },
       settings_spec: {
-        ...spce,
-        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
+        ...spec,
+        columns: _.map(_.cloneDeep(spec.columns), function (v) {
           v.editable = true;
           return v;
         }),
@@ -140,23 +141,19 @@ export default {
     loadData() {
       this.param.code = this.data.code;
       this.search(this.param.code);
-      //TODO
-      // this.$refs.real_grid.loadData(makeARow(this.settings_sample.rowSet));
-      // this.$refs.make_grid.loadData(makeARow(this.settings_sample.rowSet));
-      // this.$refs.spec_grid.loadData(makeARow(this.settings_spec.rowSet));
     },
     search(code) {
       sampleMasterDetail(code)
         .then((res) => {
           const response = res.data.data;
-          const code = response.CodeDB;
-          const code_real = response.CodeDB_A;
-          const code_make = response.CodeDB_B;
-          const spec = response.CodeDB_Dt;
-          this.$refs.sample_grid.loadData([code]);
-          this.$refs.real_grid.loadData([code_real]);
-          this.$refs.make_grid.loadData([code_make]);
-          this.$refs.spec_grid.loadData([spec]);
+          const CodeDB = response.CodeDB;
+          const CodeDB_A = response.CodeDB_A;
+          const CodeDB_B = response.CodeDB_B;
+          const CodeDB_Dt = response.CodeDB_Dt;
+          this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
+          this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
+          this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
+          this.$refs.spec_grid.loadData([{ ...CodeDB_Dt, code }]);
         })
         .catch((res) => {
           console.error(res);

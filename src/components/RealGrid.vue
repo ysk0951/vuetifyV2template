@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     loadData: function (row) {
-      console.log(row);
       this.dp.setRows(row);
     },
     getRow: function () {
