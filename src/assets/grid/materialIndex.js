@@ -8,23 +8,23 @@ const data = [
     alias: "자재코드",
   },
   {
-    field: "1",
+    field: "ex_subs",
     alias: "원료약어",
   },
   {
-    field: "2",
+    field: "chemical_name",
     alias: "화학물질명",
   },
   {
-    field: "3",
+    field: "common_name",
     alias: "관용명 몇 이명",
   },
   {
-    field: "4",
+    field: "cas_no",
     alias: "CAS NO",
   },
   {
-    field: "5",
+    field: "init_boiling_p",
     alias: "분자량",
   },
   {
@@ -32,7 +32,7 @@ const data = [
     alias: "유독물질 유무",
   },
   {
-    field: "7",
+    field: "stat_standard_vol",
     alias: "법정 기준",
   },
   {
@@ -40,7 +40,7 @@ const data = [
     alias: "법정 기준 함량",
   },
   {
-    field: "9",
+    field: "rmav",
     alias: "유독물질번호",
   },
   {

@@ -10,7 +10,7 @@
             width="450"
             :items="code.M"
             outlined
-            v-model="material"
+            v-model="param.rmav"
             placeholder="전체"
           ></v-select>
         </v-col>
@@ -25,16 +25,27 @@
       </v-card-actions>
     </div>
     <h3 class="mt-16 mb-2 pl-1 pr-1">
-      <div class="wrapperSpace">목록</div>
+      <div class="wrapperSpace">
+        목록
+        <v-btn depressed color="primary" @click="addIndex">등록</v-btn>
+      </div>
     </h3>
     <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+      @dbClick="dbClick"
+    />
   </div>
 </template>
 <script>
 import { columns, fields, height } from "@/assets/grid/materialIndex";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapState } from "vuex";
+import { subsMasterList } from "api/subIndex/subIndex";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -44,7 +55,11 @@ export default {
         fields,
         height,
       },
-      material: "",
+      param: {
+        rmav: "",
+        pageSize: 10,
+      },
+      currentpage: 1,
     };
   },
   computed: {
@@ -54,8 +69,28 @@ export default {
     newSample() {
       this.$emit("newSample");
     },
-    search() {},
+    loadData(v) {
+      this.search(v);
+    },
+    search(v) {
+      subsMasterList({ ...this.param, currentPage: _.isNumber(v) ? v : 1 })
+        .then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          const page = response.data.params;
+          this.$refs.grid.loadData(items);
+          this.$refs.grid.setPage(page);
+        })
+        .catch(() => {});
+    },
     reset() {},
+    addIndex() {
+      this.$emit("materialIndexAdd");
+    },
+    dbClick(data) {
+      console.log("dbClick");
+      this.$emit("dbClick", data);
+    },
   },
   components: {
     RealGrid,

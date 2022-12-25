@@ -36,7 +36,7 @@
           </template>
           <template v-if="item.key === 'menstruum'">
             <MenstruumMaster
-              @dbclick="menstruumMasterDetail"
+              @dbClick="menstruumMasterDetail"
               @menstruumAdd="menstruumAdd"
             />
           </template>
@@ -47,7 +47,10 @@
             <MenstruumAdd />
           </template>
           <template v-if="item.key === 'materialIndex'">
-            <MaterialIndex />
+            <MaterialIndex
+              @dbClick="materialIndexDetail"
+              @materialIndexAdd="materialIndexAdd"
+            />
           </template>
           <template v-if="item.key === 'materialIndexDetail'">
             <MaterialIndexDetail />
@@ -84,6 +87,8 @@ export default {
       sampleAddData: {},
       menstruumDetailData: {},
       menstruumAddData: {},
+      materialIndexDetailData: {},
+      materialIndexAddData: {},
       items: [
         {
           key: "user",
@@ -101,14 +106,6 @@ export default {
         {
           key: "materialIndex",
           value: "물질명 INDEX",
-        },
-        {
-          key: "materialIndexDetail",
-          value: "물질명 INDEX 상세",
-        },
-        {
-          key: "materialIndexAdd",
-          value: "물질명 INDEX 등록",
         },
       ],
     };
@@ -172,7 +169,6 @@ export default {
       this.tab = idx;
       this[target] = data;
     },
-
     userDetail(data) {
       this.findTab(
         "userDetail",
@@ -208,6 +204,23 @@ export default {
         "menstruumAdd",
         "용매조성 마스터등록",
         "menstruumAddData",
+        true
+      );
+    },
+    materialIndexDetail(data) {
+      this.findTab(
+        "materialIndexDetail",
+        "물질명 INDEX 상세",
+        "materialIndexDetailData",
+        true,
+        data
+      );
+    },
+    materialIndexAdd() {
+      this.findTab(
+        "materialIndexAdd",
+        "물질명 INDEX 등록",
+        "materialIndexAddData",
         true
       );
     },
