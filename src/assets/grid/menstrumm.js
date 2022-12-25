@@ -12,7 +12,6 @@ makeCell(
     {
       field: "solventVol",
       alias: "vol%",
-      indexExclusive: true,
       excelKey: "vol%_",
     },
   ],
@@ -28,7 +27,6 @@ makeCell(
     {
       field: "soltVal",
       alias: "M,wt%",
-      indexExclusive: true,
       excelKey: "M,wt%_",
     },
   ],
@@ -44,7 +42,6 @@ makeCell(
     {
       alias: "wt%",
       field: "addVol",
-      indexExclusive: true,
       excelKey: "wt%_",
     },
   ],

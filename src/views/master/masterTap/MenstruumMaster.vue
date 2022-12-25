@@ -57,12 +57,20 @@
       </div>
     </h3>
     <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+      @dbClick="dbClick"
+    />
   </div>
 </template>
 <script>
 import * as menstrumm from "@/assets/grid/menstrumm";
 import RealGrid from "@/components/RealGrid.vue";
+import { solventMasterList } from "api/solvent/solvent";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -71,6 +79,7 @@ export default {
         solventVol: "",
         salt: "",
         saltVol: "",
+        pageSize: "10",
       },
       grid: "menstrumm",
       settings: menstrumm,
@@ -78,11 +87,29 @@ export default {
   },
   methods: {
     newSample() {
-      console.log("newSample");
       this.$emit("newSample");
     },
-    search() {},
-    addSample() {},
+    search(v) {
+      console.log(1);
+      solventMasterList({ ...this.param, currentPage: _.isNumber(v) ? v : 1 })
+        .then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          const page = response.data.params;
+          this.$refs.grid.loadData(items);
+          this.$refs.grid.setPage(page);
+        })
+        .catch(() => {});
+    },
+    addSample() {
+      this.$emit("menstruumAdd");
+    },
+    loadData(v) {
+      this.search(v);
+    },
+    dbClick(data) {
+      this.$emit("dbClick", data);
+    },
     reset() {
       this.param = {
         solvent: "",

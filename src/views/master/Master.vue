@@ -35,10 +35,13 @@
             <SampleAdd />
           </template>
           <template v-if="item.key === 'menstruum'">
-            <MenstruumMaster />
+            <MenstruumMaster
+              @dbclick="menstruumMasterDetail"
+              @menstruumAdd="menstruumAdd"
+            />
           </template>
           <template v-if="item.key === 'menstruumDetail'">
-            <MenstruumDetail />
+            <MenstruumDetail :data="menstruumDetailData" />
           </template>
           <template v-if="item.key === 'menstruumAdd'">
             <MenstruumAdd />
@@ -79,6 +82,8 @@ export default {
       userDetailData: {},
       sampleDetailData: {},
       sampleAddData: {},
+      menstruumDetailData: {},
+      menstruumAddData: {},
       items: [
         {
           key: "user",
@@ -92,14 +97,7 @@ export default {
           key: "menstruum",
           value: "용매조성 마스터관리",
         },
-        {
-          key: "menstruumDetail",
-          value: "용매조성 마스터 상세",
-        },
-        {
-          key: "menstruumAdd",
-          value: "용매조성 마스터등록",
-        },
+
         {
           key: "materialIndex",
           value: "물질명 INDEX",
@@ -150,6 +148,8 @@ export default {
       this.userDetailData = {};
       this.sampleDetailData = {};
       this.sampleAddData = {};
+      this.menstruumDetailData = {};
+      this.menstruumAddData = {};
     },
     removeTab(index) {
       this.items.splice(index, 1);
@@ -172,6 +172,7 @@ export default {
       this.tab = idx;
       this[target] = data;
     },
+
     userDetail(data) {
       this.findTab(
         "userDetail",
@@ -190,8 +191,25 @@ export default {
         data
       );
     },
+    menstruumMasterDetail(data) {
+      this.findTab(
+        "menstruumDetail",
+        "용매조성 마스터 상세",
+        "menstruumDetailData",
+        true,
+        data
+      );
+    },
     sampleAdd() {
-      this.findTab("sampleAdd", "샘플 마스터 등록", "sampleAddData");
+      this.findTab("sampleAdd", "샘플 마스터 등록", "sampleAddData", true);
+    },
+    menstruumAdd() {
+      this.findTab(
+        "menstruumAdd",
+        "용매조성 마스터등록",
+        "menstruumAddData",
+        true
+      );
     },
   },
 };
