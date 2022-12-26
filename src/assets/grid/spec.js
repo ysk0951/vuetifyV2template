@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { makeCell, makeRowSet } from "./gridUtill";
+import { makeCell, makeRowSet, makeARow } from "./gridUtill";
+import { APHA, g_cm3, ppm } from "./specRow";
 let fields = [];
 let columns = [];
 
@@ -15,28 +16,23 @@ const data = [
     indexExclusive: true,
   },
   {
-    field: "request_spec",
+    field: "spec",
     alias: "요청 SPEC",
     indexExclusive: true,
   },
   {
-    field: "b",
+    field: "row",
     alias: "하한",
     indexExclusive: true,
   },
   {
-    field: "m",
+    field: "mid",
     alias: "중한",
     indexExclusive: true,
   },
   {
-    field: "u",
+    field: "hig",
     alias: "상한",
-    indexExclusive: true,
-  },
-  {
-    field: "etc",
-    alias: "비고",
     indexExclusive: true,
   },
 ];
@@ -46,5 +42,16 @@ _.each(data, function (o) {
   makeCell(1, [o], fields, columns);
 });
 const rowSet = makeRowSet(fields);
-
-export { fields, columns, rowSet };
+const row = makeARow(fields)[0];
+const initRow = [];
+_.each(APHA, function (name) {
+  console.log(row);
+  initRow.push({ ...row, name, dan: "APHA" });
+});
+_.each(g_cm3, function (name) {
+  initRow.push({ ...row, name, dan: "g/cm3" });
+});
+_.each(ppm, function (name) {
+  initRow.push({ ...row, name, dan: "ppm" });
+});
+export { fields, columns, rowSet, initRow };

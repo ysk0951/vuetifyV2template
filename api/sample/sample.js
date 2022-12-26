@@ -29,3 +29,7 @@ export async function sampleMasterDetail(param) {
 export async function updateSampleMaster(param) {
   return http.post(prefix + `/updateSampleMaster`, param);
 }
+
+export async function insertSampleMaster(param) {
+  return http.post(prefix + `/insertSampleMaster`, param);
+}

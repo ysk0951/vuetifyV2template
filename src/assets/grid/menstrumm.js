@@ -7,7 +7,6 @@ makeCell(
   [
     {
       field: "solvent",
-      alias: "solvent",
     },
     {
       field: "solventVol",
@@ -19,30 +18,15 @@ makeCell(
   columns
 );
 makeCell(
-  3,
+  5,
   [
     {
       field: "salt",
     },
     {
-      field: "soltVal",
+      field: "saltVal",
       alias: "M,wt%",
       excelKey: "M,wt%_",
-    },
-  ],
-  fields,
-  columns
-);
-makeCell(
-  10,
-  [
-    {
-      field: "add",
-    },
-    {
-      alias: "wt%",
-      field: "addVol",
-      excelKey: "wt%_",
     },
   ],
   fields,

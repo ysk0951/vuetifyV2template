@@ -53,6 +53,7 @@
 </template>
 <script>
 import * as menstrumm from "@/assets/grid/menstrumm";
+import { insertSolventMaster } from "api/solvent/solvent";
 import _ from "lodash";
 export default {
   data() {
@@ -70,6 +71,9 @@ export default {
       this.$emit("newSample");
     },
     save() {
+      insertSolventMaster({ ...this.param })
+        .then(() => {})
+        .catch(() => {});
       console.log(this.param);
     },
     item(idx, i) {

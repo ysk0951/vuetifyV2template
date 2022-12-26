@@ -53,7 +53,7 @@
             />
           </template>
           <template v-if="item.key === 'materialIndexDetail'">
-            <MaterialIndexDetail />
+            <MaterialIndexDetail :data="materialIndexDetailData" />
           </template>
           <template v-if="item.key === 'materialIndexAdd'">
             <MaterialIndexAdd />

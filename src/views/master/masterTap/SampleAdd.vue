@@ -103,7 +103,7 @@
   </div>
 </template>
 <script>
-import { sampleMasterDetail } from "api/sample/sample";
+import { insertSampleMaster, sampleMasterDetail } from "api/sample/sample";
 import { makeSum, makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 import * as sample from "@/assets/grid/sampleRequest";
@@ -170,7 +170,7 @@ export default {
       this.$refs.sample_grid.loadData(makeARow(sample.fields));
       this.$refs.real_grid.loadData(makeARow(sampleSum.fields));
       this.$refs.make_grid.loadData(makeARow(sampleSum.fields));
-      this.$refs.spec_grid.loadData(makeARow(spec.fields));
+      this.$refs.spec_grid.loadData(spec.initRow);
     },
     search() {
       sampleMasterDetail(this.input.code_grade)
@@ -202,7 +202,22 @@ export default {
       };
       this.setGrid();
     },
-    save() {},
+    save() {
+      const code = this.input.code;
+      const sample = { ...this.$refs.sample_grid.getJsonData(), code };
+      const sampleA = { ...this.$refs.real_grid.getJsonData(), code };
+      const sampleB = { ...this.$refs.make_grid.getJsonData(), code };
+      const sampleDetail = { ...this.$refs.spec_grid.getJsonData(), code };
+
+      insertSampleMaster({
+        sample,
+        sampleA,
+        sampleB,
+        sampleDetail,
+      })
+        .then(() => {})
+        .catch(() => {});
+    },
   },
   components: {
     RealGrid,

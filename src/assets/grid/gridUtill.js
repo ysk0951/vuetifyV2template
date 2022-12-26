@@ -83,7 +83,23 @@ export function makeRowSet(fields) {
   );
 }
 export function makeARow(fields) {
-  const rowSet = makeRowSet(fields);
+  const rowSet = _.reduce(
+    fields,
+    (a, v) => {
+      if (v.excelKey) {
+        a.push({
+          key: v.fieldName,
+          value: v.excelKey,
+        });
+      } else {
+        a.push({
+          key: v.fieldName,
+        });
+      }
+      return a;
+    },
+    []
+  );
   return [
     _.reduce(
       rowSet,
@@ -95,7 +111,6 @@ export function makeARow(fields) {
     ),
   ];
 }
-
 export function makeSum(row) {
   const key = _.keys(row).filter((v) => v.includes("Vol"));
   let sum = 0;

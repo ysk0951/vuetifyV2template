@@ -8,8 +8,10 @@
 <script>
 import { columns, fields, height } from "@/assets/grid/materialIndex";
 import RealGrid from "@/components/RealGrid.vue";
+import { subsMasterDetail } from "api/subIndex/subIndex";
 import { mapState } from "vuex";
 export default {
+  props: ["data"],
   data() {
     return {
       grid: "materialIndexDetail",
@@ -30,9 +32,21 @@ export default {
     },
     search() {},
     reset() {},
+    loadData() {
+      subsMasterDetail(this.data.rmav)
+        .then((res) => {
+          const response = res.data;
+          const items = response.data;
+          this.$refs.grid.loadData(items);
+        })
+        .catch(() => {});
+    },
   },
   components: {
     RealGrid,
+  },
+  mounted() {
+    this.loadData();
   },
 };
 </script>

@@ -6,7 +6,7 @@ export async function insertSubsMaster(param) {
   return http.post(prefix + `/insertSubsMaster`, param);
 }
 export async function subsMasterDetail(param) {
-  return http.post(prefix + `/subsMasterDetail`, param);
+  return http.post(prefix + `/subsMasterDetail?rmav=${param}`);
 }
 export async function subsMasterList(param) {
   return http.post(prefix + `/subsMasterList`, param);

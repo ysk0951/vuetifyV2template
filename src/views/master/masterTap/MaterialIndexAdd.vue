@@ -52,6 +52,24 @@ export default {
     },
     save() {
       console.log(this.param);
+      /**
+ *  "cas_no": "string",
+"chemical_name": "string",
+"code": "string",
+"common_name": "string",
+"ex_subs": "string",
+"gc_analy_not": "string",
+"idx": 0,
+"init_boiling_p": "string",
+"mw": "string",
+"new_subs_yn": "string",
+"rmav": "string",
+"stat_standard": "string",
+"stat_standard_vol": "string",
+"toxic_no": "string",
+"toxic_subs": "string",
+"toxic_subs_yn": "string"
+       */
     },
     item(idx, i) {
       const index = (idx - 1) * this.col + i - 1;
