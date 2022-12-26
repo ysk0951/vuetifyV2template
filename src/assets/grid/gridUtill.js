@@ -118,6 +118,5 @@ export function makeSum(row) {
     sum += row[v];
   });
   row.sum = Math.floor(sum * 100) / 100;
-  console.log(row);
   return row;
 }

@@ -8,7 +8,7 @@ const data = [
     alias: "자재코드",
   },
   {
-    field: "ex_subs",
+    field: "rmav",
     alias: "원료약어",
   },
   {
@@ -24,43 +24,43 @@ const data = [
     alias: "CAS NO",
   },
   {
-    field: "init_boiling_p",
+    field: "mw",
     alias: "분자량",
   },
   {
-    field: "6",
+    field: "toxic_subs_yn",
     alias: "유독물질 유무",
   },
   {
-    field: "stat_standard_vol",
+    field: "stat_standard",
     alias: "법정 기준",
   },
   {
-    field: "8",
+    field: "stat_standard_vol",
     alias: "법정 기준 함량",
   },
   {
-    field: "rmav",
+    field: "toxic_no",
     alias: "유독물질번호",
   },
   {
-    field: "10",
+    field: "new_subs_yn",
     alias: "신규물질여부",
   },
   {
-    field: "11",
+    field: "gc_analy_not",
     alias: "GC분석불가",
   },
   {
-    field: "12",
+    field: "init_boiling_p",
     alias: "초기끊는점",
   },
   {
-    field: "13",
+    field: "ex_subs",
     alias: "기존물질",
   },
   {
-    field: "14",
+    field: "toxic_subs",
     alias: "유독물질",
   },
 ];
