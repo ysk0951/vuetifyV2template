@@ -152,10 +152,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.confirmSample {
-  .v-text-field__details {
-    display: none;
-  }
-}
-</style>
+<style lang="scss"></style>

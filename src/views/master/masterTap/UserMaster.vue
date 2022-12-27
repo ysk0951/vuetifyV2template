@@ -11,6 +11,7 @@
             dense
             placeholder="이름을 입력해주세요"
             v-model="param.memberName"
+            :rules="[this.validSet.name]"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
@@ -20,6 +21,7 @@
             dense
             placeholder="기업명을 입력해주세요"
             v-model="param.company"
+            :rules="[this.validSet.company]"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -49,9 +51,12 @@
 import { columns, fields, height } from "@/assets/grid/userMaster";
 import RealGrid from "@/components/RealGrid.vue";
 import { memberList } from "api/member/member";
+import _ from "lodash";
+import validSet from "@/assets/valid";
 export default {
   data() {
     return {
+      validSet,
       grid: "userMaster",
       settings: {
         columns,
@@ -63,9 +68,9 @@ export default {
       param: {
         memberName: "",
         company: "",
+        pageSize: 10,
       },
       currentPage: 1,
-      pageSize: 10,
     };
   },
   methods: {
@@ -76,11 +81,10 @@ export default {
     loadData(v) {
       this.search(v);
     },
-    search() {
+    search(v) {
       memberList({
         ...this.param,
-        currentPage: this.currentPage,
-        pageSize: this.pageSize,
+        currentPage: _.isNumber(v) ? v : 1,
       })
         .then((res) => {
           const response = res.data;
@@ -104,10 +108,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.confirmSample {
-  .v-text-field__details {
-    display: none;
-  }
-}
-</style>
+<style lang="scss"></style>

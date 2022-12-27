@@ -87,7 +87,6 @@ const defaultPath = ["/login", "/signup", "/modifyPwd"];
 const adminPath = ["/admin"];
 const path = defaultPath.concat(adminPath);
 const dev = true;
-console.log(path);
 router.beforeEach((to, from, next) => {
   if (!dev) {
     if (path.includes(to.path)) {
