@@ -28,19 +28,7 @@
     </h3>
     <hr class="mb-4" />
     <v-row>
-      <v-col cols="12" sm="2">
-        <h4>Code Grade</h4>
-        <div class="wrapper">
-          <v-text-field
-            outlined
-            dense
-            disabled
-            filled
-            v-model="input.code_grade"
-          ></v-text-field>
-        </div>
-      </v-col>
-      <v-col cols="12" sm="10">
+      <v-col cols="12" sm="12">
         <h4>품명</h4>
         <div class="wrapper">
           <v-text-field
