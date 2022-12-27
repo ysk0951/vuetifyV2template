@@ -11,7 +11,7 @@ const data = [
     indexExclusive: true,
   },
   {
-    field: "dan",
+    field: "unit",
     alias: "단위",
     indexExclusive: true,
   },
@@ -45,7 +45,6 @@ const rowSet = makeRowSet(fields);
 const row = makeARow(fields)[0];
 const initRow = [];
 _.each(APHA, function (name) {
-  console.log(row);
   initRow.push({ ...row, name, dan: "APHA" });
 });
 _.each(g_cm3, function (name) {

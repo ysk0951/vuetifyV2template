@@ -3,6 +3,17 @@ import { makeCell } from "./gridUtill";
 let fields = [];
 let columns = [];
 makeCell(
+  1,
+  [
+    {
+      field: "idx",
+      indexExclusive: true,
+    },
+  ],
+  fields,
+  columns
+);
+makeCell(
   8,
   [
     {
@@ -36,7 +47,8 @@ makeCell(
   1,
   [
     {
-      field: "밀도",
+      field: "density",
+      alias: "밀도",
       indexExclusive: true,
     },
   ],
@@ -47,7 +59,8 @@ makeCell(
   1,
   [
     {
-      field: "SUM",
+      field: "sum",
+      alias: "SUM",
       indexExclusive: true,
     },
   ],
@@ -58,7 +71,8 @@ makeCell(
   1,
   [
     {
-      field: "비고",
+      field: "note",
+      alias: "비고",
       indexExclusive: true,
     },
   ],

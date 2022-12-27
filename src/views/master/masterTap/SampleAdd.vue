@@ -104,7 +104,7 @@
 </template>
 <script>
 import { insertSampleMaster, sampleMasterDetail } from "api/sample/sample";
-import { makeSum, makeARow } from "@/assets/grid/gridUtill";
+import { makeSum, makeARow, makeSampleSet } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 import * as sample from "@/assets/grid/sampleRequest";
 import * as sampleSum from "@/assets/grid/sampleRequestSum";
@@ -203,11 +203,13 @@ export default {
       this.setGrid();
     },
     save() {
-      const code = this.input.code;
-      const sample = { ...this.$refs.sample_grid.getJsonData(), code };
-      const sampleA = { ...this.$refs.real_grid.getJsonData(), code };
-      const sampleB = { ...this.$refs.make_grid.getJsonData(), code };
-      const sampleDetail = { ...this.$refs.spec_grid.getJsonData(), code };
+      const sample = { ...this.$refs.sample_grid.getJsonRow() };
+      const sampleA = { ...this.$refs.real_grid.getJsonRow() };
+      const sampleB = { ...this.$refs.make_grid.getJsonRow() };
+      const dt = this.$refs.spec_grid.getJsonRow();
+      const sampleDetail = {
+        ...makeSampleSet(dt),
+      };
 
       insertSampleMaster({
         sample,

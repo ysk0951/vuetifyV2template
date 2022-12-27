@@ -7,7 +7,7 @@ export async function solventMasterList(param) {
 }
 
 export async function solventMasterDetail(param) {
-  return http.post(prefix + `/solventMasterDetail`, param);
+  return http.post(prefix + `/solventMasterDetail?idx=${param}`);
 }
 
 export async function insertSolventMaster(param) {

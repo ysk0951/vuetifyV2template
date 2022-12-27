@@ -120,3 +120,14 @@ export function makeSum(row) {
   row.sum = Math.floor(sum * 100) / 100;
   return row;
 }
+
+export function makeSampleSet(row) {
+  const key = _.keys(row);
+  const dt = {};
+  const data = {};
+  _.each(key, function (v) {
+    data[v] = row[v];
+  });
+  dt.data = JSON.stringify(data);
+  return dt;
+}
