@@ -13,7 +13,7 @@ const data = [
     alias: "휴대폰번호",
   },
   {
-    field: "test",
+    field: "address",
     alias: "기본 배송지",
   },
   {
@@ -25,7 +25,7 @@ const data = [
     alias: "기업명",
   },
   {
-    field: "idx",
+    field: "memo",
     alias: "비고",
   },
 ];

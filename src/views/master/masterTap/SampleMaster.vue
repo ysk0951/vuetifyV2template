@@ -2,14 +2,15 @@
   <div>
     <h3 class="mt-4 mb-2">샘플 마스터 관리</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace">
+    <div class="sampleMaster wrapperSpace">
       <v-col cols="12" sm="6">
         <h4>Solvent</h4>
         <v-text-field
           v-model="param.solvent"
           outlined
           dense
-          placeholder="solvent/solvent/solvent/solvent/solvent/solvent/solvent/solvent/"
+          placeholder="solvent/solvent/solvent/solvent/solvent/solvent/solvent/solvent"
+          :rules="[this.validSet.sample(param.solvent, 8, 'key')]"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6">
@@ -19,6 +20,7 @@
           outlined
           dense
           placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
+          :rules="[this.validSet.sample(param.solventVol, 8, 'value')]"
         ></v-text-field>
       </v-col>
     </div>
@@ -91,9 +93,11 @@ import { columns, fields, height } from "@/assets/grid/sampleMaster";
 import { sampleMasterList } from "api/sample/sample";
 import RealGrid from "@/components/RealGrid.vue";
 import _ from "lodash";
+import validSet from "@/assets/valid";
 export default {
   data() {
     return {
+      validSet,
       param: {
         solvent: "",
         solventVol: "",
@@ -116,9 +120,10 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
-    search() {
+    search(v) {
       sampleMasterList({
         ...this.param,
+        currentPage: _.isNumber(v) ? v : 1,
       }).then((res) => {
         const response = res.data;
         const items = response.data.items;

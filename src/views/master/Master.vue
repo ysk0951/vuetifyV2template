@@ -23,13 +23,13 @@
             <UserMasterDetail :data="userDetailData" />
           </template>
           <template v-if="item.key === 'sample'">
-            <SmapleMaster
+            <SampleMaster
               @sampleMasterDetail="sampleMasterDetail"
               @sampleAdd="sampleAdd"
             />
           </template>
           <template v-if="item.key === 'sampleDetail'">
-            <SmapleMasterDetail :data="sampleDetailData" />
+            <SampleMasterDetail :data="sampleDetailData" />
           </template>
           <template v-if="item.key === 'sampleAdd'">
             <SampleAdd />
@@ -71,8 +71,8 @@ import MenstruumMaster from "@/views/master/masterTap/MenstruumMaster";
 import MenstruumDetail from "@/views/master/masterTap/MenstruumDetail";
 import MenstruumAdd from "@/views/master/masterTap/MenstruumAdd";
 import SampleAdd from "@/views/master/masterTap/SampleAdd";
-import SmapleMaster from "@/views/master/masterTap/SmapleMaster";
-import SmapleMasterDetail from "@/views/master/masterTap/SmapleMasterDetail";
+import SampleMaster from "@/views/master/masterTap/SampleMaster";
+import SampleMasterDetail from "@/views/master/masterTap/SampleMasterDetail";
 import MaterialIndex from "@/views/master/masterTap/MaterialIndex";
 import MaterialIndexDetail from "@/views/master/masterTap/MaterialIndexDetail";
 import MaterialIndexAdd from "@/views/master/masterTap/MaterialIndexAdd";
@@ -120,8 +120,8 @@ export default {
     UserMaster,
     UserMasterDetail,
     MenstruumMaster,
-    SmapleMaster,
-    SmapleMasterDetail,
+    SampleMaster,
+    SampleMasterDetail,
     SampleAdd,
     MenstruumDetail,
     MenstruumAdd,

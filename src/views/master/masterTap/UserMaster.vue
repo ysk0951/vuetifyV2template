@@ -2,30 +2,32 @@
   <div>
     <h3 class="mt-4 mb-2">회원 마스터 관리</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace">
-      <v-row>
-        <v-col cols="12" sm="2">
-          <h4>이름</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="이름을 입력해주세요"
-            v-model="param.memberName"
-            :rules="[this.validSet.name]"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="2">
-          <h4>기업명</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="기업명을 입력해주세요"
-            v-model="param.company"
-            :rules="[this.validSet.company]"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </div>
+    <v-form ref="userMaster" lazy-validation>
+      <div class="userMaster wrapperSpace">
+        <v-row>
+          <v-col cols="12" sm="2">
+            <h4>이름</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="이름을 입력해주세요"
+              v-model="param.memberName"
+              :rules="[this.validSet.name]"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>기업명</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="기업명을 입력해주세요"
+              v-model="param.company"
+              :rules="[this.validSet.company]"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </div>
+    </v-form>
     <div class="wrapperEnd">
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>
@@ -62,7 +64,7 @@ export default {
         columns,
         fields,
         height,
-        errorMessage: "검색이 필요합니다",
+        errorMessage: "데이터가 존재하지 않습니다",
         hideCheckBar: true,
       },
       param: {
@@ -78,30 +80,41 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
+    valid() {
+      return this.$refs.userMaster.validate();
+    },
     loadData(v) {
       this.search(v);
     },
     search(v) {
-      memberList({
-        ...this.param,
-        currentPage: _.isNumber(v) ? v : 1,
-      })
-        .then((res) => {
-          const response = res.data;
-          const items = response.data.items;
-          const page = response.data.params;
-          this.$refs.grid.loadData(items);
-          this.$refs.grid.setPage(page);
+      if (this.valid()) {
+        memberList({
+          ...this.param,
+          currentPage: _.isNumber(v) ? v : 1,
         })
-        .catch((res) => {
-          console.error(res);
-        })
-        .finally();
+          .then((res) => {
+            const response = res.data;
+            const items = response.data.items;
+            const page = response.data.params;
+            this.$refs.grid.loadData(items);
+            this.$refs.grid.setPage(page);
+          })
+          .catch((res) => {
+            console.error(res);
+          })
+          .finally();
+      }
     },
     dbClick(data) {
       this.$emit("dbClick", data);
     },
-    reset() {},
+    reset() {
+      this.param = {
+        memberName: "",
+        company: "",
+        pageSize: 10,
+      };
+    },
   },
   components: {
     RealGrid,
