@@ -17,7 +17,7 @@
       <v-col cols="12" sm="10">
         <h4>품명</h4>
         <v-text-field
-          v-model="param.solventVol"
+          v-model="param.code_title"
           outlined
           dense
           placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
@@ -82,7 +82,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
 import { mapMutations } from "vuex";
-import { makeSum } from "@/assets/grid/gridUtill";
+import { makeSum, makeSampleSet } from "@/assets/grid/gridUtill";
 // import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
@@ -91,12 +91,7 @@ export default {
     return {
       param: {
         code: "",
-        solvent: "",
-        solventVol: "",
-        salt: "",
-        saltVol: "",
-        add: "",
-        addVol: "",
+        code_title: "",
       },
       grid: "sampleMasterDetail",
       settings_sample: {
@@ -142,6 +137,19 @@ export default {
       this.param.code = this.data.code;
       this.search(this.param.code);
     },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable,
+        text,
+      });
+      this.$refs.confirm.openPopup(cb);
+    },
+    closePopup() {
+      this.$refs.confirm.closePopup();
+    },
     search(code) {
       sampleMasterDetail(code)
         .then((res) => {
@@ -160,31 +168,24 @@ export default {
         });
     },
     cancle() {
-      this.SET_POPUP({
-        title: "알림",
-        height: 150,
-        width: 300,
-        closable: true,
-        text: "저장하시겟습니까?",
-      });
+      this.loadData();
     },
     save() {
-      this.SET_POPUP({
-        title: "알림",
-        height: 150,
-        width: 300,
-        closable: true,
-        text: "저장하시겟습니까?",
-      });
-      this.$refs.confirm.openPopup(() => {
-        console.log("update");
+      this.openPopup("저장하시겠습니까?", true, () => {
         const code = this.param.code;
+        const dt = this.$refs.spec_grid.getJsonRow();
+        const sampleDetail = {
+          ...makeSampleSet(dt),
+        };
         updateSampleMaster({
           sample: { ...this.$refs.sample_grid.getJsonRow(), code },
           sampleA: { ...this.$refs.real_grid.getJsonRow(), code },
           sampleB: { ...this.$refs.make_grid.getJsonRow(), code },
-          sampleDetail: { ...this.$refs.spec_grid.getJsonRow(), code },
-        }).then(() => {});
+          sampleDetail: { ...sampleDetail, code },
+        }).then(() => {
+          this.closePopup();
+          this.openPopup("저장되었습니다", false);
+        });
       });
     },
     reset() {

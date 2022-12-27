@@ -19,7 +19,7 @@ const companyRegex = /[a-zA-Z0-9가-힇ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴー々〆〤�
 
 //custom
 const keyRegex = /^[a-z|A-Z|0-9]+$/;
-const valueRegex = /^[0-9]+$/;
+const valueRegex = /^[0-9\\.]+$/;
 //ㅎ
 export {
   numberRegex,

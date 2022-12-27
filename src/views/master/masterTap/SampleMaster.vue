@@ -2,68 +2,76 @@
   <div>
     <h3 class="mt-4 mb-2">샘플 마스터 관리</h3>
     <hr class="mb-4" />
-    <div class="sampleMaster wrapperSpace">
-      <v-col cols="12" sm="6">
-        <h4>Solvent</h4>
-        <v-text-field
-          v-model="param.solvent"
-          outlined
-          dense
-          placeholder="solvent/solvent/solvent/solvent/solvent/solvent/solvent/solvent"
-          :rules="[this.validSet.sample(param.solvent, 8, 'key')]"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <h4>Solvent Vol</h4>
-        <v-text-field
-          v-model="param.solventVol"
-          outlined
-          dense
-          placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
-          :rules="[this.validSet.sample(param.solventVol, 8, 'value')]"
-        ></v-text-field>
-      </v-col>
-    </div>
-    <div class="confirmSample wrapperSpace">
-      <v-col cols="12" sm="6">
-        <h4>Salt</h4>
-        <v-text-field
-          v-model="param.salt"
-          outlined
-          dense
-          placeholder="salt/salt/salt"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <h4>Salt vol</h4>
-        <v-text-field
-          v-model="param.saltVol"
-          outlined
-          dense
-          placeholder="00.00/00.00/00.00"
-        ></v-text-field>
-      </v-col>
-    </div>
-    <div class="confirmSample wrapperSpace">
-      <v-col cols="12" sm="6">
-        <h4>Add</h4>
-        <v-text-field
-          v-model="param.add"
-          outlined
-          dense
-          placeholder="add/add/add/add/add/add/add/add/add/add"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <h4>Add Vol</h4>
-        <v-text-field
-          v-model="param.addVol"
-          outlined
-          dense
-          placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
-        ></v-text-field>
-      </v-col>
-    </div>
+    <v-form ref="sampleMaster" lazy-validation>
+      <div class="sampleMaster wrapperSpace">
+        <v-col cols="12" sm="6">
+          <h4>Solvent</h4>
+          <v-text-field
+            v-model="param.solvent"
+            outlined
+            dense
+            placeholder="solvent/solvent/solvent/solvent/solvent/solvent/solvent/solvent"
+            :rules="[this.validSet.sample(param.solvent, 8, 'key')]"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <h4>Solvent Vol</h4>
+          <v-text-field
+            v-model="param.solventVol"
+            outlined
+            dense
+            v-mask="'##.##/##.##/##.##/##.##/##.##/##.##/##.##/##.##'"
+            placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
+            :rules="[this.validSet.sample(param.solventVol, 8, 'value')]"
+          ></v-text-field>
+        </v-col>
+      </div>
+      <div class="sampleMaster wrapperSpace">
+        <v-col cols="12" sm="6">
+          <h4>Salt</h4>
+          <v-text-field
+            v-model="param.salt"
+            outlined
+            dense
+            placeholder="salt/salt/salt"
+            :rules="[this.validSet.sample(param.salt, 2, 'key')]"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <h4>Salt vol</h4>
+          <v-text-field
+            v-model="param.saltVol"
+            outlined
+            dense
+            placeholder="00.00/00.00/00.00"
+            v-mask="'##.##/##.##/##.##'"
+            :rules="[this.validSet.sample(param.saltVol, 2, 'value')]"
+          ></v-text-field>
+        </v-col>
+      </div>
+      <div class="sampleMaster wrapperSpace">
+        <v-col cols="12" sm="6">
+          <h4>Add</h4>
+          <v-text-field
+            v-model="param.add"
+            outlined
+            dense
+            placeholder="add/add/add/add/add/add/add/add/add/add"
+            :rules="[this.validSet.sample(param.add, 9, 'key')]"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <h4>Add Vol</h4>
+          <v-text-field
+            v-model="param.addVol"
+            outlined
+            dense
+            placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
+            :rules="[this.validSet.sample(param.addVol, 9, 'value')]"
+          ></v-text-field>
+        </v-col>
+      </div>
+    </v-form>
     <div class="wrapperEnd">
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>
@@ -105,7 +113,7 @@ export default {
         saltVol: "",
         add: "",
         addVol: "",
-        pageSize: "10",
+        pageSize: "100",
       },
       grid: "sampleMaster",
       settings: {
@@ -120,20 +128,25 @@ export default {
       console.log("newSample");
       this.$emit("newSample");
     },
+    valid() {
+      return this.$refs.sampleMaster.validate();
+    },
     search(v) {
-      sampleMasterList({
-        ...this.param,
-        currentPage: _.isNumber(v) ? v : 1,
-      }).then((res) => {
-        const response = res.data;
-        const items = response.data.items;
-        const page = response.data.params;
-        _.each(items, function (v) {
-          v.work = v.employee_status;
+      if (this.valid()) {
+        sampleMasterList({
+          ...this.param,
+          currentPage: _.isNumber(v) ? v : 1,
+        }).then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          const page = response.data.params;
+          _.each(items, function (v) {
+            v.work = v.employee_status;
+          });
+          this.$refs.grid.loadData(items);
+          this.$refs.grid.setPage(page);
         });
-        this.$refs.grid.loadData(items);
-        this.$refs.grid.setPage(page);
-      });
+      }
     },
     addSample() {
       this.$emit("sampleAdd");
@@ -157,4 +170,8 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.sampleMaster {
+  height: 80px;
+}
+</style>
