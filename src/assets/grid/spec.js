@@ -44,13 +44,14 @@ _.each(data, function (o) {
 const rowSet = makeRowSet(fields);
 const row = makeARow(fields)[0];
 const initRow = [];
+
+_.each(ppm, function (name) {
+  initRow.push({ ...row, name, dan: "ppm" });
+});
 _.each(APHA, function (name) {
   initRow.push({ ...row, name, dan: "APHA" });
 });
 _.each(g_cm3, function (name) {
   initRow.push({ ...row, name, dan: "g/cm3" });
-});
-_.each(ppm, function (name) {
-  initRow.push({ ...row, name, dan: "ppm" });
 });
 export { fields, columns, rowSet, initRow };

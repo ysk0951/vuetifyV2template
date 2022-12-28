@@ -2,6 +2,7 @@
   <div class="material">
     <h3 class="mt-4 mb-2">물질명 INDEX 상세</h3>
     <hr class="mb-4" />
+    <SetPopup ref="confirm" />
     <RealGrid
       :domName="grid"
       ref="grid"
@@ -21,10 +22,10 @@
 <script>
 import { columns, fields, height } from "@/assets/grid/materialIndex";
 import { subsMasterDetail, updateSubsMaster } from "api/subIndex/subIndex";
-
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 import RealGrid from "@/components/RealGrid.vue";
+import SetPopup from "@/components/SetPopup.vue";
 export default {
   props: ["data"],
   data() {
@@ -45,12 +46,27 @@ export default {
     ...mapState("common", ["code"]),
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable,
+        text,
+      });
+      this.$refs.confirm.openPopup(cb);
+    },
     save() {
-      updateSubsMaster({ ...this.$refs.grid.getJsonRow() })
-        .then(() => {
-          this.reset();
-        })
-        .catch(() => {});
+      this.openPopup("저장하시겠습니까?", true, () => {
+        updateSubsMaster({ ...this.$refs.grid.getJsonRow() })
+          .then(() => {
+            this.openPopup("저장되었습니다", false, () => {
+              this.reset();
+            });
+          })
+          .catch(() => {});
+      });
     },
     reset() {
       this.loadData();
@@ -67,6 +83,7 @@ export default {
   },
   components: {
     RealGrid,
+    SetPopup,
   },
   mounted() {
     this.loadData();

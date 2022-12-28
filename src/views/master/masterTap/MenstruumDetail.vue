@@ -2,6 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">용매조성 마스터 상세</h3>
     <hr class="mb-4" />
+    <SetPopup ref="confirm" />
     <RealGrid
       :domName="grid"
       ref="grid"
@@ -22,6 +23,8 @@
 import * as menstrumm from "@/assets/grid/menstrumm";
 import RealGrid from "@/components/RealGrid.vue";
 import _ from "lodash";
+import SetPopup from "@/components/SetPopup.vue";
+import { mapMutations } from "vuex";
 import { solventMasterDetail, updateSolventMaster } from "api/solvent/solvent";
 export default {
   props: ["data"],
@@ -42,13 +45,27 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable,
+        text,
+      });
+      this.$refs.confirm.openPopup(cb);
+    },
     save() {
-      updateSolventMaster(this.$refs.grid.getJsonRow())
-        .then(() => {
-          this.$emit("reload");
-          this.reset();
-        })
-        .catch(() => {});
+      this.openPopup("저장하시겠습니까?", true, () => {
+        updateSolventMaster(this.$refs.grid.getJsonRow())
+          .then(() => {
+            this.openPopup("저장되었습니다", false, () => {
+              this.reset();
+            });
+          })
+          .catch(() => {});
+      });
     },
     reset() {
       this.search();
@@ -58,7 +75,6 @@ export default {
         const response = res.data;
         const items = response.data;
         this.$refs.grid.loadData([items]);
-        console.log(response);
       });
     },
   },
@@ -67,6 +83,7 @@ export default {
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>

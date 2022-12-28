@@ -131,3 +131,7 @@ export function makeSampleSet(row) {
   dt.data = JSON.stringify(data);
   return dt;
 }
+
+export function showSampleSet(row) {
+  return JSON.parse(row.data);
+}

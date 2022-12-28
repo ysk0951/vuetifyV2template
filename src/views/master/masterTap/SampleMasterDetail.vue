@@ -82,7 +82,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
 import { mapMutations } from "vuex";
-import { makeSum, makeSampleSet } from "@/assets/grid/gridUtill";
+import { makeSum, makeSampleSet, showSampleSet } from "@/assets/grid/gridUtill";
 // import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
@@ -161,7 +161,9 @@ export default {
           this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
-          this.$refs.spec_grid.loadData([{ ...CodeDB_Dt, code }]);
+          this.$refs.spec_grid.loadData([
+            { ...showSampleSet(CodeDB_Dt), code },
+          ]);
         })
         .catch((res) => {
           console.error(res);

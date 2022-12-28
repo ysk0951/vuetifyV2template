@@ -92,7 +92,12 @@
 </template>
 <script>
 import { insertSampleMaster, sampleMasterDetail } from "api/sample/sample";
-import { makeSum, makeARow, makeSampleSet } from "@/assets/grid/gridUtill";
+import {
+  makeSum,
+  makeARow,
+  makeSampleSet,
+  showSampleSet,
+} from "@/assets/grid/gridUtill";
 import _ from "lodash";
 import * as sample from "@/assets/grid/sampleRequest";
 import * as sampleSum from "@/assets/grid/sampleRequestSum";
@@ -172,7 +177,9 @@ export default {
           this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
-          this.$refs.spec_grid.loadData([{ ...CodeDB_Dt, code }]);
+          this.$refs.spec_grid.loadData([
+            { ...showSampleSet(CodeDB_Dt), code },
+          ]);
           this.param.code_grade = code;
           console.log(CodeDB);
         })
