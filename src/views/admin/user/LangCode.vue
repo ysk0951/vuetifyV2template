@@ -43,7 +43,6 @@ export default {
       },
       grid: "lagnCode",
       currentPage: 1,
-      pageSize: 10,
     };
   },
   computed: {
@@ -59,7 +58,7 @@ export default {
     search(v) {
       getMessageList({
         currentPage: _.isNumber(v) ? v : 1,
-        pageSize: "10",
+        pageSize: 3,
       }).then((res) => {
         const response = res.data;
         const items = response.data.items;

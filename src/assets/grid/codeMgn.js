@@ -5,15 +5,16 @@ let columns = [];
 const data = [
   {
     alias: "공통코드명",
+    field: "gubun",
   },
   {
     alias: "코드",
+    field: "code",
   },
 ];
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  o.field = o.alias;
   makeCell(1, [o], fields, columns);
 });
 export { fields, columns };

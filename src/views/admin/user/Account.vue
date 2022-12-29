@@ -94,12 +94,12 @@
         </div>
       </h3>
       <hr class="mb-4" />
-      <!-- <RealGrid
+      <RealGrid
         :domName="grid"
         ref="grid"
         :settings="settings"
         @changePage="loadData"
-      /> -->
+      />
     </div>
   </div>
 </template>
@@ -108,7 +108,7 @@ import { columns, fields, rows, height } from "@/assets/grid/account";
 import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
-// import RealGrid from "@/components/RealGrid.vue";
+import RealGrid from "@/components/RealGrid.vue";
 import { memberList, memberJoin } from "api/member/member";
 import { mapMutations, mapState } from "vuex";
 import _ from "lodash";
@@ -262,7 +262,7 @@ export default {
     SetDialog,
     SetPopup,
     AddAcount,
-    // RealGrid,
+    RealGrid,
   },
 };
 </script>
