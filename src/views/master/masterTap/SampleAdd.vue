@@ -2,6 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">샘플 마스터 등록</h3>
     <hr class="mb-4" />
+    <SetPopup ref="confirm" />
     <div class="confirmSample wrapperSpace">
       <v-col cols="12" sm="4">
         <h4>마스터 복사</h4>
@@ -98,11 +99,13 @@ import {
   makeSampleSet,
   showSampleSet,
 } from "@/assets/grid/gridUtill";
+import SetPopup from "@/components/SetPopup.vue";
 import _ from "lodash";
 import * as sample from "@/assets/grid/sampleRequest";
 import * as sampleSum from "@/assets/grid/sampleRequestSum";
 import * as spec from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -155,6 +158,17 @@ export default {
     this.setGrid();
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable,
+        text,
+      });
+      this.$refs.confirm.openPopup(cb);
+    },
     newSample() {
       this.$emit("newSample");
     },
@@ -218,6 +232,7 @@ export default {
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>

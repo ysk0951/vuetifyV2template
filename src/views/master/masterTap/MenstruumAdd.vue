@@ -2,6 +2,7 @@
   <div class="menstrumm">
     <h3 class="mt-4 mb-2">용매조성 마스터 등록</h3>
     <hr class="mb-4" />
+    <SetPopup ref="confirm" />
     <v-row v-for="idx in row" :key="idx">
       <v-col
         cols="12"
@@ -52,9 +53,10 @@
   </div>
 </template>
 <script>
-import * as menstrumm from "@/assets/grid/menstrumm";
+import * as menstrumm from "@/assets/grid/menstrummAdd";
 import { insertSolventMaster } from "api/solvent/solvent";
 import _ from "lodash";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -66,15 +68,35 @@ export default {
       bindKey: [],
     };
   },
+  watch: {
+    param: {
+      deep: true,
+    },
+  },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     newSample() {
       this.$emit("newSample");
     },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable,
+        text,
+      });
+      this.$refs.confirm.openPopup(cb);
+    },
     save() {
-      insertSolventMaster({ ...this.param })
-        .then(() => {})
-        .catch(() => {});
-      console.log(this.param);
+      this.openPopup("저장하시겠습니까?", true, () => {
+        insertSolventMaster({ ...this.param })
+          .then(() => {
+            this.openPopup("저장되었습니다", false, () => {});
+          })
+          .catch(() => {});
+        console.log(this.param);
+      });
     },
     item(idx, i) {
       const index = (idx - 1) * this.col + i - 1;
@@ -139,7 +161,6 @@ export default {
   },
   mounted() {
     this.setData();
-    console.log(this.bindKey);
   },
 };
 </script>

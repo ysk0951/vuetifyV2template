@@ -34,11 +34,9 @@ export default {
       settings: {
         ...menstrumm,
         columns: _.map(_.cloneDeep(menstrumm.columns), function (v) {
-          console.log(v);
           if (v.key != "idx") {
             v.editable = true;
           }
-
           return v;
         }),
       },
