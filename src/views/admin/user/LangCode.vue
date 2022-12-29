@@ -1,8 +1,5 @@
 <template>
   <div>
-    <SetDialog ref="add">
-      <AddAcount @close="close" @save="save" />
-    </SetDialog>
     <h3 class="mt-4 mb-2">다국어 지원 관리</h3>
     <hr class="mb-4" />
     <div class="service login">
@@ -13,167 +10,68 @@
         @changePage="loadData"
       />
     </div>
+    <div class="wrapper mt-4">
+      <v-card-actions>
+        <v-btn depressed @click="reset">취소</v-btn>
+      </v-card-actions>
+      <v-card-actions>
+        <v-btn depressed color="primary" @click="save">저장</v-btn>
+      </v-card-actions>
+    </div>
   </div>
 </template>
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/langCode";
-import SetDialog from "@/components/SetDialog.vue";
-import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
-import { memberList, memberJoin } from "api/member/member";
-import { mapMutations, mapState } from "vuex";
+import { getMessageList } from "api/language";
+import { mapState } from "vuex";
 import _ from "lodash";
 export default {
   data() {
     return {
-      input: {
-        employeeStatus: "전체",
-        roles: "",
-        memberName: "",
-        memberId: "",
-        company: "",
-        employeeCode: "",
-      },
-      accountType: [],
-      check: false,
       settings: {
-        columns,
+        columns: _.map(_.cloneDeep(columns), function (v) {
+          if (v.key != "route" && v.key != "code") {
+            v.editable = true;
+          }
+          return v;
+        }),
         fields,
         rows,
         height,
+        hideCheckBar: true,
       },
-      grid: "loginMgn",
+      grid: "lagnCode",
       currentPage: 1,
       pageSize: 10,
-      saveParam: {},
     };
   },
   computed: {
     ...mapState("select", ["workType", "roleType"]),
   },
   mounted() {
-    this.SET_POPUP({
-      title: "알림",
-      height: 150,
-      width: 300,
-      customApprove: true,
-    });
-    this.input.roles = this.roleType[0];
+    this.search();
   },
   methods: {
-    ...mapMutations("modal", [
-      "SET_DIALOG_TITLE",
-      "SET_DIALOG_TEXT",
-      "SET_HIGHT",
-      "SET_MAX_WIDTH",
-      "SET_MODAL",
-      "RESET_MODAL",
-    ]),
-    ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
-    reset() {
-      this.input = {
-        employeeStatus: "전체",
-        roles: "",
-        memberName: "",
-        memberId: "",
-        company: this.company,
-        employeeCode: "",
-      };
-    },
     loadData(v) {
-      this.currentPage = v;
-      this.onApprove();
+      this.search(v);
     },
-    onApprove() {
-      const param = _.cloneDeep(this.input);
-      switch (param.employeeStatus) {
-        case "재직중":
-          param.employeeStatus = 1;
-          break;
-        case "퇴사":
-          param.employeeStatus = 2;
-          break;
-        case "전체":
-          param.employeeStatus = "";
-          break;
-      }
-
-      memberList({
-        ...param,
-        currentPage: this.currentPage,
-        pageSize: this.pageSize,
-      })
-        .then((res) => {
-          const response = res.data;
-          const items = response.data.items;
-          const page = response.data.params;
-          _.each(items, function (v) {
-            v.work = v.employee_status;
-          });
-          this.$refs.grid.loadData(items);
-          this.$refs.grid.setPage(page);
-        })
-        .catch((res) => {
-          console.error(res);
-        })
-        .finally();
-    },
-    add() {
-      this.SET_MODAL({
-        height: 500,
-        width: 750,
-        closable: true,
-        approveName: "저장",
-        customApprove: true,
+    search(v) {
+      getMessageList({
+        currentPage: _.isNumber(v) ? v : 1,
+        pageSize: "10",
+      }).then((res) => {
+        const response = res.data;
+        const items = response.data.items;
+        const page = response.data.params;
+        this.$refs.grid.loadData(items);
+        this.$refs.grid.setPage(page);
       });
-      this.$refs.add.openModal();
     },
-    save(param) {
-      this.close();
-      this.openPopup("입력된 정보로 아이디를 생성하시겠습니까?");
-      this.saveParam = param;
-    },
-    close() {
-      this.check = false;
-      this.$refs.add.closeModal();
-    },
-    openPopup(message, cb) {
-      this.SET_POPUP_TEXT(message);
-      this.$refs.addPopup.openPopup(cb);
-    },
-    cancel() {
-      this.saveParam = {};
-      this.$refs.addPopup.closePopup();
-    },
-    addExec() {
-      const param = _.cloneDeep(this.saveParam);
-      switch (param.employeeStatus) {
-        case "재직중":
-          param.employeeStatus = 1;
-          break;
-        case "퇴사":
-          param.employeeStatus = 2;
-          break;
-        case "전체":
-          param.employeeStatus = "";
-          break;
-      }
-      console.log("exec");
-      memberJoin(param)
-        .then((res) => {
-          const response = res.data;
-
-          console.log(response);
-        })
-        .catch(() => {
-          this.cancel();
-        });
-    },
+    reset() {},
+    save() {},
   },
-
   components: {
-    SetDialog,
-    AddAcount,
     RealGrid,
   },
 };

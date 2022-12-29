@@ -5,3 +5,7 @@ const prefix = `${version}/message/`;
 export async function getMessage(param) {
   return http.post(prefix + "getMessage", param);
 }
+
+export async function getMessageList(param) {
+  return http.post(prefix + "getMessageList", param);
+}

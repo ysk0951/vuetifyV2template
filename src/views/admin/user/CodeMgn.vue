@@ -58,7 +58,7 @@ export default {
         rows,
         height,
       },
-      grid: "loginMgn",
+      grid: "codeMgn",
       validSet,
       currentPage: 1,
       pageSize: 10,

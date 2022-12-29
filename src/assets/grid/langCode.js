@@ -4,22 +4,22 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    alias: "ROUTE",
+    field: "route",
   },
   {
-    alias: "CODE",
+    field: "code",
   },
   {
-    alias: "KO",
+    field: "ko",
   },
   {
-    alias: "EN",
+    field: "en",
   },
 ];
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  o.field = o.alias;
+  o.alias = o.field;
   makeCell(1, [o], fields, columns);
 });
 export { fields, columns };

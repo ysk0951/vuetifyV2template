@@ -22,11 +22,11 @@
             <MenuMgn />
           </template>
           <template v-if="item.key === 'code'">
-            <CodeMgn />
+            <CodeMgn @dbClick="codeDetail" />
           </template>
-          <!-- <template v-if="item.key === 'codeDetail'">
-            <CodeDetail />
-          </template> -->
+          <template v-if="item.key === 'codeDetail'">
+            <CodeDetail :data="codeDetailData" />
+          </template>
           <template v-if="item.key === 'lang'">
             <LangCode />
           </template>
@@ -42,13 +42,15 @@ import AccontPw from "@/views/admin/user/AccountPw.vue";
 import MenuMgn from "@/views/admin/user/MenuMng.vue";
 import LoginMgn from "@/views/admin/user/LoginMgn.vue";
 import CodeMgn from "@/views/admin/user/CodeMgn.vue";
-// import CodeDetail from "@/views/admin/user/CodeDetail.vue";
+import CodeDetail from "@/views/admin/user/CodeDetail.vue";
 import LangCode from "@/views/admin/user/LangCode";
 import { mapState, mapMutations } from "vuex";
+import _ from "lodash";
 export default {
   data() {
     return {
       tab: 0,
+      codeDetailData: {},
       items: [
         {
           key: "id",
@@ -89,7 +91,7 @@ export default {
     MenuMgn,
     LoginMgn,
     CodeMgn,
-    // CodeDetail,
+    CodeDetail,
     LangCode,
   },
   async created() {
@@ -97,6 +99,32 @@ export default {
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
+    findTab(key, value, target, closeable, data) {
+      let idx = _.findIndex(this.items, function (v) {
+        return v.key === key;
+      });
+      if (idx === -1) {
+        this.items.push({
+          key,
+          value,
+          closeable,
+        });
+        idx = _.findIndex(this.items, function (v) {
+          return v.key === key;
+        });
+      }
+      this.tab = idx;
+      this[target] = data;
+    },
+    codeDetail(data) {
+      this.findTab(
+        "codeDetail",
+        "공통 코드 상세",
+        "codeDetailData",
+        true,
+        data
+      );
+    },
   },
 };
 </script>

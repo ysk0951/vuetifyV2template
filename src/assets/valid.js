@@ -63,10 +63,12 @@ const sample = (v, max, type) => {
   }
 };
 const commonCode = (v) => {
+  console.log(v);
+  console.log(codeRegex.test(v));
   if (v.length === 0) {
     return true;
   } else {
-    !!codeRegex.test(v) || "숫자와 영어만 입력가능합니다";
+    return !!codeRegex.test(v) || "숫자와 영어만 입력가능합니다";
   }
 };
 const validSet = {
