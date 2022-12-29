@@ -94,12 +94,12 @@
         </div>
       </h3>
       <hr class="mb-4" />
-      <RealGrid
+      <!-- <RealGrid
         :domName="grid"
         ref="grid"
         :settings="settings"
         @changePage="loadData"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -108,7 +108,7 @@ import { columns, fields, rows, height } from "@/assets/grid/account";
 import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
-import RealGrid from "@/components/RealGrid.vue";
+// import RealGrid from "@/components/RealGrid.vue";
 import { memberList, memberJoin } from "api/member/member";
 import { mapMutations, mapState } from "vuex";
 import _ from "lodash";
@@ -122,6 +122,7 @@ export default {
         memberId: "",
         company: "",
         employeeCode: "",
+        pageSize: 10,
       },
       accountType: [],
       check: false,
@@ -131,9 +132,7 @@ export default {
         rows,
         height,
       },
-      grid: "acouunt",
-      currentPage: 1,
-      pageSize: 10,
+      grid: "acount",
       saveParam: {},
     };
   },
@@ -170,10 +169,9 @@ export default {
       };
     },
     loadData(v) {
-      this.currentPage = v;
-      this.onApprove();
+      this.onApprove(v);
     },
-    onApprove() {
+    onApprove(v) {
       const param = _.cloneDeep(this.input);
       switch (param.employeeStatus) {
         case "재직중":
@@ -189,8 +187,7 @@ export default {
 
       memberList({
         ...param,
-        currentPage: this.currentPage,
-        pageSize: this.pageSize,
+        currentPage: _.isNumber(v) ? v : 1,
       })
         .then((res) => {
           const response = res.data;
@@ -199,6 +196,8 @@ export default {
           _.each(items, function (v) {
             v.work = v.employee_status;
           });
+          console.log(items);
+          console.log(page);
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
         })
@@ -251,7 +250,6 @@ export default {
       memberJoin(param)
         .then((res) => {
           const response = res.data;
-
           console.log(response);
         })
         .catch(() => {
@@ -264,11 +262,11 @@ export default {
     SetDialog,
     SetPopup,
     AddAcount,
-    RealGrid,
+    // RealGrid,
   },
 };
 </script>
-<style>
+<style lang="scss">
 .filter {
   /* background-color: wheat; */
   padding-right: 7px;
@@ -284,6 +282,9 @@ export default {
 .service {
   margin: auto;
   width: 100%;
+  .v-input__slot {
+    width: 100% !important;
+  }
 }
 
 .filter .v-select__slot > div.v-select__selections {

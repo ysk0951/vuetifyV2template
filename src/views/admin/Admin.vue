@@ -24,9 +24,9 @@
           <template v-if="item.key === 'code'">
             <CodeMgn />
           </template>
-          <template v-if="item.key === 'codeDetail'">
+          <!-- <template v-if="item.key === 'codeDetail'">
             <CodeDetail />
-          </template>
+          </template> -->
           <template v-if="item.key === 'lang'">
             <LangCode />
           </template>
@@ -42,7 +42,7 @@ import AccontPw from "@/views/admin/user/AccountPw.vue";
 import MenuMgn from "@/views/admin/user/MenuMng.vue";
 import LoginMgn from "@/views/admin/user/LoginMgn.vue";
 import CodeMgn from "@/views/admin/user/CodeMgn.vue";
-import CodeDetail from "@/views/admin/user/CodeDetail.vue";
+// import CodeDetail from "@/views/admin/user/CodeDetail.vue";
 import LangCode from "@/views/admin/user/LangCode";
 import { mapState, mapMutations } from "vuex";
 export default {
@@ -71,10 +71,6 @@ export default {
           value: "공통코드 관리",
         },
         {
-          key: "codeDetail",
-          value: "공통코드 상세",
-        },
-        {
           key: "lang",
           value: "다국어 지원관리",
         },
@@ -93,7 +89,7 @@ export default {
     MenuMgn,
     LoginMgn,
     CodeMgn,
-    CodeDetail,
+    // CodeDetail,
     LangCode,
   },
   async created() {

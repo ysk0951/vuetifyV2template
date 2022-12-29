@@ -7,6 +7,7 @@ import {
   numberRegex,
   keyRegex,
   valueRegex,
+  codeRegex,
 } from "./regex";
 const empty = (v) => !!v || "값이 비었습니다";
 const name = (v) => {
@@ -61,6 +62,13 @@ const sample = (v, max, type) => {
     }
   }
 };
+const commonCode = (v) => {
+  if (v.length === 0) {
+    return true;
+  } else {
+    !!codeRegex.test(v) || "숫자와 영어만 입력가능합니다";
+  }
+};
 const validSet = {
   empty,
   name,
@@ -71,5 +79,6 @@ const validSet = {
   check,
   passwordCode,
   sample,
+  commonCode,
 };
 export default validSet;
