@@ -96,6 +96,9 @@ export default {
   },
   mounted() {
     this.reset();
+    if (!this.$route.params.params) {
+      this.$router.push({ name: "login" });
+    }
   },
   methods: {
     ...mapMutations("popup", [
@@ -127,8 +130,6 @@ export default {
     },
     changePwd() {
       if (this.valid()) {
-        console.log(this.$route.params.params);
-        console.log(this.param.password);
         newPass({
           memberId: this.$route.params.params,
           memberPw: this.param.password,
