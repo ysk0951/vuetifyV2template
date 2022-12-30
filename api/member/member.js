@@ -43,7 +43,8 @@ export async function updateRole(param) {
 }
 
 export async function newPass(param) {
-  return http.post(
-    prefix + `/newPass?memberId=${param.memberId}&memberPw=${param.memberPw}`
-  );
+  let url =
+    prefix + `/newPass?memberId=${param.memberId}&memberPw=${param.memberPw}`;
+  url = url.replace(/#/, "%23");
+  return http.post(url);
 }

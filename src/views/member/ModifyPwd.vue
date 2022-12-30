@@ -19,6 +19,9 @@
                   @click:append="togglePwdShow"
                   :rules="[this.validSet.empty, this.validSet.password]"
                   v-model="param.password"
+                  :readonly="!focus"
+                  @focus="focus = true"
+                  @blur="focus = false"
                 >
                 </v-text-field>
               </div>
@@ -37,6 +40,9 @@
                       param.passwordCheck
                     ),
                   ]"
+                  :readonly="!focus"
+                  @focus="focus = true"
+                  @blur="focus = false"
                 >
                 </v-text-field>
               </div>
@@ -73,6 +79,7 @@ export default {
       },
       checkbox: false,
       showPwd: false,
+      focus: false,
     };
   },
   components: {
@@ -120,6 +127,8 @@ export default {
     },
     changePwd() {
       if (this.valid()) {
+        console.log(this.$route.params.params);
+        console.log(this.param.password);
         newPass({
           memberId: this.$route.params.params,
           memberPw: this.param.password,

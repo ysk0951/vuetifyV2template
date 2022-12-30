@@ -6,7 +6,9 @@ const numberRegex = /^[0-9]+$/;
 const emailRegex =/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
 //비밀번호 정규식
-const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+const pwRegex =
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+
 //소수점 정규표현식(x.x.xxxx)
 //eslint-disable-next-line
 const verRegex = /^([0-9]{1})*\.([0-9]{1})*\.([0-9]{4})$/;
