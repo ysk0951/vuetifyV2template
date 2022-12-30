@@ -5122,7 +5122,7 @@
   dependencies:
     "picomatch" "^2.2.1"
 
-"realgrid@^2.4.2":
+"realgrid@^2.6.0":
   "integrity" "sha512-ykpXPt3wgF0xFWuk8ICiHXBg6eeKsKqaeocjxEz2/8CtWsxgwtpsD2REtOeJWKecsUsnCmVP/Oca7kGWu3S7GQ=="
   "resolved" "https://registry.npmjs.org/realgrid/-/realgrid-2.6.0.tgz"
   "version" "2.6.0"
