@@ -66,7 +66,7 @@ export default {
   },
   components: {},
   async created() {
-    await this.SET_LOCALE(this.locale);
+    // await this.SET_LOCALE(this.locale);
     await this.SET_ROLE_TYPE();
     await this.SET_ALL_MENU();
     await this.SET_CODE("C");
@@ -75,7 +75,7 @@ export default {
     await this.SET_CODE("M");
   },
   methods: {
-    ...mapMutations("locale", ["SET_LOCALE"]),
+    // ...mapMutations("locale", ["SET_LOCALE"]),
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
     ...mapMutations("menu", ["SET_ALL_MENU"]),
     ...mapMutations("common", ["SET_CODE"]),

@@ -15,10 +15,10 @@
           <h1 style="text-align: center" class="mb-10">
             <div class="wrapper" style="width: 50%; margin: auto">
               <template v-if="this.locale === 'ko'">
-                <v-img src="../../assets/dwel_logo_ko.png" alt="" />
+                <img src="../../assets/dwel_logo_ko.png" alt="" />
               </template>
               <template v-else>
-                <v-img src="../../assets/dwel_logo_en.png" alt="" />
+                <img src="../../assets/dwel_logo_en.png" alt="" />
               </template>
             </div>
           </h1>
@@ -101,6 +101,7 @@ export default {
   },
   computed: {
     ...mapState("locale", ["message", "locale"]),
+    ...mapState("member", ["accessToken"]),
     pwdType() {
       if (!this.showPwd) {
         return "Password";
@@ -110,6 +111,9 @@ export default {
     },
   },
   mounted() {
+    if (this.accessToken) {
+      this.$router.push({ name: "main" });
+    }
     const id = sessionStorage.getItem("id");
     if (!_.isEmpty(id)) {
       this.id = id;
@@ -152,7 +156,6 @@ export default {
       if (!this.valid()) {
         return;
       } else {
-        console.log(1);
         login({
           memberId: this.id,
           memberpw: this.pw,
@@ -163,10 +166,12 @@ export default {
               sessionStorage.setItem("id", this.id);
             }
             this.SET_TOKEN(resBody.data);
-            this.routing("main", "로그인 되었습니다.");
+            this.openModal("로그인 되었습니다.", () => {
+              this.$router.push({ name: "main" });
+            });
           })
           .catch(() => {
-            this.routing("login", "로그인 에 실패하였습니다.");
+            this.openModal("로그인 에 실패하였습니다.");
           })
           .finally(() => {});
       }
@@ -174,7 +179,7 @@ export default {
     togglePwdShow() {
       this.showPwd = !this.showPwd;
     },
-    routing(name, message, params) {
+    openModal(message, cb) {
       this.SET_MODAL({
         title: "알림",
         text: message,
@@ -182,7 +187,9 @@ export default {
         width: 300,
       });
       this.$refs.loginModal.openModal(() => {
-        this.$router.push({ name, params });
+        if (_.isFunction(cb)) {
+          cb();
+        }
       });
       //
     },

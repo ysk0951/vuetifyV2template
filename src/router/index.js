@@ -88,6 +88,8 @@ const adminPath = ["/admin"];
 const path = defaultPath.concat(adminPath);
 const dev = true;
 router.beforeEach((to, from, next) => {
+  //TODO :: 각 페이지별 메세지 로딩
+  store.commit("locale/SET_LOCALE", store.state.locale.locale);
   if (!dev) {
     if (path.includes(to.path)) {
       next();
@@ -99,6 +101,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+  // });
 });
 
 //NavigationDuplicated Error ignore
