@@ -1,19 +1,22 @@
 <template>
   <div class="materialIndexAdd">
     <h3 class="mt-4 mb-2">물질명 인덱스</h3>
-    <v-row v-for="idx in row" :key="idx">
-      <v-col cols="12" sm="4" v-for="i in col" :key="i">
-        <template v-if="item(idx, i)">
-          <h4>{{ item(idx, i) }}</h4>
-          <v-text-field
-            outlined
-            dense
-            :placeholder="item(idx, i) + ' 입력'"
-            v-model="param[bindKey[(idx - 1) * col + i - 1]]"
-          ></v-text-field>
-        </template>
-      </v-col>
-    </v-row>
+    <SetPopup ref="confirm" />
+    <v-form ref="form" lazy-validation>
+      <v-row v-for="idx in row" :key="idx">
+        <v-col cols="12" sm="4" v-for="i in col" :key="i">
+          <template v-if="item(idx, i)">
+            <h4>{{ item(idx, i) }}</h4>
+            <v-text-field
+              outlined
+              dense
+              :placeholder="item(idx, i) + ' 입력'"
+              v-model="param[bindKey[(idx - 1) * col + i - 1]]"
+            ></v-text-field>
+          </template>
+        </v-col>
+      </v-row>
+    </v-form>
     <div class="wrapper">
       <v-card-actions>
         <v-btn depressed @click="setData">초기화</v-btn>
@@ -26,9 +29,11 @@
 </template>
 <script>
 import * as materialIndex from "@/assets/grid/materialIndex";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { insertSubsMaster } from "api/subIndex/subIndex";
 import _ from "lodash";
+import validSet from "@/assets/valid";
+import SetPopup from "@/components/SetPopup.vue";
 export default {
   data() {
     return {
@@ -39,6 +44,7 @@ export default {
       col: 3,
       param: {},
       bindKey: [],
+      validSet,
     };
   },
   computed: {
@@ -48,13 +54,34 @@ export default {
     },
   },
   methods: {
-    newSample() {
-      this.$emit("newSample");
+    ...mapMutations("popup", ["SET_POPUP"]),
+    valid() {
+      return this.$refs.form.validate();
+    },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable,
+        text,
+      });
+      this.$refs.confirm.openPopup(cb);
     },
     save() {
-      insertSubsMaster(this.param)
-        .then(() => {})
-        .catch(() => {});
+      if (this.valid()) {
+        this.openPopup("저장하시겠습니까?", true, () => {
+          insertSubsMaster(this.param)
+            .then(() => {
+              this.openPopup("저장되었습니다", false, () => {
+                this.setData();
+              });
+            })
+            .catch((res) => {
+              this.openPopup(res, false);
+            });
+        });
+      }
     },
     item(idx, i) {
       const index = (idx - 1) * this.col + i - 1;
@@ -80,7 +107,9 @@ export default {
       this.param = obj;
     },
   },
-  components: {},
+  components: {
+    SetPopup,
+  },
   mounted() {
     this.setData();
   },
