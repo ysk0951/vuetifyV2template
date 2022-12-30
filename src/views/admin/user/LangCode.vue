@@ -3,6 +3,7 @@
     <h3 class="mt-4 mb-2">다국어 지원 관리</h3>
     <hr class="mb-4" />
     <div class="service login">
+      <SetPopup ref="confirm" />
       <RealGrid
         :domName="grid"
         ref="grid"
@@ -24,8 +25,10 @@
 import { columns, fields, rows, height } from "@/assets/grid/langCode";
 import RealGrid from "@/components/RealGrid.vue";
 import { getMessageList } from "api/language";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+// import { updateMessage } from "api/language";
 import _ from "lodash";
+import SetPopup from "@/components/SetPopup.vue";
 export default {
   data() {
     return {
@@ -52,8 +55,19 @@ export default {
     this.search();
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     loadData(v) {
       this.search(v);
+    },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        closable,
+        text,
+      });
+      this.$refs.confirm.openPopup(cb);
     },
     search(v) {
       getMessageList({
@@ -68,10 +82,25 @@ export default {
       });
     },
     reset() {},
-    save() {},
+    save() {
+      this.openPopup("저장하시겠습니까?", true, () => {
+        const rows = this.$refs.grid.getRow();
+        console.log(rows);
+        // updateMessage(this.param)
+        //   .then(() => {
+        //     this.openPopup("저장되었습니다", false, () => {
+        //       this.setData();
+        //     });
+        //   })
+        //   .catch((res) => {
+        //     this.openPopup(res, false);
+        //   });
+      });
+    },
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>

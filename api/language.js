@@ -9,3 +9,7 @@ export async function getMessage(param) {
 export async function getMessageList(param) {
   return http.post(prefix + "getMessageList", param);
 }
+
+export async function updateMessage(param) {
+  return http.post(prefix + "updateMessage", param);
+}
