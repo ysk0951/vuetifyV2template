@@ -162,7 +162,7 @@ export default {
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
           this.$refs.spec_grid.loadData([
-            { ...showSampleSet(CodeDB_Dt), code },
+            { data: showSampleSet(CodeDB_Dt), code },
           ]);
         })
         .catch((res) => {
@@ -175,9 +175,9 @@ export default {
     save() {
       this.openPopup("저장하시겠습니까?", true, () => {
         const code = this.param.code;
-        const dt = this.$refs.spec_grid.getJsonRow();
+        const dt = this.$refs.spec_grid.getJsonAllRow();
         const sampleDetail = {
-          ...makeSampleSet(dt),
+          data: makeSampleSet(dt),
         };
         updateSampleMaster({
           sample: { ...this.$refs.sample_grid.getJsonRow(), code },

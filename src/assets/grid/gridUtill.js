@@ -121,17 +121,22 @@ export function makeSum(row) {
   return row;
 }
 
-export function makeSampleSet(row) {
-  const key = _.keys(row);
-  const dt = {};
-  const data = {};
-  _.each(key, function (v) {
-    data[v] = row[v];
+export function makeSampleSet(rows) {
+  const key = ["name", "unit", "spec", "row", "mid", "hig"];
+  let ret = [];
+  _.each(rows, function (row) {
+    const data = {};
+    _.each(row, (col, idx) => {
+      data[key[idx]] = col;
+    });
+    ret.push(data);
   });
-  dt.data = JSON.stringify(data);
-  return dt;
+  return JSON.stringify(ret);
 }
 
 export function showSampleSet(row) {
-  return JSON.parse(row.data);
+  console.log(row);
+  if (row) {
+    return JSON.parse(row.data);
+  }
 }

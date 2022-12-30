@@ -72,6 +72,9 @@ export default {
     getJsonRow: function () {
       return this.dp.getJsonRow(0);
     },
+    getJsonAllRow: function () {
+      return this.dp.getRows(0, -1);
+    },
     getCol: function () {
       return this.gv.getColumns();
     },

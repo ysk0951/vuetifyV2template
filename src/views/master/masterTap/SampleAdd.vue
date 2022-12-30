@@ -192,7 +192,7 @@ export default {
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
           this.$refs.spec_grid.loadData([
-            { ...showSampleSet(CodeDB_Dt), code },
+            { data: showSampleSet(CodeDB_Dt), code },
           ]);
           this.param.code_grade = code;
           console.log(CodeDB);
@@ -212,22 +212,28 @@ export default {
       this.setGrid();
     },
     save() {
+      const code = this.input.code_grade;
       const sample = { ...this.$refs.sample_grid.getJsonRow() };
       const sampleA = { ...this.$refs.real_grid.getJsonRow() };
       const sampleB = { ...this.$refs.make_grid.getJsonRow() };
-      const dt = this.$refs.spec_grid.getJsonRow();
+      const dt = this.$refs.spec_grid.getJsonAllRow();
+      console.log(dt);
       const sampleDetail = {
-        ...makeSampleSet(dt),
+        data: makeSampleSet(dt),
+        code,
       };
-
-      insertSampleMaster({
-        sample,
-        sampleA,
-        sampleB,
-        sampleDetail,
-      })
-        .then(() => {})
-        .catch(() => {});
+      this.openPopup("저장 하시겠습니까?", true, () => {
+        insertSampleMaster({
+          sample,
+          sampleA,
+          sampleB,
+          sampleDetail,
+        })
+          .then(() => {
+            this.openPopup("저장되었습니다", false);
+          })
+          .catch(() => {});
+      });
     },
   },
   components: {
