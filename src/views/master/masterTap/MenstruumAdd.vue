@@ -13,7 +13,18 @@
         <template v-if="item(idx, i)">
           <h4>{{ item(idx, i) }}</h4>
           <template v-if="item(idx, i) === 'SUM'">
-            <v-text-field outlined dense disabled filled></v-text-field
+            <v-text-field
+              outlined
+              dense
+              disabled
+              filled
+              :value="sum()"
+              :rules="[
+                (v) => {
+                  return v < 100 || '총합이 100을 넘을수 없습니다';
+                },
+              ]"
+            ></v-text-field
           ></template>
           <template v-else-if="item(idx, i) === '비고'">
             <v-text-field
@@ -56,6 +67,7 @@
 import * as menstrumm from "@/assets/grid/menstrummAdd";
 import { insertSolventMaster } from "api/solvent/solvent";
 import _ from "lodash";
+import SetPopup from "@/components/SetPopup.vue";
 import { mapMutations } from "vuex";
 export default {
   data() {
@@ -67,11 +79,6 @@ export default {
       param: {},
       bindKey: [],
     };
-  },
-  watch: {
-    param: {
-      deep: true,
-    },
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
@@ -92,11 +99,25 @@ export default {
       this.openPopup("저장하시겠습니까?", true, () => {
         insertSolventMaster({ ...this.param })
           .then(() => {
-            this.openPopup("저장되었습니다", false, () => {});
+            this.openPopup("저장되었습니다", false, () => {
+              this.setData();
+            });
           })
           .catch(() => {});
-        console.log(this.param);
       });
+    },
+    sum() {
+      let sum = 0;
+      for (let idx = 1; idx <= this.row; idx++) {
+        for (let i = 1; i <= this.col; i++) {
+          const key = (idx - 1) * this.col + i - 1;
+          const field = this.bindKey[key];
+          if (field && (field.includes("Vol") || field.includes("Val"))) {
+            sum += Number(this.param[field]);
+          }
+        }
+      }
+      return sum;
     },
     item(idx, i) {
       const index = (idx - 1) * this.col + i - 1;
@@ -148,7 +169,9 @@ export default {
       return Math.ceil(this.layout.length / this.col);
     },
   },
-  components: {},
+  components: {
+    SetPopup,
+  },
   filters: {
     rm(v) {
       const idx = _.indexOf(v, "%");
@@ -169,5 +192,9 @@ export default {
   .row {
     margin-top: 0px;
   }
+}
+
+.v-input--is-disabled .v-messages {
+  color: red !important;
 }
 </style>

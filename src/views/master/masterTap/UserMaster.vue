@@ -77,7 +77,6 @@ export default {
   },
   methods: {
     newSample() {
-      console.log("newSample");
       this.$emit("newSample");
     },
     valid() {

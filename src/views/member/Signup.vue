@@ -344,7 +344,6 @@ export default {
         })
           .then((res) => {
             const body = res.data;
-            console.log(body);
             if (!_.isEmpty(body.errorCode)) {
               this.openPopup(body.errorMessage);
             } else {

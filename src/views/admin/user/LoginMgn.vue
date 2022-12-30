@@ -207,11 +207,9 @@ export default {
           param.employeeStatus = "";
           break;
       }
-      console.log("exec");
       memberJoin(param)
         .then((res) => {
           const response = res.data;
-
           console.log(response);
         })
         .catch(() => {

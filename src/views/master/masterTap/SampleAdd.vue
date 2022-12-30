@@ -173,7 +173,6 @@ export default {
       this.$emit("newSample");
     },
     setGrid() {
-      console.log(makeARow(sample.fields));
       this.$refs.sample_grid.loadData(makeARow(sample.fields));
       this.$refs.real_grid.loadData(makeARow(sampleSum.fields));
       this.$refs.make_grid.loadData(makeARow(sampleSum.fields));
@@ -195,7 +194,6 @@ export default {
             { data: showSampleSet(CodeDB_Dt), code },
           ]);
           this.param.code_grade = code;
-          console.log(CodeDB);
         })
         .catch((res) => {
           console.error(res);
@@ -217,7 +215,6 @@ export default {
       const sampleA = { ...this.$refs.real_grid.getJsonRow() };
       const sampleB = { ...this.$refs.make_grid.getJsonRow() };
       const dt = this.$refs.spec_grid.getJsonAllRow();
-      console.log(dt);
       const sampleDetail = {
         data: makeSampleSet(dt),
         code,

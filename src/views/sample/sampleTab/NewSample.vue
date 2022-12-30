@@ -351,7 +351,6 @@ export default {
     },
     request() {
       const row = this.$refs.grid.getCheckedRow();
-      console.log(row);
       if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
           const data = {

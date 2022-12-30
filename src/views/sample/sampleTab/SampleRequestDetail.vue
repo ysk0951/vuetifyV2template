@@ -189,7 +189,6 @@ export default {
   },
   methods: {
     newSample() {
-      console.log("newSample");
       this.$emit("newSample");
     },
     loadData() {
@@ -225,9 +224,7 @@ export default {
     },
     request() {
       const row = this.$refs.grid.getJsonRow();
-      console.log(this.param);
       if (this.valid()) {
-        console.log(this.param);
         updateSample({ ...this.param, ...row });
       }
     },

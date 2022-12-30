@@ -59,12 +59,7 @@ export default {
   },
   methods: {
     loadData: function (row) {
-      // setTimeout(() => {
-      //this.dp.setRows(row);
-      this.dp.fillJsonData(row);
-      // }, 2000);
-      // this.gv.refresh();
-      console.log(this.gv.getValue(0, 0));
+      this.dp.setRows(row);
     },
     getRow: function () {
       return this.dp.getRows(0, -1);

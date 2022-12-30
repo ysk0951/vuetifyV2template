@@ -116,12 +116,10 @@ export default {
     openPopup(text, cb) {
       this.SET_POPUP_TITLE("알림");
       this.SET_POPUP_TEXT(text);
-      console.log(text, cb);
       this.$refs.modifyModal.openPopup(cb);
     },
     changePwd() {
       if (this.valid()) {
-        console.log("changePwd");
         newPass({
           memberId: this.$route.params.params,
           memberPw: this.param.password,

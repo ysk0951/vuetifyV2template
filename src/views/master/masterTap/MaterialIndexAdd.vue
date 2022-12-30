@@ -52,7 +52,6 @@ export default {
       this.$emit("newSample");
     },
     save() {
-      console.log(this.param);
       insertSubsMaster(this.param)
         .then(() => {})
         .catch(() => {});

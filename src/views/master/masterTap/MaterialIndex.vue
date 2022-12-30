@@ -54,6 +54,7 @@ export default {
         columns,
         fields,
         height,
+        errorMessage: "목록을 검색해주세요",
       },
       param: {
         rmav: "",
@@ -83,12 +84,13 @@ export default {
         })
         .catch(() => {});
     },
-    reset() {},
+    reset() {
+      this.param.rmav = "";
+    },
     addIndex() {
       this.$emit("materialIndexAdd");
     },
     dbClick(data) {
-      console.log("dbClick");
       this.$emit("dbClick", data);
     },
   },
