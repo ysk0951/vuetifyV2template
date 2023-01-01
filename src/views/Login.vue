@@ -71,6 +71,68 @@
         </div>
       </v-card>
     </div>
+    <div class="tmp">
+      <v-btn
+        type="button"
+        color="primary lighten-1 text-capitalize"
+        depressed
+        large
+        block
+        dark
+        class="mb-3"
+        @click="admin"
+      >
+        임시 관리자 로그인
+      </v-btn>
+      <v-btn
+        type="button"
+        color="primary lighten-1 text-capitalize"
+        depressed
+        large
+        block
+        dark
+        class="mb-3"
+        @click="
+          () => {
+            this.$router.push({ name: 'sample' });
+          }
+        "
+      >
+        임시 샘플관리 페이지
+      </v-btn>
+      <v-btn
+        type="button"
+        color="primary lighten-1 text-capitalize"
+        depressed
+        large
+        block
+        dark
+        class="mb-3"
+        @click="
+          () => {
+            this.$router.push({ name: 'master' });
+          }
+        "
+      >
+        임시 마스터관리 페이지
+      </v-btn>
+      <v-btn
+        type="button"
+        color="primary lighten-1 text-capitalize"
+        depressed
+        large
+        block
+        dark
+        class="mb-6"
+        @click="
+          () => {
+            this.$router.push({ name: 'document' });
+          }
+        "
+      >
+        임시 서류관리 페이지
+      </v-btn>
+    </div>
   </v-flex>
 </template>
 
@@ -242,7 +304,16 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
+.tmp {
+  position: absolute;
+  right: 0;
+  width: 200px;
+  bottom: 0;
+  .v-btn {
+    margin: 5px !important;
+  }
+}
 .login .v-text-field__details {
   margin-top: 3px;
 }
