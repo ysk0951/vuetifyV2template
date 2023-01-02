@@ -196,8 +196,6 @@ export default {
           _.each(items, function (v) {
             v.work = v.employee_status;
           });
-          console.log(items);
-          console.log(page);
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
         })
@@ -246,7 +244,6 @@ export default {
           param.employeeStatus = "";
           break;
       }
-      console.log("exec");
       memberJoin(param)
         .then((res) => {
           const response = res.data;

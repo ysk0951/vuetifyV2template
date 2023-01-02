@@ -29,7 +29,7 @@
           <template v-if="tab === 'newRq'">
             <RealGrid
               domName="main"
-              ref="grid"
+              ref="newRqGrid"
               :settings="newRqGrid"
               @changePage="loadData"
             />
@@ -37,7 +37,7 @@
           <template v-if="tab === 'shipment'">
             <RealGrid
               domName="main"
-              ref="grid"
+              ref="shipmentGrid"
               :settings="shipmentGrid"
               @changePage="loadData"
             />
@@ -45,7 +45,7 @@
           <template v-if="tab === 'making'">
             <RealGrid
               domName="main"
-              ref="grid"
+              ref="makingGrid"
               :settings="makingGrid"
               @changePage="loadData"
             />
@@ -61,6 +61,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import * as newRqGrid from "@/assets/grid/sampleRequest";
 import _ from "lodash";
 import { mapState } from "vuex";
+import { makeARow } from "@/assets/grid/gridUtill";
 export default {
   data() {
     return {
@@ -123,6 +124,13 @@ export default {
     search(v) {
       console.log(v);
     },
+    test() {
+      this.$refs.newRqGrid.loadData(makeARow(newRqGrid.fields));
+      // this.$refs.detailGrid.loadData(makeARow(nmSrD.fields));
+    },
+  },
+  mounted() {
+    this.test();
   },
 };
 </script>

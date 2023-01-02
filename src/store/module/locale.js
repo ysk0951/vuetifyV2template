@@ -6,7 +6,6 @@ const member = {
   },
   mutations: {
     SET_LOCALE(state, value) {
-      console.log(value);
       state.locale = value;
       const token = this.state.member.accessToken;
       getMessage({

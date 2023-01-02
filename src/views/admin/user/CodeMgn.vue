@@ -104,16 +104,6 @@ export default {
           const response = res.data;
           const items = response.data.items;
           const page = response.data.params;
-          console.log(items);
-          // if (v == 2) {
-          // this.$refs.grid.loadData([
-          //   {
-          //     code: "abc",
-          //     gubun: "efc",
-          //   },
-          // ]);
-          // this.$refs.grid.setPage(page);
-          // } else {
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
           // }

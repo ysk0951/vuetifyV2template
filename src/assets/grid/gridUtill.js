@@ -135,7 +135,6 @@ export function makeSampleSet(rows) {
 }
 
 export function showSampleSet(row) {
-  console.log(row);
   if (row) {
     return JSON.parse(row.data);
   }

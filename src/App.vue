@@ -79,6 +79,7 @@ export default {
     ...mapMutations("menu", ["SET_ALL_MENU"]),
     ...mapMutations("common", ["SET_CODE"]),
     ...mapMutations("member", ["SET_TOKEN"]),
+    ...mapMutations("locale", ["SET_LOCALE"]),
     routing(v) {
       this.$router.push(v.url);
     },

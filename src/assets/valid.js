@@ -64,8 +64,6 @@ const sample = (v, max, type) => {
   }
 };
 const commonCode = (v) => {
-  console.log(v);
-  console.log(codeRegex.test(v));
   if (v.length === 0) {
     return true;
   } else {

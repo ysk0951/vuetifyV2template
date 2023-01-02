@@ -306,7 +306,6 @@ export default {
     },
     close(route) {
       this.$refs.findPopup.closeModal();
-      console.log(route);
       this.$router.push(route);
     },
     loginByFindId(id) {

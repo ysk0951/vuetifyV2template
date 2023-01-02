@@ -59,6 +59,5 @@ const filteredFields = _.filter([...fields], function (v) {
 const filteredColumn = _.filter([...columns], function (v) {
   return filterArr.includes(v.fieldName);
 });
-console.log(filteredFields);
 
 export { fields, columns, filteredFields, filteredColumn, errorMessage };
