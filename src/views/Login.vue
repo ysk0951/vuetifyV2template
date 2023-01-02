@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12>
     <div class="wrapper login">
-      <v-card height="420px" width="450px">
+      <v-card width="450px">
         <SetDialog ref="loginModal" />
         <SetDialog ref="findPopup">
           <Find
@@ -57,6 +57,18 @@
                 @click="signin"
               >
                 Login
+              </v-btn>
+              <v-btn
+                type="button"
+                color="primary lighten-1 text-capitalize"
+                depressed
+                large
+                block
+                dark
+                class="mb-3"
+                @click="noneMemberSearch"
+              >
+                비회원 검색
               </v-btn>
             </div>
           </v-form>
@@ -213,6 +225,9 @@ export default {
     },
     signup() {
       this.$router.push({ name: "signup" });
+    },
+    noneMemberSearch() {
+      this.$router.push({ name: "noneMember" });
     },
     signin() {
       if (!this.valid()) {

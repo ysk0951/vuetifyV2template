@@ -12,6 +12,7 @@ import NotFoundPage from "@/views/NotFoundPage";
 import Sample from "@/views/sample/Sample";
 import Master from "@/views/master/Master";
 import Document from "@/views/document/document";
+import NoneMember from "@/views/NoneMember";
 import store from "@/store/index";
 import _ from "lodash";
 Vue.use(VueRouter);
@@ -71,6 +72,11 @@ const routes = [
     path: "/document",
     name: "document",
     component: Document,
+  },
+  {
+    path: "/noneMember",
+    name: "noneMember",
+    component: NoneMember,
   },
   {
     path: "*",

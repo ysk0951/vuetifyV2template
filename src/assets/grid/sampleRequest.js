@@ -48,4 +48,5 @@ makeCell(
   columns
 );
 const rowSet = makeRowSet(fields);
-export { fields, columns, rowSet };
+const errorMessage = "요청하신 샘플 내역이 없습니다";
+export { fields, columns, rowSet, errorMessage };

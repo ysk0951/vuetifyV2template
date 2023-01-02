@@ -1,7 +1,9 @@
 import _ from "lodash";
 import { makeCell } from "./gridUtill";
-let fields = [];
-let columns = [];
+const fields = [];
+const columns = [];
+const filterArr = ["dueDate", "7", "70", "8", "9"];
+const errorMessage = "진행중인 사항이 없습니다";
 const data = [
   {
     field: "lot_no",
@@ -17,7 +19,7 @@ const data = [
     date: "yyyy-MM-dd",
   },
   {
-    field: "6",
+    field: "dueDate",
     alias: "납기일",
     date: "yyyyMMdd",
   },
@@ -51,5 +53,12 @@ _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
 });
+const filteredFields = _.filter([...fields], function (v) {
+  return filterArr.includes(v.fieldName);
+});
+const filteredColumn = _.filter([...columns], function (v) {
+  return filterArr.includes(v.fieldName);
+});
+console.log(filteredFields);
 
-export { fields, columns };
+export { fields, columns, filteredFields, filteredColumn, errorMessage };

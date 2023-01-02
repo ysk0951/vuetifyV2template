@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-main class="blue-grey lighten-4">
       <v-app-bar dense style="position: absolute">
+        <img src="../assets/dwel_logo_ko.png" class="ci" alt="" @click="home" />
         <template v-if="accessToken">
           <div class="text-center" v-for="(item, idx) in menu" v-bind:key="idx">
             <v-btn depressed @click="routing(item)">
@@ -66,7 +67,6 @@ export default {
   },
   components: {},
   async created() {
-    // await this.SET_LOCALE(this.locale);
     await this.SET_ROLE_TYPE();
     await this.SET_ALL_MENU();
     await this.SET_CODE("C");
@@ -75,7 +75,6 @@ export default {
     await this.SET_CODE("M");
   },
   methods: {
-    // ...mapMutations("locale", ["SET_LOCALE"]),
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
     ...mapMutations("menu", ["SET_ALL_MENU"]),
     ...mapMutations("common", ["SET_CODE"]),
@@ -94,10 +93,17 @@ export default {
         this.$router.push({ name: "login" });
       }
     },
+    home() {
+      this.$router.push({ name: "main" });
+    },
   },
 };
 </script>
 <style>
+.ci {
+  height: 40px;
+  cursor: pointer;
+}
 .wrapper {
   justify-content: center;
   display: flex;
