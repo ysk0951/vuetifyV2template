@@ -4,8 +4,10 @@
       <v-card class="mt-12">
         <SetDialog ref="validModal" />
         <SetDialog ref="aggreeModal">
-          <template v-if="aggreeKey === 'personal'"></template>
-          <template v-if="aggreeKey === 'personal'"></template>
+          <template v-if="aggreeKey === 'personal'">
+            <AgreePersonal></AgreePersonal
+          ></template>
+          <template v-if="aggreeKey === 'service'"></template>
         </SetDialog>
         <SetDialog ref="postModal">
           <SignupPost
@@ -32,7 +34,7 @@
                 </v-checkbox>
               </div>
               <div>
-                <v-btn depressed color="primary" @click="open_agree"
+                <v-btn depressed color="primary" @click="open_agree('service')"
                   >전문 보기</v-btn
                 >
               </div>
@@ -49,7 +51,10 @@
                 >
               </div>
               <div>
-                <v-btn depressedd color="primary" @click="open_agree"
+                <v-btn
+                  depressedd
+                  color="primary"
+                  @click="open_agree('personal')"
                   >전문 보기</v-btn
                 >
               </div>
@@ -87,7 +92,7 @@
                     class="signInput phoneInput"
                     type="text"
                     autocomplete="off"
-                    :rules="[this.validSet.empty, this.validSet.number]"
+                    :rules="[this.validSet.empty]"
                     v-mask="'###-####-####'"
                   ></v-text-field>
                 </div>
@@ -103,9 +108,6 @@
                 :click="certificate"
                 :rules="[this.validSet.empty, this.validSet.email]"
               />
-              <div class="timer">
-                {{ (300 - this.timer) | timer }}
-              </div>
               <SignupInputVue
                 placeholder="인증번호를 입력해주세요"
                 label="이메일 인증번호"
@@ -186,8 +188,10 @@ import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignupInput";
 import SignupPost from "@/views/member/SignupPost";
+import AgreePersonal from "@/views/member/AgreePersonal.vue";
 import { sendAuthNum, authNumCheck, memberJoin } from "api/member/member";
 import { mapMutations } from "vuex";
+import { insertBook } from "api/address/address";
 import validSet from "@/assets/valid";
 export default {
   name: "Signup",
@@ -213,9 +217,9 @@ export default {
         areaCode: "82",
       },
       //timer
-      timer: 0,
+      // timer: 0,
       isSend: false,
-      interval: undefined,
+      // interval: undefined,
       //emailAuth
       emailAuth: false,
     };
@@ -224,13 +228,14 @@ export default {
     SetDialog,
     SignupPost,
     SignupInputVue,
+    AgreePersonal,
   },
   filters: {
-    timer: (v) => {
-      const secound = (0 + (v % 60).toFixed()).slice(-2);
-      const minute = Math.trunc(v / 60);
-      return `${minute} : ${secound}`;
-    },
+    // timer: (v) => {
+    //   const secound = (0 + (v % 60).toFixed()).slice(-2);
+    //   const minute = Math.trunc(v / 60);
+    //   return `${minute} : ${secound}`;
+    // },
   },
   computed: {
     pwdType() {
@@ -259,12 +264,7 @@ export default {
     approvePost(post) {
       this.param.post = post;
     },
-    onApprove() {
-      this.SET_MODAL({
-        title: "알림",
-        height: 150,
-        width: 300,
-      });
+    async onApprove() {
       if (!this.emailAuth) {
         this.openPopup("이메일 인증을 완료 주세요");
       } else if (this.valid()) {
@@ -282,13 +282,13 @@ export default {
           roles: "회원",
           memo: "",
         };
-        memberJoin(param)
-          .then((res) => {
-            const response = res.body;
-            console.log(response.data);
-          })
-          .catch(() => {})
-          .finally();
+        const res = await memberJoin(param);
+        const resAddress = await insertBook({
+          ...param.post,
+          memberId: this.param.email,
+        });
+        console.log(res);
+        console.log(resAddress);
         this.$router.push({ name: "signupDone" });
       }
     },
@@ -332,16 +332,16 @@ export default {
       const valid = this.validSet.email(this.param.email);
       if (valid === true) {
         this.isSend = true;
-        this.timer = 0;
-        if (!_.isNumber(this.interval)) {
-          this.interval = setInterval(() => {
-            this.timer++;
-            if (this.timer === 300) {
-              clearInterval(this.interval);
-              this.isSend = false;
-            }
-          }, 1000);
-        }
+        // this.timer = 0;
+        // if (!_.isNumber(this.interval)) {
+        //   this.interval = setInterval(() => {
+        //     this.timer++;
+        //     if (this.timer === 300) {
+        //       clearInterval(this.interval);
+        //       this.isSend = false;
+        //     }
+        //   }, 1000);
+        // }
         sendAuthNum({
           gubun: 0,
           memberId: this.param.email,
@@ -362,7 +362,8 @@ export default {
         this.openPopup("인증번호를 위한 이메일 형식이 잘못되었습니다.");
       }
     },
-    open_agree() {
+    open_agree(v) {
+      this.aggreeKey = v;
       this.SET_MODAL({
         height: 600,
         width: 750,

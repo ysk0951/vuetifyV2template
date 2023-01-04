@@ -50,6 +50,7 @@
             :click="daumPostCode"
             required
             :rules="[this.validSet.empty]"
+            :disabled="true"
           />
           <v-text-field
             v-model="param.address"
@@ -75,6 +76,7 @@
             dense
             autocomplete="off"
             class="addDetail"
+            placeholder="상세주소를 입력해주세요"
             :rules="[this.validSet.empty]"
           ></v-text-field>
         </template>
@@ -85,6 +87,7 @@
           v-model="param.phone1"
           height="55"
           :rules="[this.validSet.number]"
+          v-mask="'###-####-####'"
         />
         <SignupInput
           placeholder="000-0000-0000"
@@ -93,6 +96,7 @@
           v-model="param.phone2"
           :rules="[this.validSet.number]"
           height="55"
+          v-mask="'###-####-####'"
         />
         <div style="display: flex">
           <v-subheader class="my-4" style="width: 130px">
@@ -125,7 +129,7 @@ import validSet from "@/assets/valid";
 import SignupInput from "@/views/member/SignupInput.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { mapMutations } from "vuex";
-import { insertBook } from "api/address/address";
+
 export default {
   name: "SignupPost",
   data() {
@@ -135,7 +139,7 @@ export default {
         pickName: "",
         phone1: "",
         phone2: "",
-        postCode: "",
+        postcode: "",
         name: "",
         defaultYn: false,
         address: "",
@@ -160,20 +164,20 @@ export default {
     },
     onApprove() {
       if (this.valid()) {
-        insertBook(this.param)
-          .then(() => {
-            this.SET_POPUP({
-              title: "알림",
-              text: "배송지가 등록되었습니다",
-              height: 150,
-              width: 300,
-            });
-            this.$refs.postConfirm.openPopup(() => {
-              // this.$emit("onApprove", this.param);
-              this.closeModal();
-            });
-          })
-          .catch(() => {});
+        this.SET_POPUP({
+          title: "알림",
+          text: "배송지가 등록되었습니다",
+          height: 150,
+          width: 300,
+        });
+        this.$refs.postConfirm.openPopup(() => {
+          this.closeModal();
+          this.$emit("onApprove", this.param);
+        });
+        // insertBook(this.param)
+        //   .then(() => {
+        //   })
+        //   .catch(() => {});
       }
     },
     closeModal() {
@@ -182,8 +186,8 @@ export default {
     daumPostCode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          this.param.address = data.zonecode;
-          this.param.addDetail1 = data.roadAddress + data.buildingName;
+          this.param.postcode = data.zonecode;
+          this.param.address = data.roadAddress;
         },
       }).open();
     },

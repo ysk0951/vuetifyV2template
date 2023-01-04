@@ -99,7 +99,6 @@ export default {
       return this.page;
     },
     calHeight() {
-      console.log(this.settings.height);
       return this.settings.height ? this.settings.height : 480;
     },
   },
