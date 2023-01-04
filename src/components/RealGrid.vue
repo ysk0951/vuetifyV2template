@@ -60,6 +60,9 @@ export default {
   methods: {
     loadData: function (row) {
       this.dp.setRows(row);
+      setTimeout(() => {
+        this.gv.refresh(true);
+      }, 10);
     },
     getRow: function () {
       return this.dp.getRows(0, -1);

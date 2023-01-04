@@ -96,6 +96,7 @@ export default {
     },
     search(v) {
       if (this.valid()) {
+        console.log(v);
         getCodeAll({
           ...this.input,
           currentPage: _.isNumber(v) ? v : 1,
@@ -106,6 +107,10 @@ export default {
           const page = response.data.params;
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
+          // setTimeout(() => {
+          //   this.$refs.grid.gv.refresh(true);
+          // }, 300);
+
           // }
         });
       }
