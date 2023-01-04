@@ -3,7 +3,10 @@
     <div class="cardWrapper">
       <v-card class="mt-12">
         <SetDialog ref="validModal" />
-        <SetDialog ref="aggreModal" />
+        <SetDialog ref="aggreeModal">
+          <template v-if="aggreeKey === 'personal'"></template>
+          <template v-if="aggreeKey === 'personal'"></template>
+        </SetDialog>
         <SetDialog ref="postModal">
           <SignupPost
             @closeModal="this.closePost"
@@ -195,6 +198,7 @@ export default {
         service: false,
         private: false,
       },
+      aggreeKey: "personal",
       validSet,
       param: {
         area: "+82",
@@ -364,7 +368,7 @@ export default {
         width: 750,
         closable: true,
       });
-      this.$refs.aggreModal.openModal();
+      this.$refs.aggreeModal.openModal();
     },
     openPost() {
       this.SET_MODAL({

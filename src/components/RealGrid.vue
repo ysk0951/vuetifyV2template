@@ -2,7 +2,7 @@
   <div class="real">
     <div
       :id="gridName"
-      :style="'width: 100%; height: ' + settings.height + 'px'"
+      :style="'width: 100%; height: ' + calHeight() + 'px'"
       v-show="existRow"
     ></div>
     <div v-show="!existRow">
@@ -60,9 +60,9 @@ export default {
   methods: {
     loadData: function (row) {
       this.dp.setRows(row);
-      setTimeout(() => {
-        this.gv.refresh(true);
-      }, 10);
+      // setTimeout(() => {
+      //   this.gv.refresh(true);
+      // }, 10);
     },
     getRow: function () {
       return this.dp.getRows(0, -1);
@@ -98,6 +98,10 @@ export default {
     getPage: function () {
       return this.page;
     },
+    calHeight() {
+      console.log(this.settings.height);
+      return this.settings.height ? this.settings.height : 480;
+    },
   },
   mounted() {
     this.dp = new LocalDataProvider(false);
@@ -132,6 +136,7 @@ export default {
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);
     }
+    this.gv.setStateBar({ visible: false });
   },
 };
 </script>

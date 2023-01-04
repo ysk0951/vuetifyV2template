@@ -12,7 +12,6 @@ const data = [
     field: "code",
   },
 ];
-
 _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
