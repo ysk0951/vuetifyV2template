@@ -5,7 +5,9 @@
         :style="'height:' + this.height + 'px; width:100%'"
         class="tableParent"
       >
-        <v-card-title v-if="this.dialogTitle"></v-card-title>
+        <v-card-title v-if="this.dialogTitle">{{
+          this.dialogTitle
+        }}</v-card-title>
         <v-card-text v-if="this.dialogText">
           <p v-html="this.dialogText"></p>
         </v-card-text>
@@ -57,7 +59,6 @@ export default {
     },
     closeModal() {
       this.open = false;
-      this.RESET_MODAL();
     },
     onApprove() {
       this.closeModal();

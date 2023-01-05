@@ -1,5 +1,9 @@
-<template><div>404</div></template>
+<template><div></div></template>
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$router.push({ name: "main" });
+  },
+};
 </script>
 <style lang="scss"></style>

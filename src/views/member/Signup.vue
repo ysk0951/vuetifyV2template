@@ -164,7 +164,7 @@
                 label="기업명"
                 type="text"
                 v-model="param.company"
-                :rules="[this.validSet.empty]"
+                :rules="[this.validSet.company]"
               />
             </div>
             <hr class="hrUnderLine mb-6" />
@@ -314,8 +314,6 @@ export default {
               this.openPopup(body.errorMessage);
             } else {
               this.openPopup(body.message);
-              this.clearTime();
-              this.interval = undefined;
               this.emailAuth = true;
             }
           })
@@ -365,7 +363,7 @@ export default {
     open_agree(v) {
       this.aggreeKey = v;
       this.SET_MODAL({
-        height: 600,
+        height: 530,
         width: 750,
         closable: true,
       });
@@ -380,8 +378,13 @@ export default {
       });
       this.$refs.postModal.openModal();
     },
-    openPopup(message) {
-      this.SET_DIALOG_TEXT(message);
+    openPopup(text) {
+      this.SET_MODAL({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text,
+      });
       this.$refs.validModal.openModal();
     },
   },

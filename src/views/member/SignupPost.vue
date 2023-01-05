@@ -86,7 +86,7 @@
           type="text"
           v-model="param.phone1"
           height="55"
-          :rules="[this.validSet.number]"
+          :rules="[this.validSet.empty]"
           v-mask="'###-####-####'"
         />
         <SignupInput
@@ -94,7 +94,7 @@
           label="배송지 연락처2"
           type="text"
           v-model="param.phone2"
-          :rules="[this.validSet.number]"
+          :rules="[this.validSet.empty]"
           height="55"
           v-mask="'###-####-####'"
         />

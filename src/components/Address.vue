@@ -142,7 +142,7 @@ export default {
     display: inline;
   }
   .scroll {
-    max-height: 395px;
+    max-height: 420px;
     overflow: auto;
   }
 }
