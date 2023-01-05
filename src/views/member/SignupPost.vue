@@ -19,7 +19,7 @@
           placeholder="수령인을 입력해주세요"
           label="수령인*"
           type="text"
-          v-model="param.pickName"
+          v-model="param.pickname"
           height="65"
           required
           :rules="[this.validSet.empty]"
@@ -136,7 +136,7 @@ export default {
     return {
       validSet,
       param: {
-        pickName: "",
+        pickname: "",
         phone1: "",
         phone2: "",
         postcode: "",
@@ -166,13 +166,16 @@ export default {
       if (this.valid()) {
         this.SET_POPUP({
           title: "알림",
-          text: "배송지가 등록되었습니다",
+          text: "배송지가 선택되었습니다",
           height: 150,
           width: 300,
         });
         this.$refs.postConfirm.openPopup(() => {
           this.closeModal();
-          this.$emit("onApprove", this.param);
+          this.$emit("onApprove", {
+            ...this.param,
+            defaultYn: this.param.defaultYn ? "Y" : "N",
+          });
         });
         // insertBook(this.param)
         //   .then(() => {

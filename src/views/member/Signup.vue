@@ -284,7 +284,7 @@ export default {
         };
         const res = await memberJoin(param);
         const resAddress = await insertBook({
-          ...param.post,
+          ...this.param.post,
           memberId: this.param.email,
         });
         console.log(res);

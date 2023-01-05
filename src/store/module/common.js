@@ -16,6 +16,7 @@ const common = {
             },
             []
           );
+          state.code[value].push("전체");
         })
         .catch(() => {});
     },

@@ -20,7 +20,7 @@
     <div class="service">
       <div class="filter">
         <v-row class="row">
-          <v-col cols="12" sm="1">
+          <v-col cols="12" sm="1" class="pl-0">
             <h4>계정 구분</h4>
             <v-select
               :items="this.roleType"
@@ -65,7 +65,7 @@
               placeholder="사번을 입력해주세요"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="1">
+          <v-col cols="12" sm="1" class="pr-0">
             <h4>재직</h4>
             <v-select
               :items="this.workType"

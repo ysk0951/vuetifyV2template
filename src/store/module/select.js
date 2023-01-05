@@ -15,6 +15,7 @@ const select = {
             _.forEach(response.data, function (v) {
               result.push(v.roleName);
             });
+            result.push("전체");
           }
           state.roleType = result;
           state.roleSet = response.data;
