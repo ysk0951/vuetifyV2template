@@ -13,18 +13,19 @@ const pwRegex =
 //eslint-disable-next-line
 const verRegex = /^([0-9]{1})*\.([0-9]{1})*\.([0-9]{4})$/;
 
-
 //이름 정규식
 const lanRegex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\s]+$/;
 const lanRegexWithNum = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
 const companyRegex = /[a-zA-Z0-9가-힇ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴー々〆〤一-龥]/;
 
 //custom
+const employRegex = /^[a-zA-Z0-9]*$/;
 const keyRegex = /^[a-z|A-Z|0-9]+$/;
 const valueRegex = /^[0-9\\.]+$/;
 const codeRegex = /^[a-z|A-Z|0-9]+$/;
 //ㅎ
 export {
+  employRegex,
   numberRegex,
   emailRegex,
   verRegex,

@@ -18,68 +18,74 @@
     <h3 class="mt-4 mb-2">아이디 관리</h3>
     <hr class="mb-4" />
     <div class="service">
-      <div class="filter">
-        <v-row class="row">
-          <v-col cols="12" sm="1" class="pl-0">
-            <h4>계정 구분</h4>
-            <v-select
-              :items="this.roleType"
-              v-model="input.roles"
-              outlined
-              :id="'account'"
-            ></v-select>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>이름</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="이름을 입력해주세요"
-              v-model="input.memberName"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>이메일</h4>
-            <v-text-field
-              outlined
-              dense
-              v-model="input.memberId"
-              placeholder="이메일 주소를 입력해주세요"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>기업명</h4>
-            <v-text-field
-              outlined
-              dense
-              v-model="input.company"
-              placeholder="기업명을 입력해주세요"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>사번</h4>
-            <v-text-field
-              outlined
-              dense
-              v-model="input.employeeCode"
-              placeholder="사번을 입력해주세요"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="1" class="pr-0">
-            <h4>재직</h4>
-            <v-select
-              :items="this.workType"
-              v-model="input.employeeStatus"
-              outlined
-              id="work"
-            ></v-select>
-          </v-col>
-        </v-row>
-      </div>
+      <v-form ref="form" lazy-validation>
+        <div class="filter mb-3">
+          <v-row class="row">
+            <v-col cols="12" sm="1" class="pl-0">
+              <h4>계정 구분</h4>
+              <v-select
+                :items="this.roleType"
+                v-model="input.roles"
+                outlined
+                :id="'account'"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="2">
+              <h4>이름</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="이름을 입력해주세요"
+                v-model="input.memberName"
+                :rules="[this.validSet.name]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <h4>이메일</h4>
+              <v-text-field
+                outlined
+                dense
+                v-model="input.memberId"
+                placeholder="이메일 주소를 입력해주세요"
+                :rules="[this.validSet.email]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <h4>기업명</h4>
+              <v-text-field
+                outlined
+                dense
+                v-model="input.company"
+                placeholder="기업명을 입력해주세요"
+                :rules="[this.validSet.company]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="2">
+              <h4>사번</h4>
+              <v-text-field
+                outlined
+                dense
+                v-model="input.employeeCode"
+                placeholder="사번을 입력해주세요"
+                :rules="[this.validSet.employNumber]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="1" class="pr-0">
+              <h4>재직</h4>
+              <v-select
+                :items="this.workType"
+                v-model="input.employeeStatus"
+                outlined
+                id="work"
+              ></v-select>
+            </v-col>
+          </v-row>
+        </div>
+      </v-form>
       <div class="wrapperSpace">
         <div></div>
         <div class="wrapper">
-          <v-card-actions>
+          <v-card-actions class="mr-0">
             <v-btn depressed @click="reset">초기화</v-btn>
           </v-card-actions>
           <v-card-actions>
@@ -99,6 +105,7 @@
         ref="grid"
         :settings="settings"
         @changePage="loadData"
+        @btnClick="update"
       />
     </div>
   </div>
@@ -111,13 +118,14 @@ import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import { memberList, memberJoin } from "api/member/member";
 import { mapMutations, mapState } from "vuex";
+import validSet from "@/assets/valid";
 import _ from "lodash";
 export default {
   data() {
     return {
       input: {
         employeeStatus: "전체",
-        roles: "",
+        roles: "전체",
         memberName: "",
         memberId: "",
         company: "",
@@ -131,7 +139,10 @@ export default {
         fields,
         rows,
         height,
+        errorMessage: "데이터가 없습니다",
+        hideCheckBar: true,
       },
+      validSet,
       grid: "acount",
       saveParam: {},
     };
@@ -161,7 +172,7 @@ export default {
     reset() {
       this.input = {
         employeeStatus: "전체",
-        roles: "",
+        roles: "전체",
         memberName: "",
         memberId: "",
         company: this.company,
@@ -170,6 +181,9 @@ export default {
     },
     loadData(v) {
       this.onApprove(v);
+    },
+    valid() {
+      return this.$refs.form.validate();
     },
     onApprove(v) {
       const param = _.cloneDeep(this.input);
@@ -184,7 +198,6 @@ export default {
           param.employeeStatus = "";
           break;
       }
-
       memberList({
         ...param,
         currentPage: _.isNumber(v) ? v : 1,
@@ -195,6 +208,8 @@ export default {
           const page = response.data.params;
           _.each(items, function (v) {
             v.work = v.employee_status;
+            v.save = "저장";
+            delete v.roles;
           });
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
@@ -252,6 +267,9 @@ export default {
         .catch(() => {
           this.cancel();
         });
+    },
+    update(row) {
+      console.log(row);
     },
   },
 

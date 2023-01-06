@@ -2,12 +2,7 @@ import { ValueType } from "realgrid";
 
 export const fields = [
   {
-    fieldName: "memberidx",
-    dataType: ValueType.INT,
-  },
-  {
     fieldName: "roles",
-    dataType: ValueType.TEXT,
   },
   {
     fieldName: "member_name",
@@ -37,33 +32,33 @@ export const fields = [
     fieldName: "memo",
     dataType: ValueType.TEXT,
   },
+  {
+    fieldName: "save",
+    dataType: ValueType.TEXT,
+  },
 ];
 
 export const columns = [
   {
-    name: "memberidx",
-    fieldName: "memberidx",
-    type: "data",
-    styles: {
-      textAlignment: "center",
-    },
-    header: {
-      text: "번호",
-      showTooltip: true,
-      tooltip: '<span style="color: red;">번호</span>',
-    },
-    renderer: {
-      type: "text",
-      showTooltip: true,
-    },
-    editable: false,
-  },
-  {
     name: "roles",
     fieldName: "roles",
-    type: "data",
     styles: {
       textAlignment: "center",
+    },
+    sortable: false,
+    lookupDisplay: true,
+    editButtonVisibility: "always",
+    values: ["VINET", "HANAR", "SUPRD", "VICTE", "RATTC", "WARTH"],
+    labels: [
+      "Vins et alcools Chevalier",
+      "Hanari Carnes",
+      "Suprêmes délices",
+      "Victuailles en stock",
+      "Rattlesnake Canyon Grocery",
+      "Wartian Herkku",
+    ],
+    editor: {
+      type: "dropdown",
     },
     header: {
       text: "계정 구분",
@@ -79,7 +74,7 @@ export const columns = [
       textAlignment: "center",
     },
     header: "이름",
-    editable: false,
+    editable: true,
   },
   {
     name: "email",
@@ -105,7 +100,7 @@ export const columns = [
       text: "기업명",
       showTooltip: false,
     },
-    editable: false,
+    editable: true,
   },
   {
     name: "phone",
@@ -118,7 +113,7 @@ export const columns = [
       text: "휴대폰 번호",
       showTooltip: false,
     },
-    editable: false,
+    editable: true,
   },
   {
     name: "employee_code",
@@ -131,7 +126,7 @@ export const columns = [
       text: "사번",
       showTooltip: false,
     },
-    editable: false,
+    editable: true,
   },
   {
     name: "work",
@@ -144,7 +139,7 @@ export const columns = [
       text: "재직",
       showTooltip: false,
     },
-    editable: false,
+    editable: true,
   },
   {
     name: "memo",
@@ -157,7 +152,22 @@ export const columns = [
       text: "비고",
       showTooltip: false,
     },
+    editable: true,
+  },
+  {
+    name: "save",
+    fieldName: "save",
+    type: "data",
+    styles: {
+      textAlignment: "center",
+    },
+    header: {
+      text: "저장",
+    },
     editable: false,
+    renderer: {
+      type: "button",
+    },
   },
 ];
 export const rows = [

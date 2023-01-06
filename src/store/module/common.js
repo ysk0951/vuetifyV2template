@@ -16,7 +16,7 @@ const common = {
             },
             []
           );
-          state.code[value].push("전체");
+          state.code[value].unshift("전체");
         })
         .catch(() => {});
     },

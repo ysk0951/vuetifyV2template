@@ -8,6 +8,7 @@ import {
   keyRegex,
   valueRegex,
   codeRegex,
+  employRegex,
 } from "./regex";
 const empty = (v) => !!v || "값이 비었습니다";
 const name = (v) => {
@@ -28,8 +29,18 @@ const company = (v) => {
     return !!companyRegex.test(v) || "올바른 기업명을 입력해주세요";
   }
 };
-const email = (v) => !!emailRegex.test(v) || "이메일 형식에 맞지 않습니다";
-const number = (v) => !!numberRegex.test(v) || "숫자만 입력해야합니다";
+const email = (v) => {
+  if (v.length === 0) {
+    return true;
+  }
+  return !!emailRegex.test(v) || "이메일 형식에 맞지 않습니다";
+};
+const number = (v) => {
+  if (v.length === 0) {
+    return true;
+  }
+  return !!numberRegex.test(v) || "숫자만 입력해야합니다";
+};
 const check = (v) => !!v || "약관에 동의하셔야 합니다";
 const passwordCode = (v, c) => {
   return !!(v == c) || "비밀번호는 서로 같아야 합니다";
@@ -70,6 +81,12 @@ const commonCode = (v) => {
     return !!codeRegex.test(v) || "숫자와 영어만 입력가능합니다";
   }
 };
+const employNumber = (v) => {
+  if (v.length === 0) {
+    return true;
+  }
+  return !!employRegex.test(v) || "사번은 숫자와 영문만 입력 가능합니다ㄴ";
+};
 const validSet = {
   empty,
   name,
@@ -81,5 +98,6 @@ const validSet = {
   passwordCode,
   sample,
   commonCode,
+  employNumber,
 };
 export default validSet;
