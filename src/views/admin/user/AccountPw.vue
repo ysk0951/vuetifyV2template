@@ -93,7 +93,7 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/account";
+import { columns, fields, rows, height } from "@/assets/grid/accountPw";
 import SetPopup from "@/components/SetPopup.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations, mapState } from "vuex";
