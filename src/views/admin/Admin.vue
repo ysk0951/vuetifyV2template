@@ -10,25 +10,25 @@
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
           <template v-if="item.key === 'id'">
-            <Accont />
+            <Accont ref="id" />
           </template>
           <template v-if="item.key === 'pw'">
-            <AccontPw />
+            <AccontPw ref="pw" />
           </template>
           <template v-if="item.key === 'login'">
-            <LoginMgn />
+            <LoginMgn ref="login" />
           </template>
           <template v-if="item.key === 'menu'">
-            <MenuMgn />
+            <MenuMgn ref="menu" />
           </template>
           <template v-if="item.key === 'code'">
-            <CodeMgn @dbClick="codeDetail" />
+            <CodeMgn @dbClick="codeDetail" ref="code" />
           </template>
           <template v-if="item.key === 'codeDetail'">
-            <CodeDetail :data="codeDetailData" />
+            <CodeDetail :data="codeDetailData" ref="codeDetail" />
           </template>
           <template v-if="item.key === 'lang'">
-            <LangCode />
+            <LangCode ref="lang" />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -47,6 +47,14 @@ import LangCode from "@/views/admin/user/LangCode";
 import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 export default {
+  watch: {
+    tab: function (v) {
+      const ref = this.items[v].key;
+      setTimeout(() => {
+        this.$refs[ref][0].loadData();
+      }, 100);
+    },
+  },
   data() {
     return {
       tab: 0,

@@ -158,6 +158,7 @@ export default {
       customApprove: true,
     });
     this.input.roles = this.roleType[0];
+    this.loadData();
   },
   methods: {
     ...mapMutations("modal", [
@@ -209,7 +210,7 @@ export default {
           _.each(items, function (v) {
             v.work = v.employee_status;
             v.save = "저장";
-            delete v.roles;
+            // d?elete v.roles;
           });
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
@@ -283,16 +284,11 @@ export default {
 </script>
 <style lang="scss">
 .filter {
-  /* background-color: wheat; */
   padding-right: 7px;
-}
-.add .row {
-  margin: auto;
-  height: 80px;
 }
 .filter .row {
   margin: auto;
-  height: 80px;
+  height: 67px;
 }
 .service {
   margin: auto;

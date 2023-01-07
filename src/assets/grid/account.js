@@ -1,5 +1,5 @@
 import { ValueType } from "realgrid";
-
+import store from "@/store/index";
 export const fields = [
   {
     fieldName: "roles",
@@ -42,29 +42,19 @@ export const columns = [
   {
     name: "roles",
     fieldName: "roles",
-    styles: {
-      textAlignment: "center",
-    },
     sortable: false,
     lookupDisplay: true,
-    editButtonVisibility: "always",
-    values: ["VINET", "HANAR", "SUPRD", "VICTE", "RATTC", "WARTH"],
-    labels: [
-      "Vins et alcools Chevalier",
-      "Hanari Carnes",
-      "Suprêmes délices",
-      "Victuailles en stock",
-      "Rattlesnake Canyon Grocery",
-      "Wartian Herkku",
-    ],
+    values: store.state.select.roleType,
+    labels: store.state.select.roleType,
     editor: {
       type: "dropdown",
+      textReadOnly: true,
     },
     header: {
-      text: "계정 구분",
-      showTooltip: false,
+      text: "계정구분",
+      styleName: "orange-column",
     },
-    editable: false,
+    editButtonVisibility: "always",
   },
   {
     name: "member_name",

@@ -5,7 +5,7 @@
     <h3 class="mt-4 mb-2">비밀번호 관리</h3>
     <hr class="mb-4" />
     <div class="service">
-      <div class="filter">
+      <div class="filter mb-3">
         <v-row class="row">
           <v-col cols="12" sm="1">
             <h4>계정 구분</h4>
@@ -255,16 +255,6 @@ export default {
 };
 </script>
 <style>
-.filter {
-}
-.add .row {
-  margin: auto;
-  height: 80px;
-}
-.filter .row {
-  margin: auto;
-  height: 80px;
-}
 .service {
   margin: auto;
   width: 100%;

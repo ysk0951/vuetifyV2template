@@ -85,7 +85,7 @@ const employNumber = (v) => {
   if (v.length === 0) {
     return true;
   }
-  return !!employRegex.test(v) || "사번은 숫자와 영문만 입력 가능합니다ㄴ";
+  return !!employRegex.test(v) || "사번은 숫자와 영문만 입력 가능합니다";
 };
 const validSet = {
   empty,

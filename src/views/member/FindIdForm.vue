@@ -5,7 +5,7 @@
         <v-col cols="12" sm="3">
           <v-subheader>이름</v-subheader>
         </v-col>
-        <v-col cols="12" sm="9">
+        <v-col cols="12" sm="9" class="pr-4">
           <v-text-field
             placeholder="이름을 입력해주요"
             v-model="memberName"
@@ -16,7 +16,7 @@
         </v-col>
       </v-layout>
       <v-row>
-        <v-col cols="12" sm="3">
+        <v-col cols="12" sm="3" class="pr-4">
           <v-subheader>휴대폰 번호</v-subheader>
         </v-col>
         <v-col cols="12" sm="3">

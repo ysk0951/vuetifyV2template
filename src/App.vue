@@ -109,6 +109,9 @@ export default {
   justify-content: center;
   display: flex;
 }
+.col-12 {
+  padding: 4px;
+}
 
 .wrapperSpace {
   justify-content: space-between;
