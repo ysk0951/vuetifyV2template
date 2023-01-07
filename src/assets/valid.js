@@ -1,6 +1,6 @@
 import { _ } from "core-js";
 import {
-  lanRegex,
+  nameRule,
   pwRegex,
   companyRegex,
   emailRegex,
@@ -15,18 +15,22 @@ const name = (v) => {
   if (v.length === 0) {
     return true;
   } else {
-    return !!lanRegex.test(v) || "이름은 한글과 영문만 가능합니다";
+    return !!nameRule.test(v) || "이름은 한글과 영문만 가능합니다";
   }
 };
 const password = (v) =>
   !!pwRegex.test(v) ||
   "영문 대/소문자 , 숫자 , 특수문자를 포함한 8자리 이상이 필요합니다";
 const company = (v) => {
-  v = v.replaceAll("(", "").replaceAll(")", "");
-  if (v.length === 0) {
-    return true;
+  if (v) {
+    v = v.replaceAll("(", "").replaceAll(")", "");
+    if (v.length === 0) {
+      return true;
+    } else {
+      return !!companyRegex.test(v) || "올바른 기업명을 입력해주세요";
+    }
   } else {
-    return !!companyRegex.test(v) || "올바른 기업명을 입력해주세요";
+    return true;
   }
 };
 const email = (v) => {
@@ -82,7 +86,7 @@ const commonCode = (v) => {
   }
 };
 const employNumber = (v) => {
-  if (v.length === 0) {
+  if (!v || v.length === 0) {
     return true;
   }
   return !!employRegex.test(v) || "사번은 숫자와 영문만 입력 가능합니다";

@@ -14,7 +14,7 @@ const pwRegex =
 const verRegex = /^([0-9]{1})*\.([0-9]{1})*\.([0-9]{4})$/;
 
 //이름 정규식
-const lanRegex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\s]+$/;
+const nameRule = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\s]+$/;
 const lanRegexWithNum = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
 const companyRegex = /[a-zA-Z0-9가-힇ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴー々〆〤一-龥]/;
 
@@ -29,7 +29,7 @@ export {
   numberRegex,
   emailRegex,
   verRegex,
-  lanRegex,
+  nameRule,
   lanRegexWithNum,
   pwRegex,
   companyRegex,

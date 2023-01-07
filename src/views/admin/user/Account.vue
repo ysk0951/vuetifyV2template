@@ -270,7 +270,8 @@ export default {
         });
     },
     update(row) {
-      console.log(row);
+      const test = confirm("저장하시겠습니까?");
+      console.log(row, test);
     },
   },
 

@@ -1,5 +1,7 @@
 import { ValueType } from "realgrid";
 import store from "@/store/index";
+import validSet from "@/assets/valid";
+import _ from "lodash";
 export const fields = [
   {
     fieldName: "roles",
@@ -65,6 +67,15 @@ export const columns = [
     },
     header: "이름",
     editable: true,
+    displayCallback: (grid, index, value) => {
+      const test = validSet.name(value);
+      if (test === true) {
+        return value;
+      } else {
+        alert(test);
+        return "";
+      }
+    },
   },
   {
     name: "email",
@@ -91,6 +102,15 @@ export const columns = [
       showTooltip: false,
     },
     editable: true,
+    displayCallback: (grid, index, value) => {
+      const test = validSet.company(value);
+      if (test === true) {
+        return value;
+      } else {
+        alert(test);
+        return "";
+      }
+    },
   },
   {
     name: "phone",
@@ -104,6 +124,19 @@ export const columns = [
       showTooltip: false,
     },
     editable: true,
+    editor: {
+      mask: {
+        editMask: "000-0000-0000",
+      },
+    },
+    displayCallback: function (grid, index, value) {
+      value.replaceAll("-", "");
+      var tmp = "";
+      tmp += value.substr(0, 3);
+      tmp += "-";
+      tmp += value.substr(4, 9);
+      return tmp;
+    },
   },
   {
     name: "employee_code",
@@ -117,19 +150,46 @@ export const columns = [
       showTooltip: false,
     },
     editable: true,
+    displayCallback: (grid, index, value) => {
+      const test = validSet.employNumber(value);
+      if (test === true) {
+        return value;
+      } else {
+        alert(test);
+        return "";
+      }
+    },
   },
   {
     name: "work",
     fieldName: "work",
-    type: "data",
-    styles: {
-      textAlignment: "center",
+    sortable: false,
+    lookupDisplay: true,
+    values: _.reduce(
+      store.state.select.workType,
+      (a, v) => {
+        a.push(v.text);
+        return a;
+      },
+      []
+    ),
+    labels: _.reduce(
+      store.state.select.workType,
+      (a, v) => {
+        a.push(v.text);
+        return a;
+      },
+      []
+    ),
+    editor: {
+      type: "dropdown",
+      textReadOnly: true,
     },
     header: {
-      text: "재직",
-      showTooltip: false,
+      text: "계정구분",
+      styleName: "orange-column",
     },
-    editable: true,
+    editButtonVisibility: "always",
   },
   {
     name: "memo",
