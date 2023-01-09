@@ -5,19 +5,19 @@
     </SetDialogVue>
     <SetPopupVue ref="addConfirm" />
     <h3 class="mt-4 mb-2">메뉴 권한 관리</h3>
-    <hr class="mb-4" />
+    <hr class="mb-8" />
     <div>
       <div>
         <v-row class="row menuMngCol wrapper">
           <v-col cols="12" sm="2" class="menuCol">
             <div>
               <v-btn
-                v-for="(item, index) in roleType"
+                v-for="(item, index) in menuMgn"
                 depressed
                 class="type mb-3"
                 :key="index"
                 @click="curBtn(item)"
-                :style="item === '전체' ? 'display:none' : ''"
+                :class="item === curBtnValue ? 'selected' : ''"
                 >{{ item }}</v-btn
               >
             </div>
@@ -82,7 +82,7 @@ import SetPopupVue from "@/components/SetPopup.vue";
 import { updateRole } from "api/member/member";
 export default {
   computed: {
-    ...mapState("select", ["workType", "roleType", "roleSet"]),
+    ...mapState("select", ["workType", "menuMgn", "roleSet"]),
     ...mapState("menu", ["allMenu"]),
   },
   components: {
@@ -101,6 +101,9 @@ export default {
   },
   mounted() {
     this.loadData();
+    setTimeout(() => {
+      this.curBtn("회원");
+    }, 100);
   },
   methods: {
     ...mapMutations("modal", [
@@ -193,6 +196,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 5px;
+  margin-bottom: 15px !important;
   justify-content: space-between;
   .menuColText {
     .v-input__slot {
@@ -204,5 +208,8 @@ export default {
   // display: flex;
   display: -webkit-inline-box;
   width: 150px;
+}
+.selected {
+  background-color: rgba(0, 0, 0, 0.2) !important;
 }
 </style>

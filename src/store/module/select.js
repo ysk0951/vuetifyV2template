@@ -4,6 +4,7 @@ const select = {
     workType: ["전체", "재직중", "퇴사"],
     roleType: [],
     roleSet: [],
+    menuMgn: [],
   },
   mutations: {
     SET_ROLE_TYPE(state) {
@@ -19,6 +20,8 @@ const select = {
           }
           state.roleType = result;
           state.roleSet = response.data;
+          result.shift();
+          state.menuMgn = result;
         })
         .catch()
         .finally();
