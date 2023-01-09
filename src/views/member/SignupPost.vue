@@ -174,7 +174,7 @@ export default {
           this.closeModal();
           this.$emit("onApprove", {
             ...this.param,
-            defaultYn: this.param.defaultYn ? "Y" : "N",
+            defaultYn: this.param.defaultYn ? 1 : 0,
           });
         });
         // insertBook(this.param)

@@ -132,7 +132,7 @@ export default {
       if (this.valid()) {
         newPass({
           memberId: this.$route.params.params,
-          memberPw: this.param.password,
+          memberpw: this.param.password,
         })
           .then((res) => {
             const body = res.data;
