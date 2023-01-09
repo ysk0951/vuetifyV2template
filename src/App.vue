@@ -155,6 +155,8 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 
 .background {
   background-color: rgba(0, 0, 0, 0.02);
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.02) !important;
 }
 
 .v-select__selections {

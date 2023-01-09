@@ -123,7 +123,7 @@ export default {
       this.input = {
         roles: "전체",
         memberName: "",
-        loginType: "전체",
+        logintype: "전체",
         pageSize: 10,
       };
     },

@@ -1,22 +1,23 @@
 <template>
   <div>
     <SetDialogVue ref="add">
-      <AddGroup />
+      <!-- <AddGroup /> -->
     </SetDialogVue>
     <SetPopupVue ref="addConfirm" />
-    <h3 class="mt-4 mb-2">메뉴 관리</h3>
+    <h3 class="mt-4 mb-2">메뉴 권한 관리</h3>
     <hr class="mb-4" />
-    <div class="service">
+    <div>
       <div>
         <v-row class="row menuMngCol wrapper">
           <v-col cols="12" sm="2" class="menuCol">
             <div>
               <v-btn
-                v-for="(item, index) in this.roleType"
+                v-for="(item, index) in roleType"
                 depressed
                 class="type mb-3"
                 :key="index"
                 @click="curBtn(item)"
+                :style="item === '전체' ? 'display:none' : ''"
                 >{{ item }}</v-btn
               >
             </div>
@@ -25,14 +26,12 @@
                 <v-btn depressed @click="delGroup">그룹삭제</v-btn>
               </v-card-actions>
               <v-card-actions>
-                <v-btn depressed color="primary" @click="addGroup"
-                  >그룹추가
-                </v-btn>
+                <v-btn depressed color="primary">그룹추가 </v-btn>
               </v-card-actions>
             </div>
           </v-col>
           <v-col cols="12" sm="9" class="menuCol">
-            <div class="pa-9 background">
+            <div class="pa-5 background">
               <h4>그룹명</h4>
               <v-text-field
                 :width="'300px'"
@@ -44,11 +43,11 @@
               ></v-text-field>
               <div v-for="(item, index) in allMenu" :key="index">
                 <h4>{{ item.menu }}</h4>
-                <div style="display: flex">
+                <div class="selectBox">
                   <div
-                    class="checkbox ml-8"
                     v-for="(box, idx) in item.subMenu"
                     :key="idx"
+                    style="width: 150px"
                   >
                     <v-checkbox v-model="checkBox[box.code]">
                       <template v-slot:label>
@@ -63,7 +62,7 @@
               <v-card-actions>
                 <v-btn depressed @click="cancle">취소</v-btn>
               </v-card-actions>
-              <v-card-actions>
+              <v-card-actions class="pr-0">
                 <v-btn depressed color="primary" @click="save">저장 </v-btn>
               </v-card-actions>
             </div>
@@ -71,27 +70,14 @@
         </v-row>
       </div>
     </div>
-    <div class="wrapperSpace mt-10">
-      <h3 class="mt-4 mb-2">그룹 목록</h3>
-      <div>
-        <v-btn class="mr-2" depressed color="primary" @click="search"
-          >검색</v-btn
-        >
-        <v-btn class="mr-2" depressed @click="add">삭제</v-btn>
-        <v-btn depressed color="primary" @click="add">저장</v-btn>
-      </div>
-    </div>
-    <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
   </div>
 </template>
 <script>
 import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 import SetDialogVue from "@/components/SetDialog";
-import RealGrid from "@/components/RealGrid";
 import { columns, fields, rows, height } from "@/assets/grid/account";
-import AddGroup from "@/views/admin/user/AddGroup";
+// import AddGroup from "@/views/admin/user/AddGroup";
 import SetPopupVue from "@/components/SetPopup.vue";
 import { updateRole } from "api/member/member";
 export default {
@@ -100,9 +86,8 @@ export default {
     ...mapState("menu", ["allMenu"]),
   },
   components: {
-    RealGrid,
     SetDialogVue,
-    AddGroup,
+    // AddGroup,
     SetPopupVue,
   },
   data() {
@@ -115,7 +100,7 @@ export default {
     };
   },
   mounted() {
-    this.checkBoxReset();
+    this.loadData();
   },
   methods: {
     ...mapMutations("modal", [
@@ -134,12 +119,12 @@ export default {
         return o.roleName === v;
       });
       const roles = this.roleSet[idx].roles;
-      this.checkBoxReset();
+      this.loadData();
       _.forEach(roles.split(","), (v) => {
         this.checkBox[v] = true;
       });
     },
-    checkBoxReset() {
+    loadData() {
       this.checkBox = _.reduce(
         this.allMenu,
         function (a, v) {
@@ -201,7 +186,8 @@ export default {
   width: 100%;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
-  border: solid;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.3) !important;
 }
 .menuCol {
   display: flex;
@@ -214,10 +200,9 @@ export default {
     }
   }
 }
-.checkbox {
-  display: flex;
-  .v-input__slot {
-    margin-right: 15px;
-  }
+.selectBox {
+  // display: flex;
+  display: -webkit-inline-box;
+  width: 150px;
 }
 </style>
