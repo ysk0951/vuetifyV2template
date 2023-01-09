@@ -20,8 +20,9 @@ const select = {
           }
           state.roleType = result;
           state.roleSet = response.data;
-          result.shift();
-          state.menuMgn = result;
+          const menuMgn = _.cloneDeep(result);
+          menuMgn.shift();
+          state.menuMgn = menuMgn;
         })
         .catch()
         .finally();
