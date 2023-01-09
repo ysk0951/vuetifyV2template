@@ -4,7 +4,7 @@
     <hr class="mb-4" />
     <v-form ref="userMaster" lazy-validation>
       <div class="userMaster wrapperSpace">
-        <v-row>
+        <v-row class="ml-0">
           <v-col cols="12" sm="2">
             <h4>이름</h4>
             <v-text-field

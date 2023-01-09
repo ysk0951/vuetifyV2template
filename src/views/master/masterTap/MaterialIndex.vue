@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-2">물질명 인덱스</h3>
     <hr class="mb-4" />
     <div class="confirmSample wrapperSpace">
-      <v-row>
+      <v-row class="ml-0">
         <v-col cols="12" sm="2">
           <h4>연료명칭</h4>
           <v-select

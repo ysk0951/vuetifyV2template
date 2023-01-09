@@ -5,64 +5,70 @@
     <h3 class="mt-4 mb-2">비밀번호 관리</h3>
     <hr class="mb-4" />
     <div class="service">
-      <div class="filter mb-3">
-        <v-row class="row">
-          <v-col cols="12" sm="1">
-            <h4>계정 구분</h4>
-            <v-select
-              :items="this.roleType"
-              v-model="input.roles"
-              outlined
-              :id="'account'"
-            ></v-select>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>이름</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="이름을 입력해주세요"
-              v-model="input.memberName"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>이메일</h4>
-            <v-text-field
-              outlined
-              dense
-              v-model="input.memberId"
-              placeholder="이메일 주소를 입력해주세요"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>기업명</h4>
-            <v-text-field
-              outlined
-              dense
-              v-model="input.company"
-              placeholder="기업명을 입력해주세요"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>사번</h4>
-            <v-text-field
-              outlined
-              dense
-              v-model="input.employeeCode"
-              placeholder="사번을 입력해주세요"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="1">
-            <h4>재직</h4>
-            <v-select
-              :items="this.workType"
-              v-model="input.employeeStatus"
-              outlined
-              id="work"
-            ></v-select>
-          </v-col>
-        </v-row>
-      </div>
+      <v-form ref="form" lazy-validation>
+        <div class="filter mb-3">
+          <v-row class="row">
+            <v-col cols="12" sm="1">
+              <h4>계정 구분</h4>
+              <v-select
+                :items="this.roleType"
+                v-model="input.roles"
+                outlined
+                :id="'account'"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="2">
+              <h4>이름</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="이름을 입력해주세요"
+                v-model="input.memberName"
+                :rules="[this.validSet.name]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <h4>이메일</h4>
+              <v-text-field
+                outlined
+                dense
+                v-model="input.memberId"
+                placeholder="이메일 주소를 입력해주세요"
+                :rules="[this.validSet.email]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <h4>기업명</h4>
+              <v-text-field
+                outlined
+                dense
+                v-model="input.company"
+                placeholder="기업명을 입력해주세요"
+                :rules="[this.validSet.company]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="2">
+              <h4>사번</h4>
+              <v-text-field
+                outlined
+                dense
+                v-model="input.employeeCode"
+                placeholder="사번을 입력해주세요"
+                :rules="[this.validSet.employNumber]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="1">
+              <h4>재직</h4>
+              <v-select
+                :items="this.workType"
+                v-model="input.employeeStatus"
+                outlined
+                id="work"
+              ></v-select>
+            </v-col>
+          </v-row>
+        </div>
+      </v-form>
       <div class="wrapperSpace">
         <div></div>
         <div class="wrapper">
@@ -99,6 +105,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations, mapState } from "vuex";
 import { memberList, resetPass } from "api/member/member";
 import _ from "lodash";
+import validSet from "@/assets/valid";
 export default {
   data() {
     return {
@@ -116,9 +123,11 @@ export default {
         fields,
         rows,
         height,
+        radio: true,
       },
       param: {},
       grid: "password",
+      validSet,
     };
   },
   mounted() {
@@ -138,7 +147,7 @@ export default {
     reset() {
       this.input = {
         employeeStatus: "전체",
-        roles: "",
+        roles: "전체",
         memberName: "",
         memberId: "",
         company: "",

@@ -2,10 +2,6 @@ import { ValueType } from "realgrid";
 
 export const fields = [
   {
-    fieldName: "memberidx",
-    dataType: ValueType.INT,
-  },
-  {
     fieldName: "roles",
     dataType: ValueType.TEXT,
   },
@@ -40,24 +36,6 @@ export const fields = [
 ];
 
 export const columns = [
-  {
-    name: "memberidx",
-    fieldName: "memberidx",
-    type: "data",
-    styles: {
-      textAlignment: "center",
-    },
-    header: {
-      text: "번호",
-      showTooltip: true,
-      tooltip: '<span style="color: red;">번호</span>',
-    },
-    renderer: {
-      type: "text",
-      showTooltip: true,
-    },
-    editable: false,
-  },
   {
     name: "roles",
     fieldName: "roles",
