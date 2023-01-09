@@ -6,37 +6,40 @@
     <h3 class="mt-4 mb-2">로그인 관리</h3>
     <hr class="mb-4" />
     <div class="service login">
-      <div class="filter">
-        <v-row class="row">
-          <v-col cols="12" sm="3">
-            <h4>계정 구분</h4>
-            <v-select
-              :items="this.roleType"
-              v-model="input.roles"
-              outlined
-              :id="'account'"
-            ></v-select>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>로그인 방식</h4>
-            <v-select
-              :items="this.roleType"
-              v-model="input.roles"
-              outlined
-              :id="'account'"
-            ></v-select>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>이름</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="이름을 입력해주세요"
-              v-model="input.memberName"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </div>
+      <v-form ref="form" lazy-validation>
+        <div class="filter">
+          <v-row class="row">
+            <v-col cols="12" sm="3">
+              <h4>계정 구분</h4>
+              <v-select
+                :items="this.roleType"
+                v-model="input.roles"
+                outlined
+                :id="'account'"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <h4>로그인 방식</h4>
+              <v-select
+                :items="code.L"
+                v-model="input.logintype"
+                outlined
+                :id="'account'"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="3">
+              <h4>이름</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="이름을 입력해주세요"
+                v-model="input.memberName"
+                :rules="[this.validSet.name]"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </div>
+      </v-form>
       <div class="wrapperSpace">
         <div></div>
         <div class="wrapper">
@@ -69,36 +72,33 @@ import { columns, fields, rows, height } from "@/assets/grid/loginMgn";
 import SetDialog from "@/components/SetDialog.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
-import { memberList, memberJoin } from "api/member/member";
+import { loginLog } from "api/member/member";
 import { mapMutations, mapState } from "vuex";
 import _ from "lodash";
+import validSet from "@/assets/valid";
 export default {
   data() {
     return {
       input: {
-        employeeStatus: "전체",
-        roles: "",
+        roles: "전체",
+        logintype: "전체",
         memberName: "",
-        memberId: "",
-        company: "",
-        employeeCode: "",
+        pageSize: 10,
       },
-      accountType: [],
-      check: false,
       settings: {
         columns,
         fields,
         rows,
         height,
+        hideCheckBar: true,
       },
       grid: "loginMgn",
-      currentPage: 1,
-      pageSize: 10,
-      saveParam: {},
+      validSet,
     };
   },
   computed: {
     ...mapState("select", ["workType", "roleType"]),
+    ...mapState("common", ["code"]),
   },
   mounted() {
     this.SET_POPUP({
@@ -121,51 +121,78 @@ export default {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     reset() {
       this.input = {
-        employeeStatus: "전체",
-        roles: "",
+        roles: "전체",
         memberName: "",
-        memberId: "",
-        company: this.company,
-        employeeCode: "",
+        loginType: "전체",
+        pageSize: 10,
       };
     },
-    loadData(v) {
-      this.currentPage = v;
-      this.onApprove();
+    valid() {
+      return this.$refs.form.validate();
     },
-    onApprove() {
-      const param = _.cloneDeep(this.input);
-      switch (param.employeeStatus) {
-        case "재직중":
-          param.employeeStatus = 1;
-          break;
-        case "퇴사":
-          param.employeeStatus = 2;
-          break;
-        case "전체":
-          param.employeeStatus = "";
-          break;
+    loadData(v) {
+      this.onApprove(v);
+    },
+    onApprove(v) {
+      if (this.valid()) {
+        const param = _.cloneDeep(this.input);
+        switch (param.employeeStatus) {
+          case "재직중":
+            param.employeeStatus = 1;
+            break;
+          case "퇴사":
+            param.employeeStatus = 2;
+            break;
+          case "전체":
+            param.employeeStatus = "";
+            break;
+        }
+        switch (param.logintype) {
+          case "AD":
+            param.logintype = 1;
+            break;
+          case "SSO":
+            param.logintype = 2;
+            break;
+          case "전체":
+            param.logintype = "";
+            break;
+        }
+        loginLog({
+          ...param,
+          currentPage: _.isNumber(v) ? v : 1,
+          pageSize: this.pageSize,
+        })
+          .then((res) => {
+            const response = res.data;
+            const items = response.data.items;
+            const page = response.data.params;
+            _.each(items, (v) => {
+              switch (v.logintype) {
+                case 1:
+                  v.logintype = "AD";
+                  break;
+                case 2:
+                  v.logintype = "SSO";
+                  break;
+              }
+              switch (v.employee_status) {
+                case 1:
+                  v.employee_status = "재직중";
+                  break;
+                case 2:
+                  v.employee_status = "퇴사";
+                  break;
+              }
+            });
+            this.$refs.grid.loadData(items);
+            this.$refs.grid.setPage(page);
+          })
+          .catch((res) => {
+            console.error(res);
+          })
+          .finally();
       }
-
-      memberList({
-        ...param,
-        currentPage: this.currentPage,
-        pageSize: this.pageSize,
-      })
-        .then((res) => {
-          const response = res.data;
-          const items = response.data.items;
-          const page = response.data.params;
-          _.each(items, function (v) {
-            v.work = v.employee_status;
-          });
-          this.$refs.grid.loadData(items);
-          this.$refs.grid.setPage(page);
-        })
-        .catch((res) => {
-          console.error(res);
-        })
-        .finally();
     },
     add() {
       this.SET_MODAL({
@@ -189,32 +216,6 @@ export default {
     openPopup(message, cb) {
       this.SET_POPUP_TEXT(message);
       this.$refs.addPopup.openPopup(cb);
-    },
-    cancel() {
-      this.saveParam = {};
-      this.$refs.addPopup.closePopup();
-    },
-    addExec() {
-      const param = _.cloneDeep(this.saveParam);
-      switch (param.employeeStatus) {
-        case "재직중":
-          param.employeeStatus = 1;
-          break;
-        case "퇴사":
-          param.employeeStatus = 2;
-          break;
-        case "전체":
-          param.employeeStatus = "";
-          break;
-      }
-      memberJoin(param)
-        .then((res) => {
-          const response = res.data;
-          console.log(response);
-        })
-        .catch(() => {
-          this.cancel();
-        });
     },
   },
 

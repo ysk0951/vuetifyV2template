@@ -45,3 +45,7 @@ export async function updateRole(param) {
 export async function newPass(param) {
   return http.post(prefix + `/newPass`, param);
 }
+
+export async function loginLog(param) {
+  return http.post(prefix + `/loginLog`, param);
+}

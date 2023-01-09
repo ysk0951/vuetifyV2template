@@ -207,10 +207,16 @@ export default {
           const response = res.data;
           const items = response.data.items;
           const page = response.data.params;
-          _.each(items, function (v) {
-            v.work = v.employee_status;
+          _.each(items, (v) => {
             v.save = "저장";
-            // d?elete v.roles;
+            switch (v.employee_status) {
+              case 1:
+                v.work = "재직";
+                break;
+              case 2:
+                v.work = "퇴사";
+                break;
+            }
           });
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);

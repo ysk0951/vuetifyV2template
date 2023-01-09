@@ -119,7 +119,7 @@ export const columns = [
       textAlignment: "center",
     },
     header: {
-      text: "재직",
+      text: "계정구분",
       showTooltip: false,
     },
     editable: false,

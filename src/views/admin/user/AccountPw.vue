@@ -135,6 +135,7 @@ export default {
     this.input.roles = this.roleType[0];
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     ...mapMutations("modal", [
       "SET_DIALOG_TITLE",
       "SET_DIALOG_TEXT",
@@ -157,7 +158,7 @@ export default {
     loadData(v) {
       this.onApprove(v);
     },
-    onApprove() {
+    onApprove(v) {
       const param = _.cloneDeep(this.input);
       switch (param.employeeStatus) {
         case "재직중":
@@ -172,15 +173,24 @@ export default {
       }
       memberList({
         ...param,
-        currentPage: this.currentPage,
-        pageSize: this.pageSize,
+        currentPage: _.isNumber(v) ? v : 1,
+        pageSize: 10,
       })
         .then((res) => {
           const response = res.data;
           const items = response.data.items;
-          _.each(items, function (v) {
-            v.work = v.employee_status;
+          const page = response.data.params;
+          _.each(items, (v) => {
+            switch (v.employee_status) {
+              case 1:
+                v.work = "재직";
+                break;
+              case 2:
+                v.work = "퇴사";
+                break;
+            }
           });
+          this.$refs.grid.setPage(page);
           this.$refs.grid.loadData(items);
         })
         .catch((res) => {
@@ -189,58 +199,48 @@ export default {
         .finally();
     },
     resetPw() {
-      this.openPopup("선택한 아이디의 비밀번호를 초기화 하시겠습니까?");
+      const check = this.$refs.grid.getCheckedRow();
+      if (check.length > 0) {
+        this.openPopup(
+          "선택한 아이디의 비밀번호를 초기화 하시겠습니까?",
+          true,
+          this.resetExecRun
+        );
+      } else {
+        this.openPopup("초기화할 아이디를 선택해주세요");
+      }
     },
-    openPopup(message) {
+    openPopup(text, closable, cb) {
       this.SET_POPUP({
         title: "알림",
         height: 150,
         width: 300,
-        closable: true,
-        approveName: "초기화",
+        approveName: closable ? "초기화" : "확인",
+        text,
+        closable,
       });
-      this.SET_POPUP_TEXT(message);
-      this.$refs.pwPopup.openPopup(() => {
-        const rows = this.$refs.grid.getCheckedRow();
-        const col = this.$refs.grid.getCol();
-        const emailIDx = _.findIndex(col, function (v) {
-          return v.fieldName === "email";
-        });
-        const resetEmail = _.reduce(
-          rows,
-          function (a, v) {
-            console.log();
-            a.push(v[emailIDx]);
-            return a;
-          },
-          []
-        ).join(",");
-        //팝업 재사용
-        this.SET_POPUP({
-          title: "알림",
-          height: 150,
-          width: 300,
-        });
-        resetPass(resetEmail)
-          .then((res) => {
-            const body = res.data;
-            if (!_.isEmpty(body.errorCode)) {
-              this.SET_POPUP_TEXT(body.errorMessage);
-              this.$refs.pwPopup.openPopup();
-            } else {
-              this.SET_POPUP_TEXT(body.message);
-              this.$refs.pwPopup.openPopup();
-            }
-          })
-          .catch((err) => {
-            this.SET_POPUP_TEXT(err);
-            this.$refs.pwPopup.openPopup();
-          });
-      });
+      this.$refs.pwPopup.openPopup(cb);
     },
     cancel() {
       this.param = {};
       this.$refs.pwPopup.closePopup();
+    },
+    resetExecRun() {
+      const row = this.$refs.grid.getCheckedRow()[0];
+      const resetEmail = row.email;
+      resetPass(resetEmail)
+        .then((res) => {
+          const body = res.data;
+          if (!_.isEmpty(body.errorCode)) {
+            this.openPopup(body.errorMessage);
+          } else {
+            this.openPopup(body.message);
+          }
+        })
+        .catch((err) => {
+          this.SET_POPUP_TEXT(err);
+          this.$refs.pwPopup.openPopup();
+        });
     },
     resetExec() {
       this.cancel();
