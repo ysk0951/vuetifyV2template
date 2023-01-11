@@ -17,7 +17,7 @@
                 class="type mb-3"
                 :key="index"
                 @click="curBtn(item)"
-                :class="item === curBtnValue ? 'selected' : ''"
+                :class="menuMgnClass(item)"
                 >{{ item }}</v-btn
               >
             </div>
@@ -116,16 +116,30 @@ export default {
     ]),
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
+    menuMgnClass(item) {
+      const index = ["회원", "관리자", "임직원"];
+      let ret = "";
+      if (item === this.curBtnValue) {
+        ret += "selected ";
+      }
+      if (index.includes(item)) {
+        ret += "fix";
+      }
+      return ret;
+    },
     curBtn(v) {
       this.curBtnValue = v;
       const idx = _.findIndex(this.roleSet, function (o) {
         return o.roleName === v;
       });
-      const roles = this.roleSet[idx].roles;
       this.loadData();
-      _.forEach(roles.split(","), (v) => {
-        this.checkBox[v] = true;
-      });
+      if (idx > -1) {
+        const roles = this.roleSet[idx].roles;
+
+        _.forEach(roles.split(","), (v) => {
+          this.checkBox[v] = true;
+        });
+      }
     },
     loadData() {
       this.checkBox = _.reduce(
@@ -151,7 +165,9 @@ export default {
     },
     delGroup() {},
     cancle() {
-      this.setModal("취소하시겠습니까", true);
+      this.setModal("취소하시겠습니까", true, () => {
+        this.curBtn(this.curBtnValue);
+      });
     },
     setModal(msg, closable, cb) {
       this.SET_POPUP({
@@ -209,7 +225,8 @@ export default {
   display: -webkit-inline-box;
   width: 150px;
 }
-.selected {
-  background-color: rgba(0, 0, 0, 0.2) !important;
+.fix {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  color: white;
 }
 </style>

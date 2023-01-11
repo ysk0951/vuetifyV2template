@@ -20,8 +20,14 @@ const select = {
           }
           state.roleType = result;
           state.roleSet = response.data;
-          const menuMgn = _.cloneDeep(result);
-          menuMgn.shift();
+          const menuMgn = ["회원", "관리자", "임직원"];
+          const tmp = _.cloneDeep(result);
+          tmp.shift();
+          _.each(tmp, (v) => {
+            if (!menuMgn.includes(v)) {
+              menuMgn.push(v);
+            }
+          });
           state.menuMgn = menuMgn;
         })
         .catch()
