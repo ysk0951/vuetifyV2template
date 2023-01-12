@@ -46,8 +46,8 @@ export const columns = [
     fieldName: "roles",
     sortable: false,
     lookupDisplay: true,
-    values: store.state.select.roleType,
-    labels: store.state.select.roleType,
+    values: _.filter(store.state.select.roleType, (v) => v !== "전체"),
+    labels: _.filter(store.state.select.roleType, (v) => v !== "전체"),
     editor: {
       type: "dropdown",
       textReadOnly: true,
@@ -168,7 +168,9 @@ export const columns = [
     values: _.reduce(
       store.state.select.workType,
       (a, v) => {
-        a.push(v.text);
+        if (v.text !== "전체") {
+          a.push(v.text);
+        }
         return a;
       },
       []
@@ -176,7 +178,9 @@ export const columns = [
     labels: _.reduce(
       store.state.select.workType,
       (a, v) => {
-        a.push(v.text);
+        if (v.text !== "전체") {
+          a.push(v.text);
+        }
         return a;
       },
       []

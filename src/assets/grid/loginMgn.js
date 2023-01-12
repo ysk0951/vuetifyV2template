@@ -4,7 +4,8 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "계정구분",
+    field: "roles",
+    alias: "계정구분",
   },
   {
     alias: "로그인 방식",

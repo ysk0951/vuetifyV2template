@@ -59,3 +59,7 @@ export async function insertRole(param) {
 export async function deleteRole(roles) {
   return http.post(prefix + `/deleteRole?roles=${roles}`);
 }
+
+export async function userInfoUpdate(param) {
+  return http.post(prefix + `/userInfoUpdate`, param);
+}

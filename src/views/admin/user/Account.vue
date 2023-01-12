@@ -116,7 +116,7 @@ import SetDialog from "@/components/SetDialog.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import AddAcount from "@/views/admin/user/AddAcount.vue";
 import RealGrid from "@/components/RealGrid.vue";
-import { memberList, memberJoin } from "api/member/member";
+import { memberList, memberJoin, userInfoUpdate } from "api/member/member";
 import { mapMutations, mapState } from "vuex";
 import validSet from "@/assets/valid";
 import _ from "lodash";
@@ -277,6 +277,27 @@ export default {
     },
     update(row) {
       const test = confirm("저장하시겠습니까?");
+      if (test) {
+        let employee_status = "";
+        // let roles = "";
+        switch (row.work) {
+          case "재직중":
+            employee_status = 1;
+            break;
+          case "퇴사":
+            employee_status = 2;
+            break;
+        }
+
+        userInfoUpdate({ ...row, memberId: row.email, employee_status })
+          .then((res) => {
+            const response = res.data;
+            console.log(response);
+          })
+          .catch(() => {
+            this.cancel();
+          });
+      }
       console.log(row, test);
     },
   },
