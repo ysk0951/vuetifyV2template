@@ -44,6 +44,7 @@
                   class="menuColText"
                   v-model="curBtnValue"
                   :rules="[this.validSet.empty]"
+                  disabled
                 ></v-text-field>
                 <div v-for="(item, index) in allMenu" :key="index">
                   <h4>{{ item.menu }}</h4>
