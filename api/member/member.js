@@ -49,3 +49,13 @@ export async function newPass(param) {
 export async function loginLog(param) {
   return http.post(prefix + `/loginLog`, param);
 }
+
+export async function insertRole(param) {
+  return http.post(
+    prefix + `/insertRole?roleName=${param.roleName}&roles=${param.roles}`
+  );
+}
+
+export async function deleteRole(roles) {
+  return http.post(prefix + `/deleteRole?roles=${roles}`);
+}
