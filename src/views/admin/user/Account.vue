@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SetPopup ref="confirm" />
     <SetPopup ref="addPopup">
       <div class="wrapper">
         <template v-if="!check">
@@ -237,42 +238,62 @@ export default {
       this.$refs.add.openModal();
     },
     save(param) {
-      this.close();
-      this.openPopup("입력된 정보로 아이디를 생성하시겠습니까?");
       this.saveParam = param;
+      this.openPopup("입력된 정보로 아이디를 생성하시겠습니까?");
     },
     close() {
       this.check = false;
       this.$refs.add.closeModal();
     },
-    openPopup(message, cb) {
-      this.SET_POPUP_TEXT(message);
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text,
+        closable,
+        customApprove: true,
+      });
       this.$refs.addPopup.openPopup(cb);
+    },
+    openConfirm(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text,
+        closable,
+      });
+      this.$refs.confirm.openPopup(cb);
     },
     cancel() {
       this.saveParam = {};
       this.$refs.addPopup.closePopup();
     },
     addExec() {
+      this.$refs.addPopup.closePopup();
       const param = _.cloneDeep(this.saveParam);
       switch (param.employeeStatus) {
         case "재직중":
-          param.employeeStatus = 1;
+          param.employee_status = 1;
           break;
         case "퇴사":
-          param.employeeStatus = 2;
+          param.employee_status = 2;
           break;
         case "전체":
-          param.employeeStatus = "";
+          param.employee_status = "";
           break;
       }
       memberJoin(param)
-        .then((res) => {
-          const response = res.data;
-          console.log(response);
+        .then(() => {
+          this.openConfirm("신규 생성되었습니다", false, () => {
+            this.$refs.addPopup.closePopup();
+          });
         })
-        .catch(() => {
-          this.cancel();
+        .catch((err) => {
+          this.openConfirm(err, false, () => {
+            this.$refs.addPopup.closePopup();
+          });
         });
     },
     update(row) {
