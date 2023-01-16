@@ -2,11 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">공통코드 상세</h3>
     <hr class="mb-4" />
-    <h4 class="mt-10 mb-2">기본 정보</h4>
-    <hr class="mb-4" />
-    <h4 class="mt-10 mb-2">상세 정보</h4>
-    <hr class="mb-4" />
-    <div class="service login">
+    <div>
       <div class="filter">
         <v-row class="row">
           <v-col cols="12" sm="3">
@@ -14,8 +10,9 @@
             <v-text-field
               outlined
               dense
-              placeholder="공통코드명을 입력해주세요"
-              v-model="input.gubun"
+              filled
+              disabled
+              :value="this.data.gubun"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="3">
@@ -25,24 +22,16 @@
               dense
               filled
               disabled
-              v-model="input.code"
+              :value="this.data.code"
             ></v-text-field>
           </v-col>
         </v-row>
       </div>
+      <h4 class="mt-10 mb-2">상세 정보</h4>
+      <hr class="mb-4" />
       <div class="wrapperSpace">
         <div></div>
       </div>
-      <h3 class="mt-16 mb-2 pl-1 pr-1">
-        <div class="wrapperSpace">
-          목록
-          <div>
-            <v-btn depressed>삭제</v-btn>
-            <v-btn depressed color="primary">항목추가</v-btn>
-          </div>
-        </div>
-      </h3>
-      <hr class="mb-4" />
       <RealGrid
         :domName="grid"
         ref="grid"
@@ -53,21 +42,29 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/codeMgn";
+import { getCode } from "api/common";
+import { mapMutations } from "vuex";
+import { columns, fields, rows, height } from "@/assets/grid/codeMgnDetail";
 import RealGrid from "@/components/RealGrid.vue";
 export default {
   props: ["data"],
+  watch: {
+    "this.data": {
+      deep: true,
+      handelr: function (v) {
+        console.log(v);
+      },
+    },
+  },
   data() {
     return {
-      input: {
-        gubun: "",
-        code: "",
-      },
       settings: {
         columns,
         fields,
         rows,
         height,
+        errorMessage: "잘못된 접근입니다",
+        hideCheckBar: true,
       },
       grid: "codeDetai",
       currentPage: 1,
@@ -78,14 +75,12 @@ export default {
   computed: {},
   mounted() {},
   methods: {
-    reset() {
-      this.input = {};
+    ...mapMutations("common", ["SET_CODE"]),
+    async loadData() {
+      const res = await getCode(this.data.code);
+      const data = res.data.data;
+      this.$refs.grid.loadData(data);
     },
-    loadData(v) {
-      this.currentPage = v;
-      this.onApprove();
-    },
-    onApprove() {},
   },
   components: {
     RealGrid,

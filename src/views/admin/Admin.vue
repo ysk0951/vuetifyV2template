@@ -3,8 +3,15 @@
     <SetDialog ref="modal" />
     <div class="pa-10 full">
       <v-tabs v-model="tab">
-        <v-tab v-for="item in items" :key="item.key">
+        <v-tab v-for="(item, index) in items" :key="item.key">
           {{ item.value }}
+          <v-btn
+            icon
+            @click="removeTab(index)"
+            class="ml-2"
+            v-if="item.closeable"
+            ><v-icon x-small>mdi-close</v-icon></v-btn
+          >
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
@@ -107,6 +114,10 @@ export default {
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
+    removeTab(index) {
+      this.items.splice(index, 1);
+      this.tab = 0;
+    },
     findTab(key, value, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {
         return v.key === key;

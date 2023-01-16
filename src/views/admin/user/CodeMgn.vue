@@ -115,8 +115,8 @@ export default {
         });
       }
     },
-    dbClick() {
-      this.$emit("dbClick");
+    dbClick(data) {
+      this.$emit("dbClick", data);
     },
   },
   components: {
