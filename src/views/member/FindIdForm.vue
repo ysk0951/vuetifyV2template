@@ -29,7 +29,7 @@
             v-mask="'+###'"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="6" style="padding-left: 0px">
+        <v-col cols="12" sm="6" style="padding-left: 0px" class="pr-4">
           <v-text-field
             placeholder="000-0000-0000"
             v-model="phone"
