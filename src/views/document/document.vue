@@ -11,31 +11,31 @@
           <template v-if="item.key === 'coa'">
             <COA />
           </template>
-          <template v-if="item.key === 'cda'">
+          <!-- <template v-if="item.key === 'cda'">
             <CDA />
-          </template>
+          </template> -->
         </v-tab-item>
       </v-tabs-items>
     </div>
   </v-container>
 </template>
 <script>
-import CDA from "@/views/document/documentTap/CDA";
+// import CDA from "@/views/document/documentTap/CDA";
 import COA from "@/views/document/documentTap/COA";
 import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      tab: 1,
+      tab: 0,
       items: [
         {
-          key: "cda",
-          value: "CDA 관리",
-        },
-        {
           key: "coa",
-          value: "COA 상세",
+          value: "COA 관리",
         },
+        // {
+        //   key: "coaDetail",
+        //   value: "COA 상세",
+        // },
       ],
     };
   },
@@ -45,7 +45,7 @@ export default {
     ...mapState("menu", ["menu"]),
   },
   components: {
-    CDA,
+    // CDA,
     COA,
   },
   async created() {

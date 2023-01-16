@@ -85,6 +85,14 @@ const commonCode = (v) => {
     return !!codeRegex.test(v) || "숫자와 영어만 입력가능합니다";
   }
 };
+const commonCodeHipen = (v) => {
+  v = v.replaceAll("-", "");
+  if (v.length === 0) {
+    return true;
+  } else {
+    return !!codeRegex.test(v) || "숫자, 영어, 하이픈만 입력가능합니다";
+  }
+};
 const employNumber = (v) => {
   if (!v || v.length === 0) {
     return true;
@@ -102,6 +110,7 @@ const validSet = {
   passwordCode,
   sample,
   commonCode,
+  commonCodeHipen,
   employNumber,
 };
 export default validSet;

@@ -33,6 +33,7 @@ export default {
         fields,
         rows,
         height,
+        hideCheckBar: true,
       },
     };
   },

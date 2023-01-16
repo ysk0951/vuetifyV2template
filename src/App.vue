@@ -2,9 +2,14 @@
   <v-app id="inspire">
     <v-main class="blue-grey lighten-4">
       <v-app-bar dense style="position: absolute">
-        <img src="../assets/dwel_logo_ko.png" class="ci" alt="" @click="home" />
+        <img
+          src="../assets/dwel_logo_ko.png"
+          class="ci mr-8"
+          alt=""
+          @click="home"
+        />
         <template v-if="accessToken">
-          <div class="text-center" v-for="(item, idx) in menu" v-bind:key="idx">
+          <div v-for="(item, idx) in menu" v-bind:key="idx">
             <v-btn depressed @click="routing(item)">
               {{ item.menu }}
             </v-btn>

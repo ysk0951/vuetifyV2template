@@ -1,75 +1,102 @@
 <template>
-  <div class="coa">
-    <h3 class="mt-4 mb-2">COA 상세</h3>
+  <div>
+    <h3 class="mt-4 mb-2">CDA 관리</h3>
     <hr class="mb-4" />
-    <h3 class="mt-6 mb-2">기본정보</h3>
-    <hr class="mb-4" />
-    <v-row>
-      <v-col cols="12" sm="3">
-        <h4>Code Grade</h4>
-        <v-text-field outlined dense></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <h4>Lot No</h4>
-        <v-text-field outlined dense></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <h4>수량(Qty)</h4>
-        <v-text-field outlined dense></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <h4>제조일</h4>
-        <v-text-field outlined dense></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" sm="3">
-        <h4>납품처</h4>
-        <v-text-field outlined dense></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="9">
-        <h4>품명</h4>
-        <v-text-field outlined dense></v-text-field>
-      </v-col>
-    </v-row>
-    <h3 class="mt-16 mb-2">상세정보</h3>
-    <hr class="mb-4" />
+    <v-form lazy-validation ref="form">
+      <div class="wrapperSpace">
+        <v-row class="pl-2">
+          <v-col cols="12" sm="2">
+            <h4>Lot Co</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="Lot Co를 입력해주세요"
+              v-model="input.lotNum"
+              :rules="[this.validSet.commonCodeHipen]"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>샘플코드</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="샘플코드를 입력해주세요"
+              v-model="input.sampleCode"
+              :rules="[this.validSet.commonCodeHipen]"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>요청자</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청자를 입력해주세요"
+              v-model="input.name"
+              :rules="[this.validSet.name]"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </div>
+    </v-form>
+    <div class="wrapperEnd">
+      <v-card-actions>
+        <v-btn depressed @click="reset">초기화</v-btn>
+      </v-card-actions>
+      <v-card-actions>
+        <v-btn depressed color="primary" @click="search">검색</v-btn>
+      </v-card-actions>
+    </div>
+    <div class="wrapperSpace pr-2">
+      <div>
+        <h4 class="mt-4 mb-2">목록</h4>
+      </div>
+      <v-btn depressed color="primary" @click="exelDownload"
+        >엑셀 다운로드</v-btn
+      >
+    </div>
+    <hr />
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
   </div>
 </template>
 <script>
-import { columns, fields, rows, height, grouping } from "@/assets/grid/coa";
+import validSet from "@/assets/valid";
+import { columns, fields, rows, height } from "@/assets/grid/coaDetail";
 import RealGrid from "@/components/RealGrid.vue";
-
 export default {
   data() {
     return {
-      grid: "coa",
+      validSet,
+      grid: "cda",
+      input: {
+        lotNum: "",
+        sampleCode: "",
+        name: "",
+      },
       settings: {
         columns,
         fields,
         rows,
         height,
-        grouping,
+        errorMessage: "내역이 존재하지 않습니다",
       },
     };
   },
   methods: {
-    newSample() {
-      this.$emit("newSample");
+    valid() {
+      return this.$refs.form.validation();
     },
-    search() {},
+    exelDownload() {},
+    search() {
+      if (this.valid()) {
+        //TODO
+      }
+    },
     reset() {},
+    loadData() {},
   },
   components: {
     RealGrid,
   },
 };
 </script>
-<style lang="scss">
-.coa {
-  .row {
-    height: 75px;
-  }
-}
-</style>
+<style lang="scss"></style>
