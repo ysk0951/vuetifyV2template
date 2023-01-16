@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-2">납품 일보</h3>
     <hr class="mb-4" />
     <div class="confirmSample wrapperSpace">
-      <v-row>
+      <v-row class="pl-2">
         <v-col cols="12" sm="2">
           <h4>Lot Co</h4>
           <v-text-field
@@ -56,7 +56,7 @@
         >
       </div>
     </div>
-    <v-row style="height: 90px">
+    <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>영업분류</h4>
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
@@ -70,7 +70,7 @@
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
       </v-col>
     </v-row>
-    <v-row style="height: 90px">
+    <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>요청 업체명</h4>
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
@@ -84,7 +84,7 @@
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
       </v-col>
     </v-row>
-    <v-row style="height: 90px">
+    <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>출하 진행 사항</h4>
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
@@ -98,7 +98,7 @@
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
       </v-col>
     </v-row>
-    <v-row style="height: 90px">
+    <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>납기일</h4>
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
@@ -112,7 +112,7 @@
         <v-text-field outlined dense placeholder="00:00"></v-text-field>
       </v-col>
     </v-row>
-    <v-row style="height: 90px">
+    <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>Qty(kg)</h4>
         <v-text-field outlined dense placeholder="00:00"></v-text-field>

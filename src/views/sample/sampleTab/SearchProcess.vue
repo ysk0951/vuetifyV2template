@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-2">진행사항 조회</h3>
     <hr class="mb-4" />
     <div class="searchProcess wrapperSpace pr-2">
-      <v-row>
+      <v-row class="pl-2">
         <v-col cols="12" sm="3">
           <h4>Lot Co</h4>
           <v-text-field

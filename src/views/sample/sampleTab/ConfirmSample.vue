@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-2">샘플 요청 검수</h3>
     <hr class="mb-4" />
     <div class="confirmSample wrapperSpace py-1">
-      <v-row>
+      <v-row class="pl-2">
         <v-col cols="12" sm="2">
           <h4>Lot Co</h4>
           <v-text-field
