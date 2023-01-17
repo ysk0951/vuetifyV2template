@@ -11,7 +11,7 @@
               outlined
               dense
               placeholder="Lot Co를 입력해주세요"
-              v-model="input.lotNum"
+              v-model="input.lot_no"
               :rules="[this.validSet.commonCodeHipen]"
             ></v-text-field>
           </v-col>
@@ -31,7 +31,7 @@
               outlined
               dense
               placeholder="요청자를 입력해주세요"
-              v-model="input.name"
+              v-model="input.request_name"
               :rules="[this.validSet.name]"
             ></v-text-field>
           </v-col>
@@ -55,22 +55,32 @@
       >
     </div>
     <hr />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+      @dbClick="dbClick"
+    />
   </div>
 </template>
 <script>
 import validSet from "@/assets/valid";
-import { columns, fields, rows, height } from "@/assets/grid/coaDetail";
 import RealGrid from "@/components/RealGrid.vue";
+import { columns, fields, rows, height } from "@/assets/grid/coa";
+import { sampleSearch } from "api/sample/sample";
+import { getExecl } from "api/file";
+import _ from "lodash";
 export default {
   data() {
     return {
       validSet,
       grid: "cda",
       input: {
-        lotNum: "",
+        lot_no: "",
         sampleCode: "",
-        name: "",
+        request_name: "",
+        page_size: 1,
       },
       settings: {
         columns,
@@ -83,16 +93,30 @@ export default {
   },
   methods: {
     valid() {
-      return this.$refs.form.validation();
+      return this.$refs.form.validate();
     },
-    exelDownload() {},
-    search() {
+    exelDownload() {
+      getExecl(this.$refs.grid.getCheckedRow(), "coa");
+    },
+    async search(v) {
+      console.log(this.$refs.form);
       if (this.valid()) {
-        //TODO
+        const res = await sampleSearch({
+          ...this.input,
+          currentPage: _.isNumber(v) ? v : 1,
+        });
+        const response = res.data;
+        const items = response.data.items;
+        const page = response.data.params;
+        this.$refs.grid.loadData(items);
+        this.$refs.grid.setPage(page);
       }
     },
     reset() {},
-    loadData() {},
+    loadData(v) {
+      this.search(v);
+    },
+    dbClick() {},
   },
   components: {
     RealGrid,

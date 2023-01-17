@@ -4,52 +4,52 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "no",
-    alias: "번호",
+    field: "Lot No",
+    alias: "lot_no",
   },
   {
-    field: "1",
-    alias: "Lot No",
-  },
-  {
-    field: "2",
+    field: "Code Grade",
     alias: "Code Grade",
   },
   {
-    field: "3",
+    field: "request_name",
     alias: "이름",
   },
   {
-    field: "4",
+    field: "기업명",
     alias: "기업명",
   },
   {
-    field: "5",
+    field: "created_at",
     alias: "요청일",
   },
   {
-    field: "6",
+    field: "제조예정일",
     alias: "제조예정일",
   },
   {
-    field: "7",
+    field: "제조 진행사항",
     alias: "제조 진행사항",
   },
   {
-    field: "8",
+    field: "출하 진행사항",
     alias: "출하 진행사항",
   },
   {
-    field: "9",
+    field: "출하 예정일",
     alias: "출하 예정일",
   },
   {
-    field: "10",
+    field: "납기일",
     alias: "납기일",
   },
   {
-    field: "11",
+    field: "stat",
     alias: "상태",
+  },
+  {
+    field: "pdf",
+    alias: "PDF",
   },
 ];
 
