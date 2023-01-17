@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SetPopup ref="confirm" />
     <h3 class="mt-4 mb-2">CDA 관리</h3>
     <hr class="mb-4" />
     <v-form lazy-validation ref="form">
@@ -67,10 +68,12 @@
 <script>
 import validSet from "@/assets/valid";
 import RealGrid from "@/components/RealGrid.vue";
+import SetPopup from "@/components/SetPopup.vue";
 import { columns, fields, rows, height } from "@/assets/grid/coa";
 import { sampleSearch } from "api/sample/sample";
 import { getExecl } from "api/file";
 import _ from "lodash";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -92,11 +95,27 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     valid() {
       return this.$refs.form.validate();
     },
     exelDownload() {
-      getExecl(this.$refs.grid.getCheckedRow(), "coa");
+      const data = this.$refs.grid.getCheckedRow();
+      if (data.length > 0) {
+        getExecl(data, "coa");
+      } else {
+        this.openPopup("엑셀 다운로드할 행을 선택해주세요");
+      }
+    },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text,
+        closable,
+      });
+      this.$refs.confirm.openPopup(cb);
     },
     async search(v) {
       console.log(this.$refs.form);
@@ -116,10 +135,13 @@ export default {
     loadData(v) {
       this.search(v);
     },
-    dbClick() {},
+    dbClick(data) {
+      this.$emit("dbClick", data);
+    },
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>
