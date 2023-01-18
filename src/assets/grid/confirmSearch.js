@@ -14,6 +14,7 @@ const data = [
   {
     alias: "요청일",
     field: "created_at",
+    date: "yyyy-MM-dd",
   },
   {
     alias: "배송지",

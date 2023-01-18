@@ -50,7 +50,7 @@
       <v-form lazy-validation ref="newSample">
         <h3 class="mt-4 mb-2">추가 정보</h3>
         <hr class="mb-4" />
-        <v-row>
+        <v-row class="px-2">
           <v-col cols="12" sm="2">
             <h4>요청자</h4>
             <v-text-field
@@ -58,6 +58,7 @@
               dense
               v-model="param.request_name"
               placeholder="요청자 이름을 입력해주세요"
+              :rules="[this.validSet.empty, this.validSet.name]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -67,6 +68,7 @@
               dense
               v-model="param.memberId"
               placeholder="요청자 이메일을 입력해주세요"
+              :rules="[this.validSet.empty, this.validSet.email]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -98,7 +100,7 @@
           </v-col>
         </v-row>
         <h4>배송지 선택</h4>
-        <v-row style="height: 63px">
+        <v-row style="height: 63px" class="px-2">
           <v-col cols="12" sm="6">
             <div class="wrapper address">
               <v-text-field
@@ -109,6 +111,7 @@
                 disabled
                 filled
                 v-model="param.address"
+                :rules="[this.validSet.name]"
               />
               <v-btn
                 depressed
@@ -120,7 +123,7 @@
             </div>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row class="px-2">
           <v-col cols="12" sm="2">
             <h4>Qty(kg)</h4>
             <v-text-field
@@ -128,6 +131,7 @@
               dense
               placeholder="00:00"
               v-model="param.qty"
+              :rules="[this.validSet.name]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -137,6 +141,7 @@
               dense
               placeholder="요청 자재코드를 입력해주세요"
               v-model="param.request_code"
+              :rules="[this.validSet.name]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -146,6 +151,7 @@
               dense
               placeholder="분석 요청사항을 입력해주세요"
               v-model="param.analysis"
+              :rules="[this.validSet.name]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -169,7 +175,7 @@
             ></v-select>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row class="px-2">
           <v-col cols="12" sm="6">
             <h4>기타 요청사항</h4>
             <v-text-field

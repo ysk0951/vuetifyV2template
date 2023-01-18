@@ -34,6 +34,7 @@ export default {
         rows,
         height,
         hideCheckBar: true,
+        errorMessage: "요청한 샘플이 없습니다",
       },
     };
   },

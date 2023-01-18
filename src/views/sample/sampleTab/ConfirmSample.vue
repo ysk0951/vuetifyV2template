@@ -2,28 +2,32 @@
   <div>
     <h3 class="mt-4 mb-2">샘플 요청 검수</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace py-1">
-      <v-row class="pl-2">
-        <v-col cols="12" sm="2">
-          <h4>Lot Co</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="Lot Co를 입력해주세요"
-            v-model="param.lot_no"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="2">
-          <h4>요청자</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="요청자를 입력해주세요"
-            v-model="param.request_name"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </div>
+    <v-form ref="form" lazy-validation>
+      <div class="wrapperSpace py-1">
+        <v-row class="pl-2">
+          <v-col cols="12" sm="2">
+            <h4>Lot Co</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="Lot Co를 입력해주세요"
+              v-model="param.lot_no"
+              :rules="[this.validSet.commonCodeHipen]"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>요청자</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청자를 입력해주세요"
+              v-model="param.request_name"
+              :rules="[this.validSet.name]"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </div>
+    </v-form>
     <div class="wrapperEnd">
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>
@@ -47,18 +51,22 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/confirmSearch";
+import _ from "lodash";
 import RealGrid from "@/components/RealGrid.vue";
+import validSet from "@/assets/valid";
 import { sampleSearch } from "api/sample/sample";
+import { columns, fields, rows, height } from "@/assets/grid/confirmSearch";
 export default {
   data() {
     return {
       grid: "confirmSample",
+      validSet,
       settings: {
         columns,
         fields,
         rows,
         height,
+        hideCheckBar: true,
         errorMessage: "샘플 요청 내역이 없습니다",
       },
       param: {
@@ -78,18 +86,19 @@ export default {
     dbClick(data) {
       this.$emit("confirmDetail", data);
     },
-    newSample() {
-      this.$emit("newSample");
+    valid() {
+      return this.$refs.form.validate();
     },
     search(v) {
-      console.log(v);
-      sampleSearch({ ...this.param, currentPage: 1 })
-        .then((res) => {
-          const response = res.data;
-          const items = response.data.items;
-          this.$refs.grid.loadData(items);
-        })
-        .catch(() => {});
+      if (this.valid()) {
+        sampleSearch({ ...this.param, currentPage: _.isNumber(v) ? v : 1 })
+          .then((res) => {
+            const response = res.data;
+            const items = response.data.items;
+            this.$refs.grid.loadData(items);
+          })
+          .catch(() => {});
+      }
     },
     reset() {
       this.param = {

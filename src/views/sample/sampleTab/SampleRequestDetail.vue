@@ -2,6 +2,7 @@
   <div class="address">
     <h3 class="mt-4 mb-2">샘플 요청 검수</h3>
     <hr class="mb-4" />
+    <SetPopup ref="confirm" />
     <RealGrid
       domName="sampleRequestDeatil"
       ref="grid"
@@ -16,8 +17,9 @@
         <v-text-field
           outlined
           dense
-          placeholder="요청자 이름을 입력해주세요"
           v-model="param.request_name"
+          disabled
+          filled
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
@@ -25,8 +27,9 @@
         <v-text-field
           outlined
           dense
-          placeholder="수령자 이름을 입력해주세요"
           v-model="param.pick_name"
+          disabled
+          filled
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
@@ -137,19 +140,12 @@
 <script>
 import { columns, fields, rows } from "@/assets/grid/sampleRequest";
 import { sampleSearch, updateSample } from "api/sample/sample";
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import RealGrid from "@/components/RealGrid.vue";
+import SetPopup from "@/components/SetPopup.vue";
 import _ from "lodash";
 export default {
   props: ["data"],
-  watch: {
-    data: {
-      deep: true,
-      handler: function (v) {
-        this.loadData(v);
-      },
-    },
-  },
   data() {
     return {
       settings: {
@@ -164,8 +160,8 @@ export default {
       fileName: "",
       param: {
         default: 0,
-        postCode: this.data.postCode,
-        address: this.data.address,
+        postCode: "",
+        address: "",
         price_type: "",
         packing: "",
         delivery_type: "",
@@ -188,9 +184,7 @@ export default {
     };
   },
   methods: {
-    newSample() {
-      this.$emit("newSample");
-    },
+    ...mapMutations("popup", ["SET_POPUP"]),
     loadData() {
       if (this.data) {
         sampleSearch(this.data)
@@ -198,17 +192,18 @@ export default {
             const response = res.data;
             const items = response.data.items;
             this.$refs.grid.loadData(items);
+            const item = items[0];
+            const address = item.address.replaceAll("[", "").split("]");
+            this.param = { ...item, postCode: address[0], address: address[1] };
           })
           .catch(() => {});
       }
     },
-    read() {},
-    select() {},
     cancle() {
       this.param = {
         default: 0,
-        postCode: this.data.postCode,
-        address: this.data.address,
+        postCode: "",
+        address: "",
         price_type: "",
         packing: "",
         delivery_type: "",
@@ -222,24 +217,38 @@ export default {
     valid() {
       return true;
     },
+    openPopup(text, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text,
+      });
+      this.$refs.addPopup.openPopup(cb);
+    },
     request() {
       const row = this.$refs.grid.getJsonRow();
       if (this.valid()) {
-        updateSample({ ...this.param, ...row });
+        const test = { ...this.param, ...row };
+        console.log(test);
+        updateSample({ ...this.param, ...row })
+          .then((res) => {
+            console.log(res);
+            this.openPopup("저장되었습니다", this.cancle());
+          })
+          .catch(() => {});
       }
     },
   },
   components: {
     RealGrid,
+    SetPopup,
   },
   computed: {
     ...mapState("common", ["code"]),
     otherAddress() {
       return !this.param.default;
     },
-  },
-  mounted() {
-    this.loadData();
   },
 };
 </script>

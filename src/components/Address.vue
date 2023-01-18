@@ -51,10 +51,11 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 import SetDialogVue from "./SetDialog.vue";
-import { addressbookList, addressbookDel } from "api/address/address";
 import SignupPost from "@/views/member/SignupPost";
+import { mapMutations } from "vuex";
+import { insertBook } from "api/address/address";
+import { addressbookList, addressbookDel } from "api/address/address";
 export default {
   name: "Address",
   data: function () {
@@ -79,14 +80,19 @@ export default {
     closePost() {
       this.$refs.postModal.closeModal();
       this.SET_MODAL({
-        height: 600,
         width: 800,
         closable: true,
         customApprove: true,
       });
     },
-    approvePost(post) {
+    async approvePost(post) {
       this.param.post = post;
+      const resAddress = await insertBook({
+        ...post,
+        memberId: this.param.email,
+      });
+      this.loadData();
+      console.log(resAddress);
     },
     open() {
       this.SET_MODAL({
@@ -113,7 +119,6 @@ export default {
     },
     addAddress() {
       this.SET_MODAL({
-        height: 600,
         width: 650,
         closable: true,
         customApprove: true,

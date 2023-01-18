@@ -1,7 +1,7 @@
 <template>
   <div class="address">
     <SetPopup ref="confirm" />
-    <Address ref="address" @select="onAddress" />
+    <Address ref="address" @select="onAddress" :userId="userId" />
     <h3 class="mt-4 mb-2">샘플 요청</h3>
     <hr class="mb-4" />
     <div>
@@ -238,6 +238,7 @@ export default {
       checkRows: false,
       codeSet: {},
       file: "",
+      userId: "",
       param: {
         default: 0,
         price_type: "",
@@ -292,11 +293,13 @@ export default {
         pick_name: "",
         analysis: "",
       };
+      this.file = "";
       this.checkRows = false;
       try {
         const res = await userInfo();
         const member_data = res.data.data;
         this.param.request_name = member_data.member_name;
+        this.userId = member_data.memberId;
       } catch (error) {
         console.log(error);
       }
@@ -366,9 +369,10 @@ export default {
             const body = res.data;
             if (!_.isEmpty(body.errorCode)) {
               this.openConfirm(body.errorMessage);
+              this.reset();
             } else {
               this.openConfirm(body.message, false, () => {
-                this.$refs.grid.setColor();
+                this.reset();
               });
             }
           });

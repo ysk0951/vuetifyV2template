@@ -3,7 +3,7 @@
     <SetDialog ref="modal" />
     <div class="pa-10 full">
       <v-tabs v-model="tab">
-        <v-tab v-for="item in items" :key="item.key">
+        <v-tab v-for="(item, index) in items" :key="item.key">
           {{ item.value }}
           <v-btn
             icon
@@ -17,16 +17,16 @@
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
           <template v-if="item.key === 'userSample'">
-            <UserSample @newSample="newSample" ref="user" />
+            <UserSample @newSample="newSample" ref="userSample" />
           </template>
           <template v-if="item.key === 'newSample'">
-            <NewSample @newSample="newSample" />
+            <NewSample @newSample="newSample" ref="newSample" />
           </template>
           <template v-if="item.key === 'adminSample'">
-            <AdminSample @newSample="newSample" />
+            <AdminSample @newSample="newSample" ref="adminSample" />
           </template>
           <template v-if="item.key === 'confirmSample'">
-            <ConfirmSample @confirmDetail="confirmDetail" />
+            <ConfirmSample @confirmDetail="confirmDetail" ref="confirmSample" />
           </template>
           <template v-if="item.key === 'sampleRequestDetail'">
             <SampleRequestDetail
@@ -35,22 +35,22 @@
             />
           </template>
           <template v-if="item.key === 'searchProcess'">
-            <SearchProcess />
+            <SearchProcess ref="searchProcess" />
           </template>
           <template v-if="item.key === 'searchProcessCustom'">
-            <SearchProcessCustom />
+            <SearchProcessCustom ref="searchProcessCustom" />
           </template>
           <template v-if="item.key === 'delivaryReport'">
-            <DeliveryReport />
+            <DeliveryReport ref="delivaryReport" />
           </template>
           <template v-if="item.key === 'delivaryReportDetail'">
-            <DeliveryReportDetail />
+            <DeliveryReportDetail ref="delivaryReportDetail" />
           </template>
           <template v-if="item.key === 'resultInput'">
-            <ResultInput />
+            <ResultInput ref="resultInput" />
           </template>
           <template v-if="item.key === 'qulityTestInput'">
-            <QulityTestInput />
+            <QulityTestInput ref="qulityTestInput" />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -119,11 +119,13 @@ export default {
   },
   watch: {
     tab: function (v) {
-      switch (v) {
-        case 0:
-          this.$refs.user[0].loadData();
-          break;
-      }
+      setTimeout(() => {
+        const ref = this.items[v].key;
+        const component = this.$refs[ref][0];
+        if (_.has(component, "loadData")) {
+          component.loadData();
+        }
+      }, 100);
     },
   },
   computed: {
@@ -154,36 +156,34 @@ export default {
       this.items.splice(index, 1);
       this.tab = 0;
     },
-    newSample() {
-      let newSampleIdx = _.findIndex(this.items, function (v) {
-        return v.key === "newSample";
-      });
-      if (newSampleIdx === -1) {
-        this.items.push({
-          key: "newSample",
-          value: "신규 샘플 요청",
-        });
-        newSampleIdx = _.findIndex(this.items, function (v) {
-          return v.key === "newSample";
-        });
-      }
-      this.tab = newSampleIdx;
-    },
-    confirmDetail(data) {
+    findTab(key, value, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {
-        return v.key === "sampleRequestDetail";
+        return v.key === key;
       });
       if (idx === -1) {
         this.items.push({
-          key: "sampleRequestDetail",
-          value: "샘플 요청 상세",
+          key,
+          value,
+          closeable,
         });
         idx = _.findIndex(this.items, function (v) {
-          return v.key === "sampleRequestDetail";
+          return v.key === key;
         });
       }
       this.tab = idx;
-      this.sampleRequestDetailData = data;
+      this[target] = data;
+    },
+    newSample(data) {
+      this.findTab("newSample", "신규 샘플요청", "newSampleData", true, data);
+    },
+    confirmDetail(data) {
+      this.findTab(
+        "sampleRequestDetail",
+        "샘플 요청상세",
+        "sampleRequestDetailData",
+        true,
+        data
+      );
     },
   },
 };
