@@ -1,7 +1,7 @@
 <template>
   <div class="address">
     <SetPopup ref="confirm" />
-    <Address ref="address" @approve="onAddress" />
+    <Address ref="address" @select="onAddress" />
     <h3 class="mt-4 mb-2">샘플 요청</h3>
     <hr class="mb-4" />
     <div>
@@ -50,7 +50,7 @@
       <v-form lazy-validation ref="newSample">
         <h3 class="mt-4 mb-2">추가 정보</h3>
         <hr class="mb-4" />
-        <v-row>
+        <v-row class="px-2">
           <v-col cols="12" sm="2">
             <h4>요청자</h4>
             <v-text-field
@@ -90,7 +90,7 @@
           </v-col>
         </v-row>
         <h4>배송지 선택</h4>
-        <v-row style="height: 46px">
+        <v-row style="height: 46px" class="px-2 mt-1">
           <v-col cols="12" sm="3" class="mb-0">
             <v-radio-group row v-model="param.default">
               <v-radio
@@ -103,7 +103,7 @@
           </v-col>
         </v-row>
         <template v-if="param.default === 1">
-          <v-row style="height: 63px">
+          <v-row style="height: 63px" class="px-2">
             <v-col cols="12" sm="6">
               <div class="wrapper address">
                 <v-text-field
@@ -133,7 +133,7 @@
             </v-col>
           </v-row>
         </template>
-        <v-row>
+        <v-row class="px-2">
           <v-col cols="12" sm="2">
             <h4>Qty(kg)</h4>
             <v-text-field
@@ -196,7 +196,8 @@
 </template>
 <script>
 import { getSample } from "api/file";
-import validSet from "@/assets/valid";
+import { insertSample } from "api/sample/sample";
+import { userInfo } from "api/member/member";
 import {
   columns,
   fields,
@@ -207,10 +208,10 @@ import {
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import Address from "@/components/Address.vue";
+import validSet from "@/assets/valid";
 import { mapMutations, mapState } from "vuex";
 import * as XLSX from "xlsx";
 import _ from "lodash";
-import { insertSample } from "api/sample/sample";
 
 export default {
   watch: {
@@ -277,10 +278,7 @@ export default {
         this.checkRows = true;
       }
     },
-    onAddress(v) {
-      console.log(v);
-    },
-    reset() {
+    async reset() {
       this.param = {
         default: 0,
         price_type: "",
@@ -295,6 +293,13 @@ export default {
         analysis: "",
       };
       this.checkRows = false;
+      try {
+        const res = await userInfo();
+        const member_data = res.data.data;
+        this.param.request_name = member_data.member_name;
+      } catch (error) {
+        console.log(error);
+      }
     },
     valid() {
       return this.$refs.newSample.validate();
@@ -389,6 +394,9 @@ export default {
           this.param.address = `[${data.zonecode}] ${data.roadAddress}`;
         },
       }).open();
+    },
+    onAddress(data) {
+      this.param.address = `[${data.postcode}] ${data.address} ${data.address2}`;
     },
   },
   components: {

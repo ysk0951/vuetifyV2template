@@ -12,7 +12,7 @@
         <hr class="mt-3 mb-3" />
         <div class="wrapperSpace mb-3">
           <i></i>
-          <v-btn depressed color="primary" @click="addAddress"
+          <v-btn depressed color="primary" @click="addAddress" class="my-3"
             >배송지 추가</v-btn
           >
         </div>
@@ -20,8 +20,8 @@
           <div v-for="(item, idx) in addresList" :key="idx" class="my-2">
             <div class="wrapperSpace mb-3" style="width: 100%; height: 20px">
               <div class="ml-4">
-                <span style="color: blue">
-                  {{ item.defaultYn ? "기본배송지 " : "" }}
+                <span style="">
+                  {{ item.defaultYn ? "[기본배송지] " : "" }}
                 </span>
                 {{ `${item.name} ${item.pickname}` }}
               </div>
@@ -134,8 +134,8 @@ export default {
 </script>
 <style lang="scss">
 .border {
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid;
+  border-color: rgba(0, 0, 0, 0.5) !important;
 }
 .addressSelect {
   .v-subheader {

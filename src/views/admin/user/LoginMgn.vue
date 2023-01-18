@@ -54,7 +54,7 @@
       <h3 class="mt-16 mb-2 pl-1 pr-1">
         <div class="wrapperSpace">
           목록
-          <v-btn depressed color="primary" @click="add">신규생성</v-btn>
+          <!-- <v-btn depressed color="primary" @click="add">신규생성</v-btn> -->
         </div>
       </h3>
       <hr class="mb-4" />
