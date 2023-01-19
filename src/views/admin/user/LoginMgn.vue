@@ -161,7 +161,6 @@ export default {
         loginLog({
           ...param,
           currentPage: _.isNumber(v) ? v : 1,
-          pageSize: this.pageSize,
         })
           .then((res) => {
             const response = res.data;

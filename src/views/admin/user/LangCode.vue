@@ -72,7 +72,7 @@ export default {
     search(v) {
       getMessageList({
         currentPage: _.isNumber(v) ? v : 1,
-        pageSize: 3,
+        pageSize: 10,
       }).then((res) => {
         const response = res.data;
         const items = response.data.items;

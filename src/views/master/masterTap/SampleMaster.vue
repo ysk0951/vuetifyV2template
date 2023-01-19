@@ -130,6 +130,9 @@ export default {
     valid() {
       return this.$refs.sampleMaster.validate();
     },
+    loadData(v) {
+      this.search(v);
+    },
     search(v) {
       if (this.valid()) {
         sampleMasterList({

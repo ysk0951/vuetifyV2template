@@ -55,6 +55,7 @@ export default {
     return {
       input: {
         gubun: "",
+        pageSize: 10,
       },
       settings: {
         columns,
@@ -66,7 +67,6 @@ export default {
       grid: "codeMgn",
       validSet,
       currentPage: 1,
-      pageSize: 10,
       saveParam: {},
     };
   },

@@ -75,6 +75,9 @@ export default {
       currentPage: 1,
     };
   },
+  mounted() {
+    this.loadData();
+  },
   methods: {
     newSample() {
       this.$emit("newSample");

@@ -2,7 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">납품 일보</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace">
+    <div class="wrapperSpace">
       <v-row class="pl-2">
         <v-col cols="12" sm="2">
           <h4>Lot No</h4>
@@ -10,6 +10,8 @@
             outlined
             dense
             placeholder="Lot No를 입력해주세요"
+            :rules="[this.validSet.commonCodeHipen]"
+            v-model="param.lot_no"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
@@ -18,6 +20,8 @@
             outlined
             dense
             placeholder="요청자를 입력해주세요"
+            :rules="[this.validSet.name]"
+            v-model="param.request_name"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -41,16 +45,21 @@
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
-
+import validSet from "@/assets/valid";
 export default {
   data() {
     return {
       grid: "delivaryReport",
+      validSet,
       settings: {
         columns,
         fields,
         rows,
         height,
+      },
+      param: {
+        lot_no: "",
+        request_name: "",
       },
     };
   },
