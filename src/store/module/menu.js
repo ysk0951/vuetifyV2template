@@ -17,7 +17,6 @@ const menu = {
               }
             });
             state.menu = menu;
-            console.log(state.menu);
           }
         })
         .catch((err) => {

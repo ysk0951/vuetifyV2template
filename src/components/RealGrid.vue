@@ -12,9 +12,6 @@
     </div>
 
     <div class="text-center mt-2 wrapper" v-if="!nonePage && existRow">
-      <v-btn icon large>
-        <v-icon>mdi-menu-left</v-icon>
-      </v-btn>
       <v-pagination
         depressed
         v-model="page.currentPage"
@@ -22,9 +19,6 @@
         :total-visible="10"
       >
       </v-pagination>
-      <v-btn icon large>
-        <v-icon>mdi-menu-right</v-icon>
-      </v-btn>
     </div>
   </div>
 </template>

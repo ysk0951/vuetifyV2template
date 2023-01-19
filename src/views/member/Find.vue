@@ -113,7 +113,6 @@ export default {
       this.$emit("changeTab", tab);
     },
     closeModal(route) {
-      console.log(route);
       this.$emit("close", route);
     },
     onApprove(params, key) {

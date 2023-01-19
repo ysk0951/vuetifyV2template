@@ -84,8 +84,8 @@ export default {
     reset() {},
     save() {
       this.openPopup("저장하시겠습니까?", true, () => {
+        // eslint-disable-next-line no-unused-vars
         const rows = this.$refs.grid.getRow();
-        console.log(rows);
         // updateMessage(this.param)
         //   .then(() => {
         //     this.openPopup("저장되었습니다", false, () => {

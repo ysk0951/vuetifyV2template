@@ -227,8 +227,6 @@ export default {
     request() {
       const row = this.$refs.grid.getJsonRow();
       if (this.valid()) {
-        const test = { ...this.param, ...row };
-        console.log(test);
         updateSample({ ...this.param, ...row })
           .then(() => {
             this.openPopup("저장되었습니다", this.cancle());

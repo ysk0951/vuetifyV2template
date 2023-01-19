@@ -87,12 +87,12 @@ export default {
     },
     async approvePost(post) {
       this.param.post = post;
+      // eslint-disable-next-line no-unused-vars
       const resAddress = await insertBook({
         ...post,
         memberId: this.param.email,
       });
       this.loadData();
-      console.log(resAddress);
     },
     open() {
       this.SET_MODAL({

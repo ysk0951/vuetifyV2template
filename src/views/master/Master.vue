@@ -16,47 +16,56 @@
       </v-tabs>
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
-          <template v-if="item.key === 'user'">
-            <UserMaster @dbClick="userDetail" />
+          <template v-if="item.key === 'userMaster'">
+            <UserMaster @dbClick="userDetail" ref="userMaster" />
           </template>
           <template v-if="item.key === 'userDetail'">
-            <UserMasterDetail :data="userDetailData" />
+            <UserMasterDetail :data="userDetailData" ref="userDetail" />
           </template>
           <template v-if="item.key === 'sample'">
             <SampleMaster
               @sampleMasterDetail="sampleMasterDetail"
               @sampleAdd="sampleAdd"
+              ref="sample"
             />
           </template>
           <template v-if="item.key === 'sampleDetail'">
-            <SampleMasterDetail :data="sampleDetailData" />
+            <SampleMasterDetail :data="sampleDetailData" ref="sampleDetail" />
           </template>
           <template v-if="item.key === 'sampleAdd'">
-            <SampleAdd />
+            <SampleAdd ref="sampleAdd" />
           </template>
           <template v-if="item.key === 'menstruum'">
             <MenstruumMaster
               @dbClick="menstruumMasterDetail"
               @menstruumAdd="menstruumAdd"
+              ref="menstruum"
             />
           </template>
           <template v-if="item.key === 'menstruumDetail'">
-            <MenstruumDetail :data="menstruumDetailData" />
+            <MenstruumDetail
+              :data="menstruumDetailData"
+              ref="menstruumDetail"
+            />
           </template>
           <template v-if="item.key === 'menstruumAdd'">
-            <MenstruumAdd />
+            <MenstruumAdd ref="menstruumAdd" />
           </template>
           <template v-if="item.key === 'materialIndex'">
             <MaterialIndex
               @dbClick="materialIndexDetail"
               @materialIndexAdd="materialIndexAdd"
+              ref="materialIndex"
             />
           </template>
           <template v-if="item.key === 'materialIndexDetail'">
-            <MaterialIndexDetail :data="materialIndexDetailData" />
+            <MaterialIndexDetail
+              :data="materialIndexDetailData"
+              ref="materialIndexDetail"
+            />
           </template>
           <template v-if="item.key === 'materialIndexAdd'">
-            <MaterialIndexAdd />
+            <MaterialIndexAdd ref="materialIndexAdd" />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -91,7 +100,7 @@ export default {
       materialIndexAddData: {},
       items: [
         {
-          key: "user",
+          key: "userMaster",
           value: "회원 마스터 관리",
         },
         {
@@ -136,6 +145,14 @@ export default {
     tab: function (v) {
       if (v === 0) {
         this.reset();
+      } else {
+        setTimeout(() => {
+          const ref = this.items[v].key;
+          const component = this.$refs[ref][0];
+          if (_.has(component, "loadData")) {
+            component.loadData();
+          }
+        }, 100);
       }
     },
   },

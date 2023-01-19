@@ -1,3 +1,4 @@
+<!-- eslint-disable no-unused-vars -->
 <template>
   <v-flex xs12>
     <div class="cardWrapper">
@@ -282,13 +283,13 @@ export default {
           roles: "회원",
           memo: "",
         };
+        // eslint-disable-next-line no-unused-vars
         const res = await memberJoin(param);
+        // eslint-disable-next-line no-unused-vars
         const resAddress = await insertBook({
           ...this.param.post,
           memberId: this.param.email,
         });
-        console.log(res);
-        console.log(resAddress);
         this.$router.push({ name: "signupDone" });
       }
     },

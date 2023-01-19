@@ -61,7 +61,6 @@ import RealGrid from "@/components/RealGrid.vue";
 import * as newRqGrid from "@/assets/grid/sampleRequest";
 import _ from "lodash";
 import { mapState, mapMutations } from "vuex";
-import { makeARow } from "@/assets/grid/gridUtill";
 export default {
   data() {
     return {
@@ -127,14 +126,8 @@ export default {
     search(v) {
       console.log(v);
     },
-    test() {
-      this.$refs.newRqGrid.loadData(makeARow(newRqGrid.fields));
-      // this.$refs.detailGrid.loadData(makeARow(nmSrD.fields));
-    },
   },
-  mounted() {
-    this.test();
-  },
+  mounted() {},
 };
 </script>
 <style scoped lang="scss">

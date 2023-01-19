@@ -319,7 +319,6 @@ export default {
             this.cancel();
           });
       }
-      console.log(row, test);
     },
   },
 

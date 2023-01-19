@@ -43,7 +43,6 @@ const popup = {
       state.closable = value.closable;
       state.callback = value.callback;
       state.customApprove = value.customApprove;
-      console.log(value.customApprove);
       state.approveName = value.approveName ? value.approveName : "확인";
     },
     RESET_POPUP(state) {

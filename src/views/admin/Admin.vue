@@ -56,9 +56,12 @@ import _ from "lodash";
 export default {
   watch: {
     tab: function (v) {
-      const ref = this.items[v].key;
       setTimeout(() => {
-        this.$refs[ref][0].loadData();
+        const ref = this.items[v].key;
+        const component = this.$refs[ref][0];
+        if (_.has(component, "loadData")) {
+          component.loadData();
+        }
       }, 100);
     },
   },
