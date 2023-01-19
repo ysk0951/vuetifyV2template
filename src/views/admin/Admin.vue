@@ -109,7 +109,7 @@ export default {
     CodeDetail,
     LangCode,
   },
-  async created() {
+  created() {
     this.SET_MENU();
   },
   methods: {

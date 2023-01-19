@@ -207,8 +207,6 @@ export default {
         price_type: "",
         packing: "",
         delivery_type: "",
-        request_name: "",
-        pick_name: "",
         request_code: "",
         analysis: "",
         etc: "",
@@ -232,11 +230,12 @@ export default {
         const test = { ...this.param, ...row };
         console.log(test);
         updateSample({ ...this.param, ...row })
-          .then((res) => {
-            console.log(res);
+          .then(() => {
             this.openPopup("저장되었습니다", this.cancle());
           })
-          .catch(() => {});
+          .catch((err) => {
+            this.openPopup(err, this.cancle());
+          });
       }
     },
   },

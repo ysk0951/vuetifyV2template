@@ -100,7 +100,6 @@ export default {
         getCodeAll({
           ...this.input,
           currentPage: _.isNumber(v) ? v : 1,
-          pageSize: "3",
         }).then((res) => {
           const response = res.data;
           const items = response.data.items;

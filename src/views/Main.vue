@@ -60,7 +60,7 @@ import SetDialog from "@/components/SetDialog";
 import RealGrid from "@/components/RealGrid.vue";
 import * as newRqGrid from "@/assets/grid/sampleRequest";
 import _ from "lodash";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { makeARow } from "@/assets/grid/gridUtill";
 export default {
   data() {
@@ -103,12 +103,15 @@ export default {
     SetDialog,
     RealGrid,
   },
-  async created() {
+  created() {
     if (!this.accessToken) {
       this.$router.push({ name: "login" });
+    } else {
+      this.SET_MENU();
     }
   },
   methods: {
+    ...mapMutations("menu", ["SET_MENU"]),
     newRq() {
       this.key = "newRq";
     },

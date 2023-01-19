@@ -33,3 +33,11 @@ export async function updateSampleMaster(param) {
 export async function insertSampleMaster(param) {
   return http.post(prefix + `/insertSampleMaster`, param);
 }
+
+export async function sampleRequestandstatus(param) {
+  return http.post(prefix + `/sampleRequestandstatus`, param);
+}
+
+export async function sampleRequestandstatusadmin(param) {
+  return http.post(prefix + `/sampleRequestandstatusadmin`, param);
+}

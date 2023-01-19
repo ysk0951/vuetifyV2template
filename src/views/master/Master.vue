@@ -129,7 +129,7 @@ export default {
     MaterialIndexDetail,
     MaterialIndexAdd,
   },
-  async created() {
+  created() {
     this.SET_MENU();
   },
   watch: {

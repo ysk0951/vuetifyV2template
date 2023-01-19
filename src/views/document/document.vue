@@ -53,7 +53,7 @@ export default {
     COA,
     COADetail,
   },
-  async created() {
+  created() {
     this.SET_MENU();
   },
   methods: {

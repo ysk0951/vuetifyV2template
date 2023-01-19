@@ -11,9 +11,15 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import _ from "lodash";
 import RealGrid from "@/components/RealGrid.vue";
-
+import {
+  columns,
+  fields,
+  rows,
+  height,
+} from "@/assets/grid/searchProcessCustom";
+import { sampleRequestandstatusadmin } from "api/sample/sample";
 export default {
   data() {
     return {
@@ -24,14 +30,28 @@ export default {
         rows,
         height,
       },
+      param: {
+        pageSize: "10",
+      },
     };
   },
   methods: {
-    newSample() {
-      this.$emit("newSample");
-    },
     reset() {},
-    search() {},
+    search(v) {
+      sampleRequestandstatusadmin({
+        ...this.param,
+        currentPage: _.isNumber(v) ? v : 1,
+      }).then((res) => {
+        const response = res.data;
+        const items = response.data.items;
+        const page = response.data.params;
+        this.$refs.grid.setPage(page);
+        this.$refs.grid.loadData(items);
+      });
+    },
+    loadData(v) {
+      this.search(v);
+    },
   },
   components: {
     RealGrid,
