@@ -41,13 +41,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.searchProcess {
-  .v-input__slot {
-    width: 100% !important;
-  }
-  .v-text-field__details {
-    display: none;
-  }
-}
-</style>
+<style lang="scss"></style>

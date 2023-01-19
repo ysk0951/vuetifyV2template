@@ -79,6 +79,8 @@ export default {
     await this.SET_CODE("P");
     await this.SET_CODE("M");
     await this.SET_CODE("L");
+    await this.SET_CODE("N");
+    await this.SET_CODE("O");
   },
   methods: {
     ...mapMutations("select", ["SET_ROLE_TYPE"]),

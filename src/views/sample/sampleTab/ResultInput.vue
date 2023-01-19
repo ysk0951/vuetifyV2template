@@ -2,7 +2,7 @@
   <div>
     <h3 class="mt-4 mb-2">진행사항 조회</h3>
     <hr class="mb-4" />
-    <div class="searchProcess wrapperSpace">
+    <div class="wrapperSpace">
       <v-row class="pl-2">
         <v-col cols="12" sm="3">
           <h4>Code Grade</h4>
@@ -13,11 +13,11 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <h4>Lot Co</h4>
+          <h4>Lot No</h4>
           <v-text-field
             outlined
             dense
-            placeholder="Lot Co를 입력해주세요"
+            placeholder="Lot No를 입력해주세요"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
@@ -74,13 +74,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.searchProcess {
-  .v-input__slot {
-    width: 100% !important;
-  }
-  .v-text-field__details {
-    display: none;
-  }
-}
-</style>
+<style lang="scss"></style>

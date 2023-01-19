@@ -19,7 +19,7 @@ import {
   rows,
   height,
 } from "@/assets/grid/searchProcessCustom";
-import { sampleRequestandstatusadmin } from "api/sample/sample";
+import { sampleRequestandstatus } from "api/sample/sample";
 export default {
   data() {
     return {
@@ -29,6 +29,7 @@ export default {
         fields,
         rows,
         height,
+        hideCheckBar: true,
       },
       param: {
         pageSize: "10",
@@ -38,7 +39,7 @@ export default {
   methods: {
     reset() {},
     search(v) {
-      sampleRequestandstatusadmin({
+      sampleRequestandstatus({
         ...this.param,
         currentPage: _.isNumber(v) ? v : 1,
       }).then((res) => {
@@ -58,13 +59,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.searchProcess {
-  .v-input__slot {
-    width: 100% !important;
-  }
-  .v-text-field__details {
-    display: none;
-  }
-}
-</style>
+<style lang="scss"></style>

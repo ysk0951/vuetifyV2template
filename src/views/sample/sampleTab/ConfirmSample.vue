@@ -6,11 +6,11 @@
       <div class="wrapperSpace py-1">
         <v-row class="pl-2">
           <v-col cols="12" sm="2">
-            <h4>Lot Co</h4>
+            <h4>Lot No</h4>
             <v-text-field
               outlined
               dense
-              placeholder="Lot Co를 입력해주세요"
+              placeholder="Lot No를 입력해주세요"
               v-model="param.lot_no"
               :rules="[this.validSet.commonCodeHipen]"
             ></v-text-field>
@@ -32,7 +32,7 @@
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>
       </v-card-actions>
-      <v-card-actions>
+      <v-card-actions class="px-0">
         <v-btn depressed color="primary" @click="search">검색</v-btn>
       </v-card-actions>
     </div>

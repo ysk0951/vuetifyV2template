@@ -5,11 +5,11 @@
     <div class="confirmSample wrapperSpace">
       <v-row class="pl-2">
         <v-col cols="12" sm="2">
-          <h4>Lot Co</h4>
+          <h4>Lot No</h4>
           <v-text-field
             outlined
             dense
-            placeholder="Lot Co를 입력해주세요"
+            placeholder="Lot No를 입력해주세요"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="2">
