@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="findIdResult">
     <template v-if="setting.isSuccessFindId">
       <span class="infoHeader"
         >회원님의 정보와 일치하는 아이디를 확인해주세요</span
@@ -65,35 +65,37 @@ export default {
 };
 </script>
 <style lang="scss">
-.infoCard {
-  text-align: center;
-  padding: 50px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  width: 80%;
-  margin: auto;
-  margin-top: 50px;
-  box-shadow: none !important;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
+.findIdResult {
+  .infoCard {
+    text-align: center;
+    padding: 50px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 
-.between {
-  justify-content: space-between;
-}
+  .between {
+    justify-content: space-between;
+  }
 
-.infoHeader {
-  display: inline-block;
-  margin-top: 30px;
-}
+  .infoHeader {
+    display: inline-block;
+    margin-top: 30px;
+  }
 
-.v-input--selection-controls {
-  margin-top: 0px;
-  padding-top: 0px;
-}
+  .v-input--selection-controls {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
 
-.v-btn {
-  width: 110px;
+  .v-btn {
+    width: 110px;
+  }
 }
 </style>

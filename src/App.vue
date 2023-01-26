@@ -9,7 +9,7 @@
           @click="home"
         />
         <template v-if="accessToken">
-          <div v-for="(item, idx) in menu" v-bind:key="idx">
+          <div v-for="(item, idx) in menu" v-bind:key="idx" class="menu">
             <v-btn depressed @click="routing(item)">
               {{ item.menu }}
             </v-btn>
@@ -65,11 +65,6 @@ export default {
     dom1: "realgrid1",
     dom2: "realgrid2",
   }),
-  watch: {
-    locale: function (v) {
-      this.SET_LOCALE(v);
-    },
-  },
   components: {},
   async created() {
     await this.SET_ROLE_TYPE();
@@ -92,7 +87,7 @@ export default {
       this.$router.push(v.url);
     },
     changeLang(v) {
-      this.locale = v;
+      this.SET_LOCALE(v);
     },
     account() {
       if (this.accessToken) {
@@ -108,7 +103,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 .ci {
   height: 40px;
   cursor: pointer;
@@ -155,6 +150,9 @@ export default {
 }
 .menu {
   height: 48px !important;
+  .v-btn {
+    height: 100% !important;
+  }
 }
 div.v-menu__content.theme--light.menuable__content__active > div {
   padding: 0px;
