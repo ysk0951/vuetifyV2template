@@ -2,6 +2,17 @@
   <div>
     <SetDialogVue ref="add">
       <!-- <AddGroup /> -->
+      <div class="wrapper menuAdd">
+        <v-text-field
+          :width="'300px'"
+          outlined
+          dense
+          placeholder="추가할 그룹명을 입력해주세요"
+          class="menuColText"
+          v-model="addGroupName"
+          :rules="[this.validSet.empty]"
+        ></v-text-field>
+      </div>
     </SetDialogVue>
     <SetPopupVue ref="addConfirm" />
     <h3 class="mt-4 mb-2">메뉴 권한 관리</h3>
@@ -104,6 +115,7 @@ export default {
       settings: { columns, fields, rows, height },
       checkBox: {},
       originCode: {},
+      addGroupName: "",
     };
   },
   mounted() {
@@ -164,42 +176,41 @@ export default {
         {}
       );
     },
-    search() {
+    addGroup() {
       this.SET_MODAL({
-        height: 600,
-        width: 750,
+        height: 150,
+        width: 300,
         closable: true,
       });
-      this.$refs.add.openModal();
-    },
-    addGroup() {
-      const roles = _.keys(this.checkBox)
-        .filter((v) => this.checkBox[v])
-        .join(",");
-      const param = {
-        roleName: this.curBtnValue,
-        roles,
-      };
-      const idx = _.findIndex(this.roleSet, (o) => {
-        return o.roleName === this.curBtnValue;
-      });
-      if (idx > -1) {
-        this.setModal("동일한 이름의 그룹이 존재합니다");
-      } else {
-        this.setModal("그룹 추가하시겠습니까?", true, () => {
-          insertRole(param)
-            .then(() => {
-              this.setModal("그룹 추가되었습니다", true, async () => {
-                await this.SET_ROLE_TYPE();
-              });
-            })
-            .catch((err) => {
-              this.setModal(err, true, () => {
-                this.loadData();
-              });
-            });
+      this.$refs.add.openModal(() => {
+        const idx = _.findIndex(this.roleSet, (o) => {
+          return o.roleName === this.addGroupName;
         });
-      }
+        if (idx > -1) {
+          this.setModal("동일한 이름의 그룹이 존재합니다");
+        } else {
+          const param = {
+            roleName: this.addGroupName,
+            roles: [],
+          };
+          this.setModal("그룹 추가하시겠습니까?", true, () => {
+            insertRole(param)
+              .then(() => {
+                this.setModal("그룹 추가되었습니다", true, async () => {
+                  await this.SET_ROLE_TYPE();
+                });
+              })
+              .catch((err) => {
+                this.setModal(err, true, () => {
+                  this.loadData();
+                });
+              })
+              .finally(() => {
+                this.addGroupName = "";
+              });
+          });
+        }
+      });
     },
     delGroup() {
       const roles = this.curBtnValue;
@@ -282,5 +293,11 @@ export default {
 .fix {
   background-color: rgba(0, 0, 0, 0.3) !important;
   color: white;
+}
+.menuAdd {
+  width: 80%;
+  margin: auto;
+  height: 120%;
+  align-items: center;
 }
 </style>
