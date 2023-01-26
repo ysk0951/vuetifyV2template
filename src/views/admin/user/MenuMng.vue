@@ -186,7 +186,9 @@ export default {
         const idx = _.findIndex(this.roleSet, (o) => {
           return o.roleName === this.addGroupName;
         });
-        if (idx > -1) {
+        if (this.addGroupName.length === 0) {
+          this.setModal("그룹명이 비었습니다");
+        } else if (idx > -1) {
           this.setModal("동일한 이름의 그룹이 존재합니다");
         } else {
           const param = {
