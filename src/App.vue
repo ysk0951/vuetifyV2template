@@ -127,7 +127,9 @@ export default {
 .wrapperFlex {
   display: flex;
 }
-
+.flexCol {
+  flex-direction: column;
+}
 .langBox {
   width: 80px;
   justify-content: end;

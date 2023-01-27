@@ -75,7 +75,7 @@ export default {
       tab: this.propsTab,
       items: [
         { key: "id", value: "아이디 찾기" },
-        { key: "pw", value: "패스워드 찾기" },
+        { key: "pw", value: "비밀번호 찾기" },
       ],
       //find ret
       isApproved: false,

@@ -113,9 +113,11 @@ router.beforeEach((to, from, next) => {
 //NavigationDuplicated Error ignore
 const originPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-  return originPush.call(this, location).catch((err) => {
-    if (err.name !== "NavigationDuplicated") throw err;
-  });
+  if (location) {
+    return originPush.call(this, location).catch((err) => {
+      if (err.name !== "NavigationDuplicated") throw err;
+    });
+  }
 };
 
 export default router;

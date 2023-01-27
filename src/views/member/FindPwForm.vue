@@ -4,68 +4,70 @@
     <span class="infoHeader pwHeader">
       비밀번호를 찾고자 하는 이메일 주소를 입력해주세요</span
     >
-    <v-form ref="pwFind" lazy-validation>
-      <div class="wrapper findPw">
-        <div style="position: relative; width: 80%">
-          <div class="wrapperFlex" style="margin-bottom: 20px">
-            <v-radio-group v-model="check">
-              <v-radio :key="1" :value="check"></v-radio>
-            </v-radio-group>
-            <div>본인확인 이메일 인증</div>
+    <div class="wrapperSpace flexCol" style="height: 330px">
+      <v-form ref="pwFind" lazy-validation>
+        <div class="wrapper findPw">
+          <div style="position: relative; width: 80%">
+            <div class="wrapperFlex" style="margin-bottom: 20px">
+              <v-radio-group v-model="check">
+                <v-radio :key="1" :value="check"></v-radio>
+              </v-radio-group>
+              <div>본인확인 이메일 인증</div>
+            </div>
+            <span class="guide">
+              본인확인 이메일 주소와 입력한 이메일 주소가 일치해야 인증번호를
+              받을 수 있습니다.
+            </span>
+            <v-row>
+              <v-col cols="12" sm="3" class="pb-0 pt-0">
+                <v-subheader>이름</v-subheader>
+              </v-col>
+              <v-col cols="12" sm="6" class="pb-0 pt-0">
+                <v-text-field
+                  placeholder="이름을 입력해주요"
+                  v-model="param.memberName"
+                  :rules="[this.validSet.empty]"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row style="position: relative">
+              <v-col cols="12" sm="3" class="pb-0 pt-0">
+                <v-subheader>이메일 주소</v-subheader>
+              </v-col>
+              <v-col cols="12" sm="6" class="pb-0 pt-0">
+                <v-text-field
+                  placeholder="이메일 주소를 입력해주요"
+                  v-model="param.memberId"
+                  :rules="[this.validSet.empty, this.validSet.email]"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="2" class="pb-0 pt-0">
+                <v-btn depressed color="primary" @click="certificate">{{
+                  this.isSend ? "재발송" : "인증번호 받기"
+                }}</v-btn>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="3" class="pb-0 pt-0">
+                <v-subheader>인증 번호</v-subheader>
+              </v-col>
+              <v-col cols="12" sm="6" class="pb-0 pt-0">
+                <v-text-field
+                  placeholder="인증번호를 입력해주요"
+                  v-model="param.certifiCode"
+                  :rules="[this.validSet.empty]"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="3" class="pb-0 pt-0">
+                <v-btn depressed color="primary" @click="checkCode"
+                  >인증번호 확인</v-btn
+                >
+              </v-col>
+            </v-row>
           </div>
-          <span class="guide">
-            본인확인 이메일 주소와 입력한 이메일 주소가 일치해야 인증번호를 받을
-            수 있습니다.
-          </span>
-          <v-row>
-            <v-col cols="12" sm="3" class="pb-0 pt-0">
-              <v-subheader>이름</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="6" class="pb-0 pt-0">
-              <v-text-field
-                placeholder="이름을 입력해주요"
-                v-model="param.memberName"
-                :rules="[this.validSet.empty]"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row style="position: relative">
-            <v-col cols="12" sm="3" class="pb-0 pt-0">
-              <v-subheader>이메일 주소</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="6" class="pb-0 pt-0">
-              <v-text-field
-                placeholder="이메일 주소를 입력해주요"
-                v-model="param.memberId"
-                :rules="[this.validSet.empty, this.validSet.email]"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="2" class="pb-0 pt-0">
-              <v-btn depressed color="primary" @click="certificate">{{
-                this.isSend ? "재발송" : "인증번호 받기"
-              }}</v-btn>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" sm="3" class="pb-0 pt-0">
-              <v-subheader>인증 번호</v-subheader>
-            </v-col>
-            <v-col cols="12" sm="6" class="pb-0 pt-0">
-              <v-text-field
-                placeholder="인증번호를 입력해주요"
-                v-model="param.certifiCode"
-                :rules="[this.validSet.empty]"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="3" class="pb-0 pt-0">
-              <v-btn depressed color="primary" @click="checkCode"
-                >인증번호 확인</v-btn
-              >
-            </v-col>
-          </v-row>
         </div>
-      </div>
-      <div class="wrapper" style="margin-top: 116px">
+      </v-form>
+      <div class="wrapper">
         <v-card-actions>
           <v-btn depressed @click="closeModal">취소</v-btn>
         </v-card-actions>
@@ -73,7 +75,7 @@
           <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
         </v-card-actions>
       </div>
-    </v-form>
+    </div>
   </div>
 </template>
 <script>

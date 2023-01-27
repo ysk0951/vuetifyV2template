@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="wrapperSpace flexCol" style="height: 450px">
     <v-form ref="idFind" lazy-validation>
-      <v-layout row style="margin-top: 18px; height: 70px">
+      <v-layout row style="margin-top: 18px; height: 60px">
         <v-col cols="12" sm="3">
           <v-subheader>이름</v-subheader>
         </v-col>
@@ -41,7 +41,7 @@
         </v-col>
       </v-row>
     </v-form>
-    <div class="wrapper" style="margin-top: 215px">
+    <div class="wrapper">
       <v-card-actions>
         <v-btn depressed @click="closeModal">취소</v-btn>
       </v-card-actions>
