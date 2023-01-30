@@ -42,9 +42,13 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="2" class="pb-0 pt-0">
-                <v-btn depressed color="primary" @click="certificate">{{
-                  this.isSend ? "재발송" : "인증번호 받기"
-                }}</v-btn>
+                <v-btn
+                  depressed
+                  color="primary"
+                  @click="certificate"
+                  style="width: 126px"
+                  >{{ this.isSend ? "재발송" : "인증번호 받기" }}</v-btn
+                >
               </v-col>
             </v-row>
             <v-row>

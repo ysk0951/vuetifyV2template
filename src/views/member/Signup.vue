@@ -20,10 +20,8 @@
           <h3 style="text-align: left" class="mb-3">회원가입</h3>
           <hr class="mb-6" />
           <v-form ref="signup" lazy-validation>
-            <h4 style="text-align: left" class="mb-3">
-              회원가입 약관동의 (필수)
-            </h4>
-            <div class="wrapperSpace signUpAgree mb-3">
+            <h4 style="text-align: left">회원가입 약관동의 (필수)</h4>
+            <div class="wrapperSpace signUpAgree">
               <div>
                 <v-checkbox
                   v-model="agree.service"

@@ -52,6 +52,9 @@
           <template v-if="item.key === 'qulityTestInput'">
             <QulityTestInput ref="qulityTestInput" />
           </template>
+          <template v-if="item.key === 'report'">
+            <Report ref="report" />
+          </template>
         </v-tab-item>
       </v-tabs-items>
     </div>
@@ -70,6 +73,7 @@ import DeliveryReport from "@/views/sample/sampleTab/DeliveryReport";
 import DeliveryReportDetail from "@/views/sample/sampleTab/DeliveryReportDetail";
 import ResultInput from "@/views/sample/sampleTab/ResultInput";
 import QulityTestInput from "@/views/sample/sampleTab/QulityTestInput";
+import Report from "@/views/sample/sampleTab/Report.vue";
 import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 export default {
@@ -114,6 +118,10 @@ export default {
           key: "qulityTestInput",
           value: "품질검사 결과 입력",
         },
+        {
+          key: "report",
+          value: "제조 기록지",
+        },
       ],
     };
   },
@@ -146,6 +154,7 @@ export default {
     DeliveryReportDetail,
     ResultInput,
     QulityTestInput,
+    Report,
   },
   created() {
     this.SET_MENU();
