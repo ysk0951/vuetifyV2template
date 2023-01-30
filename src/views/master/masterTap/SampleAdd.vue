@@ -3,33 +3,36 @@
     <h3 class="mt-4 mb-2">샘플 마스터 등록</h3>
     <hr class="mb-4" />
     <SetPopup ref="confirm" />
-    <div class="confirmSample wrapperSpace">
-      <v-col cols="12" sm="4">
-        <h4>마스터 복사</h4>
-        <div class="wrapper">
-          <v-text-field
-            v-model="input.code_grade"
-            outlined
-            dense
-            placeholder="Code Grade를 입력해주세요"
-          ></v-text-field>
-          <v-btn
-            style="height: 40px"
-            depressed
-            color="primary"
-            class="ml-2"
-            @click="search"
-            >불러오기</v-btn
-          >
-        </div>
-      </v-col>
-    </div>
+    <v-form lazy-validation ref="form">
+      <div class="wrapperSpace">
+        <v-col cols="12" sm="4">
+          <h4>마스터 복사</h4>
+          <div class="wrapper">
+            <v-text-field
+              v-model="input.code_grade"
+              outlined
+              dense
+              placeholder="Code Grade를 입력해주세요"
+              :rules="[this.validSet.empty]"
+            ></v-text-field>
+            <v-btn
+              style="height: 40px"
+              depressed
+              color="primary"
+              class="ml-2"
+              @click="search"
+              >불러오기</v-btn
+            >
+          </div>
+        </v-col>
+      </div>
+    </v-form>
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">기본 정보</div>
     </h3>
     <hr class="mb-4" />
-    <v-row>
-      <v-col cols="12" sm="12">
+    <v-row class="pl-3">
+      <v-col cols="12" sm="4">
         <h4>품명</h4>
         <div class="wrapper">
           <v-text-field
@@ -106,9 +109,11 @@ import * as sampleSum from "@/assets/grid/sampleRequestSum";
 import * as spec from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations } from "vuex";
+import validSet from "@/assets/valid";
 export default {
   data() {
     return {
+      validSet,
       input: {
         code_grade: "",
       },
@@ -159,6 +164,9 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
+    valid() {
+      return this.$refs.form.validate();
+    },
     openPopup(text, closable, cb) {
       this.SET_POPUP({
         title: "알림",
@@ -179,25 +187,27 @@ export default {
       this.$refs.spec_grid.loadData(spec.initRow);
     },
     search() {
-      sampleMasterDetail(this.input.code_grade)
-        .then((res) => {
-          const code = this.input.code_grade;
-          const response = res.data.data;
-          const CodeDB = response.CodeDB;
-          const CodeDB_A = response.CodeDB_A;
-          const CodeDB_B = response.CodeDB_B;
-          const CodeDB_Dt = response.CodeDB_Dt;
-          this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
-          this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
-          this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
-          this.$refs.spec_grid.loadData([
-            { data: showSampleSet(CodeDB_Dt), code },
-          ]);
-          this.param.code_grade = code;
-        })
-        .catch((res) => {
-          console.error(res);
-        });
+      if (this.valid()) {
+        sampleMasterDetail(this.input.code_grade)
+          .then((res) => {
+            const code = this.input.code_grade;
+            const response = res.data.data;
+            const CodeDB = response.CodeDB;
+            const CodeDB_A = response.CodeDB_A;
+            const CodeDB_B = response.CodeDB_B;
+            const CodeDB_Dt = response.CodeDB_Dt;
+            this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
+            this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
+            this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
+            this.$refs.spec_grid.loadData([
+              { data: showSampleSet(CodeDB_Dt), code },
+            ]);
+            this.param.code_grade = code;
+          })
+          .catch((res) => {
+            console.error(res);
+          });
+      }
     },
     reset() {
       this.param = {
