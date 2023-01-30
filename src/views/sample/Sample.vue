@@ -53,7 +53,10 @@
             <QulityTestInput ref="qulityTestInput" />
           </template>
           <template v-if="item.key === 'report'">
-            <Report ref="report" />
+            <Report ref="report" @reportDetail="reportDetail" />
+          </template>
+          <template v-if="item.key === 'reportDetail'">
+            <ReportDetail ref="reportDetail" :data="reportDetailData" />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -74,6 +77,7 @@ import DeliveryReportDetail from "@/views/sample/sampleTab/DeliveryReportDetail"
 import ResultInput from "@/views/sample/sampleTab/ResultInput";
 import QulityTestInput from "@/views/sample/sampleTab/QulityTestInput";
 import Report from "@/views/sample/sampleTab/Report.vue";
+import ReportDetail from "@/views/sample/sampleTab/ReportDetail.vue";
 import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 export default {
@@ -81,6 +85,7 @@ export default {
     return {
       tab: 0,
       sampleRequestDetailData: {},
+      reportDetailData: {},
       items: [
         {
           key: "userSample",
@@ -122,6 +127,10 @@ export default {
           key: "report",
           value: "제조 기록지",
         },
+        {
+          key: "reportDetail",
+          value: "제조 기록지 상세",
+        },
       ],
     };
   },
@@ -155,6 +164,7 @@ export default {
     ResultInput,
     QulityTestInput,
     Report,
+    ReportDetail,
   },
   created() {
     this.SET_MENU();
@@ -190,6 +200,15 @@ export default {
         "sampleRequestDetail",
         "샘플 요청상세",
         "sampleRequestDetailData",
+        true,
+        data
+      );
+    },
+    reportDetail(data) {
+      this.findTab(
+        "reportDetail",
+        "제조 기록지 상세",
+        "reportDetailData",
         true,
         data
       );

@@ -1,40 +1,7 @@
 <template>
-  <div>
-    <h3 class="mt-4 mb-2">납품 일보</h3>
+  <div class="deliveryReportDetail">
+    <h3 class="mt-4 mb-2">납품일보 상세</h3>
     <hr class="mb-4" />
-    <div class="confirmSample wrapperSpace">
-      <v-row class="pl-2">
-        <v-col cols="12" sm="2">
-          <h4>Lot No</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="Lot No를 입력해주세요"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="2">
-          <h4>요청자</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="요청자를 입력해주세요"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </div>
-    <div class="wrapperEnd">
-      <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="search">검색</v-btn>
-      </v-card-actions>
-    </div>
-    <div class="wrapperSpace">
-      <div>
-        <h4 class="mt-4 mb-2">목록</h4>
-      </div>
-    </div>
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
     <h3 class="mt-4 mb-2">추가 정보</h3>
     <hr class="mb-4" />
@@ -59,63 +26,112 @@
     <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>영업분류</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="영업분류를 입력해 주세요"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>요청일</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field outlined dense placeholder="YYYY-MM-DD"></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>요청자</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="요청자를 입력해주세요"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="3">
+        <h4>요청 업체명</h4>
+        <v-text-field
+          outlined
+          dense
+          placeholder="요청업체명을 입력해주세요"
+          class="pr-2"
+        ></v-text-field>
       </v-col>
     </v-row>
     <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
-        <h4>요청 업체명</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="3">
         <h4>제조 예정일</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="제조 예정일을 선택해주세요"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>제조 진행사항</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="제조 진행사항을 선택해 주세요"
+        ></v-text-field>
       </v-col>
-    </v-row>
-    <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>출하 진행 사항</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="출하진행사항을 선택해 주세요"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>출하 예정일</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <h4>납기 예정일</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="출하 예정일을 선택해 주세요"
+          class="pr-2"
+        ></v-text-field>
       </v-col>
     </v-row>
     <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
+        <h4>납기 예정일</h4>
+        <v-text-field
+          outlined
+          dense
+          placeholder="납기일을 선택해 주세요"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="12" sm="3">
         <h4>납기일</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="출하진행사항을 선택해 주세요"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>수령처</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="수령처를 입력해주세요"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>유/무상</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-select
+          :items="code.P"
+          v-model="param.price_type"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+          style="width: 100%"
+          class="pr-2"
+        ></v-select>
       </v-col>
     </v-row>
     <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>Qty(kg)</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field outlined dense placeholder="(kg)"></v-text-field>
       </v-col>
     </v-row>
     <div class="wrapper">
@@ -130,6 +146,7 @@
 </template>
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import { mapState } from "vuex";
 import RealGrid from "@/components/RealGrid.vue";
 
 export default {
@@ -161,9 +178,18 @@ export default {
     cancle() {},
     save() {},
   },
+  computed: {
+    ...mapState("common", ["code"]),
+  },
   components: {
     RealGrid,
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.deliveryReportDetail {
+  .v-input__slot {
+    width: 100%;
+  }
+}
+</style>
