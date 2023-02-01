@@ -1,6 +1,6 @@
 <template>
   <div class="materialIndexAdd">
-    <h3 class="mt-4 mb-2">물질명 인덱스</h3>
+    <h3 class="mt-4 mb-2">물질명 인덱스 등록</h3>
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
       <v-row v-for="idx in row" :key="idx" class="px-2">
@@ -77,8 +77,8 @@ export default {
                 this.setData();
               });
             })
-            .catch((res) => {
-              this.openPopup(res, false);
+            .catch(() => {
+              this.openPopup("관리자에게 문의하세요", false);
             });
         });
       }
