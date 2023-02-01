@@ -45,7 +45,11 @@
       </v-col>
     </v-row>
     <h3 class="mt-4 mb-2 pl-1 pr-1">
-      <div class="wrapperSpace">조성</div>
+      <div class="wrapperSpace">
+        조성<v-btn depressed color="primary" @click="addSpec"
+          >세부스펙 반영</v-btn
+        >
+      </div>
     </h3>
     <hr class="mb-4" />
     <RealGrid
@@ -179,6 +183,29 @@ export default {
     },
     newSample() {
       this.$emit("newSample");
+    },
+    addSpec() {
+      const row = this.$refs.sample_grid.getJsonRow();
+      const specBefore = this.$refs.spec_grid.getJsonRows();
+      const key = _.keys(row);
+      const rowtmp = makeARow(spec.fields)[0];
+      console.log(rowtmp);
+      const rowArr = [];
+      let dan = "";
+      _.each(key, (v) => {
+        if (!v.includes("Vol")) {
+          if (v.includes("solvent")) {
+            dan = "vol";
+          } else if (v.includes("salt")) {
+            dan = "M.wt%";
+          } else if (v.includes("add")) {
+            dan = "wt%";
+          }
+          const name = row[v];
+          if (!_.isEmpty(name)) rowArr.push({ ...rowtmp, name, dan });
+        }
+      });
+      this.$refs.spec_grid.loadData(rowArr.concat(specBefore));
     },
     setGrid() {
       this.$refs.sample_grid.loadData(makeARow(sample.fields));

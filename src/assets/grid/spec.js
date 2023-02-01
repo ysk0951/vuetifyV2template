@@ -11,7 +11,7 @@ const data = [
     indexExclusive: true,
   },
   {
-    field: "unit",
+    field: "dan",
     alias: "단위",
     indexExclusive: true,
   },
@@ -54,4 +54,5 @@ _.each(APHA, function (name) {
 _.each(g_cm3, function (name) {
   initRow.push({ ...row, name, dan: "g/cm3" });
 });
+console.log(initRow);
 export { fields, columns, rowSet, initRow };

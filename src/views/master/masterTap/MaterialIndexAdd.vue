@@ -3,7 +3,7 @@
     <h3 class="mt-4 mb-2">물질명 인덱스</h3>
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
-      <v-row v-for="idx in row" :key="idx">
+      <v-row v-for="idx in row" :key="idx" class="px-2">
         <v-col cols="12" sm="4" v-for="i in col" :key="i">
           <template v-if="item(idx, i)">
             <h4>{{ item(idx, i) }}</h4>

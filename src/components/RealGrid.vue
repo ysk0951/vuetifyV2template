@@ -58,6 +58,9 @@ export default {
       //   this.gv.refresh(true);
       // }, 10);
     },
+    getJsonRows: function () {
+      return this.dp.getJsonRows(0, -1);
+    },
     getRow: function () {
       return this.dp.getRows(0, -1);
     },
