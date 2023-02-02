@@ -141,6 +141,7 @@
               dense
               placeholder="00:00"
               v-model="param.qty"
+              :rules="[this.validSet.empty]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -198,21 +199,15 @@
 import { getSample } from "api/file";
 import { insertSample } from "api/sample/sample";
 import { userInfo } from "api/member/member";
-import {
-  columns,
-  fields,
-  rows,
-  height,
-  rowSet,
-} from "@/assets/grid/sampleRequest";
+import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import Address from "@/components/Address.vue";
 import validSet from "@/assets/valid";
-import { mapMutations, mapState } from "vuex";
 import * as XLSX from "xlsx";
 import _ from "lodash";
-
+import { mapMutations, mapState } from "vuex";
+import { filterExel } from "@/assets/grid/gridUtill";
 export default {
   watch: {
     "param.same": function (v) {
@@ -344,9 +339,7 @@ export default {
     makeRowForm(rows) {
       let rowsForGrid = [];
       _.forEach(rows, (row) => {
-        _.forEach(rowSet, (o) => {
-          row[o.key] = row[o.value];
-        });
+        row = filterExel(row);
         rowsForGrid.push(row);
       });
       return rowsForGrid;
@@ -432,5 +425,10 @@ export default {
 }
 .address .row {
   height: 100px;
+}
+.v-input--checkbox {
+  .v-input__slot {
+    top: -21px;
+  }
 }
 </style>

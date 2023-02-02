@@ -99,7 +99,7 @@
             ></v-select>
           </v-col>
         </v-row>
-        <h4>배송지 선택</h4>
+        <h4 class="mb-3">배송지 선택</h4>
         <v-row style="height: 63px" class="px-2">
           <v-col cols="12" sm="6">
             <div class="wrapper address">
@@ -202,13 +202,7 @@
 <script>
 import { getSample } from "api/file";
 import validSet from "@/assets/valid";
-import {
-  columns,
-  fields,
-  rows,
-  height,
-  rowSet,
-} from "@/assets/grid/sampleRequest";
+import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import Address from "@/components/Address.vue";
@@ -216,6 +210,7 @@ import { mapMutations, mapState } from "vuex";
 import * as XLSX from "xlsx";
 import _ from "lodash";
 import { insertSample } from "api/sample/sample";
+import { filterExel } from "@/assets/grid/gridUtill";
 
 export default {
   watch: {
@@ -345,9 +340,7 @@ export default {
     makeRowForm(rows) {
       let rowsForGrid = [];
       _.forEach(rows, (row) => {
-        _.forEach(rowSet, (o) => {
-          row[o.key] = row[o.value];
-        });
+        row = filterExel(row);
         rowsForGrid.push(row);
       });
       return rowsForGrid;

@@ -112,10 +112,6 @@ export default {
           value: "납품 일보",
         },
         {
-          key: "delivaryReportDetail",
-          value: "납품 일보상세",
-        },
-        {
           key: "resultInput",
           value: "결과 입력",
         },
@@ -126,10 +122,6 @@ export default {
         {
           key: "report",
           value: "제조 기록지",
-        },
-        {
-          key: "reportDetail",
-          value: "제조 기록지 상세",
         },
       ],
     };
