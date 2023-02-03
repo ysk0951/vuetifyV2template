@@ -2,6 +2,7 @@
   <div class="deliveryReportDetail">
     <h3 class="mt-4 mb-2">납품일보 상세</h3>
     <hr class="mb-4" />
+    <CodeSearch ref="code" />
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
     <h3 class="mt-4 mb-2">추가 정보</h3>
     <hr class="mb-4" />
@@ -148,6 +149,7 @@
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import { mapState } from "vuex";
 import RealGrid from "@/components/RealGrid.vue";
+import CodeSearch from "@/components/CodeSearch.vue";
 
 export default {
   data() {
@@ -173,7 +175,9 @@ export default {
     },
     search() {},
     reset() {},
-    read() {},
+    read() {
+      this.$refs.code.open();
+    },
     select() {},
     cancle() {},
     save() {},
@@ -183,6 +187,7 @@ export default {
   },
   components: {
     RealGrid,
+    CodeSearch,
   },
 };
 </script>
