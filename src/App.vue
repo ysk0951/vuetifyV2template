@@ -10,9 +10,32 @@
         />
         <template v-if="accessToken">
           <div v-for="(item, idx) in menu" v-bind:key="idx" class="menu">
-            <v-btn depressed @click="routing(item)">
+            <div class="text-center">
+              <v-menu open-on-hover bottom offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    depressed
+                    v-bind="attrs"
+                    v-on="on"
+                    style="height: 48px"
+                  >
+                    {{ item.menu }}
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item v-for="(it, idx) in item.subMenu" :key="idx">
+                    <v-list-item-title
+                      @click="routing(it, item.url)"
+                      style="cursor: pointer"
+                      >{{ it.menu }}</v-list-item-title
+                    >
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+            <!-- <v-btn depressed @click="routing(item)">
               {{ item.menu }}
-            </v-btn>
+            </v-btn> -->
           </div>
         </template>
         <div class="langBoxWrapper">
@@ -83,8 +106,8 @@ export default {
     ...mapMutations("common", ["SET_CODE"]),
     ...mapMutations("member", ["SET_TOKEN"]),
     ...mapMutations("locale", ["SET_LOCALE"]),
-    routing(v) {
-      this.$router.push(v.url);
+    routing(v, url) {
+      this.$router.push(`${url}?menu=${v.menu_eng}`);
     },
     changeLang(v) {
       this.SET_LOCALE(v);
@@ -152,9 +175,6 @@ export default {
 }
 .menu {
   height: 48px !important;
-  .v-btn {
-    height: 100% !important;
-  }
 }
 div.v-menu__content.theme--light.menuable__content__active > div {
   padding: 0px;

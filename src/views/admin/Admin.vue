@@ -2,7 +2,7 @@
   <v-container fill-height fluid class="mt-4">
     <SetDialog ref="modal" />
     <div class="pa-10 full">
-      <v-tabs v-model="tab">
+      <!-- <v-tabs v-model="tab">
         <v-tab v-for="(item, index) in items" :key="item.key">
           {{ item.value }}
           <v-btn
@@ -13,28 +13,28 @@
             ><v-icon x-small>mdi-close</v-icon></v-btn
           >
         </v-tab>
-      </v-tabs>
+      </v-tabs> -->
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
-          <template v-if="item.key === 'id'">
-            <Accont ref="id" />
+          <template v-if="item.code === 'IDMGMT'">
+            <Accont ref="IDMGMT" />
           </template>
-          <template v-if="item.key === 'pw'">
-            <AccontPw ref="pw" />
+          <template v-if="item.code === 'PWMGMT'">
+            <AccontPw ref="PWMGMT" />
           </template>
-          <template v-if="item.key === 'login'">
+          <template v-if="item.code === 'login'">
             <LoginMgn ref="login" />
           </template>
-          <template v-if="item.key === 'menu'">
+          <template v-if="item.code === 'menu'">
             <MenuMgn ref="menu" />
           </template>
-          <template v-if="item.key === 'code'">
+          <template v-if="item.code === 'code'">
             <CodeMgn @dbClick="codeDetail" ref="code" />
           </template>
-          <template v-if="item.key === 'codeDetail'">
+          <template v-if="item.code === 'codeDetail'">
             <CodeDetail :data="codeDetailData" ref="codeDetail" />
           </template>
-          <template v-if="item.key === 'lang'">
+          <template v-if="item.code === 'lang'">
             <LangCode ref="lang" />
           </template>
         </v-tab-item>
@@ -55,46 +55,17 @@ import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 export default {
   watch: {
-    tab: function (v) {
-      setTimeout(() => {
-        const ref = this.items[v].key;
-        const component = this.$refs[ref][0];
-        if (_.has(component, "loadData")) {
-          component.loadData();
-        }
-      }, 100);
+    $route(to, from) {
+      if (to.fullPath != from.fullPath) {
+        this.setTab();
+      }
     },
   },
   data() {
     return {
       tab: 0,
       codeDetailData: {},
-      items: [
-        {
-          key: "id",
-          value: "아이디 관리",
-        },
-        {
-          key: "pw",
-          value: "비밀번호 관리",
-        },
-        {
-          key: "login",
-          value: "로그인 관리",
-        },
-        {
-          key: "menu",
-          value: "메뉴권한 관리",
-        },
-        {
-          key: "code",
-          value: "공통코드 관리",
-        },
-        {
-          key: "lang",
-          value: "다국어 지원관리",
-        },
-      ],
+      items: [],
     };
   },
   computed: {
@@ -114,12 +85,29 @@ export default {
   },
   created() {
     this.SET_MENU();
+    this.setTab();
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
-    removeTab(index) {
-      this.items.splice(index, 1);
-      this.tab = 0;
+    setTab() {
+      const menu = this.$route.query.menu;
+      this.items = this.getTab(menu);
+      const ref = _.reduce(
+        this.items,
+        (a, c) => {
+          if ((c.menu_eng = menu)) {
+            a = c.code;
+          }
+          return a;
+        },
+        ""
+      );
+      setTimeout(() => {
+        const component = this.$refs[ref][0];
+        if (_.has(component, "loadData")) {
+          component.loadData();
+        }
+      }, 100);
     },
     findTab(key, value, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {

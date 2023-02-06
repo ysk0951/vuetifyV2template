@@ -52,6 +52,7 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: Admin,
+    props: true,
   },
   {
     path: "/admin/addGroup",
@@ -62,11 +63,13 @@ const routes = [
     path: "/sample",
     name: "sample",
     component: Sample,
+    props: true,
   },
   {
     path: "/master",
     name: "master",
     component: Master,
+    props: true,
   },
   {
     path: "/document",
