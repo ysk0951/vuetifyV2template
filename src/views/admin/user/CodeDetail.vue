@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">공통코드 상세</h3>
-    <hr class="mb-4" />
     <div>
       <div class="filter">
         <v-row class="row">
@@ -73,7 +71,9 @@ export default {
     };
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    this.loadData();
+  },
   methods: {
     ...mapMutations("common", ["SET_CODE"]),
     async loadData() {

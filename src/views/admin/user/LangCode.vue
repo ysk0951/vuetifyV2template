@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">다국어 지원 관리</h3>
-    <hr class="mb-4" />
     <div class="service login">
       <SetPopup ref="confirm" />
       <RealGrid

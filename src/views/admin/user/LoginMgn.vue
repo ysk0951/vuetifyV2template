@@ -3,8 +3,6 @@
     <SetDialog ref="add">
       <AddAcount @close="close" @save="save" />
     </SetDialog>
-    <h3 class="mt-4 mb-2">로그인 관리</h3>
-    <hr class="mb-4" />
     <div class="service login">
       <v-form ref="form" lazy-validation>
         <div class="filter">

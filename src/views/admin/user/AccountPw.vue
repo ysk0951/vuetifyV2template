@@ -2,8 +2,6 @@
   <div>
     <SetPopup ref="pwPopup" />
     <SetPopup ref="pwConfirm" />
-    <h3 class="mt-4 mb-2">비밀번호 관리</h3>
-    <hr class="mb-4" />
     <div class="service">
       <v-form ref="form" lazy-validation>
         <div class="filter mb-3">

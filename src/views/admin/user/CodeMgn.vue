@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">공통코드 관리</h3>
-    <hr class="mb-4" />
     <v-form ref="form" lazy-validation>
       <div class="service login">
         <div class="filter">

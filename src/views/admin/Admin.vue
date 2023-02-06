@@ -2,9 +2,9 @@
   <v-container fill-height fluid class="mt-4">
     <SetDialog ref="modal" />
     <div class="pa-10 full">
-      <!-- <v-tabs v-model="tab">
+      <v-tabs v-model="tab">
         <v-tab v-for="(item, index) in items" :key="item.key">
-          {{ item.value }}
+          {{ item.menu }}
           <v-btn
             icon
             @click="removeTab(index)"
@@ -13,7 +13,7 @@
             ><v-icon x-small>mdi-close</v-icon></v-btn
           >
         </v-tab>
-      </v-tabs> -->
+      </v-tabs>
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
           <template v-if="item.code === 'IDMGMT'">
@@ -22,20 +22,20 @@
           <template v-if="item.code === 'PWMGMT'">
             <AccontPw ref="PWMGMT" />
           </template>
-          <template v-if="item.code === 'login'">
-            <LoginMgn ref="login" />
+          <template v-if="item.code === 'LGMGMT'">
+            <LoginMgn ref="LGMGMT" />
           </template>
-          <template v-if="item.code === 'menu'">
-            <MenuMgn ref="menu" />
+          <template v-if="item.code === 'MUMGMT'">
+            <MenuMgn ref="MUMGMT" />
           </template>
-          <template v-if="item.code === 'code'">
-            <CodeMgn @dbClick="codeDetail" ref="code" />
+          <template v-if="item.code === 'CDMGMT'">
+            <CodeMgn @dbClick="codeDetail" ref="CDMGMT" />
           </template>
-          <template v-if="item.code === 'codeDetail'">
-            <CodeDetail :data="codeDetailData" ref="codeDetail" />
+          <template v-if="item.code === 'CDMGMTDT'">
+            <CodeDetail :data="codeDetailData" ref="CDMGMTDT" />
           </template>
-          <template v-if="item.code === 'lang'">
-            <LangCode ref="lang" />
+          <template v-if="item.code === 'LMMGMT'">
+            <LangCode ref="LMMGMT" />
           </template>
         </v-tab-item>
       </v-tabs-items>
@@ -109,31 +109,30 @@ export default {
         }
       }, 100);
     },
-    findTab(key, value, target, closeable, data) {
+    findTab(code, menu, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {
-        return v.key === key;
+        return v.code === code;
       });
       if (idx === -1) {
         this.items.push({
-          key,
-          value,
+          code,
+          menu,
           closeable,
+          url: "/",
         });
         idx = _.findIndex(this.items, function (v) {
-          return v.key === key;
+          return v.code === code;
         });
       }
       this.tab = idx;
       this[target] = data;
     },
     codeDetail(data) {
-      this.findTab(
-        "codeDetail",
-        "공통 코드 상세",
-        "codeDetailData",
-        true,
-        data
-      );
+      this.findTab("CDMGMTDT", "공통 코드 상세", "codeDetailData", true, data);
+    },
+    removeTab(index) {
+      this.items.splice(index, 1);
+      this.tab = 0;
     },
   },
 };

@@ -15,10 +15,8 @@
       </div>
     </SetDialogVue>
     <SetPopupVue ref="addConfirm" />
-    <h3 class="mt-4 mb-2">메뉴 권한 관리</h3>
-    <hr class="mb-8" />
     <v-form ref="form" lazy-validation>
-      <div>
+      <div class="mt-4 mb-8">
         <div>
           <v-row class="row menuMngCol wrapper">
             <v-col cols="12" sm="2" class="menuCol">
