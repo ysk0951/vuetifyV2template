@@ -26,7 +26,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="3">
-              <h4>이메일</h4>
+              <h4>이메일 주소</h4>
               <v-text-field
                 outlined
                 dense

@@ -40,7 +40,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="3">
-              <h4>이메일</h4>
+              <h4>이메일 주소</h4>
               <v-text-field
                 outlined
                 dense
@@ -95,7 +95,7 @@
       <h3 class="mt-16 mb-2 pl-1 pr-1">
         <div class="wrapperSpace">
           목록
-          <v-btn depressed color="primary" @click="add">신규생성</v-btn>
+          <!-- <v-btn depressed color="primary" @click="add">신규생성</v-btn> -->
         </div>
       </h3>
       <hr class="mb-4" />
