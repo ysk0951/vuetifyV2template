@@ -19,7 +19,12 @@
                     v-on="on"
                     style="height: 48px"
                   >
-                    {{ item.menu }}
+                    <template v-if="locale === 'ko'">
+                      {{ item.menu }}
+                    </template>
+                    <template v-else-if="locale === 'en'">
+                      {{ item.menu_eng }}
+                    </template>
                   </v-btn>
                 </template>
                 <v-list>
@@ -27,8 +32,14 @@
                     <v-list-item-title
                       @click="routing(it, item.url)"
                       style="cursor: pointer"
-                      >{{ it.menu }}</v-list-item-title
                     >
+                      <template v-if="locale === 'ko'">
+                        {{ it.menu }}
+                      </template>
+                      <template v-else-if="locale === 'en'">
+                        {{ it.menu_eng }}
+                      </template>
+                    </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -78,9 +89,9 @@ export default {
     ...mapState("loading", ["loading"]),
     ...mapState("member", ["accessToken"]),
     ...mapState("menu", ["menu"]),
+    ...mapState("locale", ["locale"]),
   },
   data: () => ({
-    locale: "ko",
     language: [
       { value: "ko", text: "한국어" },
       { value: "en", text: "English" },
@@ -189,5 +200,8 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 .v-select__selections {
   position: absolute !important;
   top: -2px !important;
+}
+.v-text-field__slot > input::placeholder {
+  font-size: 14px;
 }
 </style>

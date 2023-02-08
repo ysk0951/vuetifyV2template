@@ -98,7 +98,7 @@ const path = defaultPath.concat(adminPath);
 const dev = true;
 router.beforeEach((to, from, next) => {
   //TODO :: 각 페이지별 메세지 로딩
-  store.commit("locale/SET_LOCALE", store.state.locale.locale);
+  store.commit("locale/SET_NEWPATH_MESSAGE", to.path);
   if (!dev) {
     if (path.includes(to.path)) {
       next();

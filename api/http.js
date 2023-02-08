@@ -9,7 +9,7 @@ instance.defaults.headers = {
 instance.interceptors.request.use(function (config) {
   const key = _.keys(config.data);
   _.each(key, (v) => {
-    if (config.data[v] === "전체") {
+    if (config.data[v] === "전체" || config.data[v] === "the entire") {
       delete config.data[v];
     }
   });

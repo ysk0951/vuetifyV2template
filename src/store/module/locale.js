@@ -5,6 +5,24 @@ const member = {
     message: {},
   },
   mutations: {
+    SET_NEWPATH_MESSAGE(state, path) {
+      const token = this.state.member.accessToken;
+      const locale = this.state.locale.locale;
+      getMessage({
+        locale,
+        route: _.isEmpty(token) ? "/login" : path,
+      })
+        .then((res) => {
+          const body = res.data;
+          if (!_.isEmpty(body)) {
+            this.commit("locale/SET_MESSAGE", body.data);
+          }
+        })
+        .catch((res) => {
+          console.error(res);
+          this.commit("locale/SET_MESSAGE", []);
+        });
+    },
     SET_LOCALE(state, value) {
       state.locale = value;
       const token = this.state.member.accessToken;
