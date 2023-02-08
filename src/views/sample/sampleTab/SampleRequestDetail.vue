@@ -1,16 +1,14 @@
 <template>
   <div class="address">
-    <h3 class="mt-4 mb-2">샘플 요청 검수</h3>
-    <hr class="mb-4" />
     <SetPopup ref="confirm" />
     <RealGrid
       domName="sampleRequestDeatil"
       ref="grid"
       :settings="settings"
       :nonePage="true"
+      class="mt-4"
     />
     <h3 class="mt-4 mb-2">추가 정보</h3>
-    <hr class="mb-4" />
     <v-row class="pl-2">
       <v-col cols="12" sm="2">
         <h4>요청자</h4>
@@ -187,6 +185,7 @@ export default {
     ...mapMutations("popup", ["SET_POPUP"]),
     loadData() {
       if (this.data) {
+        console.log(this.data);
         sampleSearch(this.data)
           .then((res) => {
             const response = res.data;
@@ -240,6 +239,9 @@ export default {
   components: {
     RealGrid,
     SetPopup,
+  },
+  mounted() {
+    this.loadData();
   },
   computed: {
     ...mapState("common", ["code"]),

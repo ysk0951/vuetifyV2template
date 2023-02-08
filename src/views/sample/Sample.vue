@@ -154,35 +154,37 @@ export default {
       this.items.splice(index, 1);
       this.tab = 0;
     },
-    findTab(key, value, target, closeable, data) {
+    findTab(code, menu, menu_eng, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {
-        return v.key === key;
+        return v.code === code;
       });
       if (idx === -1) {
         this.items.push({
-          key,
-          value,
+          code,
+          menu,
+          menu_eng,
           closeable,
+          url: "/",
         });
         idx = _.findIndex(this.items, function (v) {
-          return v.key === key;
+          return v.code === code;
         });
       }
+      console.log(data);
       this.tab = idx;
       this[target] = data;
-    },
-    newSample(data) {
-      this.findTab("MSMGMT", "신규 샘플요청", "newSampleData", true, data);
     },
     confirmDetail(data) {
       this.findTab(
         "sampleRequestDetail",
         "샘플 요청상세",
+        "Sample Request Detail",
         "sampleRequestDetailData",
         true,
         data
       );
     },
+
     reportDetail(data) {
       this.findTab(
         "reportDetail",
