@@ -20,8 +20,8 @@
       <v-form ref="form" lazy-validation>
         <div class="filter mb-3">
           <v-row class="row">
-            <v-col cols="12" sm="2" class="pl-0">
-              <h4>{{ this.getText("MSG007") }}</h4>
+            <v-col cols="12" sm="1" class="pl-0">
+              <h4>계정 구분</h4>
               <v-select
                 :items="this.roleType"
                 v-model="input.roles"
@@ -30,47 +30,47 @@
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
-              <h4>{{ this.getText("MSG008") }}</h4>
+              <h4>이름</h4>
               <v-text-field
                 outlined
                 dense
-                :placeholder="this.getText('MSG013')"
+                placeholder="이름을 입력해주세요"
                 v-model="input.memberName"
                 :rules="[this.validSet.name]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="3">
-              <h4>{{ this.getText("MSG009") }}</h4>
+              <h4>이메일 주소</h4>
               <v-text-field
                 outlined
                 dense
                 v-model="input.memberId"
-                :placeholder="this.getText('MSG014')"
+                placeholder="이메일 주소를 입력해주세요"
                 :rules="[this.validSet.email]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="2">
-              <h4>{{ this.getText("MSG010") }}</h4>
+            <v-col cols="12" sm="3">
+              <h4>기업명</h4>
               <v-text-field
                 outlined
                 dense
                 v-model="input.company"
-                :placeholder="this.getText('MSG015')"
+                placeholder="기업명을 입력해주세요"
                 :rules="[this.validSet.company]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="2">
-              <h4>{{ this.getText("MSG011") }}</h4>
+              <h4>사번</h4>
               <v-text-field
                 outlined
                 dense
                 v-model="input.employeeCode"
-                :placeholder="this.getText('MSG016')"
+                placeholder="사번을 입력해주세요"
                 :rules="[this.validSet.employNumber]"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="1" class="pr-0">
-              <h4>{{ this.getText("MSG012") }}</h4>
+              <h4>재직</h4>
               <v-select
                 :items="this.workType"
                 v-model="input.employeeStatus"
