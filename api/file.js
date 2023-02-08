@@ -14,7 +14,7 @@ export async function getSample() {
     });
 }
 
-export async function getExecl(data, name) {
+export async function getExcel(data, name) {
   try {
     let binaryWS = XLSX.utils.json_to_sheet(data);
     var wb = XLSX.utils.book_new();

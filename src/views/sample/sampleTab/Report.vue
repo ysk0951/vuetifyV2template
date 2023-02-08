@@ -56,7 +56,7 @@
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
-import { getExecl } from "api/file";
+import { getExcel } from "api/file";
 export default {
   data() {
     return {
@@ -78,7 +78,7 @@ export default {
     exelDownload() {
       const data = this.$refs.grid.getCheckedRow();
       if (data.length > 0) {
-        getExecl(data, "coa");
+        getExcel(data, "coa");
       } else {
         this.openPopup("엑셀 다운로드할 행을 선택해주세요");
       }

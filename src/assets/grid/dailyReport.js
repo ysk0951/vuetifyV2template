@@ -85,5 +85,4 @@ _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
 });
-
 export { fields, columns };

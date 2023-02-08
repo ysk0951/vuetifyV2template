@@ -69,7 +69,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { columns, fields, rows, height } from "@/assets/grid/coa";
 import { sampleSearch } from "api/sample/sample";
-import { getExecl } from "api/file";
+import { getExcel } from "api/file";
 import _ from "lodash";
 import { mapMutations } from "vuex";
 export default {
@@ -100,7 +100,7 @@ export default {
     exelDownload() {
       const data = this.$refs.grid.getCheckedRow();
       if (data.length > 0) {
-        getExecl(data, "coa");
+        getExcel(data, "coa");
       } else {
         this.openPopup("엑셀 다운로드할 행을 선택해주세요");
       }

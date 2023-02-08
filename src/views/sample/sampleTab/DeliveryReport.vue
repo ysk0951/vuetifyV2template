@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SetPopup ref="confirm" />
     <div class="wrapperSpace mt-4">
       <v-row class="pl-2">
         <v-col cols="12" sm="2">
@@ -32,17 +33,29 @@
         <v-btn depressed color="primary" @click="search">검색</v-btn>
       </v-card-actions>
     </div>
-    <div class="wrapperSpace">
+    <div class="wrapperSpace px-2">
       <div>
         <h4 class="mt-4 mb-2">목록</h4>
       </div>
+      <v-btn depressed color="primary" @click="exelDownload"
+        >엑셀 다운로드</v-btn
+      >
     </div>
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+      @dbClick="dbClick"
+    />
   </div>
 </template>
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/dailyReport";
 import { searchproduce } from "api/sample/sample";
+import { getExcel } from "api/file";
+import { mapMutations } from "vuex";
+import SetPopup from "@/components/SetPopup.vue";
 import RealGrid from "@/components/RealGrid.vue";
 import validSet from "@/assets/valid";
 import _ from "lodash";
@@ -56,6 +69,7 @@ export default {
         fields,
         rows,
         height,
+        //
       },
       param: {
         lot_no: "",
@@ -65,8 +79,30 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     newSample() {
       this.$emit("newSample");
+    },
+    exelDownload() {
+      const data = this.$refs.grid.getCheckedRow();
+      if (data.length > 0) {
+        getExcel(data, "coa");
+      } else {
+        this.openPopup("엑셀 다운로드할 행을 선택해주세요");
+      }
+    },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text,
+        closable,
+      });
+      this.$refs.confirm.openPopup(cb);
+    },
+    loadData(v) {
+      this.search(v);
     },
     search(v) {
       searchproduce({
@@ -78,14 +114,21 @@ export default {
         const page = response.data.params;
         this.$refs.grid.loadData(items);
         this.$refs.grid.setPage(page);
+        if (items.length === 0) {
+          this.settings.errorMessage = "진행중인 사항이 없습니다";
+        }
       });
     },
     reset() {
       this.param = { lot_no: "", request_name: "", pageSize: 10 };
     },
+    dbClick(data) {
+      this.$emit("dbClick", data);
+    },
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>

@@ -49,10 +49,13 @@
             <SearchProcessCustom ref="MMGMT" />
           </template>
           <template v-if="item.code === 'OLMGMT'">
-            <DeliveryReport ref="OLMGMT" />
+            <DeliveryReport ref="OLMGMT" @dbClick="delveryReportDetail" />
           </template>
           <template v-if="item.code === 'delivaryReportDetail'">
-            <DeliveryReportDetail ref="delivaryReportDetail" />
+            <DeliveryReportDetail
+              ref="delivaryReportDetail"
+              :data="delivaryReportDetailData"
+            />
           </template>
           <template v-if="item.code === 'RIMGMT'">
             <ResultInput ref="RIMGMT" />
@@ -179,9 +182,18 @@ export default {
           return v.code === code;
         });
       }
-      console.log(data);
       this.tab = idx;
       this[target] = data;
+    },
+    delveryReportDetail(data) {
+      this.findTab(
+        "delivaryReportDetail",
+        "샘플 요청상세",
+        "deliveray Report Detail",
+        "delivaryReportDetailData",
+        true,
+        data
+      );
     },
     confirmDetail(data) {
       this.findTab(

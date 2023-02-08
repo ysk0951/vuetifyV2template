@@ -152,6 +152,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import CodeSearch from "@/components/CodeSearch.vue";
 
 export default {
+  props: ["data"],
   data() {
     return {
       grid: "delivaryReportDetail",
