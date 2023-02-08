@@ -19,7 +19,10 @@
           >
         </v-tab>
       </v-tabs>
-      <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
+      <v-tabs-items
+        v-model="tab"
+        :style="'min-width:' + 100 + 'px;padding-top: 16px;'"
+      >
         <v-tab-item v-for="item in items" :key="item.key">
           <template v-if="item.code === 'MSMGMT'">
             <UserSample @newSample="newSample" ref="MSMGMT" />
