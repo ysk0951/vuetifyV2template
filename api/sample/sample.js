@@ -41,3 +41,7 @@ export async function sampleRequestandstatus(param) {
 export async function sampleRequestandstatusadmin(param) {
   return http.post(prefix + `/sampleRequestandstatusadmin`, param);
 }
+
+export async function searchproduce(param) {
+  return http.post(prefix + `/searchproduce`, param);
+}

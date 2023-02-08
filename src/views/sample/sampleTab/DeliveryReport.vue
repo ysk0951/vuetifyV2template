@@ -41,9 +41,11 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import { columns, fields, rows, height } from "@/assets/grid/dailyReport";
+import { searchproduce } from "api/sample/sample";
 import RealGrid from "@/components/RealGrid.vue";
 import validSet from "@/assets/valid";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -58,6 +60,7 @@ export default {
       param: {
         lot_no: "",
         request_name: "",
+        pageSize: 10,
       },
     };
   },
@@ -65,8 +68,21 @@ export default {
     newSample() {
       this.$emit("newSample");
     },
-    search() {},
-    reset() {},
+    search(v) {
+      searchproduce({
+        currentPage: _.isNumber(v) ? v : 1,
+        ...this.param,
+      }).then((res) => {
+        const response = res.data;
+        const items = response.data.items;
+        const page = response.data.params;
+        this.$refs.grid.loadData(items);
+        this.$refs.grid.setPage(page);
+      });
+    },
+    reset() {
+      this.param = { lot_no: "", request_name: "", pageSize: 10 };
+    },
   },
   components: {
     RealGrid,
