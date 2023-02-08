@@ -4,7 +4,12 @@
     <div class="pa-10 full">
       <v-tabs v-model="tab">
         <v-tab v-for="(item, index) in items" :key="item.key">
-          {{ item.value }}
+          <template v-if="locale === 'ko'">
+            {{ item.menu }}
+          </template>
+          <template v-else-if="locale === 'en'">
+            {{ item.menu_eng }}
+          </template>
           <v-btn
             icon
             @click="removeTab(index)"
@@ -16,46 +21,43 @@
       </v-tabs>
       <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
         <v-tab-item v-for="item in items" :key="item.key">
-          <template v-if="item.key === 'userSample'">
-            <UserSample @newSample="newSample" ref="userSample" />
+          <template v-if="item.code === 'MSMGMT'">
+            <UserSample @newSample="newSample" ref="MSMGMT" />
           </template>
-          <template v-if="item.key === 'newSample'">
-            <NewSample @newSample="newSample" ref="newSample" />
+          <template v-if="item.code === 'MAMGMT'">
+            <AdminSample @newSample="newSample" ref="MAMGMT" />
           </template>
-          <template v-if="item.key === 'adminSample'">
-            <AdminSample @newSample="newSample" ref="adminSample" />
+          <template v-if="item.code === 'SRMGMT'">
+            <ConfirmSample @confirmDetail="confirmDetail" ref="SRMGMT" />
           </template>
-          <template v-if="item.key === 'confirmSample'">
-            <ConfirmSample @confirmDetail="confirmDetail" ref="confirmSample" />
-          </template>
-          <template v-if="item.key === 'sampleRequestDetail'">
+          <template v-if="item.code === 'sampleRequestDetail'">
             <SampleRequestDetail
               ref="sampleRequestDetail"
               :data="sampleRequestDetailData"
             />
           </template>
-          <template v-if="item.key === 'searchProcess'">
-            <SearchProcess ref="searchProcess" />
+          <template v-if="item.code === 'MMGMTM'">
+            <SearchProcess ref="MMGMTM" />
           </template>
-          <template v-if="item.key === 'searchProcessCustom'">
-            <SearchProcessCustom ref="searchProcessCustom" />
+          <template v-if="item.code === 'MMGMT'">
+            <SearchProcessCustom ref="MMGMT" />
           </template>
-          <template v-if="item.key === 'delivaryReport'">
-            <DeliveryReport ref="delivaryReport" />
+          <template v-if="item.code === 'OLMGMT'">
+            <DeliveryReport ref="OLMGMT" />
           </template>
-          <template v-if="item.key === 'delivaryReportDetail'">
+          <template v-if="item.code === 'delivaryReportDetail'">
             <DeliveryReportDetail ref="delivaryReportDetail" />
           </template>
-          <template v-if="item.key === 'resultInput'">
-            <ResultInput ref="resultInput" />
+          <template v-if="item.code === 'RIMGMT'">
+            <ResultInput ref="RIMGMT" />
           </template>
-          <template v-if="item.key === 'qulityTestInput'">
+          <template v-if="item.code === 'qulityTestInput'">
             <QulityTestInput ref="qulityTestInput" />
           </template>
-          <template v-if="item.key === 'report'">
+          <template v-if="item.code === 'report'">
             <Report ref="report" @reportDetail="reportDetail" />
           </template>
-          <template v-if="item.key === 'reportDetail'">
+          <template v-if="item.code === 'reportDetail'">
             <ReportDetail ref="reportDetail" :data="reportDetailData" />
           </template>
         </v-tab-item>
@@ -66,7 +68,6 @@
 <script>
 import SetDialog from "@/components/SetDialog";
 import UserSample from "@/views/sample/sampleTab/UserSample";
-import NewSample from "@/views/sample/sampleTab/NewSample";
 import AdminSample from "@/views/sample/sampleTab/AdminSample";
 import ConfirmSample from "@/views/sample/sampleTab/ConfirmSample";
 import SampleRequestDetail from "@/views/sample/sampleTab/SampleRequestDetail";
@@ -86,66 +87,25 @@ export default {
       tab: 0,
       sampleRequestDetailData: {},
       reportDetailData: {},
-      items: [
-        {
-          key: "userSample",
-          value: "회원 샘플 요청",
-        },
-        {
-          key: "adminSample",
-          value: "관리자 샘플 요청",
-        },
-        {
-          key: "confirmSample",
-          value: "샘플 요청 검수",
-        },
-        {
-          key: "searchProcessCustom",
-          value: "진행사항 조회(사용자)",
-        },
-        {
-          key: "searchProcess",
-          value: "진행사항 조회(관리자)",
-        },
-        {
-          key: "delivaryReport",
-          value: "납품 일보",
-        },
-        {
-          key: "resultInput",
-          value: "결과 입력",
-        },
-        {
-          key: "qulityTestInput",
-          value: "품질검사 결과 입력",
-        },
-        {
-          key: "report",
-          value: "제조 기록지",
-        },
-      ],
+      items: [],
     };
   },
   watch: {
-    tab: function (v) {
-      setTimeout(() => {
-        const ref = this.items[v].key;
-        const component = this.$refs[ref][0];
-        if (_.has(component, "loadData")) {
-          component.loadData();
-        }
-      }, 100);
+    $route(to, from) {
+      if (to.fullPath != from.fullPath) {
+        this.setTab();
+      }
     },
   },
   computed: {
     ...mapState("loading", ["loading"]),
     ...mapState("member", ["accessToken"]),
     ...mapState("menu", ["menu"]),
+    ...mapState("locale", ["locale"]),
   },
   components: {
     SetDialog,
     UserSample,
-    NewSample,
     AdminSample,
     ConfirmSample,
     SampleRequestDetail,
@@ -160,9 +120,36 @@ export default {
   },
   created() {
     this.SET_MENU();
+    this.setTab();
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
+    setTab() {
+      const menu = this.$route.query.menu;
+      this.items = this.getTab(menu);
+      const ref = _.reduce(
+        this.items,
+        (a, c) => {
+          if ((c.menu_eng = menu)) {
+            a = c.code;
+          }
+          return a;
+        },
+        ""
+      );
+      setTimeout(() => {
+        const tmp = this.$refs[ref];
+        console.log(tmp, ref);
+        if (tmp) {
+          const component = this.$refs[ref][0];
+          if (_.has(component, "loadData")) {
+            component.loadData();
+          }
+        } else {
+          this.$router.push({ name: "main" });
+        }
+      }, 100);
+    },
     removeTab(index) {
       this.items.splice(index, 1);
       this.tab = 0;
@@ -185,7 +172,7 @@ export default {
       this[target] = data;
     },
     newSample(data) {
-      this.findTab("newSample", "신규 샘플요청", "newSampleData", true, data);
+      this.findTab("MSMGMT", "신규 샘플요청", "newSampleData", true, data);
     },
     confirmDetail(data) {
       this.findTab(

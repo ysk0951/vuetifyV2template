@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">진행사항 조회</h3>
-    <hr class="mb-4" />
     <div class="wrapperSpace">
       <div>
         <h4 class="mt-4 mb-2">요청 내역</h4>

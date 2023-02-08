@@ -15,7 +15,6 @@ export const FunctionCustom = {
     };
     Vue.prototype.getTab = (menu) => {
       const allMenu = options.store.state.menu.allMenu;
-      console.log(allMenu);
       const subMenu = allMenu.reduce((acc, cur) => {
         acc = acc.concat(cur.subMenu);
         return acc;

@@ -4,7 +4,12 @@
     <div class="pa-10 full">
       <v-tabs v-model="tab">
         <v-tab v-for="(item, index) in items" :key="item.key">
-          {{ item.menu }}
+          <template v-if="locale === 'ko'">
+            {{ item.menu }}
+          </template>
+          <template v-else-if="locale === 'en'">
+            {{ item.menu_eng }}
+          </template>
           <v-btn
             icon
             @click="removeTab(index)"
@@ -72,6 +77,7 @@ export default {
     ...mapState("loading", ["loading"]),
     ...mapState("member", ["accessToken"]),
     ...mapState("menu", ["menu"]),
+    ...mapState("locale", ["locale"]),
   },
   components: {
     SetDialog,
@@ -103,13 +109,18 @@ export default {
         ""
       );
       setTimeout(() => {
-        const component = this.$refs[ref][0];
-        if (_.has(component, "loadData")) {
-          component.loadData();
+        const tmp = this.$refs[ref];
+        if (tmp) {
+          const component = this.$refs[ref][0];
+          if (_.has(component, "loadData")) {
+            component.loadData();
+          }
+        } else {
+          this.$router.push({ name: "main" });
         }
       }, 100);
     },
-    findTab(code, menu, target, closeable, data) {
+    findTab(code, menu, menu_eng, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {
         return v.code === code;
       });
@@ -117,6 +128,7 @@ export default {
         this.items.push({
           code,
           menu,
+          menu_eng,
           closeable,
           url: "/",
         });
@@ -128,7 +140,14 @@ export default {
       this[target] = data;
     },
     codeDetail(data) {
-      this.findTab("CDMGMTDT", "공통 코드 상세", "codeDetailData", true, data);
+      this.findTab(
+        "CDMGMTDT",
+        "코드 상세",
+        "Code Detail",
+        "codeDetailData",
+        true,
+        data
+      );
     },
     removeTab(index) {
       this.items.splice(index, 1);

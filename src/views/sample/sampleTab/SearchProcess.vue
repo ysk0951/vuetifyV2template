@@ -1,9 +1,7 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">진행사항 조회</h3>
-    <hr class="mb-4" />
     <v-form lazy-validation ref="form">
-      <div class="searchProcess wrapperSpace pr-2">
+      <div class="searchProcess wrapperSpace pr-2 mt-4">
         <v-row class="pl-2" style="height: 86px">
           <v-col cols="12" sm="3">
             <h4>Lot No</h4>

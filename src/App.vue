@@ -204,4 +204,10 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 .v-text-field__slot > input::placeholder {
   font-size: 14px;
 }
+.v-tabs-slider {
+  display: none;
+}
+.v-tab--active {
+  border-bottom: 2px solid;
+}
 </style>

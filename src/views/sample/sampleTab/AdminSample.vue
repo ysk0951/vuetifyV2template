@@ -2,8 +2,6 @@
   <div class="address">
     <SetPopup ref="confirm" />
     <Address ref="address" @select="onAddress" />
-    <h3 class="mt-4 mb-2">관리자 샘플 요청</h3>
-    <hr class="mb-4" />
     <div>
       <h4 class="mt-4 mb-2">파일 업로드</h4>
     </div>
