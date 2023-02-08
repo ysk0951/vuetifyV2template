@@ -31,11 +31,17 @@
           outlined
           dense
           placeholder="영업분류를 입력해 주세요"
+          v-model="param.salestype"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>요청일</h4>
-        <v-text-field outlined dense placeholder="YYYY-MM-DD"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="YYYY-MM-DD"
+          v-model="param.request_date"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>요청자</h4>
@@ -43,14 +49,20 @@
           outlined
           dense
           placeholder="요청자를 입력해주세요"
+          v-model="param.request_user"
+          disabled
+          filled
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>요청 업체명</h4>
         <v-text-field
           outlined
+          disabled
+          filled
           dense
           placeholder="요청업체명을 입력해주세요"
+          v-model="param.request_company"
           class="pr-2"
         ></v-text-field>
       </v-col>
@@ -62,6 +74,7 @@
           outlined
           dense
           placeholder="제조 예정일을 선택해주세요"
+          v-model="param.produce_due_date"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
@@ -70,6 +83,7 @@
           outlined
           dense
           placeholder="제조 진행사항을 선택해 주세요"
+          v-model="param.produce_date"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
@@ -78,6 +92,7 @@
           outlined
           dense
           placeholder="출하진행사항을 선택해 주세요"
+          v-model="param.out_date"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
@@ -97,16 +112,13 @@
           outlined
           dense
           placeholder="납기일을 선택해 주세요"
+          v-model="param.derivery_due_date"
         ></v-text-field>
       </v-col>
 
       <v-col cols="12" sm="3">
         <h4>납기일</h4>
-        <v-text-field
-          outlined
-          dense
-          placeholder="출하진행사항을 선택해 주세요"
-        ></v-text-field>
+        <v-text-field outlined dense></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>수령처</h4>
@@ -114,6 +126,7 @@
           outlined
           dense
           placeholder="수령처를 입력해주세요"
+          v-model="param.pickpart"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
@@ -132,7 +145,12 @@
     <v-row style="height: 90px" class="pl-2">
       <v-col cols="12" sm="3">
         <h4>Qty(kg)</h4>
-        <v-text-field outlined dense placeholder="(kg)"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="(kg)"
+          v-model="param.qty"
+        ></v-text-field>
       </v-col>
     </v-row>
     <div class="wrapper">
@@ -164,6 +182,17 @@ export default {
       },
       param: {
         default: 0,
+        salestype: "",
+        request_date: "",
+        request_user: "",
+        request_company: "",
+        produce_due_date: "",
+        produce_date: "",
+        out_date: "",
+        derivery_due_date: "",
+        pickpart: "",
+        price_type: "",
+        qty: "",
       },
       price: ["전체", "유상", "무상"],
       package: ["선택", "AI", "P", "S", "18L", "50L", "200L", "말통"],
@@ -185,6 +214,9 @@ export default {
   },
   computed: {
     ...mapState("common", ["code"]),
+  },
+  mounted() {
+    this.$refs.grid.loadData([this.data]);
   },
   components: {
     RealGrid,
