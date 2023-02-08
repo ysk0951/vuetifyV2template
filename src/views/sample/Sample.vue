@@ -27,6 +27,9 @@
           <template v-if="item.code === 'MSMGMT'">
             <UserSample @newSample="newSample" ref="MSMGMT" />
           </template>
+          <template v-if="item.code === 'NUSMGMT'">
+            <NewSample @newSample="newSample" ref="NUSMGMT" />
+          </template>
           <template v-if="item.code === 'MAMGMT'">
             <AdminSample @newSample="newSample" ref="MAMGMT" />
           </template>
@@ -84,12 +87,14 @@ import Report from "@/views/sample/sampleTab/Report.vue";
 import ReportDetail from "@/views/sample/sampleTab/ReportDetail.vue";
 import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
+import NewSample from "./sampleTab/NewSample.vue";
 export default {
   data() {
     return {
       tab: 0,
       sampleRequestDetailData: {},
       reportDetailData: {},
+      newSampleData: {},
       items: [],
     };
   },
@@ -120,6 +125,7 @@ export default {
     QulityTestInput,
     Report,
     ReportDetail,
+    NewSample,
   },
   created() {
     this.SET_MENU();
@@ -187,7 +193,16 @@ export default {
         data
       );
     },
-
+    newSample(data) {
+      this.findTab(
+        "NUSMGMT",
+        "신규 샘플요청",
+        "Users Sample MGMT",
+        "newSampleData",
+        true,
+        data
+      );
+    },
     reportDetail(data) {
       this.findTab(
         "reportDetail",

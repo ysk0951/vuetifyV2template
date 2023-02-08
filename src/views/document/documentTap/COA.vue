@@ -1,8 +1,6 @@
 <template>
   <div>
     <SetPopup ref="confirm" />
-    <h3 class="mt-4 mb-2">CDA 관리</h3>
-    <hr class="mb-4" />
     <v-form lazy-validation ref="form">
       <div class="wrapperSpace">
         <v-row class="pl-2">
