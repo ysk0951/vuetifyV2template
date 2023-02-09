@@ -3,7 +3,12 @@
     <div class="pa-10 full">
       <v-tabs v-model="tab">
         <v-tab v-for="(item, index) in items" :key="item.key">
-          {{ item.value }}
+          <template v-if="locale === 'ko'">
+            {{ item.menu }}
+          </template>
+          <template v-else-if="locale === 'en'">
+            {{ item.menu_eng }}
+          </template>
           <v-btn
             icon
             @click="removeTab(index)"
@@ -18,10 +23,10 @@
         :style="'min-width:' + 100 + 'px;padding-top:16px'"
       >
         <v-tab-item v-for="item in items" :key="item.key">
-          <template v-if="item.key === 'coa'">
-            <COA @dbClick="coaDetail" />
+          <template v-if="item.code === 'COMGMT'">
+            <COA @dbClick="coaDetail" ref="COMGMT" />
           </template>
-          <template v-if="item.key === 'coaDetail'">
+          <template v-if="item.code === 'coaDetail'">
             <COADetail :data="coaDetailData" />
           </template>
         </v-tab-item>
@@ -51,6 +56,7 @@ export default {
     ...mapState("loading", ["loading"]),
     ...mapState("member", ["accessToken"]),
     ...mapState("menu", ["menu"]),
+    ...mapState("locale", ["locale"]),
   },
   components: {
     COA,
@@ -58,6 +64,7 @@ export default {
   },
   created() {
     this.SET_MENU();
+    this.setTab();
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
@@ -68,25 +75,59 @@ export default {
       this.items.splice(index, 1);
       this.tab = 0;
     },
-    findTab(key, value, target, closeable, data) {
+    setTab() {
+      const menu = this.$route.query.menu;
+      this.items = this.getTab(menu);
+      const ref = _.reduce(
+        this.items,
+        (a, c) => {
+          if ((c.menu_eng = menu)) {
+            a = c.code;
+          }
+          return a;
+        },
+        ""
+      );
+      setTimeout(() => {
+        const tmp = this.$refs[ref];
+        if (tmp) {
+          const component = this.$refs[ref][0];
+          if (_.has(component, "loadData")) {
+            component.loadData();
+          }
+        } else {
+          this.$router.push({ name: "main" });
+        }
+      }, 100);
+    },
+    findTab(code, menu, menu_eng, target, closeable, data) {
       let idx = _.findIndex(this.items, function (v) {
-        return v.key === key;
+        return v.code === code;
       });
       if (idx === -1) {
         this.items.push({
-          key,
-          value,
+          code,
+          menu,
+          menu_eng,
           closeable,
+          url: "/",
         });
         idx = _.findIndex(this.items, function (v) {
-          return v.key === key;
+          return v.code === code;
         });
       }
       this.tab = idx;
       this[target] = data;
     },
     coaDetail(data) {
-      this.findTab("coaDetail", "COA 상세", "coaDetailData", true, data);
+      this.findTab(
+        "coaDetail",
+        "COA 상세",
+        "COA Detail",
+        "coaDetailData",
+        true,
+        data
+      );
     },
   },
 };
