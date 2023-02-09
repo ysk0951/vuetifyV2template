@@ -1,8 +1,21 @@
 <template>
   <div class="deliveryReportDetail">
-    <CodeSearch ref="code" />
+    <CodeSearch
+      ref="code"
+      :data="codeList"
+      @selectCode="
+        (v) => {
+          this.codeGrade = v;
+        }
+      "
+    />
     <SetPopup ref="confirm" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      :none-page="true"
+    />
     <h3 class="mt-4 mb-2">추가 정보</h3>
     <hr class="mb-4" />
     <v-form ref="form" lazy-validation>
@@ -24,7 +37,11 @@
             ]"
           />
           <v-btn depressed class="ml-3 mr-3 fileBtn" @click="read">검색</v-btn>
-          <v-btn depressed color="primary fileBtn" @click="select"
+          <v-btn
+            depressed
+            color="primary fileBtn"
+            @click="newCode"
+            :disabled="this.codeGradeExist"
             >신규생성</v-btn
           >
         </div>
@@ -290,12 +307,14 @@ import RealGrid from "@/components/RealGrid.vue";
 import CodeSearch from "@/components/CodeSearch.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import validSet from "@/assets/valid";
-import { produceupdate } from "api/sample/sample";
+import { produceupdate, codedbsearch } from "api/sample/sample";
 export default {
   props: ["data"],
   data() {
     return {
       codeGrade: "",
+      codeGradeExist: true,
+      codeList: [],
       picker_1: false,
       picker_2: false,
       picker_3: false,
@@ -340,8 +359,37 @@ export default {
       });
       this.$refs.confirm.openPopup(cb);
     },
-    search() {},
+    read() {
+      const lotNo = this.data.lotNo;
+      codedbsearch({
+        lotNo,
+      })
+        .then((res) => {
+          const data = res.data.data;
+          if (data && data.list) {
+            const list = data.list;
+            this.codeGradeExist = true;
+            if (list.length > 1) {
+              //n개
+              this.codeList = list;
+              this.searchCode();
+            } else if (list.length == 1) {
+              this.codeGrade = list[0].code;
+            } else {
+              //없음
+              this.setModal("동일 목록이 없습니다", true, () => {});
+              this.codeGradeExist = false;
+            }
+          } else {
+            console.log("no List");
+            this.codeGradeExist = false;
+          }
+        })
+        .catch(() => {});
+    },
     reset() {
+      this.codeGradeExist = true;
+      this.codeList = [];
       this.param = {
         salestype: "",
         request_date: "",
@@ -356,10 +404,9 @@ export default {
         qty: "",
       };
     },
-    read() {
+    searchCode() {
       this.$refs.code.open();
     },
-    select() {},
     cancle() {
       this.setModal("취소하시겠습니까", true, () => {
         this.reset();
@@ -372,6 +419,7 @@ export default {
         });
       }
     },
+    newCode() {},
     saveExec() {
       produceupdate({
         ...this.param,
@@ -389,6 +437,7 @@ export default {
     ...mapState("common", ["code"]),
   },
   mounted() {
+    console.log(this.data);
     this.$refs.grid.loadData([this.data]);
   },
   components: {

@@ -54,9 +54,6 @@ export default {
   methods: {
     loadData: function (row) {
       this.dp.setRows(row);
-      // setTimeout(() => {
-      //   this.gv.refresh(true);
-      // }, 10);
     },
     getJsonRows: function () {
       return this.dp.getJsonRows(0, -1);
@@ -131,6 +128,9 @@ export default {
     this.gv.displayOptions.syncGridHeight = "always";
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);
+    }
+    if (this.settings.fixRow) {
+      this.gv.setFixedOptions({ colCount: this.settings.fixRow });
     }
     this.gv.setStateBar({ visible: false });
     this.gv.onCellItemClicked = (grid, index) => {

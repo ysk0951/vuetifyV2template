@@ -127,6 +127,7 @@ export default {
       this.param = { lot_no: "", request_name: "", pageSize: 10 };
     },
     dbClick(data) {
+      console.log(data);
       this.$emit("dbClick", data);
     },
   },

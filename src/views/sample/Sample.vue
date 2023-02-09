@@ -151,7 +151,6 @@ export default {
       );
       setTimeout(() => {
         const tmp = this.$refs[ref];
-        console.log(tmp, ref);
         if (tmp) {
           const component = this.$refs[ref][0];
           if (_.has(component, "loadData")) {
