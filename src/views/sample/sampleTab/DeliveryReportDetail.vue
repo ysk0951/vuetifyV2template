@@ -14,7 +14,7 @@
           <div></div>
           <v-text-field
             type="text"
-            v-model="fileName"
+            v-model="codeGrade"
             outlined
             dense
             disabled
@@ -296,6 +296,7 @@ export default {
   props: ["data"],
   data() {
     return {
+      codeGrade: "",
       picker_1: false,
       picker_2: false,
       picker_3: false,
