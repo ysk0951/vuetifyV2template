@@ -1,7 +1,5 @@
 <template>
   <div class="coa">
-    <h3 class="mt-4 mb-2">제조 기록지 상세</h3>
-    <hr class="mb-4" />
     <h3 class="mt-6 mb-2">기본정보</h3>
     <hr class="mb-4" />
     <v-row class="px-2">

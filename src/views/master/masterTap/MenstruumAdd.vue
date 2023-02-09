@@ -1,7 +1,5 @@
 <template>
   <div class="menstrumm">
-    <h3 class="mt-4 mb-2">용매조성 마스터 등록</h3>
-    <hr class="mb-4" />
     <SetPopup ref="confirm" />
     <v-row v-for="idx in row" :key="idx" class="px-2">
       <v-col

@@ -4,7 +4,12 @@
     <div class="pa-10 full">
       <v-tabs v-model="tab">
         <v-tab v-for="(item, index) in items" :key="item.key">
-          {{ item.value }}
+          <template v-if="locale === 'ko'">
+            {{ item.menu }}
+          </template>
+          <template v-else-if="locale === 'en'">
+            {{ item.menu_eng }}
+          </template>
           <v-btn
             icon
             @click="removeTab(index)"
@@ -14,57 +19,60 @@
           >
         </v-tab>
       </v-tabs>
-      <v-tabs-items v-model="tab" :style="'min-width:' + 100 + 'px'">
-        <v-tab-item v-for="item in items" :key="item.key">
-          <template v-if="item.key === 'userMaster'">
-            <UserMaster @dbClick="userDetail" ref="userMaster" />
+      <v-tabs-items
+        v-model="tab"
+        :style="'min-width:' + 100 + 'px;padding-top: 16px;'"
+      >
+        <v-tab-item v-for="item in items" :key="item.code">
+          <template v-if="item.code === 'MBMGMT'">
+            <UserMaster @dbClick="userDetail" ref="MBMGMT" />
           </template>
-          <template v-if="item.key === 'userDetail'">
+          <template v-if="item.code === 'userDetail'">
             <UserMasterDetail :data="userDetailData" ref="userDetail" />
           </template>
-          <template v-if="item.key === 'sample'">
+          <template v-if="item.code === 'SPMGMT'">
             <SampleMaster
               @sampleMasterDetail="sampleMasterDetail"
               @sampleAdd="sampleAdd"
-              ref="sample"
+              ref="SPMGMT"
             />
           </template>
-          <template v-if="item.key === 'sampleDetail'">
+          <template v-if="item.code === 'sampleDetail'">
             <SampleMasterDetail :data="sampleDetailData" ref="sampleDetail" />
           </template>
-          <template v-if="item.key === 'sampleAdd'">
+          <template v-if="item.code === 'sampleAdd'">
             <SampleAdd ref="sampleAdd" />
           </template>
-          <template v-if="item.key === 'menstruum'">
+          <template v-if="item.code === 'SAMGMT'">
             <MenstruumMaster
               @dbClick="menstruumMasterDetail"
               @menstruumAdd="menstruumAdd"
-              ref="menstruum"
+              ref="SAMGMT"
             />
           </template>
-          <template v-if="item.key === 'menstruumDetail'">
+          <template v-if="item.code === 'menstruumDetail'">
             <MenstruumDetail
               :data="menstruumDetailData"
               ref="menstruumDetail"
             />
           </template>
-          <template v-if="item.key === 'menstruumAdd'">
+          <template v-if="item.code === 'menstruumAdd'">
             <MenstruumAdd ref="menstruumAdd" />
           </template>
-          <template v-if="item.key === 'materialIndex'">
+          <template v-if="item.code === 'STMGMT'">
             <MaterialIndex
               @dbClick="materialIndexDetail"
               @materialIndexAdd="materialIndexAdd"
-              ref="materialIndex"
+              ref="STMGMT"
             />
           </template>
-          <template v-if="item.key === 'materialIndexDetail'">
+          <template v-if="item.code === 'materialIndexDetail'">
             <MaterialIndexDetail
               :data="materialIndexDetailData"
               ref="materialIndexDetail"
             />
           </template>
-          <template v-if="item.key === 'materialIndexAdd'">
+          <template v-if="item.code === 'materialIndexAdd'">
             <MaterialIndexAdd ref="materialIndexAdd" />
           </template>
         </v-tab-item>
@@ -88,6 +96,13 @@ import MaterialIndexAdd from "@/views/master/masterTap/MaterialIndexAdd";
 import { mapState, mapMutations } from "vuex";
 import _ from "lodash";
 export default {
+  watch: {
+    $route(to, from) {
+      if (to.fullPath != from.fullPath) {
+        this.setTab();
+      }
+    },
+  },
   data() {
     return {
       tab: 0,
@@ -98,31 +113,14 @@ export default {
       menstruumAddData: {},
       materialIndexDetailData: {},
       materialIndexAddData: {},
-      items: [
-        {
-          key: "userMaster",
-          value: "회원 마스터 관리",
-        },
-        {
-          key: "sample",
-          value: "샘플 마스터 관리",
-        },
-        {
-          key: "menstruum",
-          value: "용매조성 마스터관리",
-        },
-
-        {
-          key: "materialIndex",
-          value: "물질명 INDEX",
-        },
-      ],
+      items: [],
     };
   },
   computed: {
     ...mapState("loading", ["loading"]),
     ...mapState("member", ["accessToken"]),
     ...mapState("menu", ["menu"]),
+    ...mapState("locale", ["locale"]),
   },
   components: {
     SetDialog,
@@ -140,25 +138,54 @@ export default {
   },
   created() {
     this.SET_MENU();
-  },
-  watch: {
-    tab: function (v) {
-      if (v === 0) {
-        this.reset();
-      } else {
-        setTimeout(() => {
-          const ref = this.items[v].key;
-          const component = this.$refs[ref][0];
-          console.log(component);
-          if (_.has(component, "loadData")) {
-            component.loadData();
-          }
-        }, 100);
-      }
-    },
+    this.setTab();
   },
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
+    setTab() {
+      const menu = this.$route.query.menu;
+      this.items = this.getTab(menu);
+      const ref = _.reduce(
+        this.items,
+        (a, c) => {
+          if ((c.menu_eng = menu)) {
+            a = c.code;
+          }
+          return a;
+        },
+        ""
+      );
+      setTimeout(() => {
+        const tmp = this.$refs[ref];
+        if (tmp) {
+          const component = this.$refs[ref][0];
+          if (_.has(component, "loadData")) {
+            component.loadData();
+          }
+        } else {
+          this.$router.push({ name: "main" });
+        }
+      }, 100);
+    },
+    findTab(code, menu, menu_eng, target, closeable, data) {
+      let idx = _.findIndex(this.items, function (v) {
+        return v.code === code;
+      });
+      if (idx === -1) {
+        this.items.push({
+          code,
+          menu,
+          menu_eng,
+          closeable,
+          url: "/",
+        });
+        idx = _.findIndex(this.items, function (v) {
+          return v.code === code;
+        });
+      }
+      this.tab = idx;
+      this[target] = data;
+    },
     reset() {
       this.userDetailData = {};
       this.sampleDetailData = {};
@@ -170,27 +197,11 @@ export default {
       this.items.splice(index, 1);
       this.tab = 0;
     },
-    findTab(key, value, target, closeable, data) {
-      let idx = _.findIndex(this.items, function (v) {
-        return v.key === key;
-      });
-      if (idx === -1) {
-        this.items.push({
-          key,
-          value,
-          closeable,
-        });
-        idx = _.findIndex(this.items, function (v) {
-          return v.key === key;
-        });
-      }
-      this.tab = idx;
-      this[target] = data;
-    },
     userDetail(data) {
       this.findTab(
         "userDetail",
         "회원 마스터 상세",
+        "User Detail",
         "userDetailData",
         true,
         data
@@ -200,6 +211,7 @@ export default {
       this.findTab(
         "sampleDetail",
         "샘플 마스터 상세",
+        "Sample Code Detail",
         "sampleDetailData",
         true,
         data
@@ -209,18 +221,26 @@ export default {
       this.findTab(
         "menstruumDetail",
         "용매조성 마스터 상세",
+        "Solvent Composition Detail",
         "menstruumDetailData",
         true,
         data
       );
     },
     sampleAdd() {
-      this.findTab("sampleAdd", "샘플 마스터 등록", "sampleAddData", true);
+      this.findTab(
+        "sampleAdd",
+        "샘플 마스터 등록",
+        "Sample Code Reg",
+        "sampleAddData",
+        true
+      );
     },
     menstruumAdd() {
       this.findTab(
         "menstruumAdd",
         "용매조성 마스터등록",
+        "Solevent Composition Reg",
         "menstruumAddData",
         true
       );
@@ -229,6 +249,7 @@ export default {
       this.findTab(
         "materialIndexDetail",
         "물질명 INDEX 상세",
+        "Substance Index Detail",
         "materialIndexDetailData",
         true,
         data
@@ -238,6 +259,7 @@ export default {
       this.findTab(
         "materialIndexAdd",
         "물질명 INDEX 등록",
+        "Substance Index Add",
         "materialIndexAddData",
         true
       );

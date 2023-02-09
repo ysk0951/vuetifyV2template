@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">용매조성 마스터 관리</h3>
-    <hr class="mb-4" />
     <v-form ref="menstrumm" lazy-validation>
       <div class="menstrumm wrapperSpace">
         <v-col cols="12" sm="6">

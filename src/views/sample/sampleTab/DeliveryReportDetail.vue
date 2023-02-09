@@ -1,7 +1,5 @@
 <template>
   <div class="deliveryReportDetail">
-    <h3 class="mt-4 mb-2">납품일보 상세</h3>
-    <hr class="mb-4" />
     <CodeSearch ref="code" />
     <SetPopup ref="confirm" />
     <RealGrid :domName="grid" ref="grid" :settings="settings" />

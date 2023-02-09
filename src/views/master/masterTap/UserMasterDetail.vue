@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">회원 상세</h3>
-    <hr class="mb-4" />
     <SetPopup ref="alert" />
     <Address ref="address" @select="addressSelect" />
     <RealGrid

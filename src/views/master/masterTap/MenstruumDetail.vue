@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">용매조성 마스터 상세</h3>
-    <hr class="mb-4" />
     <SetPopup ref="confirm" />
     <RealGrid
       :domName="grid"
