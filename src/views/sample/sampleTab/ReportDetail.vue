@@ -1,7 +1,5 @@
 <template>
   <div class="coa">
-    <h3 class="mt-6 mb-2">기본정보</h3>
-    <hr class="mb-4" />
     <v-row class="px-2">
       <v-col cols="12" sm="2">
         <h4>Lot No</h4>

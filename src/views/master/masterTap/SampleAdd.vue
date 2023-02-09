@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">샘플 마스터 등록</h3>
-    <hr class="mb-4" />
     <SetPopup ref="confirm" />
     <v-form lazy-validation ref="form">
       <div class="wrapperSpace">

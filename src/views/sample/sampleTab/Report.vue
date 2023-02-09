@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">제조 기록지</h3>
-    <hr class="mb-4" />
     <div class="wrapperSpace">
       <v-row class="pl-2">
         <v-col cols="12" sm="3">

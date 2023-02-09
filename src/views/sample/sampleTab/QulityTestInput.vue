@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-4 mb-2">품질검사 결과입력</h3>
-    <hr class="mb-4" />
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
     <div class="wrapper">
       <v-card-actions>
