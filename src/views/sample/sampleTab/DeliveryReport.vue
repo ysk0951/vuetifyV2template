@@ -1,53 +1,55 @@
 <template>
   <div>
     <SetPopup ref="confirm" />
-    <div class="wrapperSpace mt-4">
-      <v-row class="pl-2">
-        <v-col cols="12" sm="2">
-          <h4>Lot No</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="Lot No를 입력해주세요"
-            :rules="[this.validSet.commonCodeHipen]"
-            v-model="param.lot_no"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="2">
-          <h4>요청자</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="요청자를 입력해주세요"
-            :rules="[this.validSet.name]"
-            v-model="param.request_name"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </div>
-    <div class="wrapperEnd">
-      <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="search">검색</v-btn>
-      </v-card-actions>
-    </div>
-    <div class="wrapperSpace px-2">
-      <div>
-        <h4 class="mt-4 mb-2">목록</h4>
+    <v-form ref="form" lazy-validation>
+      <div class="wrapperSpace mt-4">
+        <v-row class="pl-2">
+          <v-col cols="12" sm="2">
+            <h4>Lot No</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="Lot No를 입력해주세요"
+              :rules="[this.validSet.commonCodeHipen]"
+              v-model="param.lot_no"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>요청자</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청자를 입력해주세요"
+              :rules="[this.validSet.name]"
+              v-model="param.request_name"
+            ></v-text-field>
+          </v-col>
+        </v-row>
       </div>
-      <v-btn depressed color="primary" @click="exelDownload"
-        >엑셀 다운로드</v-btn
-      >
-    </div>
-    <RealGrid
-      :domName="grid"
-      ref="grid"
-      :settings="settings"
-      @changePage="loadData"
-      @dbClick="dbClick"
-    />
+      <div class="wrapperEnd">
+        <v-card-actions>
+          <v-btn depressed @click="reset">초기화</v-btn>
+        </v-card-actions>
+        <v-card-actions>
+          <v-btn depressed color="primary" @click="search">검색</v-btn>
+        </v-card-actions>
+      </div>
+      <div class="wrapperSpace px-2">
+        <div>
+          <h4 class="mt-4 mb-2">목록</h4>
+        </div>
+        <v-btn depressed color="primary" @click="exelDownload"
+          >엑셀 다운로드</v-btn
+        >
+      </div>
+      <RealGrid
+        :domName="grid"
+        ref="grid"
+        :settings="settings"
+        @changePage="loadData"
+        @dbClick="dbClick"
+      />
+    </v-form>
   </div>
 </template>
 <script>
@@ -80,8 +82,8 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
-    newSample() {
-      this.$emit("newSample");
+    valid() {
+      return this.$refs.form.validate();
     },
     exelDownload() {
       const data = this.$refs.grid.getCheckedRow();
@@ -105,19 +107,21 @@ export default {
       this.search(v);
     },
     search(v) {
-      searchproduce({
-        currentPage: _.isNumber(v) ? v : 1,
-        ...this.param,
-      }).then((res) => {
-        const response = res.data;
-        const items = response.data.items;
-        const page = response.data.params;
-        this.$refs.grid.loadData(items);
-        this.$refs.grid.setPage(page);
-        if (items.length === 0) {
-          this.settings.errorMessage = "진행중인 사항이 없습니다";
-        }
-      });
+      if (this.valid()) {
+        searchproduce({
+          currentPage: _.isNumber(v) ? v : 1,
+          ...this.param,
+        }).then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          const page = response.data.params;
+          this.$refs.grid.loadData(items);
+          this.$refs.grid.setPage(page);
+          if (items.length === 0) {
+            this.settings.errorMessage = "진행중인 사항이 없습니다";
+          }
+        });
+      }
     },
     reset() {
       this.param = { lot_no: "", request_name: "", pageSize: 10 };

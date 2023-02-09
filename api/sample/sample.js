@@ -45,3 +45,15 @@ export async function sampleRequestandstatusadmin(param) {
 export async function searchproduce(param) {
   return http.post(prefix + `/searchproduce`, param);
 }
+
+export async function produceupdate(param) {
+  return http.post(prefix + `/produceupdate`, param);
+}
+
+export async function codedbcreate(param) {
+  return http.post(prefix + `/codedbcreate`, param);
+}
+
+export async function codedbsearch(param) {
+  return http.post(prefix + `/codedbsearch`, param);
+}

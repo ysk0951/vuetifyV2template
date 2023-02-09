@@ -290,6 +290,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import CodeSearch from "@/components/CodeSearch.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import validSet from "@/assets/valid";
+import { produceupdate } from "api/sample/sample";
 export default {
   props: ["data"],
   data() {
@@ -371,7 +372,18 @@ export default {
         });
       }
     },
-    saveExec() {},
+    saveExec() {
+      produceupdate({
+        ...this.param,
+        code: this.codeGrade,
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          this.setModal(err);
+        });
+    },
   },
   computed: {
     ...mapState("common", ["code"]),
