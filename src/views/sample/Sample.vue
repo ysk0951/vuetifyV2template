@@ -188,7 +188,7 @@ export default {
     delveryReportDetail(data) {
       this.findTab(
         "delivaryReportDetail",
-        "샘플 요청상세",
+        "납품일보 상세",
         "deliveray Report Detail",
         "delivaryReportDetailData",
         true,
