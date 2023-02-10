@@ -307,7 +307,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import CodeSearch from "@/components/CodeSearch.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import validSet from "@/assets/valid";
-import { produceupdate, codedbsearch } from "api/sample/sample";
+import { produceupdate, codedbsearch, codedbcreate } from "api/sample/sample";
 export default {
   props: ["data"],
   data() {
@@ -366,22 +366,19 @@ export default {
       })
         .then((res) => {
           const data = res.data.data;
-          if (data && data.list) {
-            const list = data.list;
+          if (data) {
             this.codeGradeExist = true;
-            if (list.length > 1) {
-              //n개
+            if (data.list) {
+              //여러개
+              const list = data.list;
               this.codeList = list;
               this.searchCode();
-            } else if (list.length == 1) {
-              this.codeGrade = list[0].code;
             } else {
-              //없음
-              this.setModal("동일 목록이 없습니다", true, () => {});
-              this.codeGradeExist = false;
+              //1개
+              this.codeGrade = data.CODE;
             }
           } else {
-            console.log("no List");
+            this.setModal("동일 목록이 없습니다", false, () => {});
             this.codeGradeExist = false;
           }
         })
@@ -419,7 +416,17 @@ export default {
         });
       }
     },
-    newCode() {},
+    newCode() {
+      codedbcreate({
+        lotNo: this.data.lot_no,
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          this.setModal(err);
+        });
+    },
     saveExec() {
       produceupdate({
         ...this.param,

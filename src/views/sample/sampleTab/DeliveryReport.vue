@@ -66,6 +66,7 @@ export default {
     return {
       grid: "delivaryReport",
       validSet,
+      items: [],
       settings: {
         columns,
         fields,
@@ -115,6 +116,7 @@ export default {
           const response = res.data;
           const items = response.data.items;
           const page = response.data.params;
+          this.items = items;
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
           if (items.length === 0) {
@@ -125,10 +127,14 @@ export default {
     },
     reset() {
       this.param = { lot_no: "", request_name: "", pageSize: 10 };
+      this.items = [];
     },
     dbClick(data) {
-      console.log(data);
-      this.$emit("dbClick", data);
+      console.log(data.lotNo);
+      this.$emit(
+        "dbClick",
+        _.filter(this.items, (v) => v.lotNo === data.lotNo)[0]
+      );
     },
   },
   components: {
