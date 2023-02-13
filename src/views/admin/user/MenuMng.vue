@@ -57,19 +57,32 @@
                 ></v-text-field>
                 <div v-for="(item, index) in allMenu" :key="index">
                   <h4>{{ item.menu }}</h4>
-                  <div class="selectBox">
+                  <template>
                     <div
-                      v-for="(box, idx) in item.subMenu"
-                      :key="idx"
-                      style="width: 150px"
+                      v-for="i in parseInt(item.subMenu.length / 6) + 1"
+                      :key="i"
+                      style="height: 33px"
                     >
-                      <v-checkbox v-model="checkBox[box.code]">
-                        <template v-slot:label>
-                          <h5>{{ box.menu }}</h5>
-                        </template></v-checkbox
-                      >
+                      <div class="selectBox">
+                        <template v-for="k in 4">
+                          <template v-if="item.subMenu[4 * (i - 1) + k - 1]">
+                            <v-checkbox
+                              :key="k"
+                              v-model="
+                                checkBox[item.subMenu[4 * (i - 1) + k - 1].code]
+                              "
+                            >
+                              <template v-slot:label>
+                                <h5>
+                                  {{ item.subMenu[4 * (i - 1) + k - 1].menu }}
+                                </h5>
+                              </template></v-checkbox
+                            >
+                          </template>
+                        </template>
+                      </div>
                     </div>
-                  </div>
+                  </template>
                 </div>
               </div>
               <div class="wrapperEnd">
@@ -288,7 +301,13 @@ export default {
 .selectBox {
   // display: flex;
   display: -webkit-inline-box;
-  width: 150px;
+  width: 200px;
+  .v-input {
+    width: 200px;
+    .v-messages {
+      display: none;
+    }
+  }
 }
 .fix {
   background-color: rgba(0, 0, 0, 0.3) !important;
