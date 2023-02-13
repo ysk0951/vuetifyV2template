@@ -23,6 +23,7 @@ import SetPopup from "@/components/SetPopup.vue";
 export default {
   data() {
     return {
+      origin: [],
       settings: {
         columns: _.map(_.cloneDeep(columns), function (v) {
           if (v.key != "route" && v.key != "code") {
@@ -68,15 +69,15 @@ export default {
         const response = res.data;
         const items = response.data.items;
         const page = response.data.params;
+        this.origin = items;
         this.$refs.grid.loadData(items);
         this.$refs.grid.setPage(page);
       });
     },
     reset() {},
     save(data) {
-      console.log(data);
       const param = {
-        idx: data.dataRow,
+        idx: this.origin[data.dataRow].idx,
       };
       if (data.field === 2) {
         param.ko = data.newValue;

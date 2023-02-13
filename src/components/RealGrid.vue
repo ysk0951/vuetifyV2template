@@ -64,6 +64,10 @@ export default {
     getJsonRow: function () {
       return this.dp.getJsonRow(0);
     },
+    getJsonRowByIdx: function (idx) {
+      console.log(idx, "idx");
+      return this.dp.getJsonRow(idx);
+    },
     getJsonAllRow: function () {
       return this.dp.getRows(0, -1);
     },

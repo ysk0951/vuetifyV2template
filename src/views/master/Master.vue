@@ -200,7 +200,7 @@ export default {
     userDetail(data) {
       this.findTab(
         "userDetail",
-        "회원 마스터 상세",
+        "회원 상세",
         "User Detail",
         "userDetailData",
         true,

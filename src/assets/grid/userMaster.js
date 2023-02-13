@@ -14,11 +14,11 @@ const data = [
   },
   {
     field: "address",
-    alias: "기본 배송지",
+    alias: "배송지",
   },
   {
     field: "email",
-    alias: "이메일주소",
+    alias: "이메일 주소",
   },
   {
     field: "company",
