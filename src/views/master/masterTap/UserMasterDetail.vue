@@ -94,8 +94,8 @@ export default {
       this.$refs.gridDetail.loadData([this.data]);
     },
     addressSelect(v) {
-      const row = this.$refs.gridSample.getCheckedRow();
-      row[0].address = v.address;
+      // const row = this.$refs.gridSample.getCheckedRow();
+      console.log(v);
       //update 로직
       //update 이후 셀 업데이트
       this.loadData();

@@ -76,19 +76,23 @@ export default {
     },
     reset() {},
     save(data) {
-      const param = {
-        idx: this.origin[data.dataRow].idx,
-      };
-      if (data.field === 2) {
-        param.ko = data.newValue;
+      if (this.origin[data.dataRow]) {
+        const param = {
+          idx: this.origin[data.dataRow].idx,
+        };
+        if (data.field === 2) {
+          param.ko = data.newValue;
+        } else {
+          param.en = data.newValue;
+        }
+        updateMessage(param)
+          .then(() => {})
+          .catch((res) => {
+            this.openPopup(`Error 관리자에게 문의하세요: ${res}`, false);
+          });
       } else {
-        param.en = data.newValue;
+        this.openPopup(`Error 관리자에게 문의하세요`, false);
       }
-      updateMessage(param)
-        .then(() => {})
-        .catch((res) => {
-          this.openPopup(`Error 관리자에게 문의하세요: ${res}`, false);
-        });
     },
   },
   components: {
