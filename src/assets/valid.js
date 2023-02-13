@@ -27,7 +27,7 @@ const company = (v) => {
     if (v.length === 0) {
       return true;
     } else {
-      return !!companyRegex.test(v) || "올바른 기업명을 입력해주세요";
+      return !!companyRegex.test(v) || "특수문자는 괄호만 입력 가능합니다";
     }
   } else {
     return true;

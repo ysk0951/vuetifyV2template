@@ -138,8 +138,8 @@ export default {
         fields,
         rows,
         height,
-        errorMessage: "데이터가 없습니다",
         hideCheckBar: true,
+        errorMessage: "조회된 내용이 없습니다",
       },
       validSet,
       grid: "acount",
@@ -177,6 +177,7 @@ export default {
         memberId: "",
         company: this.company,
         employeeCode: "",
+        pageSize: 10,
       };
     },
     loadData(v) {
@@ -295,8 +296,7 @@ export default {
         });
     },
     update(row) {
-      const test = confirm("저장하시겠습니까?");
-      if (test) {
+      this.openConfirm("저장하시겠습니까?", true, () => {
         let employee_status = "";
         // let roles = "";
         switch (row.work) {
@@ -307,16 +307,18 @@ export default {
             employee_status = 2;
             break;
         }
-
         userInfoUpdate({ ...row, memberId: row.email, employee_status })
-          .then((res) => {
-            const response = res.data;
-            console.log(response);
+          .then(() => {
+            this.openConfirm("저장되었습니다", false, () => {
+              this.onApprove();
+            });
           })
           .catch(() => {
-            this.cancel();
+            this.openConfirm("Error : 관리자에게 문의하세요", false, () => {
+              this.cancel();
+            });
           });
-      }
+      });
     },
   },
 

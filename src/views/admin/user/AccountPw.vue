@@ -81,7 +81,7 @@
       <h3 class="mt-16 mb-2 pl-1 pr-1">
         <div class="wrapperSpace">
           목록
-          <v-btn depressed color="primary" @click="resetPw" :width="'237px'"
+          <v-btn depressed color="primary" @click="resetPw" :width="'147px'"
             >비밀번호초기화</v-btn
           >
         </div>
@@ -122,6 +122,7 @@ export default {
         rows,
         height,
         radio: true,
+        errorMessage: "조회된 내용이 없습니다",
       },
       param: {},
       grid: "password",
@@ -230,26 +231,14 @@ export default {
         .then((res) => {
           const body = res.data;
           if (!_.isEmpty(body.errorCode)) {
-            this.openPopup(body.errorMessage);
+            this.openPopup(`Error(${body.errorCode}) : 관리자에게 문의하세요`);
           } else {
             this.openPopup(body.message);
           }
         })
         .catch((err) => {
-          this.SET_POPUP_TEXT(err);
-          this.$refs.pwPopup.openPopup();
+          this.openPopup(`Error(${err}) : 관리자에게 문의하세요`);
         });
-    },
-    resetExec() {
-      this.cancel();
-      this.SET_POPUP({
-        title: "알림",
-        height: 150,
-        width: 300,
-        customApprove: false,
-      });
-      this.SET_POPUP_TEXT("비밀번호가 초기화 되었습니다");
-      this.$refs.pwConfirm.openPopup();
     },
   },
   computed: {

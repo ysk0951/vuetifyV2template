@@ -85,7 +85,7 @@ export const columns = [
       textAlignment: "center",
     },
     header: {
-      text: "이메일",
+      text: "이메일 주소",
       showTooltip: false,
     },
     editable: false,
@@ -190,7 +190,7 @@ export const columns = [
       textReadOnly: true,
     },
     header: {
-      text: "계정구분",
+      text: "재직",
       styleName: "orange-column",
     },
     editButtonVisibility: "always",

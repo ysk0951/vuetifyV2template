@@ -133,6 +133,9 @@ export default {
       this.gv.setFixedOptions({ colCount: this.settings.fixRow });
     }
     this.gv.setStateBar({ visible: false });
+    this.gv.setRowIndicator({
+      headText: "번호",
+    });
     this.gv.onCellItemClicked = (grid, index) => {
       const row = this.dp.getJsonRow(index.dataRow);
       this.$emit("btnClick", row);
