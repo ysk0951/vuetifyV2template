@@ -84,6 +84,7 @@ export default {
     reset() {
       this.input = {
         gubun: "",
+        pageSize: 10,
       };
     },
     loadData(v) {
@@ -104,11 +105,6 @@ export default {
           const page = response.data.params;
           this.$refs.grid.loadData(items);
           this.$refs.grid.setPage(page);
-          // setTimeout(() => {
-          //   this.$refs.grid.gv.refresh(true);
-          // }, 300);
-
-          // }
         });
       }
     },

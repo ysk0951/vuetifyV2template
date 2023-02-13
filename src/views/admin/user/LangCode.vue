@@ -7,15 +7,8 @@
         ref="grid"
         :settings="settings"
         @changePage="loadData"
+        @changeData="save"
       />
-    </div>
-    <div class="wrapper mt-4">
-      <v-card-actions>
-        <v-btn depressed @click="reset">취소</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="save">저장</v-btn>
-      </v-card-actions>
     </div>
   </div>
 </template>
@@ -24,7 +17,7 @@ import { columns, fields, rows, height } from "@/assets/grid/langCode";
 import RealGrid from "@/components/RealGrid.vue";
 import { getMessageList } from "api/language";
 import { mapState, mapMutations } from "vuex";
-// import { updateMessage } from "api/language";
+import { updateMessage } from "api/language";
 import _ from "lodash";
 import SetPopup from "@/components/SetPopup.vue";
 export default {
@@ -80,20 +73,21 @@ export default {
       });
     },
     reset() {},
-    save() {
-      this.openPopup("저장하시겠습니까?", true, () => {
-        // eslint-disable-next-line no-unused-vars
-        const rows = this.$refs.grid.getRow();
-        // updateMessage(this.param)
-        //   .then(() => {
-        //     this.openPopup("저장되었습니다", false, () => {
-        //       this.setData();
-        //     });
-        //   })
-        //   .catch((res) => {
-        //     this.openPopup(res, false);
-        //   });
-      });
+    save(data) {
+      console.log(data);
+      const param = {
+        idx: data.dataRow,
+      };
+      if (data.field === 2) {
+        param.ko = data.newValue;
+      } else {
+        param.en = data.newValue;
+      }
+      updateMessage(param)
+        .then(() => {})
+        .catch((res) => {
+          this.openPopup(`Error 관리자에게 문의하세요: ${res}`, false);
+        });
     },
   },
   components: {

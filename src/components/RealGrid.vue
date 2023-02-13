@@ -99,7 +99,7 @@ export default {
   mounted() {
     this.dp = new LocalDataProvider(false);
     this.gv = new GridView(this.gridName);
-    this.gv.displayOptions.fitStyle = "even";
+    this.gv.displayOptions.fitStyle = "fill";
     this.gv.displayOptions.rowHeight = 30;
     this.gv.setDataSource(this.dp);
     this.dp.setFields(this.settings.fields);
@@ -125,6 +125,23 @@ export default {
     this.gv.onCurrentChanging = (grid) => {
       grid.commit();
     };
+    this.gv.onEditRowChanged = (
+      grid,
+      itemIndex,
+      dataRow,
+      field,
+      oldValue,
+      newValue
+    ) => {
+      this.$emit("changeData", {
+        grid,
+        itemIndex,
+        dataRow,
+        field,
+        oldValue,
+        newValue,
+      });
+    };
     this.gv.displayOptions.syncGridHeight = "always";
     if (this.settings.grouping) {
       this.setGroup(this.settings.grouping);
@@ -141,6 +158,13 @@ export default {
       this.$emit("btnClick", row);
       return true;
     };
+    if (this.settings.noneNo) {
+      this.gv.setRowIndicator({
+        headText: "번호",
+        visible: false,
+      });
+      this.gv.header.visible = false;
+    }
   },
 };
 </script>

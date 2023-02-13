@@ -29,6 +29,7 @@ const menu = {
         .then((res) => {
           if (res.status === 200) {
             const response = res.data;
+            // state.allMenu = response.data;
             state.allMenu = _.filter(response.data, (v) => {
               return v.subMenu.length > 0;
             });

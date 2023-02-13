@@ -42,8 +42,15 @@
 <script>
 import { getCode } from "api/common";
 import { mapMutations } from "vuex";
-import { columns, fields, rows, height } from "@/assets/grid/codeMgnDetail";
+import {
+  columns,
+  fields,
+  rows,
+  height,
+  noneNo,
+} from "@/assets/grid/codeMgnDetail";
 import RealGrid from "@/components/RealGrid.vue";
+import _ from "lodash";
 export default {
   props: ["data"],
   watch: {
@@ -61,6 +68,7 @@ export default {
         fields,
         rows,
         height,
+        noneNo,
         errorMessage: "잘못된 접근입니다",
         hideCheckBar: true,
       },
@@ -79,6 +87,9 @@ export default {
     async loadData() {
       const res = await getCode(this.data.code);
       const data = res.data.data;
+      _.each(data, (v, i) => {
+        v.index = `항목${i + 1}`;
+      });
       this.$refs.grid.loadData(data);
     },
   },

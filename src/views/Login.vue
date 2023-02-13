@@ -83,7 +83,7 @@
         </div>
       </v-card>
     </div>
-    <div class="tmp">
+    <!-- <div class="tmp">
       <v-btn
         type="button"
         color="primary lighten-1 text-capitalize"
@@ -144,7 +144,7 @@
       >
         임시 서류관리 페이지
       </v-btn>
-    </div>
+    </div> -->
   </v-flex>
 </template>
 
