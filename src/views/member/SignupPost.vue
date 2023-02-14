@@ -26,7 +26,7 @@
           :maxlength="30"
         />
         <div class="addressSelect">
-          <v-subheader class="my-4" style="width: 130px"
+          <v-subheader class="my-4" style="width: 130px; height: 0px"
             >배송지 구분</v-subheader
           >
           <v-radio-group v-model="param.country" row>
@@ -57,7 +57,7 @@
             outlined
             dense
             autocomplete="off"
-            class="addDetail"
+            class="addDetail mb-7"
             :rules="[this.validSet.empty]"
           ></v-text-field>
           <v-text-field
@@ -65,7 +65,7 @@
             outlined
             dense
             autocomplete="off"
-            class="addDetail"
+            class="addDetail mb-5"
             :rules="[this.validSet.empty]"
           ></v-text-field>
         </template>
@@ -77,6 +77,7 @@
             autocomplete="off"
             class="addDetail"
             placeholder="상세주소를 입력해주세요"
+            style="margin-bottom: 105px !important"
             :rules="[this.validSet.empty]"
           ></v-text-field>
         </template>
@@ -85,7 +86,7 @@
           label="배송지 연락처1"
           type="text"
           v-model="param.phone1"
-          height="55"
+          height="65"
           :rules="[this.validSet.empty]"
           v-mask="'###-####-####'"
         />
@@ -95,16 +96,16 @@
           type="text"
           v-model="param.phone2"
           :rules="[this.validSet.empty]"
-          height="55"
+          height="65"
           v-mask="'###-####-####'"
         />
-        <div style="display: flex">
-          <v-subheader class="my-4" style="width: 130px">
+        <div style="display: flex" class="mt-3">
+          <v-subheader class="my-4" style="width: 130px; height: 0px">
             기본배송지
           </v-subheader>
           <v-checkbox
             v-model="param.defaultYn"
-            style="align-items: center; padding-top: 14px"
+            style="align-items: center; padding-top: 10px"
           >
             <template v-slot:label>
               <h5>기본 배송지로 설정</h5>
@@ -211,6 +212,7 @@ export default {
     margin-top: 17px;
     margin-left: 130px;
     height: 33px;
+    margin-bottom: 26px !important;
   }
   table {
     border: 1px solid;

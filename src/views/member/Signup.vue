@@ -22,7 +22,7 @@
           <v-form ref="signup" lazy-validation>
             <h4 style="text-align: left">회원가입 약관동의 (필수)</h4>
             <div class="wrapperSpace signUpAgree">
-              <div>
+              <v-col cols="12" sm="4" style="padding-top: 10px">
                 <v-checkbox
                   v-model="agree.service"
                   :rules="[this.validSet.check]"
@@ -31,32 +31,33 @@
                     <h5>서비스 이용약관 동의</h5>
                   </template>
                 </v-checkbox>
-              </div>
-              <div>
+              </v-col>
+              <v-col cols="12" sm="8" class="wrapperEnd">
                 <v-btn depressed color="primary" @click="open_agree('service')"
                   >전문 보기</v-btn
                 >
-              </div>
+              </v-col>
             </div>
-            <div class="wrapperSpace signUpAgree mb-3">
-              <div>
+            <div class="wrapperSpace signUpAgree">
+              <v-col cols="12" sm="4" style="padding-top: 10px">
                 <v-checkbox
                   v-model="agree.private"
                   :rules="[this.validSet.check]"
+                  style="padding-left: 1px"
                 >
                   <template v-slot:label>
                     <h5>개인정보활용 동의</h5>
                   </template></v-checkbox
                 >
-              </div>
-              <div>
+              </v-col>
+              <v-col cols="12" sm="8" class="wrapperEnd">
                 <v-btn
                   depressedd
                   color="primary"
                   @click="open_agree('personal')"
                   >전문 보기</v-btn
                 >
-              </div>
+              </v-col>
             </div>
             <hr class="hrUnderLine mb-6" />
             <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
@@ -415,7 +416,11 @@ export default {
 
 .signUpAgree {
   width: 88%;
+  height: 50px;
   margin: auto;
+  .v-input--checkbox {
+    height: 0px;
+  }
 }
 
 .signInput .v-input__slot {
@@ -435,16 +440,16 @@ export default {
 }
 
 .phoneInput {
-  width: 160px;
+  width: 210px;
   .v-input__slot {
-    width: 160px;
+    width: 210px;
   }
 }
 .areaInput {
-  width: 135px;
+  width: 85px;
   margin-right: 5px !important;
   .v-input__slot {
-    width: 135px;
+    width: 85px;
   }
 }
 .signBtn {
