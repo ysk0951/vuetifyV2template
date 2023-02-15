@@ -6,7 +6,7 @@
         <div class="service">
           <div class="wrapper mt-10">
             <v-row>
-              <v-col cols="12" sm="3" class="pr-0">
+              <v-col cols="12" sm="3" class="px-3">
                 <h4>Lot No</h4>
                 <v-text-field
                   placeholder="Lot No를 입력해주세요"
@@ -21,7 +21,7 @@
                   ]"
                 />
               </v-col>
-              <v-col cols="12" sm="9" class="pl-0 search">
+              <v-col cols="12" sm="9" class="px-0 search">
                 <v-btn depressed class="ml-3 mr-3" @click="reset">초기화</v-btn>
                 <v-btn depressed color="primary " @click="search">검색</v-btn>
               </v-col>
@@ -30,7 +30,7 @@
           <h3 class="mt-4 mb-2">기본정보</h3>
           <hr class="mb-4" />
           <v-row>
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="4" class="px-3">
               <h4>Lot No</h4>
               <v-text-field
                 type="text"
@@ -62,7 +62,7 @@
             @changePage="loadData"
             :none-page="true"
           />
-          <h3 class="mt-4 mb-2">진행 상황</h3>
+          <h3 class="mt-16 mb-2">진행 상황</h3>
           <hr class="mb-4" />
           <RealGrid
             domName="detailGrid"

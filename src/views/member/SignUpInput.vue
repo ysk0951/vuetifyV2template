@@ -6,7 +6,7 @@
       'px'
     "
   >
-    <v-subheader class="my-4" style="width: 130px">{{
+    <v-subheader class="my-4" style="width: 130px" v-if="this.label">{{
       this.label
     }}</v-subheader>
     <v-text-field

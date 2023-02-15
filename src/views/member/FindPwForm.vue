@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="findPwForm">
     <SetPopup ref="sertificatePopup" />
     <span class="infoHeader pwHeader">
-      비밀번호를 찾고자 하는 이메일 주소를 입력해주세요</span
+      비밀번호를 찾고자 하는 이메일 주소(아이디)를 입력해주세요</span
     >
     <div class="wrapperSpace flexCol" style="height: 330px">
       <v-form ref="pwFind" lazy-validation>
@@ -208,6 +208,9 @@ export default {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+}
+.findPwForm .v-input--radio-group--column {
+  margin-top: 5px;
 }
 
 .guide {

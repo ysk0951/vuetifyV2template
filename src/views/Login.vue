@@ -58,18 +58,6 @@
               >
                 Login
               </v-btn>
-              <v-btn
-                type="button"
-                color="primary lighten-1 text-capitalize"
-                depressed
-                large
-                block
-                dark
-                class="mb-3"
-                @click="noneMemberSearch"
-              >
-                비회원 검색
-              </v-btn>
             </div>
           </v-form>
           <div class="underLogin">
@@ -78,7 +66,23 @@
               <span> | </span>
               <span @click="find(1)">{{ this.getText("MSG004") }}</span>
             </div>
-            <span @click="signup">{{ this.getText("MSG005") }}</span>
+            <span @click="signup" style="color: green">{{
+              this.getText("MSG005")
+            }}</span>
+          </div>
+          <div>
+            <v-btn
+              type="button"
+              color=" lighten-1 text-capitalize"
+              depressed
+              large
+              block
+              outlined
+              class="mt-5"
+              @click="noneMemberSearch"
+            >
+              비회원 검색
+            </v-btn>
           </div>
         </div>
       </v-card>
@@ -248,7 +252,7 @@ export default {
             });
           })
           .catch(() => {
-            this.openModal("로그인 에 실패하였습니다.");
+            this.openModal("로그인에 실패하였습니다.");
           })
           .finally(() => {});
       }

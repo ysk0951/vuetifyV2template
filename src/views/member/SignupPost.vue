@@ -52,22 +52,24 @@
             :rules="[this.validSet.empty]"
             :disabled="true"
           />
-          <v-text-field
+          <SignupInput
+            height="40"
             v-model="param.address"
             outlined
             dense
             autocomplete="off"
             class="addDetail mb-7"
             :rules="[this.validSet.empty]"
-          ></v-text-field>
-          <v-text-field
+          ></SignupInput>
+          <SignupInput
+            height="40"
             v-model="param.address2"
             outlined
             dense
             autocomplete="off"
             class="addDetail mb-5"
             :rules="[this.validSet.empty]"
-          ></v-text-field>
+          ></SignupInput>
         </template>
         <template v-else>
           <v-text-field
