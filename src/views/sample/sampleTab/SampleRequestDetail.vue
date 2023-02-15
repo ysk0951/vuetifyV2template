@@ -185,7 +185,6 @@ export default {
     ...mapMutations("popup", ["SET_POPUP"]),
     loadData() {
       if (this.data) {
-        console.log(this.data);
         sampleSearch(this.data)
           .then((res) => {
             const response = res.data;

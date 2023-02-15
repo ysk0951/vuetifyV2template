@@ -137,6 +137,7 @@ export default {
       oldValue,
       newValue
     ) => {
+      grid.commit();
       this.$emit("changeData", {
         grid,
         itemIndex,
@@ -167,6 +168,8 @@ export default {
         headText: "번호",
         visible: false,
       });
+    }
+    if (this.settings.noneHeader) {
       this.gv.header.visible = false;
     }
   },

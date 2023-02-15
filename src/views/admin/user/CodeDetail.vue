@@ -48,6 +48,7 @@ import {
   rows,
   height,
   noneNo,
+  noneHeader,
 } from "@/assets/grid/codeMgnDetail";
 import RealGrid from "@/components/RealGrid.vue";
 import _ from "lodash";
@@ -69,6 +70,7 @@ export default {
         rows,
         height,
         noneNo,
+        noneHeader,
         errorMessage: "잘못된 접근입니다",
         hideCheckBar: true,
       },

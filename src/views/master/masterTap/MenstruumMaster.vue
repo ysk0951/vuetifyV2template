@@ -41,7 +41,6 @@
             outlined
             dense
             placeholder="00.00/00.00/00.00"
-            v-mask="'##.##/##.##/##.##'"
             :rules="[this.validSet.sample(param.saltVol, 2, 'value')]"
           ></v-text-field>
         </v-col>
@@ -81,6 +80,7 @@ export default {
   data() {
     return {
       validSet,
+      origin: [],
       param: {
         solvent: "",
         solventVol: "",
@@ -89,7 +89,7 @@ export default {
         pageSize: "10",
       },
       grid: "menstrumm",
-      settings: menstrumm,
+      settings: { ...menstrumm, hideCheckBar: true, noneNo: true },
     };
   },
   methods: {
@@ -103,6 +103,7 @@ export default {
             const response = res.data;
             const items = response.data.items;
             const page = response.data.params;
+            this.origin = items;
             this.$refs.grid.loadData(items);
             this.$refs.grid.setPage(page);
           })

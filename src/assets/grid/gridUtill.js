@@ -119,6 +119,48 @@ export function filterExel(input) {
   row["addVol15"] = row["wt%_14"];
   return row;
 }
+export function getNum(val) {
+  if (isNaN(val)) {
+    return 0;
+  }
+  return val;
+}
+export function setNewSum(row) {
+  let sum = 0;
+  sum =
+    Number(getNum(row["solventVol1"])) +
+    Number(getNum(row["solventVol2"])) +
+    Number(getNum(row["solventVol3"])) +
+    Number(getNum(row["solventVol4"])) +
+    Number(getNum(row["solventVol5"])) +
+    Number(getNum(row["solventVol6"])) +
+    Number(getNum(row["solventVol7"])) +
+    Number(getNum(row["solventVol8"])) +
+    Number(getNum(row["solventVol9"])) +
+    Number(getNum(row["solventVol10"])) +
+    Number(getNum(row["soltVol1"])) +
+    Number(getNum(row["soltVol2"])) +
+    Number(getNum(row["soltVol3"])) +
+    Number(getNum(row["soltVol4"])) +
+    Number(getNum(row["soltVol5"])) +
+    Number(getNum(row["addVol1"])) +
+    Number(getNum(row["addVol2"])) +
+    Number(getNum(row["addVol3"])) +
+    Number(getNum(row["addVol4"])) +
+    Number(getNum(row["addVol5"])) +
+    Number(getNum(row["addVol6"])) +
+    Number(getNum(row["addVol7"])) +
+    Number(getNum(row["addVol8"])) +
+    Number(getNum(row["addVol9"])) +
+    Number(getNum(row["addVol10"])) +
+    Number(getNum(row["addVol11"])) +
+    Number(getNum(row["addVol12"])) +
+    Number(getNum(row["addVol13"])) +
+    Number(getNum(row["addVol14"])) +
+    Number(getNum(row["addVol15"]));
+  row["sum"] = sum;
+  return row;
+}
 
 export function makeARow(fields) {
   const rowSet = _.reduce(

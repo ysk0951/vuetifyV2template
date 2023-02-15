@@ -26,6 +26,7 @@
       ref="sample_grid"
       :settings="settings_sample"
       :nonePage="true"
+      @changeData="updateSpace"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">실제조성</div>
@@ -36,6 +37,7 @@
       ref="real_grid"
       :settings="settings_real"
       :nonePage="true"
+      @changeData="changeDataReal"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">제조조성</div>
@@ -46,6 +48,7 @@
       ref="make_grid"
       :settings="settings_make"
       :nonePage="true"
+      @changeData="changeDataMake"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">세부 스펙</div>
@@ -75,7 +78,12 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
 import { mapMutations } from "vuex";
-import { makeSum, makeSampleSet, showSampleSet } from "@/assets/grid/gridUtill";
+import {
+  makeSum,
+  makeSampleSet,
+  showSampleSet,
+  setNewSum,
+} from "@/assets/grid/gridUtill";
 // import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
@@ -95,6 +103,7 @@ export default {
         }),
         hideCheckBar: true,
         height: 150,
+        noneNo: true,
       },
       settings_real: {
         ...sampleSum,
@@ -104,6 +113,7 @@ export default {
         }),
         hideCheckBar: true,
         height: 150,
+        noneNo: true,
       },
       settings_make: {
         ...sampleSum,
@@ -113,6 +123,7 @@ export default {
         }),
         hideCheckBar: true,
         height: 150,
+        noneNo: true,
       },
       settings_spec: {
         ...spec,
@@ -121,6 +132,8 @@ export default {
           return v;
         }),
         height: 700,
+        hideCheckBar: true,
+        noneNo: true,
       },
     };
   },
@@ -151,12 +164,11 @@ export default {
           const CodeDB_A = response.CodeDB_A;
           const CodeDB_B = response.CodeDB_B;
           const CodeDB_Dt = response.CodeDB_Dt;
+          console.log(showSampleSet(CodeDB_Dt));
           this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
-          this.$refs.spec_grid.loadData([
-            { data: showSampleSet(CodeDB_Dt), code },
-          ]);
+          this.$refs.spec_grid.loadData([showSampleSet(CodeDB_Dt)]);
         })
         .catch((res) => {
           console.error(res);
@@ -174,15 +186,21 @@ export default {
         const sampleDetail = {
           data: makeSampleSet(dt),
         };
-        updateSampleMaster({
-          sample: { ...this.$refs.sample_grid.getJsonRow(), code },
-          sampleA: { ...this.$refs.real_grid.getJsonRow(), code },
-          sampleB: { ...this.$refs.make_grid.getJsonRow(), code },
-          sampleDetail: { ...sampleDetail, code },
-        }).then(() => {
-          this.closePopup();
-          this.openPopup("저장되었습니다", false);
-        });
+        const sum1 = this.$refs.real_grid.getJsonRow().sum;
+        const sum2 = this.$refs.make_grid.getJsonRow().sum;
+        if (sum1 > 100 || sum2 > 100) {
+          this.openPopup("SUM 정보를 확인해 주세요");
+        } else {
+          updateSampleMaster({
+            sample: { ...this.$refs.sample_grid.getJsonRow(), code },
+            sampleA: { ...this.$refs.real_grid.getJsonRow(), code },
+            sampleB: { ...this.$refs.make_grid.getJsonRow(), code },
+            sampleDetail: { ...sampleDetail, code },
+          }).then(() => {
+            this.closePopup();
+            this.openPopup("저장되었습니다", false);
+          });
+        }
       });
     },
     reset() {
@@ -195,6 +213,20 @@ export default {
         addVol: "",
         code: "",
       };
+    },
+    setNewSum(ref) {
+      const row = this.$refs[ref].getJsonRow();
+      const sum = [setNewSum(row)];
+      this.$refs[ref].loadData(sum);
+    },
+    changeDataReal() {
+      this.setNewSum("real_grid");
+    },
+    changeDataMake() {
+      this.setNewSum("make_grid");
+    },
+    updateSpace() {
+      //TODO :: 세부스팩 반영 해야할 부분
     },
   },
   mounted() {

@@ -444,7 +444,6 @@ export default {
     ...mapState("common", ["code"]),
   },
   mounted() {
-    console.log(this.data);
     this.$refs.grid.loadData([this.data]);
   },
   components: {

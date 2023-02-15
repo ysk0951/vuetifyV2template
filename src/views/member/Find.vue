@@ -132,7 +132,6 @@ export default {
           .catch(() => {})
           .finally(() => {});
       } else if (key === "pw") {
-        console.log("pw Approve");
         this.closeModal({ name: "modifyPwd", params: { params } });
       }
     },

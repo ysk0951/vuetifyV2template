@@ -18,4 +18,5 @@ _.each(data, function (o) {
   makeCell(1, [o], fields, columns, o.width);
 });
 const noneNo = true;
-export { fields, columns, noneNo };
+const noneHeader = true;
+export { fields, columns, noneNo, noneHeader };

@@ -43,11 +43,7 @@
       </v-col>
     </v-row>
     <h3 class="mt-4 mb-2 pl-1 pr-1">
-      <div class="wrapperSpace">
-        조성<v-btn depressed color="primary" @click="addSpec"
-          >세부스펙 반영</v-btn
-        >
-      </div>
+      <div class="wrapperSpace">조성</div>
     </h3>
     <hr class="mb-4" />
     <RealGrid
@@ -55,6 +51,7 @@
       ref="sample_grid"
       :settings="settings_sample"
       :nonePage="true"
+      @changeData="addSpec"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">실제조성</div>
@@ -65,6 +62,7 @@
       ref="real_grid"
       :settings="settings_real"
       :nonePage="true"
+      @changeData="changeDataReal"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">제조조성</div>
@@ -75,6 +73,7 @@
       ref="make_grid"
       :settings="settings_make"
       :nonePage="true"
+      @changeData="changeDataMake"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">세부 스펙</div>
@@ -103,6 +102,7 @@ import {
   makeARow,
   makeSampleSet,
   showSampleSet,
+  setNewSum,
 } from "@/assets/grid/gridUtill";
 import SetPopup from "@/components/SetPopup.vue";
 import _ from "lodash";
@@ -124,6 +124,7 @@ export default {
         code_grade: "",
       },
       grid: "sampleMasterAdd",
+      specBefore: [],
       settings_sample: {
         ...sample,
         columns: _.map(_.cloneDeep(sample.columns), function (v) {
@@ -132,6 +133,7 @@ export default {
         }),
         hideCheckBar: true,
         height: 150,
+        noneNo: true,
       },
       settings_real: {
         ...sampleSum,
@@ -141,6 +143,7 @@ export default {
         }),
         hideCheckBar: true,
         height: 150,
+        noneNo: true,
       },
       settings_make: {
         ...sampleSum,
@@ -150,6 +153,7 @@ export default {
         }),
         hideCheckBar: true,
         height: 150,
+        noneNo: true,
       },
       settings_spec: {
         ...spec,
@@ -157,12 +161,15 @@ export default {
           v.editable = true;
           return v;
         }),
+        hideCheckBar: true,
         height: 700,
+        noneNo: true,
       },
     };
   },
   mounted() {
     this.setGrid();
+    this.specBefore = this.$refs.spec_grid.getJsonRows();
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
@@ -182,9 +189,19 @@ export default {
     newSample() {
       this.$emit("newSample");
     },
+    setNewSum(ref) {
+      const row = this.$refs[ref].getJsonRow();
+      const sum = [setNewSum(row)];
+      this.$refs[ref].loadData(sum);
+    },
+    changeDataReal() {
+      this.setNewSum("real_grid");
+    },
+    changeDataMake() {
+      this.setNewSum("make_grid");
+    },
     addSpec() {
       const row = this.$refs.sample_grid.getJsonRow();
-      const specBefore = this.$refs.spec_grid.getJsonRows();
       const key = _.keys(row);
       const rowtmp = makeARow(spec.fields)[0];
       const rowArr = [];
@@ -199,14 +216,12 @@ export default {
             dan = "wt%";
           }
           const name = row[v];
-          const existSpec = _.filter(rowArr, (v) => {
-            v.name = name;
-          });
-          console.log(v, name, existSpec);
-          if (!_.isEmpty(name)) rowArr.push({ ...rowtmp, name, dan });
+          if (!_.isEmpty(name)) {
+            rowArr.push({ ...rowtmp, name, dan });
+            this.$refs.spec_grid.loadData(rowArr.concat(this.specBefore));
+          }
         }
       });
-      this.$refs.spec_grid.loadData(rowArr.concat(specBefore));
     },
     setGrid() {
       this.$refs.sample_grid.loadData(makeARow(sample.fields));
@@ -248,27 +263,33 @@ export default {
       this.setGrid();
     },
     save() {
-      const code = this.input.code_grade;
-      const sample = { ...this.$refs.sample_grid.getJsonRow() };
-      const sampleA = { ...this.$refs.real_grid.getJsonRow() };
-      const sampleB = { ...this.$refs.make_grid.getJsonRow() };
-      const dt = this.$refs.spec_grid.getJsonAllRow();
-      const sampleDetail = {
-        data: makeSampleSet(dt),
-        code,
-      };
-      this.openPopup("저장 하시겠습니까?", true, () => {
-        insertSampleMaster({
-          sample,
-          sampleA,
-          sampleB,
-          sampleDetail,
-        })
-          .then(() => {
-            this.openPopup("저장되었습니다", false);
+      const sum1 = this.$refs.real_grid.getJsonRow().sum;
+      const sum2 = this.$refs.make_grid.getJsonRow().sum;
+      if (sum1 > 100 || sum2 > 100) {
+        this.openPopup("SUM 정보를 확인해 주세요");
+      } else {
+        const code = this.input.code_grade;
+        const sample = { ...this.$refs.sample_grid.getJsonRow() };
+        const sampleA = { ...this.$refs.real_grid.getJsonRow() };
+        const sampleB = { ...this.$refs.make_grid.getJsonRow() };
+        const dt = this.$refs.spec_grid.getJsonAllRow();
+        const sampleDetail = {
+          data: makeSampleSet(dt),
+          code,
+        };
+        this.openPopup("저장 하시겠습니까?", true, () => {
+          insertSampleMaster({
+            sample,
+            sampleA,
+            sampleB,
+            sampleDetail,
           })
-          .catch(() => {});
-      });
+            .then(() => {
+              this.openPopup("저장되었습니다", false);
+            })
+            .catch(() => {});
+        });
+      }
     },
   },
   components: {
