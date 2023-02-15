@@ -57,3 +57,7 @@ export async function codedbcreate(param) {
 export async function codedbsearch(param) {
   return http.post(prefix + `/codedbsearch`, param);
 }
+
+export async function updateAddress(param) {
+  return http.post(prefix + `/updateAddress`, param);
+}

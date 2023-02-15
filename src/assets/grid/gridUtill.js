@@ -86,7 +86,6 @@ export function makeRowSet(fields) {
 }
 
 export function filterExel(input) {
-  console.log(input);
   const row = { ...input };
   row["solventVol1"] = row["vol%"];
   row["solventVol2"] = row["vol%_1"];

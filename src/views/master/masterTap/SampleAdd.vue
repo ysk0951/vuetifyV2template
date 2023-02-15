@@ -187,7 +187,6 @@ export default {
       const specBefore = this.$refs.spec_grid.getJsonRows();
       const key = _.keys(row);
       const rowtmp = makeARow(spec.fields)[0];
-      console.log(rowtmp);
       const rowArr = [];
       let dan = "";
       _.each(key, (v) => {
@@ -200,6 +199,10 @@ export default {
             dan = "wt%";
           }
           const name = row[v];
+          const existSpec = _.filter(rowArr, (v) => {
+            v.name = name;
+          });
+          console.log(v, name, existSpec);
           if (!_.isEmpty(name)) rowArr.push({ ...rowtmp, name, dan });
         }
       });

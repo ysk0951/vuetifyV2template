@@ -14,12 +14,7 @@
       </v-col>
       <v-col cols="12" sm="10">
         <h4>품명</h4>
-        <v-text-field
-          v-model="param.code_title"
-          outlined
-          dense
-          placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
-        ></v-text-field>
+        <v-text-field v-model="param.code_title" outlined dense></v-text-field>
       </v-col>
     </div>
     <h3 class="mt-4 mb-2 pl-1 pr-1">
@@ -168,7 +163,9 @@ export default {
         });
     },
     cancle() {
-      this.loadData();
+      this.openPopup("취소 하시겠습니까?", true, () => {
+        this.loadData();
+      });
     },
     save() {
       this.openPopup("저장하시겠습니까?", true, () => {

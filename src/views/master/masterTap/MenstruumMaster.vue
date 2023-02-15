@@ -18,7 +18,6 @@
             v-model="param.solventVol"
             outlined
             dense
-            v-mask="'##.##/##.##/##.##/##.##/##.##/##.##/##.##/##.##'"
             placeholder="00.00/00.00/00.00/00.00/00.00/00.00/00.00/00.00"
             :rules="[this.validSet.sample(param.solventVol, 8, 'value')]"
           ></v-text-field>

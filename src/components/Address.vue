@@ -31,7 +31,9 @@
             </div>
             <div class="wrapperSpace mb-5" style="width: 100%; height: 20px">
               <div>
-                <v-subheader>{{ item.postcode }}</v-subheader>
+                <v-subheader style="margin-left: 16px">{{
+                  item.postcode
+                }}</v-subheader>
                 {{ `${item.address} ${item.address2}` }}
               </div>
               <div>
@@ -149,6 +151,9 @@ export default {
   .scroll {
     max-height: 420px;
     overflow: auto;
+  }
+  .v-subheader {
+    padding: 0px;
   }
 }
 </style>
