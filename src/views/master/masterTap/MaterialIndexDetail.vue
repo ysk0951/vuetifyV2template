@@ -69,6 +69,11 @@ export default {
     reset() {
       this.loadData();
     },
+    cancle() {
+      this.openPopup("취소하시겠습니까?", true, () => {
+        this.reset();
+      });
+    },
     loadData() {
       subsMasterDetail(this.data.rmav)
         .then((res) => {

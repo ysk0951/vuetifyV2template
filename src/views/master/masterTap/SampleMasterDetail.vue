@@ -168,7 +168,11 @@ export default {
           this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
-          this.$refs.spec_grid.loadData([showSampleSet(CodeDB_Dt)]);
+          let specData = showSampleSet(CodeDB_Dt);
+          if (specData.constructor == Object) {
+            specData = [specData];
+          }
+          this.$refs.spec_grid.loadData(specData);
         })
         .catch((res) => {
           console.error(res);

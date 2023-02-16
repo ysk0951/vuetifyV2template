@@ -68,12 +68,17 @@ export default {
       });
       this.$refs.confirm.openPopup(cb);
     },
+    cancle() {
+      this.openPopup("초기화 하시겠습니까?", true, () => {
+        this.setData();
+      });
+    },
     save() {
       if (this.valid()) {
-        this.openPopup("저장하시겠습니까?", true, () => {
+        this.openPopup("저장 하시겠습니까?", true, () => {
           insertSubsMaster(this.param)
             .then(() => {
-              this.openPopup("저장되었습니다", false, () => {
+              this.openPopup("저장 되었습니다", false, () => {
                 this.setData();
               });
             })

@@ -286,6 +286,7 @@ export default {
           })
             .then(() => {
               this.openPopup("저장되었습니다", false);
+              this.$emit("save");
             })
             .catch(() => {});
         });

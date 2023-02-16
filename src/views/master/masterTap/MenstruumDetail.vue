@@ -6,6 +6,7 @@
       ref="grid"
       :settings="settings"
       :nonePage="true"
+      :changeData="checkSum"
     />
     <div class="wrapper mt-4">
       <v-card-actions>
@@ -22,6 +23,7 @@ import * as menstrumm from "@/assets/grid/menstrumm";
 import RealGrid from "@/components/RealGrid.vue";
 import _ from "lodash";
 import SetPopup from "@/components/SetPopup.vue";
+import { setNewSum } from "@/assets/grid/gridUtill";
 import { mapMutations } from "vuex";
 import { solventMasterDetail, updateSolventMaster } from "api/solvent/solvent";
 export default {
@@ -42,6 +44,11 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
+    checkSum() {
+      const row = this.$refs.grid.getJsonRow();
+      const sum = [setNewSum(row)];
+      this.$refs.grid.loadData(sum);
+    },
     openPopup(text, closable, cb) {
       this.SET_POPUP({
         title: "알림",

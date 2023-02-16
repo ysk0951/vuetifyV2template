@@ -53,7 +53,7 @@
     </v-row>
     <div class="wrapper">
       <v-card-actions>
-        <v-btn depressed @click="setData">초기화</v-btn>
+        <v-btn depressed @click="cancle">초기화</v-btn>
       </v-card-actions>
       <v-card-actions>
         <v-btn depressed color="primary" @click="save">저장</v-btn>
@@ -95,13 +95,22 @@ export default {
     },
     save() {
       this.openPopup("저장하시겠습니까?", true, () => {
-        insertSolventMaster({ ...this.param })
-          .then(() => {
-            this.openPopup("저장되었습니다", false, () => {
-              this.setData();
-            });
-          })
-          .catch(() => {});
+        if (this.sum() > 100) {
+          this.openPopup("SUM을 확인해주세요", false, () => {});
+        } else {
+          insertSolventMaster({ ...this.param })
+            .then(() => {
+              this.openPopup("저장되었습니다", false, () => {
+                this.setData();
+              });
+            })
+            .catch(() => {});
+        }
+      });
+    },
+    cancle() {
+      this.openPopup("초기화 하시겠습니까?", true, () => {
+        this.setData();
       });
     },
     sum() {

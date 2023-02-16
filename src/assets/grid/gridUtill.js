@@ -215,7 +215,7 @@ export function makeSampleSet(rows) {
 }
 
 export function showSampleSet(row) {
-  if (row) {
+  if (row && row.data) {
     return JSON.parse(row.data);
   }
 }
