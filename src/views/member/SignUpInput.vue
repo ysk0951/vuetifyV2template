@@ -6,38 +6,43 @@
       'px'
     "
   >
-    <v-subheader class="my-4" style="width: 130px" v-if="this.label">{{
-      this.label
-    }}</v-subheader>
-    <v-text-field
-      :placeholder="placeholder"
-      :value="value"
-      @input="input"
-      outlined
-      dense
-      :class="sideBtn ? 'signInputWithBtn' : 'signInput'"
-      :type="inputType"
-      :append-icon="appendIcon"
-      @click:append="togglePwdShow"
-      autocomplete="off"
-      :disabled="disabled"
-      :filled="disabled"
-      :required="required"
-      :rules="rules"
-      :readonly="!focus"
-      @focus="focus = true"
-      @blur="focus = false"
-      :maxlength="maxlength ? maxlength : 999"
-    ></v-text-field>
-    <v-btn
-      v-if="sideBtn"
-      dense
-      depressedd
-      color="primary"
-      @click="btnClick"
-      class="signBtn"
-      >{{ btnText }}</v-btn
+    <v-subheader
+      class="my-4"
+      :style="labelWidth ? `width :${labelWidth}px` : 'width: 130px'"
+      v-if="this.label"
+      >{{ this.label }}</v-subheader
     >
+    <div class="wrapper">
+      <v-text-field
+        :placeholder="placeholder"
+        :value="value"
+        @input="input"
+        outlined
+        dense
+        :class="sideBtn ? 'signInputWithBtn' : 'signInput'"
+        :type="inputType"
+        :append-icon="appendIcon"
+        @click:append="togglePwdShow"
+        autocomplete="off"
+        :disabled="disabled"
+        :filled="disabled"
+        :required="required"
+        :rules="rules"
+        :readonly="!focus"
+        @focus="focus = true"
+        @blur="focus = false"
+        :maxlength="maxlength ? maxlength : 999"
+      ></v-text-field>
+      <v-btn
+        style="top: 19px; margin-left: 3px; width: 117px; height: 40px"
+        v-if="sideBtn"
+        dense
+        depressedd
+        color="primary"
+        @click="btnClick"
+        >{{ btnText }}</v-btn
+      >
+    </div>
   </div>
 </template>
 <script>
@@ -58,6 +63,7 @@ export default {
     "required",
     "rules",
     "maxlength",
+    "labelWidth",
   ],
   name: "SignupInput",
   data() {

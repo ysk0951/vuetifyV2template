@@ -69,7 +69,7 @@
                 :rules="[this.validSet.empty, this.validSet.name]"
               />
               <div style="display: flex; width: 500px">
-                <v-subheader class="my-4" style="width: 130px"
+                <v-subheader class="my-4" style="width: 150px"
                   >휴대폰 번호</v-subheader
                 >
                 <div class="wrapper">
@@ -111,6 +111,7 @@
               <SignupInputVue
                 placeholder="인증번호를 입력해주세요"
                 label="이메일 인증번호"
+                labelWidth="150"
                 v-model="param.emailCode"
                 :sideBtn="true"
                 btnText="인증번호 확인"
@@ -130,6 +131,7 @@
               <SignupInputVue
                 placeholder="비밀번호를 입력해주세요"
                 label="비밀번호 재확인"
+                labelWidth="150"
                 type="password"
                 append-icon="mdi-eye"
                 v-model="param.passwordCode"
@@ -430,7 +432,6 @@ export default {
 }
 
 .signInputWithBtn .v-input__slot {
-  position: absolute;
   top: 19px;
   width: 180px;
 }
@@ -453,10 +454,7 @@ export default {
   }
 }
 .signBtn {
-  position: absolute;
   height: 39px !important;
-  top: 19px;
-  right: 69px;
   width: 113px;
 }
 .cardWrapper {
