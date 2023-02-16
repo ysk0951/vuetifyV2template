@@ -22,8 +22,7 @@ export function makeCell(count, value, fields, columns, width) {
         }
         fields.push({
           fieldName: indexExclusive ? `${field}` : `${field}${v}`,
-          dataType: o.date ? ValueType.DATE : ValueType.TEXT,
-          datetimeFormat: o.date,
+          dataType: ValueType.TEXT,
           excelKey,
         });
         columns.push({

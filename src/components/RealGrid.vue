@@ -25,6 +25,7 @@
 
 <script>
 import _ from "lodash";
+import moment from "moment";
 import { GridView, LocalDataProvider } from "realgrid";
 export default {
   name: "RealGrid",
@@ -52,7 +53,14 @@ export default {
     },
   },
   methods: {
-    loadData: function (row) {
+    loadData: function (row, dateCol) {
+      if (dateCol && dateCol.length > 0) {
+        _.each(dateCol, (o) => {
+          _.each(row, (v) => {
+            v[o] = moment(v[o]).format("YYYY-MM-DD");
+          });
+        });
+      }
       this.dp.setRows(row);
     },
     getJsonRows: function () {

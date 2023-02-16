@@ -49,7 +49,11 @@
       <div>
         <h4 class="mt-4 mb-2">목록</h4>
       </div>
-      <v-btn depressed color="primary" @click="exelDownload"
+      <v-btn
+        depressed
+        color="primary"
+        @click="exelDownload"
+        style="width: 143px"
         >엑셀 다운로드</v-btn
       >
     </div>
@@ -116,7 +120,6 @@ export default {
       this.$refs.confirm.openPopup(cb);
     },
     async search(v) {
-      console.log(this.$refs.form);
       if (this.valid()) {
         const res = await sampleSearch({
           ...this.input,
@@ -125,7 +128,7 @@ export default {
         const response = res.data;
         const items = response.data.items;
         const page = response.data.params;
-        this.$refs.grid.loadData(items);
+        this.$refs.grid.loadData(items, ["created_at"]);
         this.$refs.grid.setPage(page);
       }
     },
