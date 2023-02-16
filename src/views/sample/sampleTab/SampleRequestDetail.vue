@@ -136,7 +136,7 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows } from "@/assets/grid/sampleRequest";
+import { columns, fields, rows } from "@/assets/grid/sampleRequestLotNo";
 import { sampleSearch, updateSample } from "api/sample/sample";
 import { mapMutations, mapState } from "vuex";
 import RealGrid from "@/components/RealGrid.vue";
@@ -154,6 +154,7 @@ export default {
         fields,
         rows,
         hideCheckBar: true,
+        noneNo: true,
       },
       fileName: "",
       param: {

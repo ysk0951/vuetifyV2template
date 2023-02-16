@@ -26,7 +26,8 @@
           </v-col>
         </v-row>
       </div>
-      <div class="wrapperEnd">
+      <hr class="mb-3" />
+      <div class="wrapperEnd mb-3">
         <v-card-actions>
           <v-btn depressed @click="reset">초기화</v-btn>
         </v-card-actions>
@@ -38,7 +39,11 @@
         <div>
           <h4 class="mt-4 mb-2">목록</h4>
         </div>
-        <v-btn depressed color="primary" @click="exelDownload"
+        <v-btn
+          depressed
+          color="primary"
+          @click="exelDownload"
+          style="width: 143px"
           >엑셀 다운로드</v-btn
         >
       </div>
@@ -72,6 +77,7 @@ export default {
         fields,
         rows,
         height,
+        errorMessage: "요청된 내역이 없습니다",
         //
       },
       param: {
@@ -89,7 +95,7 @@ export default {
     exelDownload() {
       const data = this.$refs.grid.getCheckedRow();
       if (data.length > 0) {
-        getExcel(data, "coa");
+        getExcel(data, "납품일보");
       } else {
         this.openPopup("엑셀 다운로드할 행을 선택해주세요");
       }

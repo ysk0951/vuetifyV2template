@@ -62,9 +62,13 @@
           </v-form>
           <div class="underLogin">
             <div>
-              <span @click="find(0)">{{ this.getText("MSG003") }}</span>
-              <span> | </span>
-              <span @click="find(1)">{{ this.getText("MSG004") }}</span>
+              <span style="font-size: 12px" @click="find(0)">{{
+                this.getText("MSG003")
+              }}</span>
+              <span style="font-size: 12px"> | </span>
+              <span style="font-size: 12px" @click="find(1)">{{
+                this.getText("MSG004")
+              }}</span>
             </div>
             <span @click="signup" style="color: green">{{
               this.getText("MSG005")

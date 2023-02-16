@@ -28,6 +28,7 @@
         </v-col>
       </v-row>
     </div>
+    <hr class="mt-3 mb-3" />
     <div class="wrapperEnd">
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>

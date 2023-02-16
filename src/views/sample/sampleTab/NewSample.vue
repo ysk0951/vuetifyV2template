@@ -1,5 +1,5 @@
 <template>
-  <div class="address">
+  <div class="address newSample">
     <SetPopup ref="confirm" />
     <Address ref="address" @select="onAddress" :userId="userId" />
     <div>
@@ -31,10 +31,14 @@
           >파일선택</v-btn
         >
         <v-btn depressed class="fileBtn" @click="read">불러오기</v-btn>
+        <v-btn
+          depressed
+          color="info mx-3"
+          class="fileBtn"
+          @click="downloadSample"
+          >샘플 양식</v-btn
+        >
       </div>
-      <v-btn depressed color="info mr-3" class="fileBtn" @click="downloadSample"
-        >샘플 양식</v-btn
-      >
     </div>
     <h3 class="mt-4 mb-2">요청 목록</h3>
     <hr class="mb-4" />
@@ -49,7 +53,7 @@
         <h3 class="mt-4 mb-2">추가 정보</h3>
         <hr class="mb-4" />
         <v-row class="px-2">
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="2" class="mr-3">
             <h4>요청자</h4>
             <v-text-field
               outlined
@@ -59,7 +63,7 @@
               disabled
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="2" class="mx-3">
             <div class="wrapperSpace" style="height: 24px">
               <h4>수령자</h4>
               <v-checkbox v-model="param.same">
@@ -76,7 +80,7 @@
               :rules="[this.validSet.empty, this.validSet.name]"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="2" class="mx-3">
             <h4>유무상</h4>
             <v-select
               :items="code.P"
@@ -89,7 +93,7 @@
         </v-row>
         <h4>배송지 선택</h4>
         <v-row style="height: 46px" class="px-2 mt-1">
-          <v-col cols="12" sm="3" class="mb-0">
+          <v-col cols="12" sm="3" class="my-0">
             <v-radio-group row v-model="param.default">
               <v-radio
                 v-for="(n, i) in address"
@@ -102,7 +106,7 @@
         </v-row>
         <template v-if="param.default === 1">
           <v-row style="height: 63px" class="px-2">
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="wrapper address">
                 <v-text-field
                   placeholder="주소를 입력해주세요"
@@ -127,6 +131,19 @@
                   @click="addressBook"
                   >주소록</v-btn
                 >
+              </div>
+            </v-col>
+          </v-row>
+          <v-row style="height: 63px" class="px-2">
+            <v-col cols="12" sm="6">
+              <div class="wrapper address">
+                <v-text-field
+                  placeholder="상세주소를 입력해 주세요"
+                  type="text"
+                  outlined
+                  dense
+                  v-model="param.address2"
+                />
               </div>
             </v-col>
           </v-row>
@@ -239,6 +256,7 @@ export default {
         etc: "",
         same: false,
         address: "",
+        address2: "",
         qty: "",
         request_code: "",
         request_name: "",
@@ -280,6 +298,7 @@ export default {
         etc: "",
         same: false,
         address: "",
+        address2: "",
         qty: "",
         request_code: "",
         request_name: "",
@@ -418,15 +437,25 @@ export default {
 .file .v-input__slot {
   width: 300px;
 }
-.address .v-input__slot {
-  width: 100%;
-}
-.address .row {
-  height: 100px;
+.address {
+  .v-input__slot {
+    width: 100%;
+  }
+  .row {
+    height: 100px;
+  }
 }
 .v-input--checkbox {
   .v-input__slot {
     top: -21px;
+  }
+}
+.newSample {
+  .v-input--selection-controls__input {
+    margin-right: 0px;
+  }
+  .v-input--radio-group {
+    margin-top: 0px;
   }
 }
 </style>

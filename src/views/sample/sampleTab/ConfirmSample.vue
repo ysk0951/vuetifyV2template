@@ -26,6 +26,7 @@
         </v-row>
       </div>
     </v-form>
+    <hr class="mb-3" />
     <div class="wrapperEnd">
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>

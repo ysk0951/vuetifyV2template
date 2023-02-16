@@ -1,5 +1,5 @@
 <template>
-  <div class="address">
+  <div class="address adminsample">
     <SetPopup ref="confirm" />
     <Address ref="address" @select="onAddress" />
     <div>
@@ -31,10 +31,14 @@
           >파일선택</v-btn
         >
         <v-btn depressed class="fileBtn" @click="read">불러오기</v-btn>
+        <v-btn
+          depressed
+          color="info mx-3"
+          class="fileBtn"
+          @click="downloadSample"
+          >샘플 양식</v-btn
+        >
       </div>
-      <v-btn depressed color="info mr-3" class="fileBtn" @click="downloadSample"
-        >샘플 양식</v-btn
-      >
     </div>
     <h3 class="mt-4 mb-2">요청 목록</h3>
     <hr class="mb-4" />
@@ -129,7 +133,7 @@
               dense
               placeholder="00:00"
               v-model="param.qty"
-              :rules="[this.validSet.name]"
+              :rules="[this.validSet.empty]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -421,5 +425,10 @@ export default {
 }
 .address .row {
   height: 100px;
+}
+.adminsample {
+  .v-input--selection-controls__input {
+    margin-right: 0px;
+  }
 }
 </style>

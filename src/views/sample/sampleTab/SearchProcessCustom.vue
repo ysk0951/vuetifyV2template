@@ -28,6 +28,7 @@ export default {
         rows,
         height,
         hideCheckBar: true,
+        errorMessage: "진행중인 요청내역이 없습니다",
       },
       param: {
         pageSize: "10",

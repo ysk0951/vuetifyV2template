@@ -93,10 +93,7 @@
         </div>
       </div>
       <h3 class="mt-16 mb-2 pl-1 pr-1">
-        <div class="wrapperSpace">
-          목록
-          <!-- <v-btn depressed color="primary" @click="add">신규생성</v-btn> -->
-        </div>
+        <div class="wrapperSpace">목록</div>
       </h3>
       <hr class="mb-4" />
       <RealGrid
@@ -298,7 +295,6 @@ export default {
     update(row) {
       this.openConfirm("저장하시겠습니까?", true, () => {
         let employee_status = "";
-        // let roles = "";
         switch (row.work) {
           case "재직중":
             employee_status = 1;

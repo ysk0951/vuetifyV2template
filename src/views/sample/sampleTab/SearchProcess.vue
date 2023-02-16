@@ -88,7 +88,7 @@ export default {
         rows,
         height,
         hideCheckBar: true,
-        errorMessage: "요청내역이 없습니다",
+        errorMessage: "진행중인 요청내역이 없습니다",
       },
       param: {
         currentPage: "1",

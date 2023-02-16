@@ -16,7 +16,7 @@
       :settings="settings"
       :none-page="true"
     />
-    <h3 class="mt-4 mb-2">추가 정보</h3>
+    <h3 class="mt-15 mb-2">추가 정보</h3>
     <hr class="mb-4" />
     <v-form ref="form" lazy-validation>
       <h4>Code Grade</h4>
@@ -301,7 +301,12 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import {
+  columns,
+  fields,
+  rows,
+  height,
+} from "@/assets/grid/sampleRequestLotNo";
 import { mapState, mapMutations } from "vuex";
 import RealGrid from "@/components/RealGrid.vue";
 import CodeSearch from "@/components/CodeSearch.vue";
