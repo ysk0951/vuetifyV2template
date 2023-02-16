@@ -13,6 +13,7 @@ import Sample from "@/views/sample/Sample";
 import Master from "@/views/master/Master";
 import Document from "@/views/document/document";
 import NoneMember from "@/views/NoneMember";
+import Service from "@/views/Service";
 import store from "@/store/index";
 import _ from "lodash";
 Vue.use(VueRouter);
@@ -22,6 +23,11 @@ const routes = [
     path: "/",
     name: "main",
     component: Main,
+  },
+  {
+    path: "/service",
+    name: "service",
+    component: Service,
   },
   {
     path: "/login",
@@ -92,13 +98,14 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-const defaultPath = ["/login", "/signup", "/modifyPwd"];
+const defaultPath = ["/login", "/signup", "/modifyPwd", "/service"];
 const adminPath = ["/admin"];
 const path = defaultPath.concat(adminPath);
 const dev = true;
 router.beforeEach((to, from, next) => {
   //TODO :: 각 페이지별 메세지 로딩
   store.commit("locale/SET_NEWPATH_MESSAGE", to.path);
+  store.commit("menu/RESET_SELECT_MENU");
   if (!dev) {
     if (path.includes(to.path)) {
       next();

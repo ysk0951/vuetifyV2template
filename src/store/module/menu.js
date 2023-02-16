@@ -3,8 +3,37 @@ const menu = {
   state: {
     menu: [],
     allMenu: [],
+    selectMenu: [],
+    tab: 0,
   },
   mutations: {
+    SELECT_MENU(state, value) {
+      const isExist =
+        _.filter(state.selectMenu, (v) => v.code === value.code).length > 0;
+      if (!isExist) {
+        state.selectMenu.push(value);
+      }
+      state.tab = _.findIndex(state.selectMenu, (v) => v.code === value.code);
+    },
+    ADD_MENU_TAB(state, value) {
+      state.selectMenu.push(value);
+    },
+    RESET_SELECT_MENU(state) {
+      state.selectMenu = [];
+      state.tab = 0;
+    },
+    SET_SELECT_MENU_TAB(state, value) {
+      state.tab = value;
+    },
+    SET_SELECT_MENU_TAB_BY_CODE(state, value) {
+      const idx = _.findIndex(state.selectMenu, (v) => v.code === value);
+      if (idx > -1) {
+        state.tab = idx;
+      }
+    },
+    REMOVE_SELECT_MENU(state, value) {
+      state.selectMenu = _.filter(state.selectMenu, (v) => v.code !== value);
+    },
     SET_MENU(state) {
       this.commit("menu/RESET_MENU");
       getMenu()
@@ -44,7 +73,6 @@ const menu = {
       state.menu = {};
     },
   },
-  getters: {},
   actions: {},
 };
 import _ from "lodash";

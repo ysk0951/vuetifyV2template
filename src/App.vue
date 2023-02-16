@@ -30,7 +30,7 @@
                 <v-list>
                   <v-list-item v-for="(it, idx) in item.subMenu" :key="idx">
                     <v-list-item-title
-                      @click="routing(it, item.url)"
+                      @click="routing(it)"
                       style="cursor: pointer"
                     >
                       <template v-if="locale === 'ko'">
@@ -44,9 +44,6 @@
                 </v-list>
               </v-menu>
             </div>
-            <!-- <v-btn depressed @click="routing(item)">
-              {{ item.menu }}
-            </v-btn> -->
           </div>
         </template>
         <div class="langBoxWrapper">
@@ -113,12 +110,14 @@ export default {
   },
   methods: {
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
-    ...mapMutations("menu", ["SET_ALL_MENU"]),
+    ...mapMutations("menu", ["SET_ALL_MENU", "SELECT_MENU"]),
     ...mapMutations("common", ["SET_CODE"]),
     ...mapMutations("member", ["SET_TOKEN"]),
     ...mapMutations("locale", ["SET_LOCALE"]),
-    routing(v, url) {
-      this.$router.push(`${url}?menu=${v.menu_eng}`);
+    routing(v) {
+      // this.$router.push(`${url}?menu=${v.menu_eng}`);
+      this.$router.push({ name: "service" });
+      this.SELECT_MENU(v);
     },
     changeLang(v) {
       this.SET_LOCALE(v);
