@@ -9,7 +9,10 @@
           <v-text-field
             placeholder="이름을 입력해주요"
             v-model="memberName"
-            :rules="[this.validSet.empty, this.validSet.name]"
+            :rules="[
+              this.validSet.empty(memberName, '이름을 입력해주요'),
+              this.validSet.name,
+            ]"
             outlined
             dense
           ></v-text-field>
@@ -25,7 +28,7 @@
             dense
             placeholder="+82"
             v-model="areacode"
-            :rules="[this.validSet.empty]"
+            :rules="[this.validSet.empty(areacode, '국가번호를 입력해주세요')]"
             v-mask="'+###'"
           ></v-text-field>
         </v-col>
@@ -35,7 +38,7 @@
             v-model="phone"
             outlined
             dense
-            :rules="[this.validSet.empty]"
+            :rules="[this.validSet.empty(phone, '핸드폰 번호를 입력해주세요')]"
             v-mask="'###-####-####'"
           ></v-text-field>
         </v-col>
@@ -43,7 +46,7 @@
     </v-form>
     <div class="wrapper">
       <v-card-actions>
-        <v-btn depressed @click="closeModal">취소</v-btn>
+        <v-btn depressed @click="cancle">취소</v-btn>
       </v-card-actions>
       <v-card-actions>
         <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
@@ -82,6 +85,14 @@ export default {
         };
         this.$emit("onApprove", param, "id");
       }
+    },
+    cancle() {
+      this.$router.push({ name: "main" });
+    },
+    reset() {
+      this.memberName = "";
+      this.phone = "";
+      this.areacode = "";
     },
   },
 };

@@ -11,7 +11,12 @@
               outlined
               dense
               placeholder="Code Grade를 입력해주세요"
-              :rules="[this.validSet.empty]"
+              :rules="[
+                this.validSet.empty(
+                  input.code_grade,
+                  'Code Grade를 입력해주세요'
+                ),
+              ]"
             ></v-text-field>
             <v-btn
               style="height: 40px"

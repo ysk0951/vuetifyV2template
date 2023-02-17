@@ -66,7 +66,10 @@
                 placeholder="이름을 입력해주세요"
                 label="이름"
                 v-model="param.name"
-                :rules="[this.validSet.empty, this.validSet.name]"
+                :rules="[
+                  this.validSet.empty(param.name, '이름을 입력해주세요'),
+                  this.validSet.name,
+                ]"
               />
               <div style="display: flex; width: 500px">
                 <v-subheader class="my-4" style="width: 150px"
@@ -81,7 +84,12 @@
                     class="signInput areaInput"
                     type="text"
                     autocomplete="off"
-                    :rules="[this.validSet.empty]"
+                    :rules="[
+                      this.validSet.empty(
+                        param.area,
+                        '국가코드를 입력해주세요'
+                      ),
+                    ]"
                     v-mask="'+##'"
                   ></v-text-field>
                   <v-text-field
@@ -92,7 +100,12 @@
                     class="signInput phoneInput"
                     type="text"
                     autocomplete="off"
-                    :rules="[this.validSet.empty]"
+                    :rules="[
+                      this.validSet.empty(
+                        param.phone,
+                        '핸드폰 번호를 입력해주세요'
+                      ),
+                    ]"
                     v-mask="'###-####-####'"
                   ></v-text-field>
                 </div>
@@ -106,7 +119,13 @@
                 :sideBtn="true"
                 :btnText="this.isSend ? '재발송' : '인증번호 받기'"
                 :click="certificate"
-                :rules="[this.validSet.empty, this.validSet.email]"
+                :rules="[
+                  this.validSet.empty(
+                    param.email,
+                    '이메일 주로를 입력해주세요'
+                  ),
+                  this.validSet.email,
+                ]"
               />
               <SignupInputVue
                 placeholder="인증번호를 입력해주세요"
@@ -116,7 +135,13 @@
                 :sideBtn="true"
                 btnText="인증번호 확인"
                 :click="checkCode"
-                :rules="[this.validSet.empty, this.validSet.number]"
+                :rules="[
+                  this.validSet.empty(
+                    param.emailCode,
+                    '인증번호를 입력해주세요'
+                  ),
+                  this.validSet.number,
+                ]"
               />
             </div>
             <div class="wrapperSpace inputRow">
@@ -126,7 +151,13 @@
                 type="password"
                 append-icon="mdi-eye"
                 v-model="param.password"
-                :rules="[this.validSet.empty, this.validSet.password]"
+                :rules="[
+                  this.validSet.empty(
+                    param.password,
+                    '비밀번호를 입력해주세요'
+                  ),
+                  this.validSet.password,
+                ]"
               />
               <SignupInputVue
                 placeholder="비밀번호를 입력해주세요"
@@ -136,7 +167,10 @@
                 append-icon="mdi-eye"
                 v-model="param.passwordCode"
                 :rules="[
-                  this.validSet.empty,
+                  this.validSet.empty(
+                    param.passwordCode,
+                    '비밀번호를 입력해주세요'
+                  ),
                   this.validSet.passwordCode(
                     param.password,
                     param.passwordCode
@@ -154,7 +188,12 @@
                 btnText="배송지 등록"
                 class="post"
                 :click="openPost"
-                :rules="[this.validSet.empty]"
+                :rules="[
+                  this.validSet.empty(
+                    param.post.address,
+                    '배송지를 등록해주세요'
+                  ),
+                ]"
                 :disabled="true"
               />
             </div>

@@ -12,7 +12,7 @@
           v-model="param.name"
           height="65"
           required
-          :rules="[this.validSet.empty]"
+          :rules="[this.validSet.empty(param.name, '배송지 입력해주세요')]"
           :maxlength="30"
         />
         <SignupInput
@@ -22,7 +22,9 @@
           v-model="param.pickname"
           height="65"
           required
-          :rules="[this.validSet.empty]"
+          :rules="[
+            this.validSet.empty(param.pickname, '수령인을 입력해주세요'),
+          ]"
           :maxlength="30"
         />
         <div class="addressSelect">
@@ -49,7 +51,9 @@
             btnText="주소검색"
             :click="daumPostCode"
             required
-            :rules="[this.validSet.empty]"
+            :rules="[
+              this.validSet.empty(param.postcode, '주소를 선택해주세요'),
+            ]"
             :disabled="true"
           />
           <SignupInput
@@ -59,7 +63,7 @@
             dense
             autocomplete="off"
             class="addDetail mb-7"
-            :rules="[this.validSet.empty]"
+            :rules="[this.validSet.empty(param.address, '주소를 입력해주세요')]"
           ></SignupInput>
           <SignupInput
             height="40"
@@ -68,7 +72,9 @@
             dense
             autocomplete="off"
             class="addDetail mb-5"
-            :rules="[this.validSet.empty]"
+            :rules="[
+              this.validSet.empty(param.address2, '상세주소를 입력해주세요'),
+            ]"
           ></SignupInput>
         </template>
         <template v-else>
@@ -80,7 +86,9 @@
             class="addDetail"
             placeholder="상세주소를 입력해주세요"
             style="margin-bottom: 105px !important"
-            :rules="[this.validSet.empty]"
+            :rules="[
+              this.validSet.empty(param.address, '상세주소를 입력해주세요'),
+            ]"
           ></v-text-field>
         </template>
         <SignupInput
@@ -89,7 +97,9 @@
           type="text"
           v-model="param.phone1"
           height="65"
-          :rules="[this.validSet.empty]"
+          :rules="[
+            this.validSet.empty(param.phone1, '배송지 연락처를 입력해주세요'),
+          ]"
           v-mask="'###-####-####'"
         />
         <SignupInput
@@ -97,7 +107,9 @@
           label="배송지 연락처2"
           type="text"
           v-model="param.phone2"
-          :rules="[this.validSet.empty]"
+          :rules="[
+            this.validSet.empty(param.phone2, '배송지 연락처를 입력해주세요'),
+          ]"
           height="65"
           v-mask="'###-####-####'"
         />

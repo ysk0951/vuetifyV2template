@@ -27,7 +27,7 @@
               <v-text-field
                 :placeholder="this.getText('MSG001')"
                 v-model="id"
-                :rules="[this.validSet.empty]"
+                :rules="[this.validSet.empty(id, this.getText('MSG001'))]"
                 :readonly="!focus"
                 @focus="focus = true"
                 @blur="focus = false"
@@ -40,7 +40,10 @@
                 @click:append="togglePwdShow"
                 maxlength="20"
                 :readonly="!focus"
-                :rules="[this.validSet.empty, this.validSet.password]"
+                :rules="[
+                  this.validSet.empty(pw, this.getText('MSG002')),
+                  this.validSet.password,
+                ]"
                 @focus="focus = true"
                 @blur="focus = false"
               >

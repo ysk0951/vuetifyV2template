@@ -24,7 +24,10 @@
               :readonly="!focus"
               @focus="focus = true"
               @blur="focus = false"
-              :rules="[this.validSet.name, this.validSet.empty]"
+              :rules="[
+                this.validSet.name,
+                this.validSet.empty(input.member_name, `이름을 입력해주세요`),
+              ]"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -39,7 +42,13 @@
               :readonly="!focus"
               @focus="focus = true"
               @blur="focus = false"
-              :rules="[this.validSet.email, this.validSet.empty]"
+              :rules="[
+                this.validSet.email,
+                this.validSet.empty(
+                  input.memberId,
+                  '이메일 주소를 입력해주세요'
+                ),
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
@@ -53,7 +62,10 @@
               :readonly="!focus"
               @focus="focus = true"
               @blur="focus = false"
-              :rules="[this.validSet.empty, this.validSet.password]"
+              :rules="[
+                this.validSet.empty(input.memberpw, '비밀번호를 입력해주세요'),
+                this.validSet.password,
+              ]"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -93,7 +105,9 @@
               dense
               placeholder="사번을 입력해주세요"
               v-model="input.employeeCode"
-              :rules="[this.validSet.empty]"
+              :rules="[
+                this.validSet.empty(input.employeeCode, '사번을 입력해주세요'),
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" class="select">

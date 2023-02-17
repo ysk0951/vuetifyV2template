@@ -10,7 +10,9 @@
           placeholder="추가할 그룹명을 입력해주세요"
           class="menuColText"
           v-model="addGroupName"
-          :rules="[this.validSet.empty]"
+          :rules="[
+            this.validSet.empty(addGroupName, '추가할 그룹명을 입력해주세요'),
+          ]"
         ></v-text-field>
       </div>
     </SetDialogVue>
@@ -52,7 +54,9 @@
                   placeholder="이름을 입력해주세요"
                   class="menuColText"
                   v-model="curBtnValue"
-                  :rules="[this.validSet.empty]"
+                  :rules="[
+                    this.validSet.empty(curBtnValue, '이름을 입력해주세요'),
+                  ]"
                   disabled
                 ></v-text-field>
                 <div v-for="(item, index) in allMenu" :key="index">

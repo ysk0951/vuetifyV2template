@@ -17,7 +17,13 @@
                   :type="pwdType"
                   placeholder="비밀번호를 입력해주세요"
                   @click:append="togglePwdShow"
-                  :rules="[this.validSet.empty, this.validSet.password]"
+                  :rules="[
+                    this.validSet.empty(
+                      param.password,
+                      '비밀번호를 입력해주세요'
+                    ),
+                    this.validSet.password,
+                  ]"
                   v-model="param.password"
                   :readonly="!focus"
                   @focus="focus = true"
@@ -34,7 +40,10 @@
                   @click:append="togglePwdShow"
                   v-model="param.passwordCheck"
                   :rules="[
-                    this.validSet.empty,
+                    this.validSet.empty(
+                      param.passwordCheck,
+                      '비밀번호를 입력해주세요'
+                    ),
                     this.validSet.passwordCode(
                       param.password,
                       param.passwordCheck

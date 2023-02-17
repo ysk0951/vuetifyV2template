@@ -26,7 +26,10 @@
                 <v-text-field
                   placeholder="이름을 입력해주요"
                   v-model="param.memberName"
-                  :rules="[this.validSet.empty]"
+                  :rules="[
+                    this.validSet.empty(param.memberName),
+                    '이름을 입력해주요',
+                  ]"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -38,7 +41,13 @@
                 <v-text-field
                   placeholder="이메일 주소를 입력해주요"
                   v-model="param.memberId"
-                  :rules="[this.validSet.empty, this.validSet.email]"
+                  :rules="[
+                    this.validSet.empty(
+                      param.memberId,
+                      '이메일 주소를 입력해주세요'
+                    ),
+                    this.validSet.email,
+                  ]"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="2" class="pb-0 pt-0">
@@ -59,7 +68,12 @@
                 <v-text-field
                   placeholder="인증번호를 입력해주요"
                   v-model="param.certifiCode"
-                  :rules="[this.validSet.empty]"
+                  :rules="[
+                    this.validSet.empty(
+                      param.certifiCode,
+                      '인증번호를 입력해주세요'
+                    ),
+                  ]"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="3" class="pb-0 pt-0">
@@ -73,7 +87,7 @@
       </v-form>
       <div class="wrapper">
         <v-card-actions>
-          <v-btn depressed @click="closeModal">취소</v-btn>
+          <v-btn depressed @click="cancle">취소</v-btn>
         </v-card-actions>
         <v-card-actions>
           <v-btn depressed color="primary" @click="onApprove">확인</v-btn>
@@ -173,7 +187,10 @@ export default {
         height: 150,
         width: 300,
       });
-      if (this.validSet.email(this.param.memberId) !== true) {
+      if (
+        this.validSet.email(this.param.memberId) !== true ||
+        this.validSet.empty(this.param.memberId, false) !== true
+      ) {
         this.openPopup("인증을 위한 이메일 주소를 다시 확인해주세요");
       } else {
         this.isSend = true;
@@ -188,9 +205,15 @@ export default {
       }
     },
     openPopup(text, cb) {
-      this.SET_POPUP_TITLE("알림");
-      this.SET_POPUP_TEXT(text);
+      this.SET_POPUP({
+        title: "알림",
+        width: 300,
+        text,
+      });
       this.$refs.sertificatePopup.openPopup(cb);
+    },
+    cancle() {
+      this.$router.push({ name: "main" });
     },
   },
 };

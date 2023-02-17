@@ -77,7 +77,13 @@
               dense
               placeholder="수령자 이름을 입력해주세요"
               v-model="param.pick_name"
-              :rules="[this.validSet.empty, this.validSet.name]"
+              :rules="[
+                this.validSet.empty(
+                  param.pick_name,
+                  '수령자 이름을 입력해주세요'
+                ),
+                this.validSet.name,
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2" class="mx-3">
@@ -156,7 +162,7 @@
               dense
               placeholder="00:00"
               v-model="param.qty"
-              :rules="[this.validSet.empty]"
+              :rules="[this.validSet.empty(param.qty, 'Qty를 입력해주세요')]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">

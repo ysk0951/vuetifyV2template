@@ -60,7 +60,13 @@
               dense
               v-model="param.request_name"
               placeholder="요청자 이름을 입력해주세요"
-              :rules="[this.validSet.empty, this.validSet.name]"
+              :rules="[
+                this.validSet.empty(
+                  param.request_name,
+                  '요청자 이름을 입력해주세요'
+                ),
+                this.validSet.name,
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -70,7 +76,13 @@
               dense
               v-model="param.memberId"
               placeholder="요청자 이메일을 입력해주세요"
-              :rules="[this.validSet.empty, this.validSet.email]"
+              :rules="[
+                this.validSet.empty(
+                  param.memberId,
+                  '요청자 이메일을 입력해주세요'
+                ),
+                this.validSet.email,
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -87,7 +99,13 @@
               dense
               placeholder="수령자 이름을 입력해주세요"
               v-model="param.pick_name"
-              :rules="[this.validSet.empty, this.validSet.name]"
+              :rules="[
+                this.validSet.empty(
+                  param.pick_name,
+                  '수령자 이름을 입력해주세요'
+                ),
+                this.validSet.name,
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -133,7 +151,7 @@
               dense
               placeholder="00:00"
               v-model="param.qty"
-              :rules="[this.validSet.empty]"
+              :rules="[this.validSet.empty(param.qty, 'Qty를 입력해주세요')]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">

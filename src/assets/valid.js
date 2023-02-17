@@ -10,7 +10,9 @@ import {
   codeRegex,
   employRegex,
 } from "./regex";
-const empty = (v) => !!v || "값이 비었습니다";
+const empty = (v, message) => {
+  return !!v || message;
+};
 const name = (v) => {
   if (v.length === 0) {
     return true;
