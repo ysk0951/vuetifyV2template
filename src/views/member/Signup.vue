@@ -232,7 +232,7 @@
 <script>
 import _ from "lodash";
 import SetDialog from "@/components/SetDialog";
-import SignupInputVue from "@/views/member/SignupInput";
+import SignupInputVue from "@/views/member/SignUpInput";
 import SignupPost from "@/views/member/SignupPost";
 import AgreePersonal from "@/views/member/AgreePersonal.vue";
 import { sendAuthNum, authNumCheck, memberJoin } from "api/member/member";

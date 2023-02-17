@@ -141,7 +141,7 @@
 
 <script>
 import validSet from "@/assets/valid";
-import SignupInput from "@/views/member/SignupInput.vue";
+import SignupInput from "@/views/member/SignUpInput.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { mapMutations } from "vuex";
 export default {

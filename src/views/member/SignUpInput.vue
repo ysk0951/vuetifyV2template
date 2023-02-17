@@ -65,7 +65,7 @@ export default {
     "maxlength",
     "labelWidth",
   ],
-  name: "SignupInput",
+  name: "SignUpInput",
   data() {
     return {
       focus: false,
