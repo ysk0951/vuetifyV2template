@@ -26,7 +26,7 @@
       ref="sample_grid"
       :settings="settings_sample"
       :nonePage="true"
-      @changeData="updateSpace"
+      @changeData="addSpec"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">실제조성</div>
@@ -80,6 +80,7 @@ import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
 import { mapMutations } from "vuex";
 import {
   makeSum,
+  makeARow,
   makeSampleSet,
   showSampleSet,
   setNewSum,
@@ -95,6 +96,7 @@ export default {
         code_title: "",
       },
       grid: "sampleMasterDetail",
+      specBefore: [],
       settings_sample: {
         ...sample,
         columns: _.map(_.cloneDeep(sample.columns), function (v) {
@@ -164,7 +166,6 @@ export default {
           const CodeDB_A = response.CodeDB_A;
           const CodeDB_B = response.CodeDB_B;
           const CodeDB_Dt = response.CodeDB_Dt;
-          console.log(showSampleSet(CodeDB_Dt));
           this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
@@ -229,12 +230,33 @@ export default {
     changeDataMake() {
       this.setNewSum("make_grid");
     },
-    updateSpace() {
-      //TODO :: 세부스팩 반영 해야할 부분
+    addSpec() {
+      const row = this.$refs.sample_grid.getJsonRow();
+      const key = _.keys(row);
+      const rowtmp = makeARow(spec.fields)[0];
+      const rowArr = [];
+      let dan = "";
+      _.each(key, (v) => {
+        if (!v.includes("Vol")) {
+          if (v.includes("solvent")) {
+            dan = "vol";
+          } else if (v.includes("salt")) {
+            dan = "M.wt%";
+          } else if (v.includes("add")) {
+            dan = "wt%";
+          }
+          const name = row[v];
+          if (!_.isEmpty(name)) {
+            rowArr.push({ ...rowtmp, name, dan });
+            this.$refs.spec_grid.loadData(rowArr.concat(this.specBefore));
+          }
+        }
+      });
     },
   },
   mounted() {
     this.loadData();
+    this.specBefore = this.$refs.spec_grid.getJsonRows();
   },
   components: {
     RealGrid,

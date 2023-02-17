@@ -106,6 +106,7 @@ export default {
             this.origin = items;
             this.$refs.grid.loadData(items);
             this.$refs.grid.setPage(page);
+            console.log(this.origin);
           })
           .catch(() => {});
       }

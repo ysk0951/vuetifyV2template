@@ -14,7 +14,7 @@
           <SignupPost
             @closeModal="this.closePost"
             @onApprove="this.approvePost"
-            :key="signupPostKey"
+            :conponentKey="signupPostKey"
             ref="signupPost"
           ></SignupPost>
         </SetDialog>
@@ -379,7 +379,6 @@ export default {
       });
       const valid = !this.validSet.email(this.param.email);
       const validEmpty = this.validSet.empty(this.param.email, false);
-      console.log(valid, validEmpty);
       if (valid && validEmpty) {
         this.isSend = true;
         sendAuthNum({

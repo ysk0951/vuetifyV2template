@@ -78,6 +78,7 @@ export default {
         rows,
         height,
         errorMessage: "요청된 내역이 없습니다",
+        noneNo: true,
         //
       },
       param: {

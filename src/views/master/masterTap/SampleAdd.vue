@@ -223,10 +223,10 @@ export default {
           const name = row[v];
           if (!_.isEmpty(name)) {
             rowArr.push({ ...rowtmp, name, dan });
-            this.$refs.spec_grid.loadData(rowArr.concat(this.specBefore));
           }
         }
       });
+      this.$refs.spec_grid.loadData(rowArr.concat(this.specBefore));
     },
     setGrid() {
       this.$refs.sample_grid.loadData(makeARow(sample.fields));

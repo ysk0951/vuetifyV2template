@@ -5,7 +5,7 @@ let columns = [];
 const data = [
   {
     field: "lotNo",
-    alias: "lot No",
+    alias: "Lot No",
   },
   {
     field: "salestype",
@@ -28,8 +28,16 @@ const data = [
     alias: "출하진행사항",
   },
   {
+    field: "out_date_",
+    alias: "출하예정일",
+  },
+  {
     field: "derivery_due_date",
     alias: "납기 예정일",
+  },
+  {
+    field: "derivery_due_date_",
+    alias: "납기일",
   },
   {
     field: "code",

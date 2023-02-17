@@ -25,7 +25,7 @@ import _ from "lodash";
 import SetPopup from "@/components/SetPopup.vue";
 import { setNewSum } from "@/assets/grid/gridUtill";
 import { mapMutations } from "vuex";
-import { solventMasterDetail, updateSolventMaster } from "api/solvent/solvent";
+import { updateSolventMaster } from "api/solvent/solvent";
 export default {
   props: ["data"],
   data() {
@@ -74,15 +74,16 @@ export default {
       this.search();
     },
     search() {
-      solventMasterDetail(this.data.idx).then((res) => {
-        const response = res.data;
-        const items = response.data;
-        this.$refs.grid.loadData([items]);
-      });
+      // solventMasterDetail(this.data.idx).then((res) => {
+      //   const response = res.data;
+      //   const items = response.data;
+      //   this.$refs.grid.loadData([items]);
+      // });
     },
   },
   mounted() {
     this.search();
+    this.$refs.grid.loadData([this.data]);
   },
   components: {
     RealGrid,

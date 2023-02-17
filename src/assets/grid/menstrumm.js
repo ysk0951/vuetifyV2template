@@ -2,17 +2,17 @@ import _ from "lodash";
 import { makeCell } from "./gridUtill";
 let fields = [];
 let columns = [];
-makeCell(
-  1,
-  [
-    {
-      field: "idx",
-      indexExclusive: true,
-    },
-  ],
-  fields,
-  columns
-);
+// makeCell(
+//   1,
+//   [
+//     {
+//       field: "idx",
+//       indexExclusive: true,
+//     },
+//   ],
+//   fields,
+//   columns
+// );
 makeCell(
   8,
   [
