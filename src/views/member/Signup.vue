@@ -14,6 +14,8 @@
           <SignupPost
             @closeModal="this.closePost"
             @onApprove="this.approvePost"
+            :key="signupPostKey"
+            ref="signupPost"
           ></SignupPost>
         </SetDialog>
         <div class="pa-10">
@@ -111,7 +113,10 @@
                 </div>
               </div>
             </div>
-            <div class="wrapperSpace inputRow" style="position: relative">
+            <div
+              class="wrapperSpace inputRow errorTop"
+              style="position: relative"
+            >
               <SignupInputVue
                 placeholder="ex) email@gmail.com"
                 label="이메일 주소"
@@ -234,10 +239,12 @@ import { sendAuthNum, authNumCheck, memberJoin } from "api/member/member";
 import { mapMutations } from "vuex";
 import { insertBook } from "api/address/address";
 import validSet from "@/assets/valid";
+import moment from "moment";
 export default {
   name: "Signup",
   data() {
     return {
+      signupPostKey: 0,
       showPwd: false,
       agree: {
         service: false,
@@ -301,6 +308,8 @@ export default {
     },
     closePost() {
       this.$refs.postModal.closeModal();
+      this.signupPostKey = moment().valueOf();
+      console.log(this.signupPostKey);
     },
     approvePost(post) {
       this.param.post = post;
@@ -368,19 +377,11 @@ export default {
         height: 150,
         width: 300,
       });
-      const valid = this.validSet.email(this.param.email);
-      if (valid === true) {
+      const valid = !this.validSet.email(this.param.email);
+      const validEmpty = this.validSet.empty(this.param.email, false);
+      console.log(valid, validEmpty);
+      if (valid && validEmpty) {
         this.isSend = true;
-        // this.timer = 0;
-        // if (!_.isNumber(this.interval)) {
-        //   this.interval = setInterval(() => {
-        //     this.timer++;
-        //     if (this.timer === 300) {
-        //       clearInterval(this.interval);
-        //       this.isSend = false;
-        //     }
-        //   }, 1000);
-        // }
         sendAuthNum({
           gubun: 0,
           memberId: this.param.email,
@@ -398,7 +399,7 @@ export default {
           })
           .finally(() => {});
       } else {
-        this.openPopup("인증번호를 위한 이메일 형식이 잘못되었습니다.");
+        this.openPopup("인증번호를 위한 이메일을 확인해주세요");
       }
     },
     open_agree(v) {
@@ -436,13 +437,19 @@ export default {
   margin-top: 0;
   padding-top: 0;
 }
-
+.inputRow {
+  height: 65px;
+}
 .underLogin {
   display: flex;
   justify-content: space-between;
 }
-.inputRow {
+.errorTop {
   height: 65px;
+  .v-messages.error--text {
+    position: absolute;
+    top: 3px;
+  }
 }
 .underLogin span {
   cursor: pointer;

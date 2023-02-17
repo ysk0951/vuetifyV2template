@@ -2,7 +2,7 @@
   <v-container fill-height fluid class="mt-4">
     <SetDialog ref="modal" />
     <div class="pa-10 full">
-      <v-tabs :value="tab">
+      <v-tabs :value="tab" :key="tab">
         <v-tab
           v-for="item in this.selectMenu"
           :key="item.key"
@@ -14,17 +14,14 @@
           <template v-else-if="locale === 'en'">
             {{ item.menu_eng }}
           </template>
-          <v-btn
-            icon
-            @click="removeTab(item.code)"
-            class="ml-2"
-            v-if="selectMenu.length > 1"
+          <v-btn icon @click="removeTab(item.code)" class="ml-2"
             ><v-icon x-small>mdi-close</v-icon></v-btn
           >
         </v-tab>
       </v-tabs>
       <v-tabs-items
         :value="tab"
+        :key="tab"
         :style="'min-width:' + 100 + 'px;padding-top: 16px;'"
       >
         <v-tab-item v-for="item in this.selectMenu" :key="item.code">
@@ -198,18 +195,23 @@ export default {
     selectMenu: {
       deep: true,
       handler: function (v) {
-        const ref = v[this.tab].code;
-        setTimeout(() => {
-          const tmp = this.$refs[ref];
-          if (tmp) {
-            const component = this.$refs[ref][0];
-            if (_.has(component, "loadData")) {
-              component.loadData();
+        console.log(v);
+        if (v.length < 1) {
+          this.$router.push({ name: "main" });
+        } else {
+          const ref = v[this.tab].code;
+          setTimeout(() => {
+            const tmp = this.$refs[ref];
+            if (tmp) {
+              const component = this.$refs[ref][0];
+              if (_.has(component, "loadData")) {
+                component.loadData();
+              }
+            } else {
+              this.$router.push({ name: "main" });
             }
-          } else {
-            this.$router.push({ name: "main" });
-          }
-        }, 100);
+          }, 100);
+        }
       },
     },
   },
@@ -274,6 +276,9 @@ export default {
   },
   created() {
     this.SET_MENU();
+    if (this.selectMenu.length < 1) {
+      this.$router.push({ name: "main" });
+    }
   },
   methods: {
     ...mapMutations("menu", [

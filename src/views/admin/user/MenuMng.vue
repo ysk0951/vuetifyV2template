@@ -162,6 +162,7 @@ export default {
       if (this.fixIndex.includes(item)) {
         ret += "fix";
       }
+      console.log(ret);
       return ret;
     },
     curBtn(v) {
@@ -231,18 +232,20 @@ export default {
     },
     delGroup() {
       const roles = this.curBtnValue;
-      if (this.fixIndex.includes(roles)) {
-        this.setModal("삭제할수 없는 그룹입니다");
-      } else {
-        deleteRole(roles)
-          .then(async () => {
-            await this.SET_ROLE_TYPE();
-            this.setModal("삭제되었습니다", false, () => {
-              this.curBtn("회원");
-            });
-          })
-          .catch(() => {});
-      }
+      this.setModal("삭제 하시겠습니까", true, () => {
+        if (this.fixIndex.includes(roles)) {
+          this.setModal("삭제할수 없는 그룹입니다");
+        } else {
+          deleteRole(roles)
+            .then(async () => {
+              await this.SET_ROLE_TYPE();
+              this.setModal("삭제되었습니다", false, () => {
+                this.curBtn("회원");
+              });
+            })
+            .catch(() => {});
+        }
+      });
     },
     cancle() {
       this.setModal("취소하시겠습니까", true, () => {
@@ -322,5 +325,9 @@ export default {
   margin: auto;
   height: 120%;
   align-items: center;
+}
+.selected {
+  font-weight: 900;
+  // background-color: red !important;
 }
 </style>

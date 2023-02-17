@@ -144,7 +144,6 @@ import validSet from "@/assets/valid";
 import SignupInput from "@/views/member/SignupInput.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { mapMutations } from "vuex";
-
 export default {
   name: "SignupPost",
   data() {
@@ -197,6 +196,19 @@ export default {
         //   })
         //   .catch(() => {});
       }
+    },
+    reset() {
+      this.param = {
+        pickname: "",
+        phone1: "",
+        phone2: "",
+        postcode: "",
+        name: "",
+        defaultYn: false,
+        address: "",
+        address2: "",
+        country: "N",
+      };
     },
     closeModal() {
       this.$emit("closeModal");
