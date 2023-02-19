@@ -5,7 +5,7 @@ let columns = [];
 const data = [
   {
     field: "Lot No",
-    alias: "lot_no",
+    alias: "Lot No",
   },
   {
     field: "Code Grade",
@@ -30,15 +30,15 @@ const data = [
   },
   {
     field: "제조 진행사항",
-    alias: "제조 진행사항",
+    alias: "제조진행사항",
   },
   {
     field: "출하 진행사항",
-    alias: "출하 진행사항",
+    alias: "출하진행사항",
   },
   {
     field: "출하 예정일",
-    alias: "출하 예정일",
+    alias: "출하예정일",
   },
   {
     field: "납기일",

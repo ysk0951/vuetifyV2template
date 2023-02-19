@@ -16,6 +16,7 @@
           outlined
           dense
           v-model="param.request_name"
+          placeholder="요청자를 입력해 주세요."
           disabled
           filled
         ></v-text-field>
@@ -26,6 +27,7 @@
           outlined
           dense
           v-model="param.pick_name"
+          placeholder="수령자를 입력해 주세요."
           disabled
           filled
         ></v-text-field>
@@ -35,7 +37,7 @@
         <v-select
           :items="code.P"
           v-model="param.price_type"
-          placeholder="선택해주세요"
+          placeholder="선택"
           outlined
           id="work"
         ></v-select>
@@ -48,6 +50,7 @@
           <v-text-field
             type="text"
             v-model="param.postCode"
+            placeholder="배송지를 입력해 주세요."
             outlined
             dense
             disabled
@@ -71,14 +74,14 @@
     <v-row class="pl-2">
       <v-col cols="12" sm="2">
         <h4>Qty(kg)</h4>
-        <v-text-field outlined dense placeholder="00:00"></v-text-field>
+        <v-text-field outlined dense placeholder="00.00"></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>요청 자재코드</h4>
         <v-text-field
           outlined
           dense
-          placeholder="요청 자재코드를 입력해주세요"
+          placeholder="요청 자재코드를 입력해 주세요."
           v-model="param.request_code"
         ></v-text-field>
       </v-col>
@@ -87,7 +90,7 @@
         <v-text-field
           outlined
           dense
-          placeholder="분석 요청사항을 입력해주세요"
+          placeholder="분석 요청사항을 입력해 주세요."
           v-model="param.analysis"
         ></v-text-field>
       </v-col>
@@ -96,7 +99,7 @@
         <v-select
           :items="code.C"
           v-model="param.packing"
-          placeholder="선택해주세요"
+          placeholder="선택"
           outlined
           id="work"
         ></v-select>
@@ -106,7 +109,7 @@
         <v-select
           :items="code.D"
           v-model="param.delivery_type"
-          placeholder="선택해주세요"
+          placeholder="선택"
           outlined
           id="work"
         ></v-select>
@@ -118,7 +121,7 @@
         <v-text-field
           outlined
           dense
-          placeholder="기타 요청사항을 입력해주세요"
+          placeholder="기타 요청사항을 입력해 주세요."
           v-model="param.etc"
         ></v-text-field>
       </v-col>

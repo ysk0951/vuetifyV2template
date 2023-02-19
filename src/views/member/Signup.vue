@@ -65,7 +65,7 @@
             <h4 style="text-align: left" class="mb-3">기본정보 입력 (필수)</h4>
             <div class="wrapperSpace inputRow">
               <SignupInputVue
-                placeholder="이름을 입력해주세요"
+                placeholder="이름을 입력해 주세요."
                 label="이름"
                 v-model="param.name"
                 :rules="[
@@ -118,7 +118,7 @@
               style="position: relative"
             >
               <SignupInputVue
-                placeholder="ex) email@gmail.com"
+                placeholder="이메일 주소를 입력해 주세요."
                 label="이메일 주소"
                 v-model="param.email"
                 :sideBtn="true"
@@ -133,7 +133,7 @@
                 ]"
               />
               <SignupInputVue
-                placeholder="인증번호를 입력해주세요"
+                placeholder="인증번호 6자리 입력"
                 label="이메일 인증번호"
                 labelWidth="150"
                 v-model="param.emailCode"
@@ -151,7 +151,7 @@
             </div>
             <div class="wrapperSpace inputRow">
               <SignupInputVue
-                placeholder="비밀번호를 입력해주세요"
+                placeholder="비밀번호를 입력해 주세요."
                 label="비밀번호"
                 type="password"
                 append-icon="mdi-eye"
@@ -165,7 +165,7 @@
                 ]"
               />
               <SignupInputVue
-                placeholder="비밀번호를 입력해주세요"
+                placeholder="비밀번호를 입력해 주세요."
                 label="비밀번호 재확인"
                 labelWidth="150"
                 type="password"
@@ -206,7 +206,7 @@
             <h4 style="text-align: left" class="mb-3">추가정보 입력 (선택)</h4>
             <div class="wrapperSpace">
               <SignupInputVue
-                placeholder="기업명을 입력해주세요"
+                placeholder="기업명을 입력해 주세요."
                 label="기업명"
                 type="text"
                 v-model="param.company"
@@ -309,7 +309,6 @@ export default {
     closePost() {
       this.$refs.postModal.closeModal();
       this.signupPostKey = moment().valueOf();
-      console.log(this.signupPostKey);
     },
     approvePost(post) {
       this.param.post = post;
@@ -516,5 +515,8 @@ div.cardWrapper > div > div.pa-10 > div:nth-child(11) > div > button {
   position: absolute;
   left: 445px;
   top: 28px;
+}
+.signUpAgree .v-messages__message {
+  margin-top: -18px;
 }
 </style>

@@ -7,7 +7,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="자재코드를 입력해주세요"
+            placeholder="자재코드를 입력해 주세요."
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
@@ -15,7 +15,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="원료약어를 입력해주세요"
+            placeholder="원료약어를 입력해 주세요."
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
@@ -23,15 +23,15 @@
           <v-text-field
             outlined
             dense
-            placeholder="화학물질명을 입력해주세요"
+            placeholder="화학물질명을 입력해 주세요."
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <h4>CAS NO</h4>
+          <h4>CAS NO.</h4>
           <v-text-field
             outlined
             dense
-            placeholder="CAS NO를 입력해주세요"
+            placeholder="CAS NO를 입력해 주세요."
           ></v-text-field>
         </v-col>
       </div>
@@ -41,7 +41,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="관용어 및 이명을 입력해주세요"
+            placeholder="관용어 및 이명을 입력해 주세요."
           ></v-text-field>
         </v-col>
       </div>

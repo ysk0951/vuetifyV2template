@@ -33,7 +33,7 @@ const data = [
   },
   {
     field: "8",
-    alias: "제조 진행사항",
+    alias: "제조 진행 사항",
   },
   {
     field: "9",
@@ -41,7 +41,7 @@ const data = [
   },
   {
     field: "address",
-    alias: "배송지주소",
+    alias: "배송지 주소",
   },
   {
     field: "11",

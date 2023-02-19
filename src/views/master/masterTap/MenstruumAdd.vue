@@ -28,7 +28,7 @@
             <v-text-field
               outlined
               dense
-              :placeholder="item(idx, i) + '입력'"
+              :placeholder="item(idx, i) + ' 입력'"
               v-model="param[bindKey[(idx - 1) * col + i - 1]]"
             ></v-text-field>
           </template>
@@ -36,7 +36,7 @@
             <v-text-field
               outlined
               dense
-              :placeholder="item(idx, i) + '입력'"
+              :placeholder="item(idx, i) + ' 입력'"
               v-model="param[bindKey[(idx - 1) * col + i - 1]]"
             ></v-text-field>
           </template>
@@ -44,7 +44,7 @@
             <v-text-field
               outlined
               dense
-              :placeholder="item(idx, i) + '입력'"
+              :placeholder="item(idx, i) + ' 입력'"
               v-model="param[bindKey[(idx - 1) * col + i - 1]]"
             ></v-text-field>
           </template>

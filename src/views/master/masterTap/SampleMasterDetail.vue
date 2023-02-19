@@ -14,7 +14,12 @@
       </v-col>
       <v-col cols="12" sm="10">
         <h4>품명</h4>
-        <v-text-field v-model="param.code_title" outlined dense></v-text-field>
+        <v-text-field
+          v-model="param.code_title"
+          outlined
+          dense
+          placeholder="품명을 입력해 주세요."
+        ></v-text-field>
       </v-col>
     </div>
     <h3 class="mt-4 mb-2 pl-1 pr-1">
@@ -96,7 +101,6 @@ export default {
         code_title: "",
       },
       grid: "sampleMasterDetail",
-      specBefore: [],
       settings_sample: {
         ...sample,
         columns: _.map(_.cloneDeep(sample.columns), function (v) {

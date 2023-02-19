@@ -10,7 +10,7 @@
               v-model="input.code_grade"
               outlined
               dense
-              placeholder="Code Grade를 입력해주세요"
+              placeholder="Code Grade를 입력해 주세요."
               :rules="[
                 this.validSet.empty(
                   input.code_grade,
@@ -42,7 +42,7 @@
             v-model="param.code_grade"
             outlined
             dense
-            placeholder="품명을 입력해 주세요"
+            placeholder="품명을 입력해 주세요."
           ></v-text-field>
         </div>
       </v-col>

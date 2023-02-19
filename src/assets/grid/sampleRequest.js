@@ -6,7 +6,7 @@ makeCell(
   [
     {
       field: "solvent",
-      alias: "solvent",
+      alias: "solvent23",
     },
     {
       field: "solventVol",

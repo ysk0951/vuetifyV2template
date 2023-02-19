@@ -19,7 +19,7 @@ const data = [
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  o.alias = o.field;
+  o.alias = o.field.toUpperCase();
   makeCell(1, [o], fields, columns);
 });
 export { fields, columns };

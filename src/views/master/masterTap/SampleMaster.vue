@@ -13,7 +13,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
-          <h4>Solvent Vol</h4>
+          <h4>Solvent vol</h4>
           <v-text-field
             v-model="param.solventVol"
             outlined
@@ -58,7 +58,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="6">
-          <h4>Add Vol</h4>
+          <h4>Add vol</h4>
           <v-text-field
             v-model="param.addVol"
             outlined

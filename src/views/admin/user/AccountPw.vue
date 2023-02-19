@@ -20,7 +20,7 @@
               <v-text-field
                 outlined
                 dense
-                placeholder="이름을 입력해주세요"
+                placeholder="이름을 입력해 주세요."
                 v-model="input.memberName"
                 :rules="[this.validSet.name]"
               ></v-text-field>
@@ -31,7 +31,7 @@
                 outlined
                 dense
                 v-model="input.memberId"
-                placeholder="이메일 주소를 입력해주세요"
+                placeholder="이메일 주소를 입력해 주세요."
                 :rules="[this.validSet.email]"
               ></v-text-field>
             </v-col>
@@ -41,7 +41,7 @@
                 outlined
                 dense
                 v-model="input.company"
-                placeholder="기업명을 입력해주세요"
+                placeholder="기업명을 입력해 주세요."
                 :rules="[this.validSet.company]"
               ></v-text-field>
             </v-col>
@@ -51,7 +51,7 @@
                 outlined
                 dense
                 v-model="input.employeeCode"
-                placeholder="사번을 입력해주세요"
+                placeholder="사번을 입력해 주세요."
                 :rules="[this.validSet.employNumber]"
               ></v-text-field>
             </v-col>
@@ -82,7 +82,7 @@
         <div class="wrapperSpace">
           목록
           <v-btn depressed color="primary" @click="resetPw" :width="'147px'"
-            >비밀번호초기화</v-btn
+            >비밀번호 초기화</v-btn
           >
         </div>
       </h3>

@@ -29,15 +29,15 @@ const data = [
   },
   {
     field: "toxic_subs_yn",
-    alias: "유독물질 유무",
+    alias: "유독물질유무",
   },
   {
     field: "stat_standard",
-    alias: "법정 기준",
+    alias: "법정기준",
   },
   {
     field: "stat_standard_vol",
-    alias: "법정 기준 함량",
+    alias: "법정기준함량",
   },
   {
     field: "toxic_no",
@@ -53,7 +53,7 @@ const data = [
   },
   {
     field: "init_boiling_p",
-    alias: "초기끊는점",
+    alias: "초기끓는점",
   },
   {
     field: "ex_subs",

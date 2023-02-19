@@ -1,5 +1,5 @@
 <template>
-  <v-dialog :max-width="this.maxWidth" v-model="open" persistent>
+  <v-dialog :max-width="this.maxWidth" v-model="open" persistents>
     <v-form ref="form" lazy-validation>
       <v-card
         :style="'height:' + this.height + 'px; width:100%'"

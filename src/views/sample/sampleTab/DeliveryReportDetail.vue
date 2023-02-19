@@ -52,7 +52,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="영업분류를 입력해 주세요"
+            placeholder="영업분류를 입력해 주세요."
             v-model="param.salestype"
           ></v-text-field>
         </v-col>
@@ -70,7 +70,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="요청자를 입력해주세요"
+            placeholder="요청자를 입력해 주세요."
             v-model="param.request_user"
             disabled
             filled
@@ -83,7 +83,7 @@
             disabled
             filled
             dense
-            placeholder="요청업체명을 입력해주세요"
+            placeholder="요청업체명을 입력해 주세요."
             v-model="param.request_company"
             class="pr-2"
           ></v-text-field>
@@ -103,7 +103,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="param.produce_due_date"
-                placeholder="제조 예정일을 선택해주세요"
+                placeholder="제조예정일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
                 dense
@@ -132,7 +132,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="param.produce_date"
-                placeholder="제조 진행사항을 선택해 주세요"
+                placeholder="제조진행사항을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
                 dense
@@ -161,7 +161,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="param.out_date"
-                placeholder="출하진행사항을 선택해 주세요"
+                placeholder="출하진행사항을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
                 dense
@@ -189,7 +189,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
-                placeholder="출하 예정일을 선택해 주세요"
+                placeholder="출하예정일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
                 dense
@@ -216,7 +216,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="param.derivery_due_date"
-                placeholder="납기일을 선택해 주세요"
+                placeholder="납기예정일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
                 dense
@@ -244,7 +244,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
-                placeholder="납기일을 선택해 주세요"
+                placeholder="납기일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
                 dense
@@ -261,7 +261,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="수령처를 입력해주세요"
+            placeholder="수령처를 입력해 주세요."
             v-model="param.pickpart"
           ></v-text-field>
         </v-col>
@@ -270,7 +270,7 @@
           <v-select
             :items="code.P"
             v-model="param.price_type"
-            placeholder="선택해주세요"
+            placeholder="선택"
             outlined
             id="work"
             style="width: 100%"
@@ -284,7 +284,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="(kg)"
+            placeholder="00.00"
             v-model="param.qty"
           ></v-text-field>
         </v-col>

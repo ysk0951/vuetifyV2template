@@ -9,7 +9,7 @@
             <v-text-field
               outlined
               dense
-              placeholder="Lot No를 입력해주세요"
+              placeholder="Lot No를 입력해 주세요."
               v-model="input.lot_no"
               :rules="[this.validSet.commonCodeHipen]"
             ></v-text-field>
@@ -19,7 +19,7 @@
             <v-text-field
               outlined
               dense
-              placeholder="샘플코드를 입력해주세요"
+              placeholder="샘플코드를 입력해 주세요."
               v-model="input.sampleCode"
               :rules="[this.validSet.commonCodeHipen]"
             ></v-text-field>
@@ -29,7 +29,7 @@
             <v-text-field
               outlined
               dense
-              placeholder="요청자를 입력해주세요"
+              placeholder="요청자를 입력해 주세요."
               v-model="input.request_name"
               :rules="[this.validSet.name]"
             ></v-text-field>

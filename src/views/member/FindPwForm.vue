@@ -24,7 +24,7 @@
               </v-col>
               <v-col cols="12" sm="6" class="pb-0 pt-0">
                 <v-text-field
-                  placeholder="이름을 입력해주요"
+                  placeholder="이름을 입력해 주세요."
                   v-model="param.memberName"
                   :rules="[
                     this.validSet.empty(param.memberName),
@@ -39,7 +39,7 @@
               </v-col>
               <v-col cols="12" sm="6" class="pb-0 pt-0">
                 <v-text-field
-                  placeholder="이메일 주소를 입력해주요"
+                  placeholder="이메일 주소를 입력해 주세요."
                   v-model="param.memberId"
                   :rules="[
                     this.validSet.empty(
@@ -66,7 +66,7 @@
               </v-col>
               <v-col cols="12" sm="6" class="pb-0 pt-0">
                 <v-text-field
-                  placeholder="인증번호를 입력해주요"
+                  placeholder="인증번호 6자리 입력"
                   v-model="param.certifiCode"
                   :rules="[
                     this.validSet.empty(
@@ -255,5 +255,9 @@ export default {
 }
 .findPw .v-messages__message {
   margin-top: 3px !important;
+}
+
+.findPw .v-subheader {
+  width: 110px;
 }
 </style>

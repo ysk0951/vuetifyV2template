@@ -30,7 +30,7 @@
               <v-text-field
                 outlined
                 dense
-                placeholder="이름을 입력해주세요"
+                placeholder="이름을 입력해 주세요."
                 v-model="input.memberName"
                 :rules="[this.validSet.name]"
               ></v-text-field>

@@ -15,7 +15,7 @@
                 <v-text-field
                   append-icon="mdi-eye"
                   :type="pwdType"
-                  placeholder="비밀번호를 입력해주세요"
+                  placeholder="비밀번호를 입력해 주세요."
                   @click:append="togglePwdShow"
                   :rules="[
                     this.validSet.empty(
@@ -36,7 +36,7 @@
                 <v-text-field
                   append-icon="mdi-eye"
                   :type="pwdType"
-                  placeholder="비밀번호를 입력해주세요"
+                  placeholder="비밀번호를 입력해 주세요."
                   @click:append="togglePwdShow"
                   v-model="param.passwordCheck"
                   :rules="[

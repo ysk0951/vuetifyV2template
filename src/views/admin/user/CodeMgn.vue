@@ -9,7 +9,7 @@
               <v-text-field
                 outlined
                 dense
-                placeholder="공통코드명을 입력해주세요"
+                placeholder="공통코드명을 입력해 주세요."
                 v-model="input.gubun"
               ></v-text-field>
             </v-col>

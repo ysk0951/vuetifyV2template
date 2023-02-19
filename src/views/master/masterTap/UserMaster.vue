@@ -8,7 +8,7 @@
             <v-text-field
               outlined
               dense
-              placeholder="이름을 입력해주세요"
+              placeholder="이름을 입력해 주세요."
               v-model="param.memberName"
               :rules="[this.validSet.name]"
             ></v-text-field>
@@ -18,7 +18,7 @@
             <v-text-field
               outlined
               dense
-              placeholder="기업명을 입력해주세요"
+              placeholder="기업명을 입력해 주세요."
               v-model="param.company"
               :rules="[this.validSet.company]"
             ></v-text-field>

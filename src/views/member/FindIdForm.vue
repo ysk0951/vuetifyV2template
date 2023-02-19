@@ -7,7 +7,7 @@
         </v-col>
         <v-col cols="12" sm="9" class="pr-4">
           <v-text-field
-            placeholder="이름을 입력해주요"
+            placeholder="이름을 입력해 주세요."
             v-model="memberName"
             :rules="[
               this.validSet.empty(memberName, '이름을 입력해주요'),

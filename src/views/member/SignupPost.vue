@@ -6,7 +6,7 @@
     <div class="cardWrapperLeft">
       <v-form ref="signupPost" lazy-validation>
         <SignupInput
-          placeholder="배송지 입력해주세요"
+          placeholder="배송지명을 입력해 주세요."
           label="배송지 명*"
           type="text"
           v-model="param.name"
@@ -16,7 +16,7 @@
           :maxlength="30"
         />
         <SignupInput
-          placeholder="수령인을 입력해주세요"
+          placeholder="수령인을 입력해 주세요."
           label="수령인*"
           type="text"
           v-model="param.pickname"
@@ -42,7 +42,7 @@
         </div>
         <template v-if="param.country === 'N'">
           <SignupInput
-            placeholder="주소를 선택해주세요"
+            placeholder="주소를 선택해 주세요."
             label="주소*"
             type="text"
             v-model="param.postcode"
@@ -84,7 +84,7 @@
             dense
             autocomplete="off"
             class="addDetail"
-            placeholder="상세주소를 입력해주세요"
+            placeholder="주소를 입력해 주세요."
             style="margin-bottom: 105px !important"
             :rules="[
               this.validSet.empty(param.address, '상세주소를 입력해주세요'),
@@ -226,6 +226,9 @@ export default {
 </script>
 <style lang="scss">
 .signupPost {
+  .cardWrapperLeft {
+    justify-content: center;
+  }
   .cardWrapper {
     display: flex;
     justify-content: center;
