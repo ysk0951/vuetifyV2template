@@ -36,7 +36,7 @@ const data = [
     alias: "납기 예정일",
   },
   {
-    field: "derivery_due_date_",
+    field: "derivery_date",
     alias: "납기일",
   },
   {

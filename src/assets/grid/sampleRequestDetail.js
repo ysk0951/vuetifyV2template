@@ -2,7 +2,13 @@ import _ from "lodash";
 import { makeCell } from "./gridUtill";
 const fields = [];
 const columns = [];
-const filterArr = ["dueDate", "7", "70", "8", "9"];
+const filterArr = [
+  "delivery_date",
+  "qty",
+  "request_stat",
+  "producestat",
+  "out_stat",
+];
 const errorMessage = "진행중인 사항이 없습니다";
 const data = [
   {
@@ -19,24 +25,23 @@ const data = [
     date: "yyyy-MM-dd",
   },
   {
-    field: "dueDate",
+    field: "delivery_date",
     alias: "납기일",
-    date: "yyyyMMdd",
   },
   {
-    field: "7",
+    field: "qty",
     alias: "제품수량(kg)",
   },
   {
-    field: "70",
+    field: "request_stat",
     alias: "접수 상태",
   },
   {
-    field: "8",
+    field: "producestat",
     alias: "제조 진행 사항",
   },
   {
-    field: "9",
+    field: "out_stat",
     alias: "출하 사항",
   },
   {
@@ -44,7 +49,7 @@ const data = [
     alias: "배송지 주소",
   },
   {
-    field: "11",
+    field: "etc",
     alias: "비고",
   },
 ];
@@ -54,6 +59,7 @@ _.each(data, function (o) {
   makeCell(1, [o], fields, columns);
 });
 const filteredFields = _.filter([...fields], function (v) {
+  console.log(v);
   return filterArr.includes(v.fieldName);
 });
 const filteredColumn = _.filter([...columns], function (v) {
