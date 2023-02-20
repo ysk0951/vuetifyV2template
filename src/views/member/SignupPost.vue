@@ -91,7 +91,6 @@
             autocomplete="off"
             class="addDetail"
             placeholder="주소를 입력해 주세요."
-            style="margin-bottom: 105px !important"
             :rules="[
               this.validSet.empty(param.address, '상세주소를 입력해주세요'),
             ]"
@@ -197,10 +196,6 @@ export default {
             defaultYn: this.param.defaultYn ? 1 : 0,
           });
         });
-        // insertBook(this.param)
-        //   .then(() => {
-        //   })
-        //   .catch(() => {});
       }
     },
     reset() {

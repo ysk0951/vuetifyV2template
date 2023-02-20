@@ -14,7 +14,7 @@
           <SignupPost
             @closeModal="this.closePost"
             @onApprove="this.approvePost"
-            :conponentKey="signupPostKey"
+            :key="signupPostKey"
             ref="signupPost"
           ></SignupPost>
         </SetDialog>
@@ -188,7 +188,7 @@
                 placeholder="배송지를 등록해주세요"
                 label="배송지"
                 type="text"
-                v-model="param.post.address"
+                v-model="param.post.name"
                 :sideBtn="true"
                 btnText="배송지 등록"
                 class="post"
