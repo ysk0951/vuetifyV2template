@@ -170,7 +170,7 @@ export default {
     return {
       checkbox: false,
       showPwd: false,
-      id: "",
+      id: this.$route.params.memberId ? this.$route.params.memberId : "",
       pw: "",
       propsTab: 0,
       validSet,

@@ -61,7 +61,10 @@ export default {
       this.$router.push({ name: "main" });
     },
     login() {
-      this.$router.push({ name: "login" });
+      this.$router.push({
+        name: "login",
+        params: { memberId: this.$route.params.memberId },
+      });
     },
   },
 };
