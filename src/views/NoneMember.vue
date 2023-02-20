@@ -52,7 +52,7 @@
                 type="text"
                 outlined
                 dense
-                v-model="param.request_code"
+                v-model="request_code"
                 filled
                 disabled
               />
@@ -97,6 +97,7 @@ import { searchproduce, sampleSearch } from "api/sample/sample";
 export default {
   data() {
     return {
+      request_code: "",
       param: {
         lot_no: "",
         pageSize: "10",

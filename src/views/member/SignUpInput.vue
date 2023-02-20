@@ -1,5 +1,6 @@
 <template>
   <div
+    class="signupInput"
     :style="
       'display: flex; width: 500px; position: relative; height : ' +
       height +
@@ -94,3 +95,13 @@ export default {
   },
 };
 </script>
+<style>
+.signInput .v-text-field__details {
+  position: relative;
+  top: 65px;
+}
+.signInputWithBtn .v-text-field__details {
+  position: relative;
+  top: 18px;
+}
+</style>

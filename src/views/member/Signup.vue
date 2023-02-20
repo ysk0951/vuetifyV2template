@@ -492,6 +492,10 @@ export default {
   .v-input__slot {
     width: 210px;
   }
+  .v-text-field__details {
+    position: relative;
+    top: 65px;
+  }
 }
 .areaInput {
   width: 85px;
