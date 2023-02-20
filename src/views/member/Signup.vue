@@ -237,7 +237,6 @@ import SignupPost from "@/views/member/SignupPost";
 import AgreePersonal from "@/views/member/AgreePersonal.vue";
 import { sendAuthNum, authNumCheck, memberJoin } from "api/member/member";
 import { mapMutations } from "vuex";
-import { insertBook } from "api/address/address";
 import validSet from "@/assets/valid";
 import moment from "moment";
 export default {
@@ -327,18 +326,21 @@ export default {
           memberpw: this.param.password,
           name: this.param.post.postName,
           phone: this.param.phone,
-          postcode: this.param.post.postcode,
           roles: "회원",
           memo: "",
+          ...this.param.post,
         };
         // eslint-disable-next-line no-unused-vars
         const res = await memberJoin(param);
         // eslint-disable-next-line no-unused-vars
-        const resAddress = await insertBook({
-          ...this.param.post,
-          memberId: this.param.email,
+        // const resAddress = await insertBook({
+        //   ...this.param.post,
+        //   memberId: this.param.email,
+        // });
+        this.$router.push({
+          name: "signupDone",
+          params: { memberId: this.param.email, memberName: this.param.name },
         });
-        this.$router.push({ name: "signupDone" });
       }
     },
     valid() {

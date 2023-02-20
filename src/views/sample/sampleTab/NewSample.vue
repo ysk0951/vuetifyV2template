@@ -166,7 +166,7 @@
             <v-text-field
               outlined
               dense
-              placeholder="00:00"
+              placeholder="(kg)"
               v-model="param.qty"
               :rules="[this.validSet.empty(param.qty, 'Qty를 입력해주세요')]"
             ></v-text-field>
