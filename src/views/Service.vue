@@ -2,7 +2,7 @@
   <v-container fill-height fluid class="mt-4">
     <SetDialog ref="modal" />
     <div class="pa-10 full">
-      <v-tabs :value="tab" :key="tab">
+      <v-tabs :value="tab">
         <v-tab
           v-for="item in this.selectMenu"
           :key="item.key"
