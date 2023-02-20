@@ -40,10 +40,7 @@
                 @click:append="togglePwdShow"
                 maxlength="20"
                 :readonly="!focus"
-                :rules="[
-                  this.validSet.empty(pw, this.getText('MSG002')),
-                  this.validSet.password,
-                ]"
+                :rules="[this.validSet.empty(pw, this.getText('MSG002'))]"
                 @focus="focus = true"
                 @blur="focus = false"
               >

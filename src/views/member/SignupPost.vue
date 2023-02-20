@@ -28,7 +28,9 @@
           :maxlength="30"
         />
         <div class="addressSelect">
-          <v-subheader class="my-4" style="width: 130px; height: 0px"
+          <v-subheader
+            class="my-4"
+            style="width: 114px; height: 0px; margin-left: 14px"
             >배송지 구분</v-subheader
           >
           <v-radio-group v-model="param.country" row>
