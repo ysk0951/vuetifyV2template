@@ -3,8 +3,12 @@
     <h3 style="text-align: left" class="mb-3">배송지 등록</h3>
     <hr />
     <SetPopup ref="postConfirm" />
-    <div class="cardWrapperLeft">
-      <v-form ref="signupPost" lazy-validation>
+    <div class="wrapper">
+      <v-form
+        ref="signupPost"
+        lazy-validation
+        style="width: 450px; justify-content: center"
+      >
         <SignupInput
           placeholder="배송지명을 입력해 주세요."
           label="배송지 명*"
@@ -229,7 +233,7 @@ export default {
 <style lang="scss">
 .signupPost {
   .cardWrapperLeft {
-    justify-content: center;
+    display: flex;
   }
   .cardWrapper {
     display: flex;
@@ -260,7 +264,6 @@ export default {
   }
   .addressSelect {
     display: flex;
-    width: 500px;
     position: relative;
     align-items: center;
     height: 56px;
