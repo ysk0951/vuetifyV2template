@@ -46,7 +46,7 @@
             </v-col>
             <v-col cols="12" sm="9" class="menuCol">
               <div class="pa-5 background">
-                <h4>그룹명</h4>
+                <h4>*그룹명</h4>
                 <v-text-field
                   :width="'300px'"
                   outlined

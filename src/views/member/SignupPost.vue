@@ -11,7 +11,7 @@
       >
         <SignupInput
           placeholder="배송지명을 입력해 주세요."
-          label="배송지 명*"
+          label="*배송지 명"
           type="text"
           v-model="param.name"
           height="65"
@@ -21,7 +21,7 @@
         />
         <SignupInput
           placeholder="수령인을 입력해 주세요."
-          label="수령인*"
+          label="*수령인"
           type="text"
           v-model="param.pickname"
           height="65"
@@ -49,7 +49,7 @@
         <template v-if="param.country === 'N'">
           <SignupInput
             placeholder="주소를 선택해 주세요."
-            label="주소*"
+            label="*주소"
             type="text"
             v-model="param.postcode"
             height="55"
@@ -98,7 +98,7 @@
         </template>
         <SignupInput
           placeholder="000-0000-0000"
-          label="배송지 연락처1"
+          label="*배송지 연락처1"
           type="text"
           v-model="param.phone1"
           height="65"
@@ -109,7 +109,7 @@
         />
         <SignupInput
           placeholder="000-0000-0000"
-          label="배송지 연락처2"
+          label="*배송지 연락처2"
           type="text"
           v-model="param.phone2"
           :rules="[

@@ -20,7 +20,7 @@
             </span>
             <v-row>
               <v-col cols="12" sm="3" class="pb-0 pt-0">
-                <v-subheader>이름</v-subheader>
+                <v-subheader>*이름</v-subheader>
               </v-col>
               <v-col cols="12" sm="6" class="pb-0 pt-0">
                 <v-text-field
@@ -35,7 +35,7 @@
             </v-row>
             <v-row style="position: relative">
               <v-col cols="12" sm="3" class="pb-0 pt-0">
-                <v-subheader>이메일 주소</v-subheader>
+                <v-subheader>*이메일 주소</v-subheader>
               </v-col>
               <v-col cols="12" sm="6" class="pb-0 pt-0">
                 <v-text-field
@@ -62,7 +62,7 @@
             </v-row>
             <v-row>
               <v-col cols="12" sm="3" class="pb-0 pt-0">
-                <v-subheader>인증 번호</v-subheader>
+                <v-subheader>*인증 번호</v-subheader>
               </v-col>
               <v-col cols="12" sm="6" class="pb-0 pt-0">
                 <v-text-field

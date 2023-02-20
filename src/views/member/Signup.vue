@@ -66,7 +66,7 @@
             <div class="wrapperSpace inputRow">
               <SignupInputVue
                 placeholder="이름을 입력해 주세요."
-                label="이름"
+                label="*이름"
                 v-model="param.name"
                 :rules="[
                   this.validSet.empty(param.name, '이름을 입력해주세요'),
@@ -75,7 +75,7 @@
               />
               <div style="display: flex; width: 500px">
                 <v-subheader class="my-4" style="width: 150px"
-                  >휴대폰 번호</v-subheader
+                  >*휴대폰 번호</v-subheader
                 >
                 <div class="wrapper">
                   <v-text-field
@@ -119,7 +119,7 @@
             >
               <SignupInputVue
                 placeholder="이메일 주소를 입력해 주세요."
-                label="이메일 주소"
+                label="*이메일 주소"
                 v-model="param.email"
                 :sideBtn="true"
                 :btnText="this.isSend ? '재발송' : '인증번호 받기'"
@@ -134,7 +134,7 @@
               />
               <SignupInputVue
                 placeholder="인증번호 6자리 입력"
-                label="이메일 인증번호"
+                label="*이메일 인증번호"
                 labelWidth="150"
                 v-model="param.emailCode"
                 :sideBtn="true"
@@ -152,7 +152,7 @@
             <div class="wrapperSpace inputRow">
               <SignupInputVue
                 placeholder="비밀번호를 입력해 주세요."
-                label="비밀번호"
+                label="*비밀번호"
                 type="password"
                 append-icon="mdi-eye"
                 v-model="param.password"
@@ -166,7 +166,7 @@
               />
               <SignupInputVue
                 placeholder="비밀번호를 입력해 주세요."
-                label="비밀번호 재확인"
+                label="*비밀번호 재확인"
                 labelWidth="150"
                 type="password"
                 append-icon="mdi-eye"
@@ -186,7 +186,7 @@
             <div class="wrapperSpace">
               <SignupInputVue
                 placeholder="배송지를 등록해주세요"
-                label="배송지"
+                label="*배송지"
                 type="text"
                 v-model="param.post.name"
                 :sideBtn="true"

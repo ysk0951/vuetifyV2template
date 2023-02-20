@@ -4,7 +4,7 @@
     <v-form lazy-validation ref="form">
       <div class="wrapperSpace">
         <v-col cols="12" sm="4">
-          <h4>마스터 복사</h4>
+          <h4>*마스터 복사</h4>
           <div class="wrapper">
             <v-text-field
               v-model="input.code_grade"

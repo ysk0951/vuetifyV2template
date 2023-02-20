@@ -54,7 +54,7 @@
         <hr class="mb-4" />
         <v-row class="px-2">
           <v-col cols="12" sm="2">
-            <h4>요청자</h4>
+            <h4>*요청자</h4>
             <v-text-field
               outlined
               dense
@@ -70,7 +70,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
-            <h4>요청자 이메일</h4>
+            <h4>*요청자 이메일</h4>
             <v-text-field
               outlined
               dense
@@ -87,7 +87,7 @@
           </v-col>
           <v-col cols="12" sm="2">
             <div class="wrapperSpace" style="height: 24px">
-              <h4>수령자</h4>
+              <h4>*수령자</h4>
               <v-checkbox v-model="param.same">
                 <template v-slot:label>
                   <h5>요청자와 동일</h5>
@@ -147,7 +147,7 @@
         </v-row>
         <v-row class="px-2">
           <v-col cols="12" sm="2">
-            <h4>Qty(kg)</h4>
+            <h4>*Qty(kg)</h4>
             <v-text-field
               outlined
               dense
