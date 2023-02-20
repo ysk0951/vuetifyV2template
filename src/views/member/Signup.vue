@@ -377,7 +377,8 @@ export default {
         width: 300,
       });
       const valid = !this.validSet.email(this.param.email);
-      const validEmpty = this.validSet.empty(this.param.email, false);
+      const validEmpty = !this.validSet.empty(this.param.email, false);
+      console.log(valid, validEmpty);
       if (valid && validEmpty) {
         this.isSend = true;
         sendAuthNum({
