@@ -62,6 +62,7 @@
             outlined
             dense
             placeholder="YYYY-MM-DD"
+            v-mask="'####-##-##'"
             v-model="param.request_date"
           ></v-text-field>
         </v-col>
@@ -189,6 +190,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
+                v-model="param.out_due_date"
                 placeholder="출하예정일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
@@ -198,7 +200,11 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker no-title @input="menu = false"></v-date-picker>
+            <v-date-picker
+              no-title
+              v-model="param.out_due_date"
+              @input="menu = false"
+            ></v-date-picker>
           </v-menu>
         </v-col>
       </v-row>
@@ -244,6 +250,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
+                v-model="param.derivery_date"
                 placeholder="납기일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
@@ -253,7 +260,11 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker no-title @input="menu = false"></v-date-picker>
+            <v-date-picker
+              no-title
+              @input="menu = false"
+              v-model="param.derivery_date"
+            ></v-date-picker>
           </v-menu>
         </v-col>
         <v-col cols="12" sm="3">
@@ -284,7 +295,7 @@
           <v-text-field
             outlined
             dense
-            placeholder="00.00"
+            placeholder="(kg)"
             v-model="param.qty"
           ></v-text-field>
         </v-col>
@@ -342,10 +353,12 @@ export default {
         produce_due_date: "",
         produce_date: "",
         out_date: "",
+        out_due_date: "",
         derivery_due_date: "",
         pickpart: "",
         price_type: "",
         qty: "",
+        derivery_date: "",
       },
     };
   },
@@ -400,10 +413,12 @@ export default {
         produce_due_date: "",
         produce_date: "",
         out_date: "",
+        out_due_date: "",
         derivery_due_date: "",
         pickpart: "",
         price_type: "",
         qty: "",
+        derivery_date: "",
       };
     },
     searchCode() {
