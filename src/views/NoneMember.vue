@@ -92,7 +92,7 @@ import * as nmSr from "@/assets/grid/sampleRequest";
 import * as nmSrD from "@/assets/grid/sampleRequestDetail";
 import { mapState } from "vuex";
 import { makeARow } from "@/assets/grid/gridUtill";
-import { searchproduce } from "api/sample/sample";
+import { searchproduce, sampleSearch } from "api/sample/sample";
 // import _ from "lodash";
 export default {
   data() {
@@ -141,6 +141,10 @@ export default {
     },
     async getSmapleRequest() {
       try {
+        const res = await sampleSearch({ ...this.param, currentPage: 1 });
+        const response = res.data;
+        const items = response.data.items;
+
         // const res = await sampleSearch({ ...this.param, currentPage: 1 });
         const res_produce = await searchproduce({
           ...this.param,
@@ -150,6 +154,9 @@ export default {
         // const items = response.data.items;
         const response_produce = res_produce.data;
         const items_produce = response_produce.data.items;
+        if (items && items.length > 0) {
+          this.request_code = items[0].request_code;
+        }
         if (items_produce && items_produce.length > 0) {
           this.$refs.detailGrid.loadData(items_produce, ["delivery_date"]);
         }

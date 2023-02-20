@@ -59,7 +59,6 @@ _.each(data, function (o) {
   makeCell(1, [o], fields, columns);
 });
 const filteredFields = _.filter([...fields], function (v) {
-  console.log(v);
   return filterArr.includes(v.fieldName);
 });
 const filteredColumn = _.filter([...columns], function (v) {

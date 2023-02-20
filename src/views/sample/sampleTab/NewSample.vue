@@ -178,12 +178,6 @@
               dense
               placeholder="요청 자재코드를 입력해주세요"
               v-model="param.request_code"
-              :rules="[
-                this.validSet.empty(
-                  param.request_code,
-                  '요청 자재코드를 입력해주세요'
-                ),
-              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -193,12 +187,6 @@
               dense
               placeholder="분석 요청사항을 입력해주세요"
               v-model="param.analysis"
-              :rules="[
-                this.validSet.empty(
-                  param.analysis,
-                  '분석 요청사항을 입력해주세요'
-                ),
-              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -211,7 +199,38 @@
               id="work"
             ></v-select>
           </v-col>
-          <v-col cols="12" sm="4">
+        </v-row>
+        <v-row class="px-2 mb-16">
+          <v-col cols="12" sm="2">
+            <h4>납기일</h4>
+            <v-menu
+              v-model="picker"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="param.derivery_date"
+                  placeholder="납기일을 선택해 주세요."
+                  append-icon="mdi-calendar"
+                  outlined
+                  dense
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                no-title
+                @input="menu = false"
+                v-model="param.derivery_date"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col cols="12" sm="6">
             <h4>기타 요청사항</h4>
             <v-text-field
               outlined
@@ -219,8 +238,9 @@
               placeholder="기타 요청사항을 입력해주세요"
               v-model="param.etc"
             ></v-text-field>
-          </v-col> </v-row
-      ></v-form>
+          </v-col>
+        </v-row>
+      </v-form>
     </template>
     <div class="wrapper">
       <div class="wrapper mt-16">
@@ -286,6 +306,7 @@ export default {
         request_name: "",
         pick_name: "",
         analysis: "",
+        derivery_date: "",
       },
       isSelecting: false,
       address: [
@@ -299,6 +320,7 @@ export default {
         },
       ],
       tmpResult: [],
+      picker: false,
     };
   },
   computed: {
@@ -328,6 +350,7 @@ export default {
         request_name: "",
         pick_name: "",
         analysis: "",
+        derivery_date: "",
       };
       this.file = "";
       this.checkRows = false;
