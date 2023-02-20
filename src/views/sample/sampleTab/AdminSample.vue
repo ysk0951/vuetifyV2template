@@ -131,7 +131,9 @@
                 disabled
                 filled
                 v-model="param.address"
-                :rules="[this.validSet.name]"
+                :rules="[
+                  this.validSet.empty(param.address, '주소를 입력해주세요'),
+                ]"
               />
               <v-btn
                 depressed
@@ -161,7 +163,12 @@
               dense
               placeholder="요청 자재코드를 입력해주세요"
               v-model="param.request_code"
-              :rules="[this.validSet.name]"
+              :rules="[
+                this.validSet.empty(
+                  param.request_code,
+                  '요청 자재코드를 입력해주세요'
+                ),
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -171,7 +178,12 @@
               dense
               placeholder="분석 요청사항을 입력해주세요"
               v-model="param.analysis"
-              :rules="[this.validSet.name]"
+              :rules="[
+                this.validSet.empty(
+                  param.analysis,
+                  '분석 요청사항을 입력해주세요'
+                ),
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
