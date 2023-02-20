@@ -127,7 +127,7 @@
                 :rules="[
                   this.validSet.empty(
                     param.email,
-                    '이메일 주로를 입력해주세요'
+                    '이메일 주소를 입력해주세요'
                   ),
                   this.validSet.email,
                 ]"
@@ -376,8 +376,8 @@ export default {
         height: 150,
         width: 300,
       });
-      const valid = !this.validSet.email(this.param.email);
-      const validEmpty = !this.validSet.empty(this.param.email, false);
+      const valid = this.validSet.email(this.param.email);
+      const validEmpty = this.validSet.empty(this.param.email, false);
       console.log(valid, validEmpty);
       if (valid && validEmpty) {
         this.isSend = true;
