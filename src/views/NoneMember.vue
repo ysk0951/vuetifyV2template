@@ -16,7 +16,7 @@
                   v-model="param.lot_no"
                 />
               </v-col>
-              <v-col cols="12" sm="3" class="px-2">
+              <!-- <v-col cols="12" sm="3" class="px-2">
                 <h4>요청 자재코드</h4>
                 <v-text-field
                   placeholder="요청 자재코드"
@@ -25,7 +25,7 @@
                   dense
                   v-model="param.request_code"
                 />
-              </v-col>
+              </v-col> -->
               <v-col cols="12" sm="3" class="px-0 search">
                 <v-btn depressed class="ml-3 mr-3" @click="reset">초기화</v-btn>
                 <v-btn depressed color="primary " @click="search">검색</v-btn>
