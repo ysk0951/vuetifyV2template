@@ -21,8 +21,8 @@
             <div class="wrapper">
               <table>
                 <tr>
-                  <td>{{ this.$route.param.memberId }}</td>
-                  <td>{{ this.$route.param.memberName }}</td>
+                  <td>{{ this.$route.params.memberId }}</td>
+                  <td>{{ this.$route.params.memberName }}</td>
                 </tr>
                 <tr>
                   <td>아이디</td>
