@@ -21,12 +21,12 @@
             <div class="wrapper">
               <table>
                 <tr>
-                  <td>{{ this.$route.params.memberId }}</td>
-                  <td>{{ this.$route.params.memberName }}</td>
+                  <td>아이디</td>
+                  <td>이름</td>
                 </tr>
                 <tr>
-                  <td>아이디</td>
-                  <td>test@test.com</td>
+                  <td>{{ this.$route.params.memberId }}</td>
+                  <td>{{ this.$route.params.memberName }}</td>
                 </tr>
               </table>
             </div>
