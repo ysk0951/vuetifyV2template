@@ -94,7 +94,9 @@ export default {
           .then((res) => {
             const response = res.data;
             const items = response.data.items;
-            this.$refs.grid.loadData(items);
+            const page = response.data.params;
+            this.$refs.grid.setPage(page);
+            this.$refs.grid.loadData(items, ["created_at"]);
           })
           .catch(() => {});
       }
