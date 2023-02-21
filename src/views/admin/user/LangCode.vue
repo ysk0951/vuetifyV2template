@@ -44,7 +44,7 @@ export default {
     ...mapState("select", ["workType", "roleType"]),
   },
   mounted() {
-    this.search();
+    this.loadData();
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),

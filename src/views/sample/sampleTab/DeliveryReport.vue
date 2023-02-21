@@ -147,6 +147,9 @@ export default {
     RealGrid,
     SetPopup,
   },
+  mounted() {
+    this.loadData();
+  },
 };
 </script>
 <style lang="scss"></style>

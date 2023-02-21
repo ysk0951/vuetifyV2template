@@ -140,6 +140,9 @@ export default {
   computed: {
     ...mapState("common", ["code"]),
   },
+  mounted() {
+    this.loadData();
+  },
 };
 </script>
 <style lang="scss">

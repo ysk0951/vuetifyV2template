@@ -104,7 +104,11 @@
             <COADetail :data="coaDetailData" />
           </template>
           <template v-if="item.code === 'MSMGMT'">
-            <UserSample @newSample="newSample" ref="MSMGMT" />
+            <UserSample
+              @newSample="newSample"
+              ref="MSMGMT"
+              @dbClick="openSearchProcessCustom"
+            />
           </template>
           <template v-if="item.code === 'NUSMGMT'">
             <NewSample @newSample="newSample" ref="NUSMGMT" />
@@ -195,7 +199,6 @@ export default {
     selectMenu: {
       deep: true,
       handler: function (v) {
-        console.log(v);
         if (v.length < 1) {
           this.$router.push({ name: "main" });
         } else {
@@ -446,6 +449,10 @@ export default {
         true,
         data
       );
+    },
+    openSearchProcessCustom() {
+      console.log(1);
+      this.findTab("MMGMT", "진행 사항 조회 (사용자)", null, true, null);
     },
   },
 };

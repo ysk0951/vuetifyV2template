@@ -167,6 +167,9 @@ export default {
   components: {
     RealGrid,
   },
+  mounted() {
+    this.loadData();
+  },
 };
 </script>
 <style lang="scss">

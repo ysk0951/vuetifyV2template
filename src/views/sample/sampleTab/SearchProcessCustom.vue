@@ -35,6 +35,9 @@ export default {
       },
     };
   },
+  mounted() {
+    this.loadData();
+  },
   methods: {
     reset() {},
     search(v) {

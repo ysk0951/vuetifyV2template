@@ -13,6 +13,7 @@
       ref="grid"
       :settings="settings"
       @changePage="loadData"
+      @dbClick="dbClick"
     />
   </div>
 </template>
@@ -39,6 +40,9 @@ export default {
   methods: {
     newSample() {
       this.$emit("newSample");
+    },
+    dbClick() {
+      this.$emit("dbClick");
     },
     loadData(v) {
       memberSampleList({

@@ -106,6 +106,7 @@ export default {
       customApprove: true,
     });
     this.input.roles = this.roleType[0];
+    this.loadData();
   },
   methods: {
     ...mapMutations("modal", [

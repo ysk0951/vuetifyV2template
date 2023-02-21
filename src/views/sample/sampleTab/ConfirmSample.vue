@@ -77,6 +77,7 @@ export default {
   },
   mounted() {
     this.reset();
+    this.loadData();
   },
   methods: {
     loadData(v) {

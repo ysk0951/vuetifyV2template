@@ -96,6 +96,9 @@ export default {
   computed: {
     ...mapState("common", ["code"]),
   },
+  mounted() {
+    this.loadData();
+  },
   methods: {
     newSample() {
       this.$emit("newSample");

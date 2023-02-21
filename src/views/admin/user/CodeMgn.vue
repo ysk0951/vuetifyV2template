@@ -78,6 +78,7 @@ export default {
       width: 300,
       customApprove: true,
     });
+    this.loadData();
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
