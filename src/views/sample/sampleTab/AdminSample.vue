@@ -274,10 +274,13 @@ export default {
       picker: false,
       grid: "adminSample",
       settings: {
-        columns: _.map(_.cloneDeep(columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
+        columns: _.map(
+          _.filter(_.cloneDeep(columns), (v) => v.fieldName !== "lot_no"),
+          function (v) {
+            v.editable = true;
+            return v;
+          }
+        ),
         fields,
         rows,
         height,

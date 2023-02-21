@@ -112,9 +112,6 @@
           label="*배송지 연락처2"
           type="text"
           v-model="param.phone2"
-          :rules="[
-            this.validSet.empty(param.phone2, '배송지 연락처를 입력해주세요'),
-          ]"
           height="65"
           v-mask="'###-####-####'"
         />

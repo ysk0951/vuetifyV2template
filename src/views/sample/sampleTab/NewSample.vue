@@ -279,10 +279,13 @@ export default {
     return {
       grid: "newSample",
       settings: {
-        columns: _.map(_.cloneDeep(columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
+        columns: _.map(
+          _.filter(_.cloneDeep(columns), (v) => v.fieldName !== "lot_no"),
+          function (v) {
+            v.editable = true;
+            return v;
+          }
+        ),
         fields,
         rows,
         height,
@@ -416,7 +419,7 @@ export default {
     },
     request() {
       const row = this.$refs.grid.getCheckedRow();
-
+      const idx = this.$refs.grid.getCheckedRowIdxRadio();
       if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
           const data = {
@@ -430,9 +433,7 @@ export default {
               this.reset();
             } else {
               this.openConfirm(body.message, false, () => {
-                document
-                  .getElementsByClassName("rg-body")[0]
-                  .getElementsByTagName("tbody")[0].childNodes;
+                console.log(idx);
                 this.reset();
               });
             }
