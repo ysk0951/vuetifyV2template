@@ -421,6 +421,12 @@ export default {
               this.openConfirm(body.errorMessage);
             } else {
               this.openConfirm(body.message, false, () => {
+                const idx = this.$refs.grid.getCheckedRowIdxRadio();
+                const before = this.$refs.grid.getJsonRows();
+                const updateRow = _.filter(before, (v, index) => {
+                  return index !== idx;
+                });
+                this.$refs.grid.loadData(updateRow);
                 this.$refs.grid.setColor();
               });
             }

@@ -22,7 +22,7 @@ const name = (v) => {
 };
 const password = (v) =>
   !!pwRegex.test(v) ||
-  "영문 대/소문자 , 숫자 , 특수문자를 포함한 8자리 이상이 필요합니다";
+  "영문 대/소문자 , 숫자 , 특수문자를 포함 8자리 이상 필요";
 const company = (v) => {
   if (v) {
     v = v.replaceAll("(", "").replaceAll(")", "");

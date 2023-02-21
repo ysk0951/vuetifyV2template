@@ -101,7 +101,7 @@ export default {
       return rows;
     },
     getCheckedRowIdxRadio: function () {
-      return this.getCheckedRowIdx().join("");
+      return parseInt(this.getCheckedRowIdx().join(""));
     },
     setColor() {},
     setPage: function (v) {
