@@ -456,6 +456,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          this.REMOVE_SELECT_MENU("delivaryReportDetail");
         })
         .catch((err) => {
           this.setModal(err);
