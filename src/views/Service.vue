@@ -214,7 +214,7 @@ export default {
                 this.$router.push({ name: "main" });
               }
             }
-          }, 500);
+          }, 100);
         }
       },
     },
@@ -338,9 +338,7 @@ export default {
       this.menstruumAddData = {};
     },
     removeTab(code) {
-      console.log(code);
       this.REMOVE_SELECT_MENU(code);
-      // this.SET_SELECT_MENU_TAB(0);
     },
     userDetail(data) {
       this.findTab(

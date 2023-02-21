@@ -32,7 +32,23 @@ const menu = {
       }
     },
     REMOVE_SELECT_MENU(state, value) {
+      const beforeIdx = _.findIndex(state.selectMenu, (v) => v.code === value);
+      const length = state.selectMenu.length - 1;
       state.selectMenu = _.filter(state.selectMenu, (v) => v.code !== value);
+      setTimeout(() => {
+        //맨앞걸 지울때는 댕김
+        if (beforeIdx == 0) {
+          state.tab = beforeIdx;
+          //맨끝걸 지우면 하나 당김
+        } else if (beforeIdx == length) {
+          state.tab = beforeIdx - 1;
+        } else {
+          //중간거는 그대로
+          state.tab = beforeIdx;
+        }
+      }, 100);
+
+      console.log(beforeIdx, length);
     },
     SET_MENU(state) {
       this.commit("menu/RESET_MENU");
@@ -77,4 +93,5 @@ const menu = {
 };
 import _ from "lodash";
 import { getMenu, getAllMenu } from "api/menu";
+import { setTimeout } from "core-js";
 export default menu;
