@@ -30,6 +30,7 @@
                     memberId,
                     errorMessage,
                     createAt,
+                    response,
                   }"
                   @loginByFindId="loginByFindId"
                   @back="back"
@@ -82,6 +83,7 @@ export default {
       isApproved: false,
       isSuccessFindId: false,
       isSuccessFindPW: false,
+      response: [],
       createAt: "",
       memberId: "",
       errorMessage: "",
@@ -128,6 +130,7 @@ export default {
               this.errorMessage = resBody.errorMessage;
             } else {
               this.isSuccessFindId = true;
+              this.response = resBody.data.item;
               this.memberId = resBody.data.item.memberId;
               this.createAt = moment(resBody.data.item.created_at).format(
                 "YYYY-MM-DD"

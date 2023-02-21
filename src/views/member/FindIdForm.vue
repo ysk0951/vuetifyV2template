@@ -79,8 +79,7 @@ export default {
       if (this.valid()) {
         const param = {
           memberName: this.memberName,
-          phone: this.phone.replaceAll("-", ""),
-          // phone: this.phone,
+          phone: this.phone,
           areacode: this.areacode.replace("+", ""),
         };
         this.$emit("onApprove", param, "id");
