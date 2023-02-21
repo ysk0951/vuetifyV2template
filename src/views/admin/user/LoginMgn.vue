@@ -147,11 +147,14 @@ export default {
             break;
         }
         switch (param.logintype) {
-          case "AD":
+          case "SITE":
             param.logintype = 1;
             break;
-          case "SSO":
+          case "AD":
             param.logintype = 2;
+            break;
+          case "SSO":
+            param.logintype = 3;
             break;
           case "전체":
             param.logintype = "";
@@ -167,11 +170,17 @@ export default {
             const page = response.data.params;
             _.each(items, (v) => {
               switch (v.logintype) {
-                case 1:
-                  v.logintype = "AD";
+                case "SITE":
+                  v.logintype = 1;
                   break;
-                case 2:
-                  v.logintype = "SSO";
+                case "AD":
+                  v.logintype = 2;
+                  break;
+                case "SSO":
+                  v.logintype = 3;
+                  break;
+                case "전체":
+                  v.logintype = "";
                   break;
               }
               switch (v.employee_status) {
@@ -180,6 +189,9 @@ export default {
                   break;
                 case 2:
                   v.employee_status = "퇴사";
+                  break;
+                default:
+                  v.employee_status = "-";
                   break;
               }
             });

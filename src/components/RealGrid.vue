@@ -92,6 +92,17 @@ export default {
       });
       return rows;
     },
+    getCheckedRowIdx: function () {
+      const idx = this.gv.getCheckedRows(true, false, false);
+      const rows = [];
+      _.each(idx, (v, idx) => {
+        rows.push(idx);
+      });
+      return rows;
+    },
+    getCheckedRowIdxRadio: function () {
+      return this.getCheckedRowIdx().join("");
+    },
     setColor() {},
     setPage: function (v) {
       this.page = {

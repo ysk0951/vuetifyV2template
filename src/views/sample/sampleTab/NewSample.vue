@@ -1,7 +1,7 @@
 <template>
   <div class="address newSample">
     <SetPopup ref="confirm" />
-    <Address ref="address" @select="onAddress" :userId="userId" />
+    <Address ref="address" @select="onAddress" p:userId="userId" />
     <div>
       <h4 class="mt-4 mb-2">파일 업로드</h4>
     </div>
@@ -416,6 +416,7 @@ export default {
     },
     request() {
       const row = this.$refs.grid.getCheckedRow();
+
       if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
           const data = {
@@ -429,6 +430,9 @@ export default {
               this.reset();
             } else {
               this.openConfirm(body.message, false, () => {
+                document
+                  .getElementsByClassName("rg-body")[0]
+                  .getElementsByTagName("tbody")[0].childNodes;
                 this.reset();
               });
             }

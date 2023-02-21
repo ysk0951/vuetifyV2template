@@ -209,4 +209,7 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 .v-tab--active {
   border-bottom: 2px solid;
 }
+.dimmRow {
+  background-color: aquamarine !important;
+}
 </style>
