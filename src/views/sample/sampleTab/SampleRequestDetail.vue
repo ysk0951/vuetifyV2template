@@ -192,6 +192,7 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
+    ...mapMutations("menu", ["REMOVE_SELECT_MENU"]),
     loadData() {
       if (this.data) {
         sampleSearch(this.data)
@@ -229,14 +230,16 @@ export default {
         width: 300,
         text,
       });
-      this.$refs.addPopup.openPopup(cb);
+      this.$refs.confirm.openPopup(cb);
     },
     request() {
       const row = this.$refs.grid.getJsonRow();
       if (this.valid()) {
         updateSample({ ...this.param, ...row })
           .then(() => {
-            this.openPopup("저장되었습니다", this.cancle());
+            this.openPopup("저장되었습니다", () => {
+              this.REMOVE_SELECT_MENU("sampleRequestDetail");
+            });
           })
           .catch((err) => {
             this.openPopup(err, this.cancle());
