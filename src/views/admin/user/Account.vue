@@ -293,28 +293,24 @@ export default {
         });
     },
     update(row) {
-      this.openConfirm("저장하시겠습니까?", true, () => {
-        let employee_status = "";
-        switch (row.work) {
-          case "재직중":
-            employee_status = 1;
-            break;
-          case "퇴사":
-            employee_status = 2;
-            break;
-        }
-        userInfoUpdate({ ...row, memberId: row.email, employee_status })
-          .then(() => {
-            this.openConfirm("저장되었습니다", false, () => {
-              this.onApprove();
-            });
-          })
-          .catch(() => {
-            this.openConfirm("Error : 관리자에게 문의하세요", false, () => {
-              this.cancel();
-            });
+      let employee_status = "";
+      switch (row.work) {
+        case "재직중":
+          employee_status = 1;
+          break;
+        case "퇴사":
+          employee_status = 2;
+          break;
+      }
+      userInfoUpdate({ ...row, memberId: row.email, employee_status })
+        .then(() => {
+          this.onApprove();
+        })
+        .catch(() => {
+          this.openConfirm("Error : 관리자에게 문의하세요", false, () => {
+            this.cancel();
           });
-      });
+        });
     },
   },
 

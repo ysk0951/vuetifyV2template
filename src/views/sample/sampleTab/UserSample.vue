@@ -47,7 +47,6 @@ export default {
     loadData(v) {
       memberSampleList({
         currentPage: _.isNumber(v) ? v : 1,
-        memberId: "yskimweb@gmail.com",
         pageSize: "10",
       })
         .then((res) => {

@@ -168,7 +168,10 @@
               dense
               placeholder="(kg)"
               v-model="param.qty"
-              :rules="[this.validSet.empty(param.qty, 'Qty를 입력해주세요')]"
+              :rules="[
+                this.validSet.empty(param.qty, 'Qty를 입력해주세요'),
+                this.validSet.number,
+              ]"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -415,7 +418,9 @@ export default {
       this.$refs.address.open();
     },
     cancle() {
-      this.reset();
+      this.openConfirm("취소하시겠습니까", true, () => {
+        this.reset();
+      });
     },
     request() {
       const row = this.$refs.grid.getCheckedRow();
