@@ -162,7 +162,6 @@ export default {
       if (this.fixIndex.includes(item)) {
         ret += "fix";
       }
-      console.log(ret);
       return ret;
     },
     curBtn(v) {

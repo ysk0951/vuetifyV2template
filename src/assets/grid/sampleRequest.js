@@ -30,7 +30,7 @@ makeCell(
       field: "salt",
     },
     {
-      field: "soltVol",
+      field: "saltVol",
       alias: "M,wt%",
       excelKey: "M,wt%_",
     },

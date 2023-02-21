@@ -183,7 +183,6 @@ export default {
                   v.logintype = "";
                   break;
               }
-              console.log(v.employee_status);
               switch (v.employee_status) {
                 case "1":
                   v.employee_status = "재직중";

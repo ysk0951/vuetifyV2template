@@ -202,31 +202,35 @@ export default {
           this.$router.push({ name: "main" });
         } else {
           setTimeout(() => {
-            const ref = v[this.tab].code;
-            const tmp = this.$refs[ref];
-            if (tmp) {
-              const component = this.$refs[ref][0];
-              if (_.has(component, "loadData")) {
-                component.loadData();
+            if (v[this.tab] && v[this.tab].code) {
+              const ref = v[this.tab].code;
+              const tmp = this.$refs[ref];
+              if (tmp) {
+                const component = this.$refs[ref][0];
+                if (_.has(component, "loadData")) {
+                  component.loadData();
+                }
+              } else {
+                this.$router.push({ name: "main" });
               }
-            } else {
-              this.$router.push({ name: "main" });
             }
-          }, 100);
+          }, 500);
         }
       },
     },
     tab(v) {
-      const ref = this.selectMenu[v].code;
       setTimeout(() => {
-        const tmp = this.$refs[ref];
-        if (tmp) {
-          const component = this.$refs[ref][0];
-          if (_.has(component, "loadData")) {
-            component.loadData();
+        if (this.selectMenu[v]) {
+          const ref = this.selectMenu[v].code;
+          const tmp = this.$refs[ref];
+          if (tmp) {
+            const component = this.$refs[ref][0];
+            if (_.has(component, "loadData")) {
+              component.loadData();
+            }
+          } else {
+            this.$router.push({ name: "main" });
           }
-        } else {
-          this.$router.push({ name: "main" });
         }
       }, 100);
     },

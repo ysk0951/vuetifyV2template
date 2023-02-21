@@ -120,7 +120,7 @@
           </v-col>
         </v-row>
         <h4 class="mb-3">배송지 선택</h4>
-        <v-row style="height: 63px" class="px-2">
+        <v-row style="height: 77px" class="px-2">
           <v-col cols="12" sm="6">
             <div class="wrapper address">
               <v-text-field
@@ -142,6 +142,26 @@
                 @click="searchAddress"
                 >주소검색</v-btn
               >
+            </div>
+          </v-col>
+        </v-row>
+        <h4 class="mb-3">상세주소*</h4>
+        <v-row style="height: 63px" class="px-2">
+          <v-col cols="12" sm="6">
+            <div class="wrapper address">
+              <v-text-field
+                placeholder="상세 주소를 입력해주세요"
+                type="text"
+                outlined
+                dense
+                v-model="param.address2"
+                :rules="[
+                  this.validSet.empty(
+                    param.address2,
+                    '상세 주소를 입력해주세요'
+                  ),
+                ]"
+              />
             </div>
           </v-col>
         </v-row>
@@ -297,6 +317,7 @@ export default {
         etc: "",
         same: false,
         address: "",
+        address2: "",
         qty: "",
         request_code: "",
         request_name: "",
@@ -344,6 +365,7 @@ export default {
         etc: "",
         same: false,
         address: "",
+        address2: "",
         qty: "",
         request_code: "",
         request_name: "",
@@ -428,6 +450,7 @@ export default {
                 });
                 this.$refs.grid.loadData(updateRow);
                 this.$refs.grid.setColor();
+                this.reset();
               });
             }
           });

@@ -96,11 +96,11 @@ export function filterExel(input) {
   row["solventVol8"] = row["vol%_7"];
   row["solventVol9"] = row["vol%_8"];
   row["solventVol10"] = row["vol%_9"];
-  row["soltVol1"] = row["M,wt%"];
-  row["soltVol2"] = row["M,wt%_1"];
-  row["soltVol3"] = row["M,wt%_2"];
-  row["soltVol4"] = row["M,wt%_3"];
-  row["soltVol5"] = row["M,wt%_4"];
+  row["saltVol1"] = row["M,wt%"];
+  row["saltVol2"] = row["M,wt%_1"];
+  row["saltVol3"] = row["M,wt%_2"];
+  row["saltVol4"] = row["M,wt%_3"];
+  row["saltVol5"] = row["M,wt%_4"];
   row["addVol1"] = row["wt%"];
   row["addVol2"] = row["wt%_1"];
   row["addVol3"] = row["wt%_2"];
@@ -137,11 +137,11 @@ export function setNewSum(row) {
     Number(getNum(row["solventVol8"])) +
     Number(getNum(row["solventVol9"])) +
     Number(getNum(row["solventVol10"])) +
-    Number(getNum(row["soltVol1"])) +
-    Number(getNum(row["soltVol2"])) +
-    Number(getNum(row["soltVol3"])) +
-    Number(getNum(row["soltVol4"])) +
-    Number(getNum(row["soltVol5"])) +
+    Number(getNum(row["saltVol1"])) +
+    Number(getNum(row["saltVol2"])) +
+    Number(getNum(row["saltVol3"])) +
+    Number(getNum(row["saltVol4"])) +
+    Number(getNum(row["saltVol5"])) +
     Number(getNum(row["addVol1"])) +
     Number(getNum(row["addVol2"])) +
     Number(getNum(row["addVol3"])) +

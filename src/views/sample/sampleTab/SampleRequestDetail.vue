@@ -74,7 +74,12 @@
     <v-row class="pl-2">
       <v-col cols="12" sm="2">
         <h4>Qty(kg)</h4>
-        <v-text-field outlined dense placeholder="00.00"></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          placeholder="(kg)"
+          v-model="param.qty"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
         <h4>요청 자재코드</h4>
@@ -104,6 +109,8 @@
           id="work"
         ></v-select>
       </v-col>
+    </v-row>
+    <v-row class="pl-2">
       <v-col cols="12" sm="2">
         <h4>배송방법</h4>
         <v-select
@@ -114,8 +121,6 @@
           id="work"
         ></v-select>
       </v-col>
-    </v-row>
-    <v-row class="pl-2">
       <v-col cols="12" sm="6">
         <h4>기타 요청사항</h4>
         <v-text-field
