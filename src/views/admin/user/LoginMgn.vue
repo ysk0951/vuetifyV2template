@@ -170,24 +170,25 @@ export default {
             const page = response.data.params;
             _.each(items, (v) => {
               switch (v.logintype) {
-                case "SITE":
-                  v.logintype = 1;
+                case 1:
+                  v.logintype = "SITE";
                   break;
-                case "AD":
-                  v.logintype = 2;
+                case 2:
+                  v.logintype = "AD";
                   break;
-                case "SSO":
-                  v.logintype = 3;
+                case 3:
+                  v.logintype = "SSO";
                   break;
                 case "전체":
                   v.logintype = "";
                   break;
               }
+              console.log(v.employee_status);
               switch (v.employee_status) {
-                case 1:
+                case "1":
                   v.employee_status = "재직중";
                   break;
-                case 2:
+                case "2":
                   v.employee_status = "퇴사";
                   break;
                 default:
