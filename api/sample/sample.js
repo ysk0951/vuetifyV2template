@@ -61,3 +61,7 @@ export async function codedbsearch(param) {
 export async function updateAddress(param) {
   return http.post(prefix + `/updateAddress`, param);
 }
+
+export async function deshcount(param) {
+  return http.post(prefix + `/deshcount`, param);
+}

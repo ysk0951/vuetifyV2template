@@ -7,17 +7,17 @@
           <v-row>
             <v-col cols="12" sm="4">
               <v-card elevation="3" @click="newRq"
-                >신규요청<span>61건</span></v-card
+                >신규요청<span>{{ desh.new }}</span></v-card
               >
             </v-col>
             <v-col cols="12" sm="4">
               <v-card elevation="3" @click="making"
-                >제조중<span>61건</span></v-card
+                >제조중<span>{{ desh.progress }}</span></v-card
               >
             </v-col>
             <v-col cols="12" sm="4">
               <v-card elevation="3" @click="shipment"
-                >출하예정 <span>61건</span>
+                >출하예정 <span>{{ desh.outdue }}</span>
               </v-card>
             </v-col>
           </v-row>
@@ -61,6 +61,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import * as newRqGrid from "@/assets/grid/sampleRequest";
 import _ from "lodash";
 import { mapState, mapMutations } from "vuex";
+import { deshcount } from "api/sample/sample";
 export default {
   data() {
     return {
@@ -80,6 +81,7 @@ export default {
           value: "제조중",
         },
       ],
+      desh: {},
     };
   },
   computed: {
@@ -120,14 +122,20 @@ export default {
     making() {
       this.key = "making";
     },
-    loadData(v) {
-      this.search(v);
+    async loadData() {
+      await this.loadDeshCount();
     },
-    search(v) {
-      console.log(v);
+    async loadDeshCount() {
+      deshcount({})
+        .then((res) => {
+          this.desh = res.data.data;
+        })
+        .catch(() => {});
     },
   },
-  mounted() {},
+  mounted() {
+    this.loadData();
+  },
 };
 </script>
 <style scoped lang="scss">
