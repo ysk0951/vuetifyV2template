@@ -347,23 +347,24 @@ export default {
       },
       param: {
         salestype: "",
-        request_date: "",
-        request_user: "",
-        request_company: "",
+        request_date: this.data.request_date,
+        request_user: this.data.request_user,
+        request_company: this.data.request_company,
         produce_due_date: "",
         produce_date: "",
         out_date: "",
         out_due_date: "",
         derivery_due_date: "",
         pickpart: "",
-        price_type: "",
-        qty: "",
+        price_type: this.data.price_type,
+        qty: this.data.qty,
         derivery_date: "",
       },
     };
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
+    ...mapMutations("menu", ["REMOVE_SELECT_MENU"]),
     valid() {
       return this.$refs.form.validate();
     },
@@ -427,6 +428,7 @@ export default {
     cancle() {
       this.setModal("취소하시겠습니까", true, () => {
         this.reset();
+        this.REMOVE_SELECT_MENU("delivaryReportDetail");
       });
     },
     save() {
@@ -441,7 +443,7 @@ export default {
         lotNo: this.data.lot_no,
       })
         .then((res) => {
-          console.log(res);
+          this.codeGrade = res.data.data.result;
         })
         .catch((err) => {
           this.setModal(err);

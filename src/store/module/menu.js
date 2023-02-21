@@ -47,8 +47,6 @@ const menu = {
           state.tab = beforeIdx;
         }
       }, 100);
-
-      console.log(beforeIdx, length);
     },
     SET_MENU(state) {
       this.commit("menu/RESET_MENU");
