@@ -29,6 +29,7 @@
                     isSuccessFindId,
                     memberId,
                     errorMessage,
+                    createAt,
                   }"
                   @loginByFindId="loginByFindId"
                   @back="back"
@@ -55,7 +56,7 @@ import SetDialog from "@/components/SetDialog";
 import FindIdForm from "@/views/member/FindIdForm.vue";
 import FindIdResult from "@/views/member/FindIdResult.vue";
 import FindPwForm from "@/views/member/FindPwForm.vue";
-
+import moment from "moment";
 import { mapState, mapMutations } from "vuex";
 import { searchUserId } from "api/member/member";
 import _ from "lodash";
@@ -81,6 +82,7 @@ export default {
       isApproved: false,
       isSuccessFindId: false,
       isSuccessFindPW: false,
+      createAt: "",
       memberId: "",
       errorMessage: "",
     };
@@ -127,6 +129,9 @@ export default {
             } else {
               this.isSuccessFindId = true;
               this.memberId = resBody.data.item.memberId;
+              this.createAt = moment(resBody.data.item.created_at).format(
+                "YYYY-MM-DD"
+              );
             }
           })
           .catch(() => {})

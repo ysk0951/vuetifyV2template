@@ -11,7 +11,7 @@
           </v-radio-group>
           {{ setting.memberId }}
         </div>
-        <div>가입일자</div>
+        <div>가입일자 : {{ setting.createAt }}</div>
       </v-card>
       <div class="wrapper">
         <v-card-actions>
