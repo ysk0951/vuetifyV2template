@@ -61,7 +61,12 @@
         </div>
       </div>
     </v-form>
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="search"
+    />
   </div>
 </template>
 <script>

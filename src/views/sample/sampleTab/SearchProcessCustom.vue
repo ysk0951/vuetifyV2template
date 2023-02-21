@@ -5,7 +5,12 @@
         <h4 class="mt-4 mb-2">요청 내역</h4>
       </div>
     </div>
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="loadData"
+    />
   </div>
 </template>
 <script>
