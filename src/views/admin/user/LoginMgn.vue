@@ -31,7 +31,7 @@
                 outlined
                 dense
                 placeholder="이름을 입력해 주세요."
-                v-model="input.memberName"
+                v-model="input.member_name"
                 :rules="[this.validSet.name]"
               ></v-text-field>
             </v-col>
@@ -80,7 +80,7 @@ export default {
       input: {
         roles: "전체",
         logintype: "전체",
-        memberName: "",
+        member_name: "",
         pageSize: 10,
       },
       settings: {
@@ -121,7 +121,7 @@ export default {
     reset() {
       this.input = {
         roles: "전체",
-        memberName: "",
+        member_name: "",
         logintype: "전체",
         pageSize: 10,
       };

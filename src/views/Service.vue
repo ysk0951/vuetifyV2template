@@ -21,7 +21,6 @@
       </v-tabs>
       <v-tabs-items
         :value="tab"
-        :key="tab"
         :style="'min-width:' + 100 + 'px;padding-top: 16px;'"
       >
         <v-tab-item v-for="item in this.selectMenu" :key="item.code">
@@ -202,8 +201,8 @@ export default {
         if (v.length < 1) {
           this.$router.push({ name: "main" });
         } else {
-          const ref = v[this.tab].code;
           setTimeout(() => {
+            const ref = v[this.tab].code;
             const tmp = this.$refs[ref];
             if (tmp) {
               const component = this.$refs[ref][0];
@@ -216,6 +215,20 @@ export default {
           }, 100);
         }
       },
+    },
+    tab(v) {
+      const ref = this.selectMenu[v].code;
+      setTimeout(() => {
+        const tmp = this.$refs[ref];
+        if (tmp) {
+          const component = this.$refs[ref][0];
+          if (_.has(component, "loadData")) {
+            component.loadData();
+          }
+        } else {
+          this.$router.push({ name: "main" });
+        }
+      }, 100);
     },
   },
   data() {
@@ -321,8 +334,9 @@ export default {
       this.menstruumAddData = {};
     },
     removeTab(code) {
+      console.log(code);
       this.REMOVE_SELECT_MENU(code);
-      this.SET_SELECT_MENU_TAB(0);
+      // this.SET_SELECT_MENU_TAB(0);
     },
     userDetail(data) {
       this.findTab(

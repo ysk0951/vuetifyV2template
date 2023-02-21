@@ -107,6 +107,7 @@ export default {
     await this.SET_CODE("L");
     await this.SET_CODE("N");
     await this.SET_CODE("O");
+    await this.SET_CODE("R");
   },
   methods: {
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
@@ -115,7 +116,6 @@ export default {
     ...mapMutations("member", ["SET_TOKEN"]),
     ...mapMutations("locale", ["SET_LOCALE"]),
     routing(v) {
-      // this.$router.push(`${url}?menu=${v.menu_eng}`);
       this.$router.push({ name: "service" });
       this.SELECT_MENU(v);
     },

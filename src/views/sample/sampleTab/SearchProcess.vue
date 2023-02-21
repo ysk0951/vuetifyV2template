@@ -30,7 +30,7 @@
           <v-col cols="12" sm="2">
             <h4>제조 진행사항</h4>
             <v-select
-              :items="code.N"
+              :items="code.R"
               v-model="param.producestat"
               outlined
               id="work"
