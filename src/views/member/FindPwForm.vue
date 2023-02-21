@@ -27,8 +27,7 @@
                   placeholder="이름을 입력해 주세요."
                   v-model="param.memberName"
                   :rules="[
-                    this.validSet.empty(param.memberName),
-                    '이름을 입력해주요',
+                    this.validSet.empty(param.memberName, '이름을 입력해주요'),
                   ]"
                 ></v-text-field>
               </v-col>
