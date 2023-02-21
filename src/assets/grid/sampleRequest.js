@@ -2,6 +2,12 @@ import { makeCell, makeRowSet } from "./gridUtill";
 let fields = [];
 let columns = [];
 makeCell(
+  1,
+  [{ field: "lot_no", alias: "Lot No", indexExclusive: true }],
+  fields,
+  columns
+);
+makeCell(
   8,
   [
     {
