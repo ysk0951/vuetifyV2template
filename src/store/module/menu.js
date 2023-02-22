@@ -33,18 +33,27 @@ const menu = {
     },
     REMOVE_SELECT_MENU(state, value) {
       const beforeIdx = _.findIndex(state.selectMenu, (v) => v.code === value);
+      const beforeTab = state.tab;
       const length = state.selectMenu.length - 1;
+      //remove Action
       state.selectMenu = _.filter(state.selectMenu, (v) => v.code !== value);
+
+      //tab Calculate
       setTimeout(() => {
-        //맨앞걸 지울때는 댕김
-        if (beforeIdx == 0) {
-          state.tab = beforeIdx;
-          //맨끝걸 지우면 하나 당김
-        } else if (beforeIdx == length) {
-          state.tab = beforeIdx - 1;
+        //선택된 탭을 지울때
+        if (beforeIdx == beforeTab) {
+          if (beforeIdx == length) {
+            state.tab = beforeIdx - 1;
+          } else {
+            state.tab = beforeTab + 1;
+            setTimeout(() => {
+              state.tab = beforeTab;
+            }, 100);
+          }
+        } else if (beforeIdx < beforeTab) {
+          state.tab = beforeTab - 1;
         } else {
-          //중간거는 그대로
-          state.tab = beforeIdx;
+          state.tab = beforeTab;
         }
       }, 100);
     },

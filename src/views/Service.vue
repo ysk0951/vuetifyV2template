@@ -210,8 +210,6 @@ export default {
                 if (_.has(component, "loadData")) {
                   component.loadData();
                 }
-              } else {
-                this.$router.push({ name: "main" });
               }
             }
           }, 100);
@@ -228,8 +226,6 @@ export default {
             if (_.has(component, "loadData")) {
               component.loadData();
             }
-          } else {
-            this.$router.push({ name: "main" });
           }
         }
       }, 100);

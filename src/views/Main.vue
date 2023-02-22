@@ -61,7 +61,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import * as newRqGrid from "@/assets/grid/sampleRequest";
 import _ from "lodash";
 import { mapState, mapMutations } from "vuex";
-import { deshcount } from "api/sample/sample";
+import { dashcount } from "api/sample/sample";
 export default {
   data() {
     return {
@@ -126,7 +126,7 @@ export default {
       await this.loadDeshCount();
     },
     async loadDeshCount() {
-      deshcount({})
+      dashcount({})
         .then((res) => {
           this.desh = res.data.data;
         })

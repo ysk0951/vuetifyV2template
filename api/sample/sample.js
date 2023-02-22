@@ -62,6 +62,6 @@ export async function updateAddress(param) {
   return http.post(prefix + `/updateAddress`, param);
 }
 
-export async function deshcount(param) {
-  return http.post(prefix + `/deshcount`, param);
+export async function dashcount(param) {
+  return http.post(prefix + `/dashcount`, param);
 }
