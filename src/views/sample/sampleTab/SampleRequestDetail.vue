@@ -208,27 +208,35 @@ export default {
       }
     },
     cancle() {
-      this.param = {
-        default: 0,
-        postCode: "",
-        address: "",
-        price_type: "",
-        packing: "",
-        delivery_type: "",
-        request_code: "",
-        analysis: "",
-        etc: "",
-      };
+      this.openPopup(
+        "취소하시겠습니까",
+        () => {
+          this.param = {
+            default: 0,
+            postCode: "",
+            address: "",
+            price_type: "",
+            packing: "",
+            delivery_type: "",
+            request_code: "",
+            analysis: "",
+            etc: "",
+          };
+          this.REMOVE_SELECT_MENU("sampleRequestDetail");
+        },
+        true
+      );
     },
     valid() {
       return true;
     },
-    openPopup(text, cb) {
+    openPopup(text, cb, closable) {
       this.SET_POPUP({
         title: "알림",
         height: 150,
         width: 300,
         text,
+        closable,
       });
       this.$refs.confirm.openPopup(cb);
     },

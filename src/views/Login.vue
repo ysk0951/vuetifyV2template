@@ -164,6 +164,7 @@ import { mapMutations, mapState } from "vuex";
 import { login } from "api/member/member";
 import { emailRegex } from "@/assets/regex";
 import validSet from "@/assets/valid";
+import { addressbookDefault } from "api/address/address";
 export default {
   name: "Login",
   data() {
@@ -203,7 +204,7 @@ export default {
     this.showPwd = false;
   },
   methods: {
-    ...mapMutations("member", ["SET_TOKEN"]),
+    ...mapMutations("member", ["SET_TOKEN", "SET_DEFAULT_ADDRESS"]),
     ...mapMutations("modal", [
       "SET_DIALOG_TITLE",
       "SET_DIALOG_TEXT",
@@ -245,7 +246,7 @@ export default {
           memberId: this.id,
           memberpw: this.pw,
         })
-          .then((res) => {
+          .then(async (res) => {
             const resBody = res.data;
             if (this.checkbox) {
               sessionStorage.setItem("id", this.id);
@@ -254,6 +255,8 @@ export default {
             this.openModal("로그인 되었습니다.", () => {
               this.$router.push({ name: "main" });
             });
+            const defaultAddress = await addressbookDefault();
+            this.SET_DEFAULT_ADDRESS(defaultAddress);
           })
           .catch(() => {
             this.openModal("로그인에 실패하였습니다.");

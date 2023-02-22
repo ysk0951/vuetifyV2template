@@ -97,7 +97,7 @@
             ></v-select>
           </v-col>
         </v-row>
-        <h4>배송지 선택</h4>
+        <h4>*배송지 선택</h4>
         <v-row style="height: 46px" class="px-2 mt-1">
           <v-col cols="12" sm="3" class="my-0">
             <v-radio-group row v-model="param.default">
@@ -110,6 +110,36 @@
             ></v-radio-group>
           </v-col>
         </v-row>
+        <template v-if="param.default === 0">
+          <v-row style="height: 63px" class="px-2">
+            <v-col cols="12" sm="6">
+              <div class="wrapper address">
+                <v-text-field
+                  type="text"
+                  outlined
+                  dense
+                  disabled
+                  filled
+                  :value="param.address"
+                />
+              </div>
+            </v-col>
+          </v-row>
+          <v-row style="height: 63px" class="px-2">
+            <v-col cols="12" sm="6">
+              <div class="wrapper address">
+                <v-text-field
+                  type="text"
+                  disabled
+                  filled
+                  outlined
+                  dense
+                  :value="param.address2"
+                />
+              </div>
+            </v-col>
+          </v-row>
+        </template>
         <template v-if="param.default === 1">
           <v-row style="height: 63px" class="px-2">
             <v-col cols="12" sm="4">
@@ -277,6 +307,15 @@ export default {
         this.param.pick_name = this.param.request_name;
       }
     },
+    "param.default": function (v) {
+      if (v === 0) {
+        this.param.address = this.defaultAddress.address;
+        this.param.address2 = this.defaultAddress.address2;
+      } else {
+        this.param.address = "";
+        this.param.address2 = "";
+      }
+    },
   },
   data() {
     return {
@@ -331,6 +370,7 @@ export default {
   },
   computed: {
     ...mapState("common", ["code"]),
+    ...mapState("member", ["defaultAddress"]),
     otherAddress() {
       return !this.param.default;
     },
@@ -349,8 +389,8 @@ export default {
         packing: "",
         etc: "",
         same: false,
-        address: "",
-        address2: "",
+        address: this.defaultAddress.address,
+        address2: this.defaultAddress.address2,
         qty: "",
         request_code: "",
         request_name: "",
