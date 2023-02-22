@@ -32,7 +32,7 @@
             </v-col>
           </v-row>
           <v-row class="wrapperEnd">
-            <a style="margin-right: 15px">더보기</a>
+            <a style="margin-right: 15px" @click="more">더보기</a>
           </v-row>
           <h3 class="mt-4 mb-2">{{ tab }}</h3>
           <hr class="mb-4 px-10" />
@@ -61,7 +61,7 @@
             v-show="key === 'deliveryDelay'"
             domName="deliveryDelay"
             ref="deliveryGridDelay"
-            :settings="deliveryGridDelay"
+            :settings="deliveryDelayGrid"
             @changeData="deliveryDelay"
           />
           <RealGrid
@@ -82,6 +82,8 @@ import RealGrid from "@/components/RealGrid.vue";
 import * as newGrid from "@/assets/grid/newGrid";
 import * as deliveryGrid from "@/assets/grid/delivery";
 import * as progressGrid from "@/assets/grid/progress";
+import * as deliveryDelayGrid from "@/assets/grid/delivery";
+import * as progressDelayGrid from "@/assets/grid/progress";
 import _ from "lodash";
 import { mapState, mapMutations } from "vuex";
 import { dashcount, dashdelivery, dashnew, progress } from "api/sample/sample";
@@ -91,6 +93,8 @@ export default {
       newGrid,
       deliveryGrid,
       progressGrid,
+      deliveryDelayGrid,
+      progressDelayGrid,
       key: "new",
       set: [
         {
@@ -170,6 +174,10 @@ export default {
     delivery(v) {
       this.chageTab(v, "delivery", "deliveryGrid", dashdelivery);
     },
+    more() {
+      const tab = "";
+      this.$router.push({ name: "service", params: { tab } });
+    },
     progressDelay() {},
     async loadData() {
       await this.loadDeshCount();
@@ -192,6 +200,7 @@ export default {
   background-color: white;
 }
 .filter {
+  z-index: 1;
   width: 90%;
   padding-top: 15px;
   .v-card {

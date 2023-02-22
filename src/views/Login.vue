@@ -161,7 +161,7 @@ import SetDialog from "@/components/SetDialog";
 import Find from "@/views/member/Find.vue";
 import _ from "lodash";
 import { mapMutations, mapState } from "vuex";
-import { login } from "api/member/member";
+import { login, userInfo } from "api/member/member";
 import { emailRegex } from "@/assets/regex";
 import validSet from "@/assets/valid";
 import { addressbookDefault } from "api/address/address";
@@ -204,7 +204,11 @@ export default {
     this.showPwd = false;
   },
   methods: {
-    ...mapMutations("member", ["SET_TOKEN", "SET_DEFAULT_ADDRESS"]),
+    ...mapMutations("member", [
+      "SET_TOKEN",
+      "SET_DEFAULT_ADDRESS",
+      "SET_USER_INFO",
+    ]),
     ...mapMutations("modal", [
       "SET_DIALOG_TITLE",
       "SET_DIALOG_TEXT",
@@ -256,7 +260,9 @@ export default {
               this.$router.push({ name: "main" });
             });
             const defaultAddress = await addressbookDefault();
+            const loginUserInfo = await userInfo();
             this.SET_DEFAULT_ADDRESS(defaultAddress);
+            this.SET_USER_INFO(loginUserInfo);
           })
           .catch(() => {
             this.openModal("로그인에 실패하였습니다.");

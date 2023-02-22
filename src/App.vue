@@ -56,14 +56,18 @@
             {{ item.text }}
           </v-btn>
         </div>
-        <v-avatar tile>
-          <v-icon> mdi-account </v-icon>
+        <v-avatar tile v-if="accessToken">
+          <v-icon @mouseover="openProfile"> mdi-account </v-icon>
         </v-avatar>
+
         <v-btn depressed @click="account">{{
           this.accessToken ? "로그아웃" : "로그인"
         }}</v-btn>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4">
+        <v-card class="profile" v-if="profile" @mouseleave="openProfile"
+          >백엔드 작업중</v-card
+        >
         <v-layout align-center row wrap>
           <v-overlay :value="loading" style="z-index: 999">
             <v-progress-circular
@@ -89,6 +93,7 @@ export default {
     ...mapState("locale", ["locale"]),
   },
   data: () => ({
+    profile: false,
     language: [
       { value: "ko", text: "한국어" },
       { value: "en", text: "English" },
@@ -133,6 +138,9 @@ export default {
     },
     home() {
       this.$router.push({ name: "main" });
+    },
+    openProfile() {
+      this.profile = !this.profile;
     },
   },
 };
@@ -212,5 +220,13 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 }
 .dimmRow {
   background-color: aquamarine !important;
+}
+.profile {
+  z-index: 99;
+  position: absolute;
+  top: 29px;
+  right: 127px;
+  width: 400px;
+  height: 500px;
 }
 </style>
