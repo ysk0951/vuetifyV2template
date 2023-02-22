@@ -4,14 +4,20 @@
       <span class="infoHeader"
         >회원님의 정보와 일치하는 아이디를 확인해주세요</span
       >
-      <v-card class="infoCard between">
-        <div class="wrapper">
-          <v-radio-group v-model="radioGroup">
-            <v-radio :key="1" :value="setting.memberId"></v-radio>
-          </v-radio-group>
-          {{ setting.memberId }}
-        </div>
-        <div>가입일자 : {{ setting.createAt }}</div>
+      <v-card class="infoCard">
+        <v-radio-group v-model="radioGroup">
+          <div
+            v-for="(item, index) in setting.response"
+            :key="index"
+            class="wrapperSpace"
+          >
+            <div class="wrapper">
+              <v-radio :value="item.memberId"></v-radio>
+              <div>아이디 : {{ item.memberId }}</div>
+            </div>
+            <div>가입일자 : {{ item.created_at }}</div>
+          </div>
+        </v-radio-group>
       </v-card>
       <div class="wrapper">
         <v-card-actions>
@@ -59,7 +65,7 @@ export default {
       this.$emit("back");
     },
     findPw() {
-      this.$emit("findPwFromId", this.setting.memberId);
+      this.$emit("findPwFromId", this.radioGroup);
     },
   },
 };
@@ -92,6 +98,7 @@ export default {
   .v-input--selection-controls {
     margin-top: 0px;
     padding-top: 0px;
+    width: 450px;
   }
 
   .v-btn {

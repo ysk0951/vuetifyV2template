@@ -107,6 +107,7 @@ export default {
     await this.SET_CODE("L");
     await this.SET_CODE("N");
     await this.SET_CODE("O");
+    await this.SET_CODE("Q");
     await this.SET_CODE("R");
   },
   methods: {

@@ -25,7 +25,7 @@
           </v-col>
           <v-col cols="12" sm="2">
             <h4>접수 상태</h4>
-            <v-select :items="code.M" v-model="param.stat" outlined id="work" />
+            <v-select :items="code.Q" v-model="param.stat" outlined id="work" />
           </v-col>
           <v-col cols="12" sm="2">
             <h4>제조 진행사항</h4>

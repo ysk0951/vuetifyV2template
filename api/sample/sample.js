@@ -65,3 +65,13 @@ export async function updateAddress(param) {
 export async function dashcount(param) {
   return http.post(prefix + `/dashcount`, param);
 }
+
+export async function dashdelivery(param) {
+  return http.post(prefix + `/dashdelivery`, param);
+}
+export async function dashnew(param) {
+  return http.post(prefix + `/dashnew`, param);
+}
+export async function progress(param) {
+  return http.post(prefix + `/progress`, param);
+}

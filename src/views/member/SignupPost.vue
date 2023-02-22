@@ -98,7 +98,7 @@
         </template>
         <SignupInput
           placeholder="000-0000-0000"
-          label="*배송지 연락처1"
+          label="*연락처1"
           type="text"
           v-model="param.phone1"
           height="65"
@@ -109,7 +109,7 @@
         />
         <SignupInput
           placeholder="000-0000-0000"
-          label="*배송지 연락처2"
+          label="연락처2"
           type="text"
           v-model="param.phone2"
           height="65"

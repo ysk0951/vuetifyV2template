@@ -7,17 +7,17 @@
           <v-row>
             <v-col cols="12" sm="4">
               <v-card elevation="3" @click="newRq"
-                >신규요청<span>{{ desh.new }}</span></v-card
+                >신규요청<span>{{ dash.new }}</span></v-card
               >
             </v-col>
             <v-col cols="12" sm="4">
-              <v-card elevation="3" @click="making"
-                >제조중<span>{{ desh.progress }}</span></v-card
+              <v-card elevation="3" @click="progress"
+                >제조중<span>{{ dash.progress }}</span></v-card
               >
             </v-col>
             <v-col cols="12" sm="4">
-              <v-card elevation="3" @click="shipment"
-                >출하예정 <span>{{ desh.outdue }}</span>
+              <v-card elevation="3" @click="delivery"
+                >출하예정 <span>{{ dash.outdue }}</span>
               </v-card>
             </v-col>
           </v-row>
@@ -26,30 +26,24 @@
           </v-row>
           <h3 class="mt-4 mb-2">{{ tab }}</h3>
           <hr class="mb-4 px-10" />
-          <template v-if="tab === 'newRq'">
-            <RealGrid
-              domName="main"
-              ref="newRqGrid"
-              :settings="newRqGrid"
-              @changePage="loadData"
-            />
-          </template>
-          <template v-if="tab === 'shipment'">
-            <RealGrid
-              domName="main"
-              ref="shipmentGrid"
-              :settings="shipmentGrid"
-              @changePage="loadData"
-            />
-          </template>
-          <template v-if="tab === 'making'">
-            <RealGrid
-              domName="main"
-              ref="makingGrid"
-              :settings="makingGrid"
-              @changePage="loadData"
-            />
-          </template>
+          <RealGrid
+            v-show="key === 'new'"
+            domName="new"
+            ref="newGrid"
+            :settings="newGrid"
+          />
+          <RealGrid
+            v-show="key === 'delivery'"
+            domName="delivery"
+            ref="deliveryGrid"
+            :settings="deliveryGrid"
+          />
+          <RealGrid
+            v-show="key === 'progress'"
+            domName="progress"
+            ref="progressGrid"
+            :settings="progressGrid"
+          />
         </div>
       </div>
     </div>
@@ -58,30 +52,40 @@
 <script>
 import SetDialog from "@/components/SetDialog";
 import RealGrid from "@/components/RealGrid.vue";
-import * as newRqGrid from "@/assets/grid/sampleRequest";
+import * as newGrid from "@/assets/grid/sampleRequest";
+import * as deliveryGrid from "@/assets/grid/sampleRequest";
+import * as progressGrid from "@/assets/grid/sampleRequest";
 import _ from "lodash";
 import { mapState, mapMutations } from "vuex";
-import { dashcount } from "api/sample/sample";
+import { dashcount, dashdelivery, dashnew, progress } from "api/sample/sample";
 export default {
   data() {
     return {
-      newRqGrid,
-      key: "newRq",
+      newGrid,
+      deliveryGrid,
+      progressGrid,
+      key: "new",
       set: [
         {
-          key: "newRq",
+          key: "new",
           value: "신규요청",
         },
         {
-          key: "shipment",
+          key: "delivery",
           value: "출하예정",
         },
         {
-          key: "making",
+          key: "progress",
           value: "제조중",
         },
       ],
-      desh: {},
+      dash: {},
+      gridData: {
+        new: [],
+        progress: [],
+        delivery: [],
+      },
+      param: { currentPage: 1, pageSize: 10 },
     };
   },
   computed: {
@@ -114,23 +118,36 @@ export default {
   methods: {
     ...mapMutations("menu", ["SET_MENU"]),
     newRq() {
-      this.key = "newRq";
+      this.key = "new";
+      this.$refs.newGrid.loadData(this.gridData.new.items);
+      // this.$refs.newGrid.setPage(this.gridData.new.params);
     },
-    shipment() {
-      this.key = "shipment";
+    delivery() {
+      this.key = "delivery";
+      this.$refs.deliveryGrid.loadData(this.gridData.delivery.items);
+      this.$refs.deliveryGrid.setPage(this.gridData.delivery.params);
     },
-    making() {
-      this.key = "making";
+    progress() {
+      this.key = "progress";
+      this.$refs.progressGrid.loadData(this.gridData.progress.items);
+      this.$refs.progressGrid.setPage(this.gridData.progress.params);
     },
     async loadData() {
       await this.loadDeshCount();
+      await this.loadDeashGridData();
+      this.newRq();
     },
     async loadDeshCount() {
-      dashcount({})
-        .then((res) => {
-          this.desh = res.data.data;
-        })
-        .catch(() => {});
+      const res = await dashcount();
+      this.dash = res.data.data;
+    },
+    async loadDeashGridData() {
+      const newDash = await dashnew(this.param);
+      const deliveryDash = await dashdelivery(this.param);
+      const progressDash = await progress(this.param);
+      this.gridData.delivery = deliveryDash.data.data;
+      this.gridData.progress = progressDash.data.data;
+      this.gridData.new = newDash.data.data;
     },
   },
   mounted() {

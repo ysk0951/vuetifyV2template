@@ -130,11 +130,11 @@ export default {
               this.errorMessage = resBody.errorMessage;
             } else {
               this.isSuccessFindId = true;
-              this.response = resBody.data.item;
-              this.memberId = resBody.data.item.memberId;
-              this.createAt = moment(resBody.data.item.created_at).format(
-                "YYYY-MM-DD"
-              );
+              _.each(resBody.data.item.users, (v) => {
+                console.log(v.created_at);
+                v.created_at = moment(v.created_at).format("YYYY-MM-DD");
+              });
+              this.response = resBody.data.item.users;
             }
           })
           .catch(() => {})
