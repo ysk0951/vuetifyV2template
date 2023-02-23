@@ -37,5 +37,6 @@ _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
 });
+const hideCheckBar = true;
 const errorMessage = "항목이 존재하지 않습니다";
-export { fields, columns, errorMessage };
+export { fields, columns, errorMessage, hideCheckBar };

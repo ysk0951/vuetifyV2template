@@ -32,7 +32,7 @@ import * as sample from "@/assets/grid/sampleRequestDetail";
 import RealGrid from "@/components/RealGrid.vue";
 import Address from "@/components/Address.vue";
 import SetPopup from "@/components/SetPopup.vue";
-import { memberSampleList } from "api/sample/sample";
+import { memberSampleListAdm } from "api/sample/sample";
 import { mapMutations } from "vuex";
 
 export default {
@@ -64,7 +64,8 @@ export default {
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
     getMemberSampleList(v) {
-      memberSampleList({
+      memberSampleListAdm({
+        memberId: this.data.email,
         currentPage: v ? v : "1",
         pageSize: "10",
       })

@@ -61,4 +61,5 @@ makeCell(
 );
 const rowSet = makeRowSet(fields);
 const errorMessage = "요청하신 샘플 내역이 없습니다";
-export { fields, columns, rowSet, errorMessage };
+const hideCheckBar = true;
+export { fields, columns, rowSet, errorMessage, hideCheckBar };

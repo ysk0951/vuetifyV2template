@@ -34,4 +34,5 @@ _.each(data, function (o) {
   makeCell(1, [o], fields, columns);
 });
 const errorMessage = "항목이 존재하지 않습니다";
-export { fields, columns, errorMessage };
+const hideCheckBar = true;
+export { fields, columns, errorMessage, hideCheckBar };
