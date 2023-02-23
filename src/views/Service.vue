@@ -292,8 +292,10 @@ export default {
   },
   created() {
     this.SET_MENU();
-    if (this.selectMenu.length < 1) {
-      this.$router.push({ name: "main" });
+    const param = this.$route.params;
+    if (param) {
+      const tab = param.tab;
+      this.ADD_MENU_TAB(tab);
     }
   },
   methods: {
@@ -463,7 +465,6 @@ export default {
       );
     },
     openSearchProcessCustom() {
-      console.log(1);
       this.findTab("MMGMT", "진행 사항 조회 (사용자)", null, true, null);
     },
   },

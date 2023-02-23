@@ -16,7 +16,16 @@ const menu = {
       state.tab = _.findIndex(state.selectMenu, (v) => v.code === value.code);
     },
     ADD_MENU_TAB(state, value) {
-      state.selectMenu.push(value);
+      const allSubMenu = _.reduce(
+        state.allMenu,
+        (a, v) => {
+          a = a.concat(v.subMenu);
+          return a;
+        },
+        []
+      );
+      const addMenu = _.filter(allSubMenu, (v) => v.code === value);
+      state.selectMenu = state.selectMenu.concat(addMenu);
     },
     RESET_SELECT_MENU(state) {
       state.selectMenu = [];

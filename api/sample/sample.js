@@ -69,6 +69,15 @@ export async function dashcount(param) {
 export async function dashdelivery(param) {
   return http.post(prefix + `/dashdelivery`, param);
 }
+
+export async function dashdeliverydelay(param) {
+  return http.post(prefix + `/dashdeliverydelay`, param);
+}
+
+export async function dashproducedelay(param) {
+  return http.post(prefix + "/dashproducedelay", param);
+}
+
 export async function dashnew(param) {
   return http.post(prefix + `/dashnew`, param);
 }

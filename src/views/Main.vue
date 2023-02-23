@@ -15,16 +15,19 @@
                 >제조중<span>{{ dash.progress }}</span></v-card
               >
             </v-col>
-            <v-col cols="12" sm="2">
-              <v-card elevation="3" @click="progressDelay"
-                >제조지연<span>{{ dash.new }}</span></v-card
-              >
-            </v-col>
-            <v-col cols="12" sm="2">
-              <v-card elevation="3" @click="deliveryDelay"
-                >출하지연<span>{{ dash.new }}</span></v-card
-              >
-            </v-col>
+
+            <template v-if="userInfo.admincheck === 2">
+              <v-col cols="12" sm="2">
+                <v-card elevation="3" @click="progressDelay"
+                  >제조지연<span>{{ dash.produceduedelay }}</span></v-card
+                >
+              </v-col>
+              <v-col cols="12" sm="2">
+                <v-card elevation="3" @click="deliveryDelay"
+                  >출하지연<span>{{ dash.outduedelay }}</span></v-card
+                >
+              </v-col>
+            </template>
             <v-col cols="12" sm="2">
               <v-card elevation="3" @click="delivery"
                 >출하예정 <span>{{ dash.outdue }}</span>
@@ -50,6 +53,7 @@
             :settings="deliveryGrid"
             @changeData="delivery"
           />
+
           <RealGrid
             v-show="key === 'progressDelay'"
             domName="progressDelay"
@@ -60,7 +64,7 @@
           <RealGrid
             v-show="key === 'deliveryDelay'"
             domName="deliveryDelay"
-            ref="deliveryGridDelay"
+            ref="deliveryDelayGrid"
             :settings="deliveryDelayGrid"
             @changeData="deliveryDelay"
           />
@@ -86,7 +90,14 @@ import * as deliveryDelayGrid from "@/assets/grid/delivery";
 import * as progressDelayGrid from "@/assets/grid/progress";
 import _ from "lodash";
 import { mapState, mapMutations } from "vuex";
-import { dashcount, dashdelivery, dashnew, progress } from "api/sample/sample";
+import {
+  dashcount,
+  dashdelivery,
+  dashnew,
+  progress,
+  dashdeliverydelay,
+  dashproducedelay,
+} from "api/sample/sample";
 export default {
   data() {
     return {
@@ -124,7 +135,7 @@ export default {
   },
   computed: {
     ...mapState("menu", ["menu"]),
-    ...mapState("member", ["accessToken"]),
+    ...mapState("member", ["accessToken", "userInfo"]),
     tab() {
       return _.reduce(
         this.set,
@@ -160,7 +171,11 @@ export default {
       const data = res.data.data;
       const grid = this.$refs[ref];
       if (grid) {
-        grid.loadData(data.items);
+        if (data.items) {
+          grid.loadData(data.items);
+        } else {
+          grid.loadData([]);
+        }
         grid.setPage(data.params);
       }
     },
@@ -170,15 +185,25 @@ export default {
     progress(v) {
       this.chageTab(v, "progress", "progressGrid", progress);
     },
-    deliveryDelay() {},
+    progressDelay(v) {
+      this.chageTab(v, "progressDelay", "progressDealyGrid", dashproducedelay);
+    },
+    deliveryDelay(v) {
+      this.chageTab(v, "deliveryDelay", "deliveryDealyGrid", dashdeliverydelay);
+    },
     delivery(v) {
       this.chageTab(v, "delivery", "deliveryGrid", dashdelivery);
     },
     more() {
-      const tab = "";
+      let tab;
+      if (this.userInfo.admincheck == 1) {
+        tab = "MMGMT";
+      } else if (this.userInfo.admincheck == 2) {
+        tab = "MMGMTM";
+      }
+      console.log(tab);
       this.$router.push({ name: "service", params: { tab } });
     },
-    progressDelay() {},
     async loadData() {
       await this.loadDeshCount();
       await this.newRq();

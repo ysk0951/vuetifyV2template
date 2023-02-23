@@ -37,5 +37,5 @@ _.each(data, function (o) {
   o.indexExclusive = true;
   makeCell(1, [o], fields, columns);
 });
-
-export { fields, columns };
+const errorMessage = "항목이 존재하지 않습니다";
+export { fields, columns, errorMessage };
