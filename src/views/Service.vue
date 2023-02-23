@@ -293,7 +293,8 @@ export default {
   created() {
     this.SET_MENU();
     const param = this.$route.params;
-    if (param) {
+    console.log(param);
+    if (param && param.tab) {
       const tab = param.tab;
       this.ADD_MENU_TAB_BY_CODE(tab);
     }
@@ -301,6 +302,7 @@ export default {
   methods: {
     ...mapMutations("menu", [
       "SET_MENU",
+      "ADD_MENU_TAB",
       "ADD_MENU_TAB_BY_CODE",
       "REMOVE_SELECT_MENU",
       "SET_SELECT_MENU_TAB",
@@ -339,6 +341,7 @@ export default {
       this.REMOVE_SELECT_MENU(code);
     },
     userDetail(data) {
+      console.log(data);
       this.findTab(
         "userDetail",
         "회원 상세",

@@ -16,6 +16,7 @@ const menu = {
       state.tab = _.findIndex(state.selectMenu, (v) => v.code === value.code);
     },
     ADD_MENU_TAB(state, value) {
+      console.log("tab", value);
       state.selectMenu.push(value);
     },
     ADD_MENU_TAB_BY_CODE(state, value) {

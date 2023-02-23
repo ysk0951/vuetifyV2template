@@ -143,6 +143,7 @@ export default {
     ...mapMutations("member", ["SET_TOKEN"]),
     ...mapMutations("locale", ["SET_LOCALE"]),
     routing(v) {
+      console.log(v);
       this.$router.push({ name: "service" });
       this.SELECT_MENU(v);
     },
