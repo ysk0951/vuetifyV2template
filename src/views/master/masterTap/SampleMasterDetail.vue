@@ -191,6 +191,7 @@ export default {
     save() {
       this.openPopup("저장하시겠습니까?", true, () => {
         const code = this.param.code;
+        const code_title = this.param.code_title;
         const dt = this.$refs.spec_grid.getJsonAllRow();
         const sampleDetail = {
           data: makeSampleSet(dt),
@@ -201,7 +202,11 @@ export default {
           this.openPopup("SUM 정보를 확인해 주세요");
         } else {
           updateSampleMaster({
-            sample: { ...this.$refs.sample_grid.getJsonRow(), code },
+            sample: {
+              ...this.$refs.sample_grid.getJsonRow(),
+              code,
+              code_title,
+            },
             sampleA: { ...this.$refs.real_grid.getJsonRow(), code },
             sampleB: { ...this.$refs.make_grid.getJsonRow(), code },
             sampleDetail: { ...sampleDetail, code },

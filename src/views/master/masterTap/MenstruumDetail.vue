@@ -6,7 +6,7 @@
       ref="grid"
       :settings="settings"
       :nonePage="true"
-      :changeData="checkSum"
+      @changeData="changeData"
     />
     <div class="wrapper mt-4">
       <v-card-actions>
@@ -39,13 +39,19 @@ export default {
           }
           return v;
         }),
+        hideCheckBar: true,
+        noneNo: true,
       },
     };
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
-    checkSum() {
+    changeData() {
       const row = this.$refs.grid.getJsonRow();
+      this.setSumRow(row);
+    },
+    setSumRow(row) {
+      console.log(row);
       const sum = [setNewSum(row)];
       this.$refs.grid.loadData(sum);
     },
@@ -63,27 +69,19 @@ export default {
       this.openPopup("저장하시겠습니까?", true, () => {
         updateSolventMaster(this.$refs.grid.getJsonRow())
           .then(() => {
-            this.openPopup("저장되었습니다", false, () => {
-              this.reset();
-            });
+            this.openPopup("저장되었습니다", false, () => {});
           })
           .catch(() => {});
       });
     },
     reset() {
-      this.search();
-    },
-    search() {
-      // solventMasterDetail(this.data.idx).then((res) => {
-      //   const response = res.data;
-      //   const items = response.data;
-      //   this.$refs.grid.loadData([items]);
-      // });
+      this.openPopup("취소하시겠습니까?", true, () => {
+        this.setSumRow(this.data);
+      });
     },
   },
   mounted() {
-    this.search();
-    this.$refs.grid.loadData([this.data]);
+    this.setSumRow(this.data);
   },
   components: {
     RealGrid,

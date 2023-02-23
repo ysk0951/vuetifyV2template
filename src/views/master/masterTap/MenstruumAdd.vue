@@ -19,7 +19,7 @@
               :value="sum()"
               :rules="[
                 (v) => {
-                  return v < 100 || '총합이 100을 넘을수 없습니다';
+                  return v <= 100 || '총합이 100을 넘을수 없습니다';
                 },
               ]"
             ></v-text-field
@@ -79,6 +79,10 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     ...mapMutations("popup", ["SET_POPUP"]),
     newSample() {
       this.$emit("newSample");
@@ -101,7 +105,8 @@ export default {
           insertSolventMaster({ ...this.param })
             .then(() => {
               this.openPopup("저장되었습니다", false, () => {
-                this.setData();
+                this.REMOVE_SELECT_MENU("menstruumAdd");
+                this.SET_SELECT_MENU_TAB_BY_CODE("SAMGMT");
               });
             })
             .catch(() => {});

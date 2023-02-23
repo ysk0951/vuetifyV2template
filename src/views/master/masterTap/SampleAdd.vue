@@ -39,7 +39,7 @@
         <h4>품명</h4>
         <div class="wrapper">
           <v-text-field
-            v-model="param.code_grade"
+            v-model="param.code_title"
             outlined
             dense
             placeholder="품명을 입력해 주세요."
@@ -125,7 +125,7 @@ export default {
         code_grade: "",
       },
       param: {
-        name: "",
+        code_title: "",
         code_grade: "",
       },
       grid: "sampleMasterAdd",
@@ -274,7 +274,10 @@ export default {
         this.openPopup("SUM 정보를 확인해 주세요");
       } else {
         const code = this.input.code_grade;
-        const sample = { ...this.$refs.sample_grid.getJsonRow() };
+        const sample = {
+          ...this.$refs.sample_grid.getJsonRow(),
+          code_title: this.param.code_title,
+        };
         const sampleA = { ...this.$refs.real_grid.getJsonRow() };
         const sampleB = { ...this.$refs.make_grid.getJsonRow() };
         const dt = this.$refs.spec_grid.getJsonAllRow();
