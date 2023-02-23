@@ -13,7 +13,7 @@
           >
             <div class="wrapper">
               <v-radio :value="item.memberId"></v-radio>
-              <div>아이디 : {{ item.memberId }}</div>
+              <div>{{ item.memberId }}</div>
             </div>
             <div>가입일자 : {{ item.created_at }}</div>
           </div>

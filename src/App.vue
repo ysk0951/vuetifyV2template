@@ -109,6 +109,7 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import Address from "@/components/Address.vue";
+import { addressbookUt } from "api/address/address";
 export default {
   name: "App",
   computed: {
@@ -173,8 +174,11 @@ export default {
     openPost() {
       this.$refs.address.open();
     },
-    addressSelect() {
-      console.log(1);
+    addressSelect(v) {
+      addressbookUt(v.idx)
+        .then(() => {})
+        .catch(() => {});
+      console.log(v);
     },
   },
 };

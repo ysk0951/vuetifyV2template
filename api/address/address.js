@@ -16,3 +16,7 @@ export async function insertBook(param) {
 export async function addressbookDefault(param) {
   return http.post(prefix + "/addressbookDefault", param);
 }
+
+export async function addressbookUt(param) {
+  return http.post(prefix + `/addressbookUt?idx=${param}`);
+}

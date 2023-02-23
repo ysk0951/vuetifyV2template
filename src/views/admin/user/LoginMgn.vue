@@ -89,6 +89,7 @@ export default {
         rows,
         height,
         hideCheckBar: true,
+        errorMessage: "조회된 내용이 없습니다",
       },
       grid: "loginMgn",
       validSet,

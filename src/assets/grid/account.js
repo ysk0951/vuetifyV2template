@@ -165,26 +165,8 @@ export const columns = [
     fieldName: "work",
     sortable: false,
     lookupDisplay: true,
-    values: _.reduce(
-      store.state.select.workType,
-      (a, v) => {
-        if (v.text !== "전체") {
-          a.push(v.text);
-        }
-        return a;
-      },
-      []
-    ),
-    labels: _.reduce(
-      store.state.select.workType,
-      (a, v) => {
-        if (v.text !== "전체") {
-          a.push(v.text);
-        }
-        return a;
-      },
-      []
-    ),
+    values: _.filter(store.state.select.workType, (v) => v !== "전체"),
+    labels: _.filter(store.state.select.workType, (v) => v !== "전체"),
     editor: {
       type: "dropdown",
       textReadOnly: true,
