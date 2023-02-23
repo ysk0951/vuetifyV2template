@@ -46,7 +46,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
+import { login, userInfo } from "api/member/member";
+import { addressbookDefault } from "api/address/address";
 export default {
   name: "SignupDone",
   data() {
@@ -57,8 +59,28 @@ export default {
     ...mapState("locale", ["message", "locale"]),
   },
   methods: {
+    ...mapMutations("member", [
+      "SET_TOKEN",
+      "SET_DEFAULT_ADDRESS",
+      "SET_USER_INFO",
+    ]),
     onApprove() {
-      this.$router.push({ name: "main" });
+      login({
+        memberId: this.$route.params.memberId,
+        memberpw: this.$route.params.memberPw,
+      })
+        .then(async (res) => {
+          const resBody = res.data;
+          this.SET_TOKEN(resBody.data);
+          const defaultAddress = await addressbookDefault();
+          const loginUserInfo = await userInfo();
+          this.SET_DEFAULT_ADDRESS(defaultAddress);
+          this.SET_USER_INFO(loginUserInfo);
+        })
+        .catch(() => {
+          this.openModal("회원가입후 자동로그인 에러 : 관리자에게 문의하세요");
+        })
+        .finally(() => {});
     },
     login() {
       this.$router.push({

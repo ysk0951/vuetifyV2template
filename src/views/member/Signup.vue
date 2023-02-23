@@ -333,7 +333,11 @@ export default {
         // });
         this.$router.push({
           name: "signupDone",
-          params: { memberId: this.param.email, memberName: this.param.name },
+          params: {
+            memberId: this.param.email,
+            memberName: this.param.name,
+            memberPw: this.param.password,
+          },
         });
       }
     },
