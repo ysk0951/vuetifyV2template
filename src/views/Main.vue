@@ -167,6 +167,7 @@ export default {
       const res = await fun({
         ...this.param,
         currentPage: _.isNumber(v) ? v : 1,
+        pageSize: 1,
       });
       const data = res.data.data;
       const grid = this.$refs[ref];

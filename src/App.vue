@@ -65,12 +65,13 @@
         }}</v-btn>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4">
+        <Address ref="address" @select="addressSelect" />
         <v-card
           class="profile pa-3"
           v-if="profile && accessToken"
           @mouseleave="openProfile"
         >
-          <div class="wrapper">{{ userInfo.member_name }} 님</div>
+          <div class="wrapper mb-3">{{ userInfo.member_name }} 님</div>
           <div class="wrapperLeft">* 회사명: {{ userInfo.company }}</div>
           <div class="wrapperLeft">* 기본 배송지 주소</div>
           <div class="wrapperLeft">
@@ -86,7 +87,9 @@
             * 배송지 연락처 2 : {{ userInfo.phone2 }}
           </div>
           <div class="wrapper">
-            <v-btn depressed color="primary" class="my-3">배송지 관리</v-btn>
+            <v-btn depressed color="primary" class="my-3" @click="openPost"
+              >배송지 관리</v-btn
+            >
           </div>
         </v-card>
         <v-layout align-center row wrap>
@@ -105,6 +108,7 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import Address from "@/components/Address.vue";
 export default {
   name: "App",
   computed: {
@@ -122,7 +126,9 @@ export default {
     dom1: "realgrid1",
     dom2: "realgrid2",
   }),
-  components: {},
+  components: {
+    Address,
+  },
   async created() {
     await this.SET_ROLE_TYPE();
     await this.SET_ALL_MENU();
@@ -164,7 +170,12 @@ export default {
     openProfile() {
       this.profile = !this.profile;
     },
-    updateAddress() {},
+    openPost() {
+      this.$refs.address.open();
+    },
+    addressSelect() {
+      console.log(1);
+    },
   },
 };
 </script>
@@ -250,6 +261,5 @@ div.v-menu__content.theme--light.menuable__content__active > div {
   top: 29px;
   right: 127px;
   width: 300px;
-  height: 220px;
 }
 </style>
