@@ -303,9 +303,7 @@ export default {
           break;
       }
       userInfoUpdate({ ...row, memberId: row.email, employee_status })
-        .then(() => {
-          this.onApprove();
-        })
+        .then(() => {})
         .catch(() => {
           this.openConfirm("Error : 관리자에게 문의하세요", false, () => {
             this.cancel();

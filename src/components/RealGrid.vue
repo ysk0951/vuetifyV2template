@@ -49,6 +49,7 @@ export default {
   },
   watch: {
     "page.currentPage": function (v) {
+      console.log(v);
       this.$emit("changePage", v);
     },
   },

@@ -43,35 +43,35 @@
             domName="new"
             ref="newGrid"
             :settings="newGrid"
-            @changeData="newGrid"
+            @changePage="newRq"
           />
           <RealGrid
             v-show="key === 'delivery'"
             domName="delivery"
             ref="deliveryGrid"
             :settings="deliveryGrid"
-            @changeData="delivery"
+            @changePage="delivery"
           />
           <RealGrid
             v-show="key === 'progressDelay'"
             domName="progressDelay"
             ref="progressDelayGrid"
             :settings="progressDelayGrid"
-            @changeData="progressDelay"
+            @changePage="progressDelay"
           />
           <RealGrid
             v-show="key === 'deliveryDelay'"
             domName="deliveryDelay"
             ref="deliveryDelayGrid"
             :settings="deliveryDelayGrid"
-            @changeData="deliveryDelay"
+            @changePage="deliveryDelay"
           />
           <RealGrid
             v-show="key === 'progress'"
             domName="progress"
             ref="progressGrid"
             :settings="progressGrid"
-            @changeData="progress"
+            @changePage="progress"
           />
         </div>
       </div>
@@ -162,10 +162,11 @@ export default {
     ...mapMutations("menu", ["SET_MENU"]),
     async chageTab(v, key, ref, fun) {
       this.key = key;
+      console.log(v);
       const res = await fun({
         ...this.param,
         currentPage: _.isNumber(v) ? v : 1,
-        pageSize: 1,
+        pageSize: 10,
       });
       const data = res.data.data;
       const grid = this.$refs[ref];
@@ -179,6 +180,7 @@ export default {
       }
     },
     newRq(v) {
+      console.log(v);
       this.chageTab(v, "new", "newGrid", dashnew);
     },
     progress(v) {
