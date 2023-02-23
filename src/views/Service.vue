@@ -295,13 +295,13 @@ export default {
     const param = this.$route.params;
     if (param) {
       const tab = param.tab;
-      this.ADD_MENU_TAB(tab);
+      this.ADD_MENU_TAB_BY_CODE(tab);
     }
   },
   methods: {
     ...mapMutations("menu", [
       "SET_MENU",
-      "ADD_MENU_TAB",
+      "ADD_MENU_TAB_BY_CODE",
       "REMOVE_SELECT_MENU",
       "SET_SELECT_MENU_TAB",
       "SET_SELECT_MENU_TAB_BY_CODE",

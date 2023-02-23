@@ -65,7 +65,11 @@
         }}</v-btn>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4">
-        <v-card class="profile pa-3" v-if="profile" @mouseleave="openProfile">
+        <v-card
+          class="profile pa-3"
+          v-if="profile && accessToken"
+          @mouseleave="openProfile"
+        >
           <div class="wrapper">{{ userInfo.member_name }} 님</div>
           <div class="wrapperLeft">* 회사명: {{ userInfo.company }}</div>
           <div class="wrapperLeft">* 기본 배송지 주소</div>
