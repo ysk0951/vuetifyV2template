@@ -74,18 +74,21 @@
           <div class="wrapper mb-3">{{ userInfo.member_name }} 님</div>
           <div class="wrapperLeft">* 회사명: {{ userInfo.company }}</div>
           <div class="wrapperLeft">* 기본 배송지 주소</div>
-          <div class="wrapperLeft">
-            {{ userInfo.address }}
+          <div v-if="userInfo.address">
+            <div class="wrapperLeft">
+              {{ userInfo.address }}
+            </div>
+            <div class="wrapperLeft">
+              {{ userInfo.address2 }}
+            </div>
+            <div class="wrapperLeft">
+              * 배송지 연락처 1 : {{ userInfo.phone1 }}
+            </div>
+            <div class="wrapperLeft">
+              * 배송지 연락처 2 : {{ userInfo.phone2 }}
+            </div>
           </div>
-          <div class="wrapperLeft">
-            {{ userInfo.address2 }}
-          </div>
-          <div class="wrapperLeft">
-            * 배송지 연락처 1 : {{ userInfo.phone1 }}
-          </div>
-          <div class="wrapperLeft">
-            * 배송지 연락처 2 : {{ userInfo.phone2 }}
-          </div>
+          <div v-else>등록된 기본배송지가 없습니다</div>
           <div class="wrapper">
             <v-btn depressed color="primary" class="my-3" @click="openPost"
               >배송지 관리</v-btn
@@ -110,6 +113,7 @@
 import { mapState, mapMutations } from "vuex";
 import Address from "@/components/Address.vue";
 import { addressbookUt } from "api/address/address";
+import { userInfo } from "api/member/member";
 export default {
   name: "App",
   computed: {
@@ -147,7 +151,7 @@ export default {
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
     ...mapMutations("menu", ["SET_ALL_MENU", "SELECT_MENU"]),
     ...mapMutations("common", ["SET_CODE"]),
-    ...mapMutations("member", ["SET_TOKEN"]),
+    ...mapMutations("member", ["SET_TOKEN", "SET_USER_INFO"]),
     ...mapMutations("locale", ["SET_LOCALE"]),
     routing(v) {
       console.log(v);
@@ -176,7 +180,10 @@ export default {
     },
     addressSelect(v) {
       addressbookUt(v.idx)
-        .then(() => {})
+        .then(async () => {
+          const loginUserInfo = await userInfo();
+          this.SET_USER_INFO(loginUserInfo);
+        })
         .catch(() => {});
       console.log(v);
     },
