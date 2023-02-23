@@ -15,7 +15,6 @@
                 >제조중<span>{{ dash.progress }}</span></v-card
               >
             </v-col>
-
             <template v-if="userInfo.admincheck === 2">
               <v-col cols="12" sm="2">
                 <v-card elevation="3" @click="progressDelay"
@@ -53,7 +52,6 @@
             :settings="deliveryGrid"
             @changeData="delivery"
           />
-
           <RealGrid
             v-show="key === 'progressDelay'"
             domName="progressDelay"
@@ -202,7 +200,6 @@ export default {
       } else if (this.userInfo.admincheck == 2) {
         tab = "MMGMTM";
       }
-      console.log(tab);
       this.$router.push({ name: "service", params: { tab } });
     },
     async loadData() {
