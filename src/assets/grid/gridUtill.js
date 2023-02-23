@@ -161,7 +161,8 @@ export function setNewSum(row) {
   return row;
 }
 export function checkRowEmptcheck(row) {
-  return row["solventVol1"] && row["saltVol1"];
+  console.log(!_.isEmpty(row["solventVol1"]) && !_.isEmpty(row["saltVol1"]));
+  return !_.isEmpty(row["solventVol1"]) && !_.isEmpty(row["saltVol1"]);
 }
 export function makeARow(fields) {
   const rowSet = _.reduce(

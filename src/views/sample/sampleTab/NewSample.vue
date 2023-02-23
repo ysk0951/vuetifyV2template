@@ -464,7 +464,7 @@ export default {
     },
     request() {
       const row = this.$refs.grid.getCheckedRow();
-      if (!checkRowEmptcheck()) {
+      if (!checkRowEmptcheck(row[0])) {
         this.openConfirm("필수 항목이 없습니다. 입력항목을 확인해주세요");
       } else if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
