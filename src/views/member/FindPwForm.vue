@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="findPwForm">
     <SetPopup ref="sertificatePopup" />
@@ -54,7 +55,6 @@
                   depressed
                   color="primary"
                   @click="certificate"
-                  style="width: 126px"
                   >{{ this.isSend ? "재발송" : "인증번호 받기" }}</v-btn
                 >
               </v-col>
@@ -257,6 +257,6 @@ export default {
 }
 
 .findPw .v-subheader {
-  width: 110px;
+  width: 135px;
 }
 </style>

@@ -103,10 +103,16 @@ export default {
       grid: "sampleMasterDetail",
       settings_sample: {
         ...sample,
-        columns: _.map(_.cloneDeep(sample.columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
+        columns: _.map(
+          _.filter(
+            _.cloneDeep(sample.columns),
+            (v) => v.fieldName !== "lot_no"
+          ),
+          function (v) {
+            v.editable = true;
+            return v;
+          }
+        ),
         hideCheckBar: true,
         height: 150,
         noneNo: true,
@@ -145,6 +151,10 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     loadData() {
       this.param.code = this.data.code;
       this.search(this.param.code);
@@ -185,7 +195,8 @@ export default {
     },
     cancle() {
       this.openPopup("취소 하시겠습니까?", true, () => {
-        this.loadData();
+        this.REMOVE_SELECT_MENU("sampleDetail");
+        this.SET_SELECT_MENU_TAB_BY_CODE("SPMGMT");
       });
     },
     save() {

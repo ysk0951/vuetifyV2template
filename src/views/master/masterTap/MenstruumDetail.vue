@@ -45,6 +45,10 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     ...mapMutations("popup", ["SET_POPUP"]),
     changeData() {
       const row = this.$refs.grid.getJsonRow();
@@ -76,7 +80,8 @@ export default {
     },
     reset() {
       this.openPopup("취소하시겠습니까?", true, () => {
-        this.setSumRow(this.data);
+        this.REMOVE_SELECT_MENU("menstruumDetail");
+        this.SET_SELECT_MENU_TAB_BY_CODE("SAMGMT");
       });
     },
   },
