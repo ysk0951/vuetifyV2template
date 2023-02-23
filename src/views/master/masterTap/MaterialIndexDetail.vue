@@ -45,6 +45,10 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     openPopup(text, closable, cb) {
       this.SET_POPUP({
         title: "알림",
@@ -71,7 +75,8 @@ export default {
     },
     cancle() {
       this.openPopup("취소하시겠습니까?", true, () => {
-        this.reset();
+        this.REMOVE_SELECT_MENU("materialIndexDetail");
+        this.SET_SELECT_MENU_TAB_BY_CODE("STMGMT");
       });
     },
     loadData() {

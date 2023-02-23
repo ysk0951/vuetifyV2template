@@ -160,7 +160,9 @@ export function setNewSum(row) {
   row["sum"] = sum;
   return row;
 }
-
+export function checkRowEmptcheck(row) {
+  return row["solventVol1"] && row["saltVol1"];
+}
 export function makeARow(fields) {
   const rowSet = _.reduce(
     fields,

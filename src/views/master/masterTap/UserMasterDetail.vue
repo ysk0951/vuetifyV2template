@@ -73,7 +73,10 @@ export default {
           const response = res.data;
           const items = response.data.items;
           const page = response.data.params;
-          this.$refs.gridSample.loadData(items);
+          this.$refs.gridSample.loadData(items, [
+            "created_at",
+            "delivery_date",
+          ]);
           this.$refs.gridSample.setPage(page);
         })
         .catch(() => {});

@@ -91,7 +91,11 @@ export default {
     },
     search(v) {
       if (this.valid()) {
-        sampleSearch({ ...this.param, currentPage: _.isNumber(v) ? v : 1 })
+        sampleSearch({
+          ...this.param,
+          currentPage: _.isNumber(v) ? v : 1,
+          stat: 0,
+        })
           .then((res) => {
             const response = res.data;
             const items = response.data.items;

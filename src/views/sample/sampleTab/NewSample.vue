@@ -299,7 +299,7 @@ import validSet from "@/assets/valid";
 import * as XLSX from "xlsx";
 import _ from "lodash";
 import { mapMutations, mapState } from "vuex";
-import { filterExel } from "@/assets/grid/gridUtill";
+import { filterExel, checkRowEmptcheck } from "@/assets/grid/gridUtill";
 export default {
   watch: {
     "param.same": function (v) {
@@ -464,7 +464,9 @@ export default {
     },
     request() {
       const row = this.$refs.grid.getCheckedRow();
-      if (row.length > 0 && this.valid()) {
+      if (!checkRowEmptcheck()) {
+        this.openConfirm("필수 항목이 없습니다. 입력항목을 확인해주세요");
+      } else if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
           const data = {
             ...this.param,

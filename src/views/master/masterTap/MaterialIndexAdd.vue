@@ -1,6 +1,6 @@
 <template>
   <div class="materialIndexAdd">
-    <h3 class="mt-4 mb-2">물질명 인덱스 등록</h3>
+    <h3 class="mt-4 mb-6">물질명 인덱스 등록</h3>
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
       <v-row v-for="idx in row" :key="idx" class="px-2">
@@ -55,6 +55,10 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     valid() {
       return this.$refs.form.validate();
     },
@@ -79,7 +83,8 @@ export default {
           insertSubsMaster(this.param)
             .then(() => {
               this.openPopup("저장 되었습니다", false, () => {
-                this.setData();
+                this.REMOVE_SELECT_MENU("materialIndexAdd");
+                this.SET_SELECT_MENU_TAB_BY_CODE("SAMGMT");
               });
             })
             .catch(() => {
