@@ -277,13 +277,7 @@ export default {
     SignupInputVue,
     AgreePersonal,
   },
-  filters: {
-    // timer: (v) => {
-    //   const secound = (0 + (v % 60).toFixed()).slice(-2);
-    //   const minute = Math.trunc(v / 60);
-    //   return `${minute} : ${secound}`;
-    // },
-  },
+  filters: {},
   computed: {
     pwdType() {
       if (this.showPwd) {
