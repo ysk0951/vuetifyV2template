@@ -65,9 +65,26 @@
         }}</v-btn>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4">
-        <v-card class="profile" v-if="profile" @mouseleave="openProfile"
-          >백엔드 작업중</v-card
-        >
+        <v-card class="profile pa-3" v-if="profile" @mouseleave="openProfile">
+          <div class="wrapper">{{ userInfo.member_name }} 님</div>
+          <div class="wrapperLeft">* 회사명: {{ userInfo.company }}</div>
+          <div class="wrapperLeft">* 기본 배송지 주소</div>
+          <div class="wrapperLeft">
+            {{ userInfo.address }}
+          </div>
+          <div class="wrapperLeft">
+            {{ userInfo.address2 }}
+          </div>
+          <div class="wrapperLeft">
+            * 배송지 연락처 1 : {{ userInfo.phone1 }}
+          </div>
+          <div class="wrapperLeft">
+            * 배송지 연락처 2 : {{ userInfo.phone2 }}
+          </div>
+          <div class="wrapper">
+            <v-btn depressed color="primary" class="my-3">배송지 관리</v-btn>
+          </div>
+        </v-card>
         <v-layout align-center row wrap>
           <v-overlay :value="loading" style="z-index: 999">
             <v-progress-circular
@@ -88,7 +105,7 @@ export default {
   name: "App",
   computed: {
     ...mapState("loading", ["loading"]),
-    ...mapState("member", ["accessToken"]),
+    ...mapState("member", ["accessToken", "userInfo"]),
     ...mapState("menu", ["menu"]),
     ...mapState("locale", ["locale"]),
   },
@@ -142,6 +159,7 @@ export default {
     openProfile() {
       this.profile = !this.profile;
     },
+    updateAddress() {},
   },
 };
 </script>
@@ -226,7 +244,7 @@ div.v-menu__content.theme--light.menuable__content__active > div {
   position: absolute;
   top: 29px;
   right: 127px;
-  width: 400px;
-  height: 500px;
+  width: 300px;
+  height: 220px;
 }
 </style>
