@@ -72,7 +72,7 @@
             outlined
             dense
             placeholder="요청자를 입력해 주세요."
-            v-model="param.request_user"
+            v-model="param.request_name"
             disabled
             filled
           ></v-text-field>
@@ -348,7 +348,7 @@ export default {
       param: {
         salestype: "",
         request_date: this.data.request_date,
-        request_user: this.data.request_user,
+        request_name: this.data.request_name,
         request_company: this.data.request_company,
         produce_due_date: "",
         produce_date: "",
