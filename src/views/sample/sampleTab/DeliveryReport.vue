@@ -3,7 +3,7 @@
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
       <div class="wrapperSpace mt-4">
-        <v-row class="pl-2">
+        <v-row class="px-2">
           <v-col cols="12" sm="2">
             <h4>Lot No</h4>
             <v-text-field
@@ -23,6 +23,83 @@
               :rules="[this.validSet.name]"
               v-model="param.request_name"
             ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>요청자재코드</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청자재코드를 입력해 주세요"
+              v-model="param.request_code"
+              v-mask="`###/###/###`"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>요청업체명</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청업체명을 입력해 주세요"
+              v-model="param.request_company"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>제조예정일</h4>
+            <v-menu
+              v-model="picker1"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="param.produce_due_date"
+                  placeholder="제조예정일"
+                  append-icon="mdi-calendar"
+                  outlined
+                  dense
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                no-title
+                @input="menu = false"
+                v-model="param.produce_due_date"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h4>납품에정일</h4>
+            <v-menu
+              v-model="picker2"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="param.derivery_due_date"
+                  placeholder="납품에정일을 입력해주세요"
+                  append-icon="mdi-calendar"
+                  outlined
+                  dense
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                no-title
+                @input="menu = false"
+                v-model="param.derivery_due_date"
+              ></v-date-picker>
+            </v-menu>
           </v-col>
         </v-row>
       </div>
@@ -69,6 +146,8 @@ import _ from "lodash";
 export default {
   data() {
     return {
+      picker1: false,
+      picker2: false,
       grid: "delivaryReport",
       validSet,
       items: [],
@@ -85,6 +164,10 @@ export default {
         lot_no: "",
         request_name: "",
         pageSize: 10,
+        request_code: "",
+        request_company: "",
+        produce_due_date: "",
+        derivery_due_date: "",
       },
     };
   },
@@ -133,7 +216,15 @@ export default {
       }
     },
     reset() {
-      this.param = { lot_no: "", request_name: "", pageSize: 10 };
+      this.param = {
+        lot_no: "",
+        request_name: "",
+        pageSize: 10,
+        request_code: "",
+        request_company: "",
+        produce_due_date: "",
+        derivery_due_date: "",
+      };
       this.items = [];
     },
     dbClick(data) {
