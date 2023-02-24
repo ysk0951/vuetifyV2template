@@ -187,6 +187,7 @@ export default {
           if (specData.constructor == Object) {
             specData = [specData];
           }
+          this.param.code_title = CodeDB.code_title;
           this.$refs.spec_grid.loadData(specData);
         })
         .catch((res) => {
