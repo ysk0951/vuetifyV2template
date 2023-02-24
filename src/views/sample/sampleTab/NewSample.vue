@@ -508,12 +508,17 @@ export default {
     searchAddress() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          this.param.address = `[${data.zonecode}] ${data.roadAddress}`;
+          this.param.address = data.address;
+          this.param.address2 = data.address2;
+          this.param.postcode = data.zonecode;
         },
       }).open();
     },
     onAddress(data) {
-      this.param.address = `[${data.postcode}] ${data.address} ${data.address2}`;
+      this.param.postcode = data.zonecode;
+      this.param.address = data.address;
+      this.param.address2 = data.address2;
+      console.log(this.param);
     },
   },
   components: {

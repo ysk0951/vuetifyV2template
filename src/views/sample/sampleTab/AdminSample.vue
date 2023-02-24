@@ -477,7 +477,9 @@ export default {
     searchAddress() {
       new window.daum.Postcode({
         oncomplete: (data) => {
-          this.param.address = `[${data.zonecode}] ${data.roadAddress}`;
+          this.param.address = data.address;
+          this.param.address2 = data.address2;
+          this.param.postcode = data.zonecode;
         },
       }).open();
     },

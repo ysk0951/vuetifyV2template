@@ -17,6 +17,10 @@ const data = [
     alias: "기본 배송지",
   },
   {
+    field: "address2",
+    alias: "상세주소",
+  },
+  {
     field: "email",
     alias: "이메일 주소",
   },

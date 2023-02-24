@@ -1,7 +1,7 @@
 import { ValueType } from "realgrid";
 import _ from "lodash";
 
-export function makeCell(count, value, fields, columns, width) {
+export function makeCell(count, value, fields, columns, width, editable) {
   for (var v = 1; v <= count; v++) {
     {
       _.each(value, (o) => {
@@ -39,7 +39,7 @@ export function makeCell(count, value, fields, columns, width) {
           },
           width: width ? width : "200px",
           fillWidth: width ? 0 : 1,
-          editable: false,
+          editable: editable ? editable : false,
         });
       });
     }

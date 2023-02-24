@@ -47,10 +47,12 @@ const data = [
   {
     field: "address",
     alias: "배송지 주소",
+    editable: true,
   },
   {
     field: "address2",
     alias: "상세주소",
+    editable: true,
   },
   {
     field: "etc",

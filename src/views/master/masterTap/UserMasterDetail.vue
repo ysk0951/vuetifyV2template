@@ -2,20 +2,15 @@
   <div>
     <h3 class="mt-4 mb-2">회원 상세</h3>
     <SetPopup ref="alert" />
-    <Address ref="address" @select="addressSelect" />
     <RealGrid
       domName="gridDetail"
       ref="gridDetail"
       :settings="settingDetail"
       :nonePage="true"
+      @changeData="changeData"
     />
     <h3 class="mt-16 mb-2 pl-1 pr-1">
-      <div class="wrapperSpace">
-        샘플 요청 내역
-        <v-btn depressed color="primary" @click="updateAddress"
-          >배송지 변경</v-btn
-        >
-      </div>
+      <div class="wrapperSpace">샘플 요청 내역</div>
     </h3>
     <hr class="mb-4" />
     <RealGrid
@@ -28,14 +23,13 @@
 </template>
 <script>
 import * as detail from "@/assets/grid/userMaster";
-import * as sample from "@/assets/grid/sampleRequestDetail";
+import * as sample from "@/assets/grid/sampleRequestDetailAddEdit";
 import RealGrid from "@/components/RealGrid.vue";
-import Address from "@/components/Address.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { memberSampleListAdm } from "api/sample/sample";
 import { mapMutations } from "vuex";
-import { requestSampleAddressUpdate } from "api/member/member";
-import _ from "lodash";
+// import { requestSampleAddressUpdate } from "api/member/member";
+// import _ from "lodash";
 export default {
   props: ["data"],
   watch: {
@@ -99,22 +93,23 @@ export default {
     loadData() {
       this.$refs.gridDetail.loadData([this.data]);
     },
-    addressSelect(v) {
-      const row = this.$refs.gridSample.getCheckedRow();
-      const lotNo = _.map(row, "lot_no");
+    changeData(v) {
+      console.log(v);
+      // const row = this.$refs.gridSample.getCheckedRow();
+      // const lotNo = _.map(row, "lot_no");
 
-      const param = {
-        lotNo,
-        address: v.address,
-        address2: v.address2,
-      };
-      requestSampleAddressUpdate(param)
-        .then(() => {
-          this.loadData();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // const param = {
+      //   lotNo,
+      //   address: v.address,
+      //   address2: v.address2,
+      // };
+      // requestSampleAddressUpdate(param)
+      //   .then(() => {
+      //     this.loadData();
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
   },
   mounted() {
@@ -123,7 +118,6 @@ export default {
   },
   components: {
     RealGrid,
-    Address,
     SetPopup,
   },
 };
