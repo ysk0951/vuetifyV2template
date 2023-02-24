@@ -92,6 +92,7 @@ export default {
     },
     loadData() {
       this.$refs.gridDetail.loadData([this.data]);
+      this.getMemberSampleList();
     },
     changeData(v) {
       const row = this.$refs.gridSample.getJsonRowByIdx(v.dataRow);
@@ -106,7 +107,6 @@ export default {
   },
   mounted() {
     this.loadData();
-    this.getMemberSampleList();
   },
   components: {
     RealGrid,
