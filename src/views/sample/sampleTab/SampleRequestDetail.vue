@@ -61,7 +61,11 @@
         <div class="wrapper address">
           <v-text-field
             type="text"
-            :value="data.address + ` ` + data.address2"
+            :value="
+              (data.address ? data.address : '') +
+              ` ` +
+              (data.address2 ? data.address2 : '')
+            "
             outlined
             dense
             disabled
@@ -201,8 +205,8 @@ export default {
             const items = response.data.items;
             this.$refs.grid.loadData(items);
             const item = items[0];
-            const address = item.address.replaceAll("[", "").split("]");
-            this.param = { ...item, postcode: address[0], address: address[1] };
+            console.log(item);
+            this.param = { ...item };
           })
           .catch(() => {});
       }
