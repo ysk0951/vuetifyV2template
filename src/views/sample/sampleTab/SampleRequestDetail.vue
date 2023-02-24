@@ -62,7 +62,7 @@
         <div class="wrapper address">
           <v-text-field
             type="text"
-            v-model="param.address"
+            :value="param.address + ` ` + param.address2"
             outlined
             dense
             disabled

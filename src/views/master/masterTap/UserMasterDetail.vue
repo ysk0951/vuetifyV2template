@@ -34,7 +34,8 @@ import Address from "@/components/Address.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { memberSampleListAdm } from "api/sample/sample";
 import { mapMutations } from "vuex";
-
+import { requestSampleAddressUpdate } from "api/member/member";
+import _ from "lodash";
 export default {
   props: ["data"],
   watch: {
@@ -99,11 +100,21 @@ export default {
       this.$refs.gridDetail.loadData([this.data]);
     },
     addressSelect(v) {
-      // const row = this.$refs.gridSample.getCheckedRow();
-      console.log(v);
-      //update 로직
-      //update 이후 셀 업데이트
-      this.loadData();
+      const row = this.$refs.gridSample.getCheckedRow();
+      const lotNo = _.map(row, "lot_no");
+
+      const param = {
+        lotNo,
+        address: v.address,
+        address2: v.address2,
+      };
+      requestSampleAddressUpdate(param)
+        .then(() => {
+          this.loadData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   mounted() {

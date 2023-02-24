@@ -162,7 +162,6 @@ export default {
     ...mapMutations("menu", ["SET_MENU"]),
     async chageTab(v, key, ref, fun) {
       this.key = key;
-      console.log(v);
       const res = await fun({
         ...this.param,
         currentPage: _.isNumber(v) ? v : 1,
@@ -180,7 +179,6 @@ export default {
       }
     },
     newRq(v) {
-      console.log(v);
       this.chageTab(v, "new", "newGrid", dashnew);
     },
     progress(v) {

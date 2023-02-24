@@ -341,7 +341,6 @@ export default {
       this.REMOVE_SELECT_MENU(code);
     },
     userDetail(data) {
-      console.log(data);
       this.findTab(
         "userDetail",
         "회원 상세",

@@ -131,7 +131,6 @@ export default {
             } else {
               this.isSuccessFindId = true;
               _.each(resBody.data.item.users, (v) => {
-                console.log(v.created_at);
                 v.created_at = moment(v.created_at).format("YYYY-MM-DD");
               });
               this.response = resBody.data.item.users;

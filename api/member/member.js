@@ -67,3 +67,7 @@ export async function userInfoUpdate(param) {
 export async function userInfo() {
   return http.post(prefix + `/userInfo`);
 }
+
+export async function requestSampleAddressUpdate(param) {
+  return http.post(prefix + `/requestSampleAddressUpdate`, param);
+}

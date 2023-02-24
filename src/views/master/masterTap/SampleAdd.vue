@@ -132,10 +132,16 @@ export default {
       specBefore: [],
       settings_sample: {
         ...sample,
-        columns: _.map(_.cloneDeep(sample.columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
+        columns: _.map(
+          _.filter(
+            _.cloneDeep(sample.columns),
+            (v) => v.fieldName !== "lot_no"
+          ),
+          function (v) {
+            v.editable = true;
+            return v;
+          }
+        ),
         hideCheckBar: true,
         height: 150,
         noneNo: true,

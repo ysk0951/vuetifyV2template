@@ -96,7 +96,6 @@ export default {
     },
     search(v) {
       if (this.valid()) {
-        console.log(v);
         getCodeAll({
           ...this.input,
           currentPage: _.isNumber(v) ? v : 1,

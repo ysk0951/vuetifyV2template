@@ -55,7 +55,6 @@ export default {
       this.setSumRow(row);
     },
     setSumRow(row) {
-      console.log(row);
       const sum = [setNewSum(row)];
       this.$refs.grid.loadData(sum);
     },

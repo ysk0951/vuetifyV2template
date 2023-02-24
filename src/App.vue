@@ -154,7 +154,6 @@ export default {
     ...mapMutations("member", ["SET_TOKEN", "SET_USER_INFO"]),
     ...mapMutations("locale", ["SET_LOCALE"]),
     routing(v) {
-      console.log(v);
       this.$router.push({ name: "service" });
       this.SELECT_MENU(v);
     },
@@ -185,7 +184,6 @@ export default {
           this.SET_USER_INFO(loginUserInfo);
         })
         .catch(() => {});
-      console.log(v);
     },
   },
 };
