@@ -318,12 +318,12 @@ export default {
 </script>
 <style lang="scss" scope>
 .sample_grid .rg-header {
-  background: yellow;
+  background-color: #edf1d6;
 }
 .real_grid .rg-header {
-  background: turquoise;
+  background-color: #e1eedd;
 }
 .make_grid .rg-header {
-  background: greenyellow;
+  background-color: #9dc08b;
 }
 </style>

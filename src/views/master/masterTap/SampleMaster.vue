@@ -110,7 +110,7 @@ export default {
         saltVol: "",
         add: "",
         addVol: "",
-        pageSize: "100",
+        pageSize: "10",
       },
       grid: "sampleMaster",
       settings: {
