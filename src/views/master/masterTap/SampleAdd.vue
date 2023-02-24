@@ -52,6 +52,7 @@
     </h3>
     <hr class="mb-4" />
     <RealGrid
+      class="sample_grid"
       domName="settings_sample_add"
       ref="sample_grid"
       :settings="settings_sample"
@@ -63,6 +64,7 @@
     </h3>
     <hr class="mb-4" />
     <RealGrid
+      class="real_grid"
       domName="settings_real_add"
       ref="real_grid"
       :settings="settings_real"
@@ -74,6 +76,7 @@
     </h3>
     <hr class="mb-4" />
     <RealGrid
+      class="make_grid"
       domName="settings_make_add"
       ref="make_grid"
       :settings="settings_make"
@@ -313,4 +316,14 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss" scope>
+.sample_grid .rg-header {
+  background: yellow;
+}
+.real_grid .rg-header {
+  background: turquoise;
+}
+.make_grid .rg-header {
+  background: greenyellow;
+}
+</style>
