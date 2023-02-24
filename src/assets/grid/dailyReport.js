@@ -52,7 +52,7 @@ const data = [
     alias: "요청자",
   },
   {
-    field: "stat123",
+    field: "pick_name_chg",
     alias: "수령자 변경여부",
   },
   {
@@ -72,7 +72,7 @@ const data = [
     alias: "Qty(kg)",
   },
   {
-    field: "pdf5",
+    field: "packing",
     alias: "용기 구분",
   },
   {
