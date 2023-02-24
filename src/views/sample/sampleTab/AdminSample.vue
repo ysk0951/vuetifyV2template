@@ -329,6 +329,7 @@ export default {
         analysis: "",
         delivery_type: "",
         derivery_date: "",
+        postcode: "",
       },
       isSelecting: false,
       address: [
@@ -377,6 +378,7 @@ export default {
         analysis: "",
         delivery_type: "",
         derivery_date: "",
+        postcode: "",
       };
       this.checkRows = false;
     },

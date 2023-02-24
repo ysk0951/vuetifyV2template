@@ -49,8 +49,7 @@
         <div class="wrapper address">
           <v-text-field
             type="text"
-            v-model="param.postCode"
-            placeholder="배송지를 입력해 주세요."
+            :value="data.postcode"
             outlined
             dense
             disabled
@@ -62,7 +61,7 @@
         <div class="wrapper address">
           <v-text-field
             type="text"
-            :value="param.address + ` ` + param.address2"
+            :value="data.address + ` ` + data.address2"
             outlined
             dense
             disabled
@@ -167,8 +166,9 @@ export default {
       fileName: "",
       param: {
         default: 0,
-        postCode: "",
-        address: "",
+        postcode: this.data.postcode,
+        address: this.data.address,
+        address2: this.data.address2,
         price_type: "",
         packing: "",
         delivery_type: "",
@@ -202,7 +202,7 @@ export default {
             this.$refs.grid.loadData(items);
             const item = items[0];
             const address = item.address.replaceAll("[", "").split("]");
-            this.param = { ...item, postCode: address[0], address: address[1] };
+            this.param = { ...item, postcode: address[0], address: address[1] };
           })
           .catch(() => {});
       }
@@ -213,7 +213,7 @@ export default {
         () => {
           this.param = {
             default: 0,
-            postCode: "",
+            postcode: "",
             address: "",
             price_type: "",
             packing: "",

@@ -311,9 +311,11 @@ export default {
       if (v === 0) {
         this.param.address = this.defaultAddress.address;
         this.param.address2 = this.defaultAddress.address2;
+        this.param.postcode = this.defaultAddress.postcode;
       } else {
         this.param.address = "";
         this.param.address2 = "";
+        this.param.postcode = "";
       }
     },
   },
@@ -352,6 +354,7 @@ export default {
         pick_name: "",
         analysis: "",
         derivery_date: "",
+        postcode: "",
       },
       isSelecting: false,
       address: [
@@ -397,6 +400,7 @@ export default {
         pick_name: "",
         analysis: "",
         derivery_date: "",
+        postcode: this.defaultAddress.postcode,
       };
       this.file = "";
       this.checkRows = false;
