@@ -45,6 +45,11 @@ const data = [
     alias: "출하 사항",
   },
   {
+    field: "postcode",
+    alias: "우편번호",
+    editable: true,
+  },
+  {
     field: "address",
     alias: "배송지 주소",
     editable: true,
@@ -62,7 +67,7 @@ const data = [
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  makeCell(1, [o], fields, columns);
+  makeCell(1, [o], fields, columns, false, o.editable);
 });
 const filteredFields = _.filter([...fields], function (v) {
   return filterArr.includes(v.fieldName);

@@ -45,6 +45,11 @@ const data = [
     alias: "출하 사항",
   },
   {
+    field: "postcode",
+    alias: "우편번호",
+    editable: true,
+  },
+  {
     field: "address",
     alias: "배송지 주소",
   },

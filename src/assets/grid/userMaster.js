@@ -13,6 +13,11 @@ const data = [
     alias: "휴대폰번호",
   },
   {
+    field: "postcode",
+    alias: "우편번호",
+    editable: true,
+  },
+  {
     field: "address",
     alias: "기본 배송지",
   },

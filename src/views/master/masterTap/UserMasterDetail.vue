@@ -18,6 +18,7 @@
       ref="gridSample"
       :settings="settingsSample"
       @changePage="getMemberSampleList"
+      @changeData="changeData"
     />
   </div>
 </template>
@@ -28,8 +29,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { memberSampleListAdm } from "api/sample/sample";
 import { mapMutations } from "vuex";
-// import { requestSampleAddressUpdate } from "api/member/member";
-// import _ from "lodash";
+import { requestSampleAddressUpdate } from "api/member/member";
 export default {
   props: ["data"],
   watch: {
@@ -46,7 +46,7 @@ export default {
       settingsSample: {
         ...sample,
         errorMessage: "샘플요청내역이 비었습니다",
-        radio: true,
+        hideCheckBar: true,
       },
       settingDetail: {
         ...detail,
@@ -94,22 +94,14 @@ export default {
       this.$refs.gridDetail.loadData([this.data]);
     },
     changeData(v) {
-      console.log(v);
-      // const row = this.$refs.gridSample.getCheckedRow();
-      // const lotNo = _.map(row, "lot_no");
-
-      // const param = {
-      //   lotNo,
-      //   address: v.address,
-      //   address2: v.address2,
-      // };
-      // requestSampleAddressUpdate(param)
-      //   .then(() => {
-      //     this.loadData();
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      const row = this.$refs.gridSample.getJsonRowByIdx(v.dataRow);
+      requestSampleAddressUpdate(row)
+        .then(() => {
+          this.loadData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   mounted() {

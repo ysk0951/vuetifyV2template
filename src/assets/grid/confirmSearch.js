@@ -17,8 +17,17 @@ const data = [
     date: "yyyy-MM-dd",
   },
   {
+    field: "postcode",
+    alias: "우편번호",
+    editable: true,
+  },
+  {
     alias: "배송지",
     field: "address",
+  },
+  {
+    field: "address2",
+    alias: "상세주소",
   },
   {
     alias: "비고",
