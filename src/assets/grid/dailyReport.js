@@ -48,7 +48,7 @@ const data = [
     alias: "요청 업체명",
   },
   {
-    field: "request_user",
+    field: "request_name",
     alias: "요청자",
   },
   {
