@@ -2,46 +2,49 @@
   <div class="material">
     <v-form ref="meterialIndex" lazy-validation>
       <div class="meterialIndex wrapperSpace px-2">
-        <v-col cols="12" sm="3">
+        <v-col cols="12" sm="2">
           <h4>자재코드</h4>
           <v-text-field
             outlined
             dense
             placeholder="자재코드를 입력해 주세요."
+            v-model="param.code"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="3">
+        <v-col cols="12" sm="2">
           <h4>원료약어</h4>
           <v-text-field
             outlined
             dense
             placeholder="원료약어를 입력해 주세요."
+            v-model="param.rmav"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="3">
+        <v-col cols="12" sm="2">
           <h4>화학물질명</h4>
           <v-text-field
             outlined
             dense
             placeholder="화학물질명을 입력해 주세요."
+            v-model="param.chemical_name"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="3">
-          <h4>CAS NO.</h4>
+        <v-col cols="12" sm="2">
+          <h4>CAS NO</h4>
           <v-text-field
             outlined
             dense
             placeholder="CAS NO를 입력해 주세요."
+            v-model="param.cas_no"
           ></v-text-field>
         </v-col>
-      </div>
-      <div class="meterialIndex wrapperSpace px-2">
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="4">
           <h4>관용명 및 이명</h4>
           <v-text-field
             outlined
             dense
             placeholder="관용어 및 이명을 입력해 주세요."
+            v-model="param.common_name"
           ></v-text-field>
         </v-col>
       </div>
@@ -87,7 +90,11 @@ export default {
         errorMessage: "목록을 검색해주세요",
       },
       param: {
+        code: "",
         rmav: "",
+        chemical_name: "",
+        cas_no: "",
+        common_name: "",
         pageSize: 10,
       },
       currentpage: 1,
@@ -107,7 +114,6 @@ export default {
       this.search(v);
     },
     search(v) {
-      //TODO : param 추가 필요
       subsMasterList({ ...this.param, currentPage: _.isNumber(v) ? v : 1 })
         .then((res) => {
           const response = res.data;
@@ -119,7 +125,14 @@ export default {
         .catch(() => {});
     },
     reset() {
-      this.param.rmav = "";
+      this.param = {
+        code: "",
+        rmav: "",
+        chemical_name: "",
+        cas_no: "",
+        common_name: "",
+        pageSize: 10,
+      };
     },
     addIndex() {
       this.$emit("materialIndexAdd");
