@@ -27,6 +27,7 @@
 import _ from "lodash";
 import moment from "moment";
 import { GridView, LocalDataProvider } from "realgrid";
+import validSet from "@/assets/valid";
 export default {
   name: "RealGrid",
   props: ["domName", "settings", "nonePage"],
@@ -190,6 +191,20 @@ export default {
     if (this.settings.noneHeader) {
       this.gv.header.visible = false;
     }
+    this.gv.onValidateColumn = function (grid, column, inserting, value) {
+      const error = {};
+      if (column.fieldName.includes("Vol")) {
+        const valid = validSet.numberDot(value);
+        if (valid !== true) {
+          error.level = "error";
+          error.message = valid;
+        }
+      }
+      if (error.message) {
+        alert(error.message);
+      }
+      return error;
+    };
   },
 };
 </script>

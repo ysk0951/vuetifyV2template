@@ -53,7 +53,7 @@ const numberDot = (v) => {
   if (v.length === 0) {
     return true;
   } else {
-    return !!codeRegex.test(v) || "숫자, 소수점만 입력해야합니다.";
+    return !!numberRegex.test(v) || "숫자, 소수점만 입력해야합니다.";
   }
 };
 

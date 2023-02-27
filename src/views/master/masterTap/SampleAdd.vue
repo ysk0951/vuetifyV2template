@@ -53,9 +53,25 @@
     <hr class="mb-4" />
     <RealGrid
       class="sample_grid"
-      domName="settings_sample_add"
-      ref="sample_grid"
-      :settings="settings_sample"
+      domName="settings_sample_add_div1"
+      ref="sample_grid_div1"
+      :settings="settings_div1"
+      :nonePage="true"
+      @changeData="addSpec"
+    />
+    <RealGrid
+      class="sample_grid"
+      domName="settings_sample_add_div2"
+      ref="sample_grid_div2"
+      :settings="settings_div2"
+      :nonePage="true"
+      @changeData="addSpec"
+    />
+    <RealGrid
+      class="sample_grid"
+      domName="settings_sample_add_div3"
+      ref="sample_grid_div3"
+      :settings="settings_div3_noSum"
       :nonePage="true"
       @changeData="addSpec"
     />
@@ -65,9 +81,25 @@
     <hr class="mb-4" />
     <RealGrid
       class="real_grid"
-      domName="settings_real_add"
-      ref="real_grid"
-      :settings="settings_real"
+      domName="settings_real_add_div1"
+      ref="real_grid_div1"
+      :settings="settings_div1"
+      :nonePage="true"
+      @changeData="changeDataReal"
+    />
+    <RealGrid
+      class="real_grid"
+      domName="settings_real_add_div2"
+      ref="real_grid_div2"
+      :settings="settings_div2"
+      :nonePage="true"
+      @changeData="changeDataReal"
+    />
+    <RealGrid
+      class="real_grid"
+      domName="settings_real_add_div3"
+      ref="real_grid_div3"
+      :settings="settings_div3"
       :nonePage="true"
       @changeData="changeDataReal"
     />
@@ -77,9 +109,25 @@
     <hr class="mb-4" />
     <RealGrid
       class="make_grid"
-      domName="settings_make_add"
-      ref="make_grid"
-      :settings="settings_make"
+      domName="settings_make_add_div1"
+      ref="make_grid_div1"
+      :settings="settings_div1"
+      :nonePage="true"
+      @changeData="changeDataMake"
+    />
+    <RealGrid
+      class="make_grid"
+      domName="settings_make_add_div2"
+      ref="make_grid_div2"
+      :settings="settings_div2"
+      :nonePage="true"
+      @changeData="changeDataMake"
+    />
+    <RealGrid
+      class="make_grid"
+      domName="settings_make_add_div3"
+      ref="make_grid_div3"
+      :settings="settings_div3"
       :nonePage="true"
       @changeData="changeDataMake"
     />
@@ -114,8 +162,9 @@ import {
 } from "@/assets/grid/gridUtill";
 import SetPopup from "@/components/SetPopup.vue";
 import _ from "lodash";
-import * as sample from "@/assets/grid/sampleRequest";
-import * as sampleSum from "@/assets/grid/sampleRequestSum";
+import * as sample1 from "@/assets/grid/sampleRequestDiv1";
+import * as sample2 from "@/assets/grid/sampleRequestDiv2";
+import * as sample3 from "@/assets/grid/sampleRequestDiv3";
 import * as spec from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
 import { mapMutations } from "vuex";
@@ -133,52 +182,11 @@ export default {
       },
       grid: "sampleMasterAdd",
       specBefore: [],
-      settings_sample: {
-        ...sample,
-        columns: _.map(
-          _.filter(
-            _.cloneDeep(sample.columns),
-            (v) => v.fieldName !== "lot_no"
-          ),
-          function (v) {
-            v.editable = true;
-            return v;
-          }
-        ),
-        hideCheckBar: true,
-        height: 150,
-        noneNo: true,
-      },
-      settings_real: {
-        ...sampleSum,
-        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
-        hideCheckBar: true,
-        height: 150,
-        noneNo: true,
-      },
-      settings_make: {
-        ...sampleSum,
-        columns: _.map(_.cloneDeep(sampleSum.columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
-        hideCheckBar: true,
-        height: 150,
-        noneNo: true,
-      },
-      settings_spec: {
-        ...spec,
-        columns: _.map(_.cloneDeep(spec.columns), function (v) {
-          v.editable = true;
-          return v;
-        }),
-        hideCheckBar: true,
-        height: 700,
-        noneNo: true,
-      },
+      settings_div1: this.gridSetting(sample1, false),
+      settings_div2: this.gridSetting(sample2, false),
+      settings_div3: this.gridSetting(sample3, false),
+      settings_div3_noSum: this.gridSetting(sample3, true),
+      settings_spec: this.gridSetting(spec, false, 700),
     };
   },
   mounted() {
@@ -189,6 +197,29 @@ export default {
     ...mapMutations("popup", ["SET_POPUP"]),
     valid() {
       return this.$refs.form.validate();
+    },
+    gridSetting(sample, existSum, height) {
+      return {
+        ...sample,
+        columns: existSum
+          ? _.map(
+              _.filter(
+                _.cloneDeep(sample3.columns),
+                (v) => v.fieldName !== "sum"
+              ),
+              function (v) {
+                v.editable = true;
+                return v;
+              }
+            )
+          : _.map(_.cloneDeep(sample.columns), function (v) {
+              v.editable = true;
+              return v;
+            }),
+        hideCheckBar: true,
+        height: height ? height : 150,
+        noneNo: true,
+      };
     },
     openPopup(text, closable, cb) {
       this.SET_POPUP({
@@ -204,15 +235,20 @@ export default {
       this.$emit("newSample");
     },
     setNewSum(ref) {
-      const row = this.$refs[ref].getJsonRow();
-      const sum = [setNewSum(row)];
-      this.$refs[ref].loadData(sum);
+      let tmp = {};
+      for (let i = 1; i <= 3; i++) {
+        console.log(this.$refs[ref + i].getJsonRow());
+      }
+      console.log(tmp);
+      const sum = [setNewSum(tmp)];
+      this.$refs[ref + 3].loadData(sum);
     },
     changeDataReal() {
-      this.setNewSum("real_grid");
+      console.log("c");
+      this.setNewSum("real_grid_div");
     },
     changeDataMake() {
-      this.setNewSum("make_grid");
+      this.setNewSum("make_grid_div");
     },
     addSpec() {
       const row = this.$refs.sample_grid.getJsonRow();
@@ -238,10 +274,24 @@ export default {
       this.$refs.spec_grid.loadData(rowArr.concat(this.specBefore));
     },
     setGrid() {
-      this.$refs.sample_grid.loadData(makeARow(sample.fields));
-      this.$refs.real_grid.loadData(makeARow(sampleSum.fields));
-      this.$refs.make_grid.loadData(makeARow(sampleSum.fields));
+      const gridKey = ["sample_grid_div", "real_grid_div", "make_grid_div"];
+      const sampleKey = [sample1.fields, sample2.fields, sample1.fields];
+      this.setGridExec(gridKey, sampleKey);
       this.$refs.spec_grid.loadData(spec.initRow);
+    },
+    setGridExec(g, s) {
+      _.each(g, (v) => {
+        for (let i = 1; i <= 3; i++) {
+          this.$refs[v + i].loadData(makeARow(s[i - 1]));
+        }
+      });
+    },
+    setGridExecSearch(g, s) {
+      _.each(g, (v) => {
+        for (let i = 1; i <= 3; i++) {
+          this.$refs[v + i].loadData([s[v]]);
+        }
+      });
     },
     search() {
       if (this.valid()) {
@@ -253,9 +303,17 @@ export default {
             const CodeDB_A = response.CodeDB_A;
             const CodeDB_B = response.CodeDB_B;
             const CodeDB_Dt = response.CodeDB_Dt;
-            this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
-            this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
-            this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
+            const gridKey = [
+              "sample_grid_div",
+              "real_grid_div",
+              "make_grid_div",
+            ];
+            const sampleKey = {
+              sample_grid_div: { ...CodeDB, code },
+              real_grid_div: { ...makeSum(CodeDB_A), code },
+              make_grid_div: { ...makeSum(CodeDB_B), code },
+            };
+            this.setGridExecSearch(gridKey, sampleKey);
             this.$refs.spec_grid.loadData([
               { data: showSampleSet(CodeDB_Dt), code },
             ]);
@@ -317,13 +375,22 @@ export default {
 };
 </script>
 <style lang="scss" scope>
-.sample_grid .rg-header {
-  background-color: #edf1d6;
+.sample_grid {
+  margin-bottom: 10px !important;
+  .rg-header {
+    background-color: #edf1d6;
+  }
 }
-.real_grid .rg-header {
-  background-color: #e1eedd;
+.real_grid {
+  margin-bottom: 10px !important;
+  .rg-header {
+    background-color: #e1eedd;
+  }
 }
-.make_grid .rg-header {
-  background-color: #9dc08b;
+.make_grid {
+  margin-bottom: 10px !important;
+  .rg-header {
+    background-color: #9dc08b;
+  }
 }
 </style>
