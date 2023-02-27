@@ -47,6 +47,16 @@ const number = (v) => {
   }
   return !!numberRegex.test(v) || "숫자만 입력해야합니다";
 };
+
+const numberDot = (v) => {
+  v = v.replaceAll(".", "");
+  if (v.length === 0) {
+    return true;
+  } else {
+    return !!codeRegex.test(v) || "숫자, 소수점만 입력해야합니다.";
+  }
+};
+
 const check = (v) => !!v || "약관에 동의하셔야 합니다";
 const passwordCode = (v, c) => {
   return !!(v == c) || "비밀번호는 서로 같아야 합니다";
@@ -108,6 +118,7 @@ const validSet = {
   company,
   email,
   number,
+  numberDot,
   check,
   passwordCode,
   sample,

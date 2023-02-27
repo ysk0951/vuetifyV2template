@@ -46,6 +46,12 @@
               dense
               :placeholder="item(idx, i) + ' 입력'"
               v-model="param[bindKey[(idx - 1) * col + i - 1]]"
+              :rules="[
+                valid(
+                  param[bindKey[(idx - 1) * col + i - 1]],
+                  bindKey[(idx - 1) * col + i - 1]
+                ),
+              ]"
             ></v-text-field>
           </template>
         </template>
@@ -62,14 +68,16 @@
   </div>
 </template>
 <script>
-import * as menstrumm from "@/assets/grid/menstrummAdd";
+import { mapMutations } from "vuex";
 import { insertSolventMaster } from "api/solvent/solvent";
+import * as menstrumm from "@/assets/grid/menstrummAdd";
 import _ from "lodash";
 import SetPopup from "@/components/SetPopup.vue";
-import { mapMutations } from "vuex";
+import validSet from "@/assets/valid";
 export default {
   data() {
     return {
+      validSet,
       grid: "menstrummDetail",
       settings: menstrumm,
       layout: menstrumm.columns,
@@ -174,6 +182,13 @@ export default {
       });
       this.bindKey = key;
       this.param = obj;
+    },
+    valid(v, key) {
+      if (key.includes("Vol")) {
+        return this.validSet.numberDot(v);
+      } else {
+        return true;
+      }
     },
   },
   computed: {
