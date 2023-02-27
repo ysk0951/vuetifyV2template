@@ -8,7 +8,9 @@
           <template v-if="aggreeKey === 'personal'">
             <AgreePersonal></AgreePersonal
           ></template>
-          <template v-if="aggreeKey === 'service'"></template>
+          <template v-if="aggreeKey === 'service'">
+            <AgreeService></AgreeService>
+          </template>
         </SetDialog>
         <SetDialog ref="postModal">
           <SignupPost
@@ -235,6 +237,7 @@ import SetDialog from "@/components/SetDialog";
 import SignupInputVue from "@/views/member/SignUpInput";
 import SignupPost from "@/views/member/SignupPost";
 import AgreePersonal from "@/views/member/AgreePersonal.vue";
+import AgreeService from "@/views/member/AgreeService.vue";
 import { sendAuthNum, authNumCheck, memberJoin } from "api/member/member";
 import { mapMutations } from "vuex";
 import validSet from "@/assets/valid";
@@ -276,8 +279,15 @@ export default {
     SignupPost,
     SignupInputVue,
     AgreePersonal,
+    AgreeService,
   },
-  filters: {},
+  filters: {
+    // timer: (v) => {
+    //   const secound = (0 + (v % 60).toFixed()).slice(-2);
+    //   const minute = Math.trunc(v / 60);
+    //   return `${minute} : ${secound}`;
+    // },
+  },
   computed: {
     pwdType() {
       if (this.showPwd) {
@@ -333,11 +343,7 @@ export default {
         // });
         this.$router.push({
           name: "signupDone",
-          params: {
-            memberId: this.param.email,
-            memberName: this.param.name,
-            memberPw: this.param.password,
-          },
+          params: { memberId: this.param.email, memberName: this.param.name },
         });
       }
     },
