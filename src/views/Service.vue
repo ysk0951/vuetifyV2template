@@ -140,7 +140,10 @@
             />
           </template>
           <template v-if="item.code === 'RIMGMT'">
-            <ResultInput ref="RIMGMT" />
+            <ResultInput ref="RIMGMT" @dblclick="resultInputDetail" />
+          </template>
+          <template v-if="item.code === 'resultInputDetail'">
+            <ResultInputDetail ref="resultInputDetail" />
           </template>
           <template v-if="item.code === 'qulityTestInput'">
             <QulityTestInput ref="qulityTestInput" />
@@ -167,6 +170,7 @@ import SearchProcessCustom from "@/views/sample/sampleTab/SearchProcessCustom";
 import DeliveryReport from "@/views/sample/sampleTab/DeliveryReport";
 import DeliveryReportDetail from "@/views/sample/sampleTab/DeliveryReportDetail";
 import ResultInput from "@/views/sample/sampleTab/ResultInput";
+import ResultInputDetail from "@/views/sample/sampleTab/ResultInputDetail";
 import QulityTestInput from "@/views/sample/sampleTab/QulityTestInput";
 import Report from "@/views/sample/sampleTab/Report.vue";
 import ReportDetail from "@/views/sample/sampleTab/ReportDetail.vue";
@@ -265,6 +269,7 @@ export default {
     DeliveryReport,
     DeliveryReportDetail,
     ResultInput,
+    ResultInputDetail,
     QulityTestInput,
     Report,
     ReportDetail,
@@ -468,6 +473,15 @@ export default {
     },
     openSearchProcessCustom() {
       this.findTab("MMGMT", "진행 사항 조회 (사용자)", null, true, null);
+    },
+    resultInputDetail(data) {
+      this.findTab(
+        "resultInputDetail",
+        "품질검사 결과입력",
+        "resultInputDetail",
+        true,
+        data
+      );
     },
   },
 };

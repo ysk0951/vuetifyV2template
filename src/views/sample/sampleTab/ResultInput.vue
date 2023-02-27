@@ -42,13 +42,19 @@
         <h4 class="mt-4 mb-2">목록</h4>
       </div>
     </div>
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @dblclick="dbClick"
+      @changePage="search"
+    />
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
+import { columns, fields, rows, height } from "@/assets/grid/resultInput";
 import RealGrid from "@/components/RealGrid.vue";
-
+// import _ from "lodash";
 export default {
   data() {
     return {
@@ -62,11 +68,18 @@ export default {
     };
   },
   methods: {
-    newSample() {
-      this.$emit("newSample");
+    dbClick(v) {
+      this.$emit("dbClick", v);
     },
     reset() {},
-    search() {},
+    search(v) {
+      console.log(v);
+      // const res = fun({
+      //   ...this.param,
+      //   currentPage: _.isNumber(v) ? v : 1,
+      //   pageSize: 10,
+      // });
+    },
   },
   components: {
     RealGrid,
