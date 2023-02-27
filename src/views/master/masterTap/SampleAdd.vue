@@ -57,7 +57,7 @@
       ref="sample_grid_div1"
       :settings="settings_div1"
       :nonePage="true"
-      @changeData="addSpec"
+      @changeData="addSpec('sample_grid_div1')"
     />
     <RealGrid
       class="sample_grid"
@@ -65,7 +65,6 @@
       ref="sample_grid_div2"
       :settings="settings_div2"
       :nonePage="true"
-      @changeData="addSpec"
     />
     <RealGrid
       class="sample_grid"
@@ -73,7 +72,6 @@
       ref="sample_grid_div3"
       :settings="settings_div3_noSum"
       :nonePage="true"
-      @changeData="addSpec"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">실제조성</div>
@@ -237,21 +235,20 @@ export default {
     setNewSum(ref) {
       let tmp = {};
       for (let i = 1; i <= 3; i++) {
-        console.log(this.$refs[ref + i].getJsonRow());
+        tmp = { ...tmp, ...this.$refs[ref + i].getJsonRow() };
       }
       console.log(tmp);
       const sum = [setNewSum(tmp)];
       this.$refs[ref + 3].loadData(sum);
     },
     changeDataReal() {
-      console.log("c");
       this.setNewSum("real_grid_div");
     },
     changeDataMake() {
       this.setNewSum("make_grid_div");
     },
-    addSpec() {
-      const row = this.$refs.sample_grid.getJsonRow();
+    addSpec(ref) {
+      const row = this.$refs[ref].getJsonRow();
       const key = _.keys(row);
       const rowtmp = makeARow(spec.fields)[0];
       const rowArr = [];
@@ -275,13 +272,14 @@ export default {
     },
     setGrid() {
       const gridKey = ["sample_grid_div", "real_grid_div", "make_grid_div"];
-      const sampleKey = [sample1.fields, sample2.fields, sample1.fields];
+      const sampleKey = [sample1.fields, sample2.fields, sample3.fields];
       this.setGridExec(gridKey, sampleKey);
       this.$refs.spec_grid.loadData(spec.initRow);
     },
     setGridExec(g, s) {
       _.each(g, (v) => {
         for (let i = 1; i <= 3; i++) {
+          console.log(v, i, makeARow(s[i - 1]));
           this.$refs[v + i].loadData(makeARow(s[i - 1]));
         }
       });
@@ -335,18 +333,28 @@ export default {
       this.setGrid();
     },
     save() {
-      const sum1 = this.$refs.real_grid.getJsonRow().sum;
-      const sum2 = this.$refs.make_grid.getJsonRow().sum;
+      const sum1 = this.$refs.real_grid_div3.getJsonRow().sum;
+      const sum2 = this.$refs.make_grid_div3.getJsonRow().sum;
       if (sum1 > 100 || sum2 > 100) {
         this.openPopup("SUM 정보를 확인해 주세요");
       } else {
         const code = this.input.code_grade;
         const sample = {
-          ...this.$refs.sample_grid.getJsonRow(),
+          ...this.$refs.sample_grid_div1.getJsonRow(),
+          ...this.$refs.sample_grid_div2.getJsonRow(),
+          ...this.$refs.sample_grid_div3.getJsonRow(),
           code_title: this.param.code_title,
         };
-        const sampleA = { ...this.$refs.real_grid.getJsonRow() };
-        const sampleB = { ...this.$refs.make_grid.getJsonRow() };
+        const sampleA = {
+          ...this.$refs.real_grid_div1.getJsonRow(),
+          ...this.$refs.real_grid_div2.getJsonRow(),
+          ...this.$refs.real_grid_div3.getJsonRow(),
+        };
+        const sampleB = {
+          ...this.$refs.make_grid_div1.getJsonRow(),
+          ...this.$refs.make_grid_div2.getJsonRow(),
+          ...this.$refs.make_grid_div3.getJsonRow(),
+        };
         const dt = this.$refs.spec_grid.getJsonAllRow();
         const sampleDetail = {
           data: makeSampleSet(dt),

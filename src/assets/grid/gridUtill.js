@@ -156,8 +156,7 @@ export function setNewSum(row) {
     Number(getNum(row["addVol12"])) +
     Number(getNum(row["addVol13"])) +
     Number(getNum(row["addVol14"])) +
-    Number(getNum(row["addVol15"])) +
-    Number(getNum(row["sum"]));
+    Number(getNum(row["addVol15"]));
   row["sum"] = sum;
   return row;
 }

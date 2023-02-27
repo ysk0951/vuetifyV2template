@@ -157,6 +157,7 @@ export default {
       newValue
     ) => {
       grid.commit();
+      console.log(newValue);
       this.$emit("changeData", {
         grid,
         itemIndex,
