@@ -49,7 +49,7 @@
       :domName="grid"
       ref="grid"
       :settings="settings"
-      @dblclick="dbClick"
+      @dbClick="dbClick"
       @changePage="search"
     />
   </div>
@@ -68,6 +68,7 @@ export default {
         fields,
         rows,
         height,
+        hideCheckBar: true,
       },
       param: {
         pageSize: 10,
@@ -80,9 +81,10 @@ export default {
   },
   methods: {
     dbClick(data) {
+      console.log(data);
       this.$emit(
         "dbClick",
-        _.filter(this.items, (v) => v.lotNo === data.lotNo)[0]
+        _.filter(this.items, (v) => v.lot_no === data.lot_no)[0]
       );
     },
     reset() {

@@ -140,10 +140,13 @@
             />
           </template>
           <template v-if="item.code === 'RIMGMT'">
-            <ResultInput ref="RIMGMT" @dblclick="resultInputDetail" />
+            <ResultInput ref="RIMGMT" @dbClick="resultInputDetail" />
           </template>
           <template v-if="item.code === 'resultInputDetail'">
-            <ResultInputDetail ref="resultInputDetail" />
+            <ResultInputDetail
+              ref="resultInputDetail"
+              :data="resultInputDetailData"
+            />
           </template>
           <template v-if="item.code === 'qulityTestInput'">
             <QulityTestInput ref="qulityTestInput" />
@@ -237,6 +240,7 @@ export default {
   },
   data() {
     return {
+      resultInputDetailData: {},
       sampleRequestDetailData: {},
       reportDetailData: {},
       newSampleData: {},
@@ -332,14 +336,24 @@ export default {
         });
       }
       this.SET_SELECT_MENU_TAB(idx);
+      console.log(target, data);
       this[target] = data;
     },
     reset() {
+      this.resultInputDetail = {};
+      this.sampleRequestDetailData = {};
+      this.reportDetailData = {};
+      this.newSampleData = {};
+      this.codeDetailData = {};
       this.userDetailData = {};
       this.sampleDetailData = {};
       this.sampleAddData = {};
       this.menstruumDetailData = {};
       this.menstruumAddData = {};
+      this.materialIndexDetailData = {};
+      this.materialIndexAddData = {};
+      this.coaDetailData = {};
+      this.items = [];
     },
     removeTab(code) {
       this.REMOVE_SELECT_MENU(code);
@@ -465,6 +479,7 @@ export default {
       this.findTab(
         "reportDetail",
         "제조 기록지 상세",
+        "제조 기록지 상세",
         "reportDetailData",
         true,
         data
@@ -474,10 +489,12 @@ export default {
       this.findTab("MMGMT", "진행 사항 조회 (사용자)", null, true, null);
     },
     resultInputDetail(data) {
+      console.log(data);
       this.findTab(
         "resultInputDetail",
         "품질검사 결과입력",
-        "resultInputDetail",
+        "품질검사 결과입력",
+        "resultInputDetailData",
         true,
         data
       );
