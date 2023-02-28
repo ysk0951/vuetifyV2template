@@ -5,9 +5,9 @@ const columns = [];
 const filterArr = [
   "delivery_date",
   "qty",
-  "request_stat",
+  "requeststat",
   "producestat",
-  "out_stat",
+  "releasestat",
 ];
 const errorMessage = "진행중인 사항이 없습니다";
 const data = [
@@ -33,7 +33,7 @@ const data = [
     alias: "제품수량(kg)",
   },
   {
-    field: "request_stat",
+    field: "requeststat",
     alias: "접수 상태",
   },
   {
@@ -41,7 +41,7 @@ const data = [
     alias: "제조 진행 사항",
   },
   {
-    field: "out_stat",
+    field: "releasestat",
     alias: "출하 사항",
   },
   {

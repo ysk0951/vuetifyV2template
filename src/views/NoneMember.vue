@@ -16,16 +16,6 @@
                   v-model="param.lot_no"
                 />
               </v-col>
-              <!-- <v-col cols="12" sm="3" class="px-2">
-                <h4>요청 자재코드</h4>
-                <v-text-field
-                  placeholder="요청 자재코드"
-                  type="text"
-                  outlined
-                  dense
-                  v-model="param.request_code"
-                />
-              </v-col> -->
               <v-col cols="12" sm="3" class="px-0 search">
                 <v-btn depressed class="ml-3 mr-3" @click="reset">초기화</v-btn>
                 <v-btn depressed color="primary " @click="search">검색</v-btn>
@@ -59,18 +49,16 @@
             </v-col>
             <v-col cols="12" sm="4">
               <h4>Code Grade</h4>
-              <v-text-field type="text" outlined dense filled disabled />
+              <v-text-field
+                type="text"
+                outlined
+                dense
+                filled
+                disabled
+                v-model="code"
+              />
             </v-col>
           </v-row>
-          <!-- <h3 class="mt-4 mb-2">요청 내역</h3>
-          <hr class="mb-4" />
-          <RealGrid
-            domName="sampleGrid"
-            ref="sampleGrid"
-            :settings="nmSr"
-            @changePage="loadData"
-            :none-page="true"
-          /> -->
           <h3 class="mt-16 mb-2">진행 상황</h3>
           <hr class="mb-4" />
           <RealGrid
@@ -91,12 +79,12 @@ import RealGrid from "@/components/RealGrid.vue";
 import * as nmSr from "@/assets/grid/sampleRequest";
 import * as nmSrD from "@/assets/grid/sampleRequestDetail";
 import { mapState } from "vuex";
-import { makeARow } from "@/assets/grid/gridUtill";
 import { searchproduce, sampleSearch } from "api/sample/sample";
 // import _ from "lodash";
 export default {
   data() {
     return {
+      code: "",
       request_code: "",
       param: {
         lot_no: "",
@@ -145,20 +133,18 @@ export default {
         const res = await sampleSearch({ ...this.param, currentPage: 1 });
         const response = res.data;
         const items = response.data.items;
-
-        // const res = await sampleSearch({ ...this.param, currentPage: 1 });
         const res_produce = await searchproduce({
           ...this.param,
           currentPage: 1,
         });
-        // const response = res.data;
-        // const items = response.data.items;
         const response_produce = res_produce.data;
         const items_produce = response_produce.data.items;
         if (items && items.length > 0) {
           this.request_code = items[0].request_code;
+          this.code = items_produce[0].code;
         }
         if (items_produce && items_produce.length > 0) {
+          console.log(items_produce);
           this.$refs.detailGrid.loadData(items_produce, ["delivery_date"]);
         }
       } catch (err) {
@@ -166,10 +152,6 @@ export default {
       }
     },
     async getMakingProcess() {},
-    test() {
-      this.$refs.sampleGrid.loadData(makeARow(nmSr.fields));
-      this.$refs.detailGrid.loadData(makeARow(nmSrD.fields));
-    },
   },
   mounted() {},
 };

@@ -256,13 +256,11 @@ export default {
               sessionStorage.setItem("id", this.id);
             }
             this.SET_TOKEN(resBody.data);
-            this.openModal("로그인 되었습니다.", () => {
-              this.$router.push({ name: "main" });
-            });
             const defaultAddress = await addressbookDefault();
             const loginUserInfo = await userInfo();
             this.SET_DEFAULT_ADDRESS(defaultAddress);
             this.SET_USER_INFO(loginUserInfo);
+            this.$router.push({ name: "main" });
           })
           .catch(() => {
             this.openModal("로그인에 실패하였습니다.");
