@@ -298,7 +298,6 @@ export default {
   created() {
     this.SET_MENU();
     const param = this.$route.params;
-    console.log(param);
     if (param && param.tab) {
       const tab = param.tab;
       this.ADD_MENU_TAB_BY_CODE(tab);

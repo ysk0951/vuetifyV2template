@@ -522,7 +522,6 @@ export default {
       this.param.postcode = data.zonecode;
       this.param.address = data.address;
       this.param.address2 = data.address2;
-      console.log(this.param);
     },
   },
   components: {

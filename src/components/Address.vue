@@ -76,7 +76,6 @@ export default {
       });
     },
     selectAdd(v) {
-      console.log("selectValue", v);
       this.$emit("select", v);
       this.close();
     },

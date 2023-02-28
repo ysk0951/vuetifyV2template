@@ -237,7 +237,6 @@ export default {
       for (let i = 1; i <= 3; i++) {
         tmp = { ...tmp, ...this.$refs[ref + i].getJsonRow() };
       }
-      console.log(tmp);
       const sum = [setNewSum(tmp)];
       this.$refs[ref + 3].loadData(sum);
     },
@@ -279,7 +278,6 @@ export default {
     setGridExec(g, s) {
       _.each(g, (v) => {
         for (let i = 1; i <= 3; i++) {
-          console.log(v, i, makeARow(s[i - 1]));
           this.$refs[v + i].loadData(makeARow(s[i - 1]));
         }
       });

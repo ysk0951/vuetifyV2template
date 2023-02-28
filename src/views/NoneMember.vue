@@ -144,7 +144,6 @@ export default {
           this.code = items_produce[0].code;
         }
         if (items_produce && items_produce.length > 0) {
-          console.log(items_produce);
           this.$refs.detailGrid.loadData(items_produce, ["delivery_date"]);
         }
       } catch (err) {

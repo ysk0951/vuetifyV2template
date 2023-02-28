@@ -205,7 +205,6 @@ export default {
             const items = response.data.items;
             this.$refs.grid.loadData(items);
             const item = items[0];
-            console.log(item);
             this.param = { ...item };
           })
           .catch(() => {});

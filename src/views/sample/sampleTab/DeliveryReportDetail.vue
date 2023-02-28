@@ -41,6 +41,7 @@
             depressed
             color="primary fileBtn"
             @click="newCode"
+            class="fileBtn"
             :disabled="this.codeGradeExist"
             >신규생성</v-btn
           >
@@ -455,8 +456,7 @@ export default {
         code: this.codeGrade,
         lotNo: this.data.lotNo,
       })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.REMOVE_SELECT_MENU("delivaryReportDetail");
         })
         .catch((err) => {
