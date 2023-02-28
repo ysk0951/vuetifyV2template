@@ -453,6 +453,7 @@ export default {
       produceupdate({
         ...this.param,
         code: this.codeGrade,
+        lotNo: this.data.lotNo,
       })
         .then((res) => {
           console.log(res);
