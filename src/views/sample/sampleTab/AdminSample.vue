@@ -175,7 +175,7 @@
               v-model="param.qty"
               :rules="[
                 this.validSet.empty(param.qty, 'Qty를 입력해주세요'),
-                this.validSet.number,
+                this.validSet.numberDot,
               ]"
             ></v-text-field>
           </v-col>
