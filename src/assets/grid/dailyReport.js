@@ -28,7 +28,7 @@ const data = [
     alias: "출하진행사항",
   },
   {
-    field: "out_date_",
+    field: "out_due_date",
     alias: "출하예정일",
   },
   {

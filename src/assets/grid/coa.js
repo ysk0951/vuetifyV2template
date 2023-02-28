@@ -4,11 +4,11 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "Lot No",
+    field: "lot_no",
     alias: "Lot No",
   },
   {
-    field: "Code Grade",
+    field: "code",
     alias: "Code Grade",
   },
   {
@@ -16,32 +16,31 @@ const data = [
     alias: "이름",
   },
   {
-    field: "기업명",
+    field: "company",
     alias: "기업명",
   },
   {
     field: "created_at",
     alias: "요청일",
   },
-  //TODO :: 맞추기
   {
-    field: "제조예정일",
+    field: "produce_due_date",
     alias: "제조예정일",
   },
   {
-    field: "제조 진행사항",
+    field: "produce_date",
     alias: "제조진행사항",
   },
   {
-    field: "출하 진행사항",
+    field: "out_date",
     alias: "출하진행사항",
   },
   {
-    field: "출하 예정일",
+    field: "out_due_date",
     alias: "출하예정일",
   },
   {
-    field: "납기일",
+    field: "derivery_date",
     alias: "납기일",
   },
   {
