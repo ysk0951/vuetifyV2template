@@ -4,11 +4,11 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "Code Grade",
+    field: "code",
     alias: "Code Grade",
   },
   {
-    field: "Lot No",
+    field: "lotNo",
     alias: "Lot No",
   },
   {
