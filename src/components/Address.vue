@@ -4,6 +4,7 @@
       <SignupPost
         @closeModal="this.closePost"
         @onApprove="this.approvePost"
+        :key="signupPostKey"
       ></SignupPost>
     </SetDialogVue>
     <SetDialogVue ref="dialog">
@@ -23,7 +24,7 @@
                 <span style="">
                   {{ item.defaultYn ? "[기본배송지] " : "" }}
                 </span>
-                {{ `${item.name} ${item.pickname}` }}
+                {{ `${item.name} ` }}
               </div>
               <div>
                 <v-btn small depressed @click="deleteAdd(item)">삭제</v-btn>
@@ -55,6 +56,7 @@
 <script>
 import SetDialogVue from "./SetDialog.vue";
 import SignupPost from "@/views/member/SignupPost";
+import moment from "moment";
 import { mapMutations } from "vuex";
 import { insertBook } from "api/address/address";
 import { addressbookList, addressbookDel } from "api/address/address";
@@ -62,6 +64,7 @@ export default {
   name: "Address",
   data: function () {
     return {
+      signupPostKey: 0,
       param: {},
       addresList: [],
     };
@@ -80,12 +83,13 @@ export default {
       this.close();
     },
     closePost() {
-      this.$refs.postModal.closeModal();
       this.SET_MODAL({
         width: 800,
         closable: true,
         customApprove: true,
       });
+      this.$refs.postModal.closeModal();
+      this.signupPostKey = moment().valueOf();
     },
     async approvePost(post) {
       this.param.post = post;

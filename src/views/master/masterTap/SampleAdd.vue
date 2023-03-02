@@ -368,6 +368,8 @@ export default {
             .then(() => {
               this.openPopup("저장되었습니다", false);
               this.$emit("save");
+              this.REMOVE_SELECT_MENU("sampleAdd");
+              this.SET_SELECT_MENU_TAB_BY_CODE("SPMGMT");
             })
             .catch(() => {});
         });

@@ -83,18 +83,19 @@
             ]"
           ></SignupInput>
         </template>
-        <template v-else>
-          <v-text-field
+        <template v-else-if="param.country == 'Y'">
+          <SignupInput
+            height="40"
             v-model="param.address"
             outlined
             dense
             autocomplete="off"
-            class="addDetail"
+            class="addDetailOther"
             placeholder="주소를 입력해 주세요."
             :rules="[
               this.validSet.empty(param.address, '상세주소를 입력해주세요'),
             ]"
-          ></v-text-field>
+          ></SignupInput>
         </template>
         <SignupInput
           placeholder="000-0000-0000"
@@ -148,6 +149,16 @@ import SetPopup from "@/components/SetPopup.vue";
 import { mapMutations } from "vuex";
 export default {
   name: "SignupPost",
+  watch: {
+    "param.country": function (v) {
+      const phone1 = this.param.phone1;
+      if (v === "Y") {
+        setTimeout(() => {
+          this.param.phone1 = phone1;
+        }, 10);
+      }
+    },
+  },
   data() {
     return {
       validSet,
@@ -237,6 +248,12 @@ export default {
   .addDetail {
     width: 400px;
     margin-top: 17px;
+    margin-left: 130px;
+    height: 33px;
+    margin-bottom: 26px !important;
+  }
+  .addDetailOther {
+    width: 400px;
     margin-left: 130px;
     height: 33px;
     margin-bottom: 26px !important;

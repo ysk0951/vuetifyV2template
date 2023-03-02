@@ -184,7 +184,7 @@ export default {
       this.param = obj;
     },
     valid(v, key) {
-      if (key.includes("Vol")) {
+      if (key && key.includes("Vol")) {
         return this.validSet.numberDot(v);
       } else {
         return true;

@@ -65,6 +65,8 @@
             placeholder="YYYY-MM-DD"
             v-mask="'####-##-##'"
             v-model="param.request_date"
+            disabled
+            filled
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">

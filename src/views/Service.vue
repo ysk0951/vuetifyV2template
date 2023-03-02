@@ -336,7 +336,6 @@ export default {
         });
       }
       this.SET_SELECT_MENU_TAB(idx);
-      console.log(target, data);
       this[target] = data;
     },
     reset() {
@@ -489,7 +488,6 @@ export default {
       this.findTab("MMGMT", "진행 사항 조회 (사용자)", null, true, null);
     },
     resultInputDetail(data) {
-      console.log(data);
       this.findTab(
         "resultInputDetail",
         "품질검사 결과입력",
