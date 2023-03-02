@@ -2,6 +2,7 @@
   <div class="address newSample">
     <SetPopup ref="confirm" />
     <Address ref="address" @select="onAddress" p:userId="userId" />
+    <h3 class="mb-2">신규 샘플 요청</h3>
     <div>
       <h4 class="mt-4 mb-2">파일 업로드</h4>
     </div>

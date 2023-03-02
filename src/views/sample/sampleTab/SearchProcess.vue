@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">진행사항 조회</h3>
     <v-form lazy-validation ref="form">
       <div class="searchProcess wrapperSpace pr-2 mt-4">
         <v-row class="pl-2" style="height: 86px">

@@ -1,5 +1,6 @@
 <template>
   <div class="material">
+    <h3 class="mb-2">물질명 INDEX 상세</h3>
     <SetPopup ref="confirm" />
     <RealGrid
       :domName="grid"

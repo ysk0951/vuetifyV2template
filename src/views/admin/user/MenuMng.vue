@@ -17,6 +17,7 @@
       </div>
     </SetDialogVue>
     <SetPopupVue ref="addConfirm" />
+    <h3 class="mb-2 ml-13">메뉴권한 관리</h3>
     <v-form ref="form" lazy-validation>
       <div class="mt-4 mb-8">
         <div>

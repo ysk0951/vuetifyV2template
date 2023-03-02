@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">용매조성 마스터 관리</h3>
     <v-form ref="menstrumm" lazy-validation>
       <div class="menstrumm wrapperSpace">
         <v-col cols="12" sm="6">

@@ -1,6 +1,7 @@
 <template>
   <div>
     <SetPopup ref="confirm" />
+    <h3 class="mb-2">샘플 마스터 상세</h3>
     <div class="confirmSample wrapperSpace">
       <v-col cols="12" sm="2">
         <h4>Code Grade</h4>

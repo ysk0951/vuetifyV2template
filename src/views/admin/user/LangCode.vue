@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="service login">
+      <h3 class="mb-2">다국어 지원 관리</h3>
       <SetPopup ref="confirm" />
       <RealGrid
         :domName="grid"

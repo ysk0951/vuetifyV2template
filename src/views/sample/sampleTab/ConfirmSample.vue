@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">샘플요청 검수</h3>
     <v-form ref="form" lazy-validation>
       <div class="wrapperSpace py-1 mt-4">
         <v-row class="pl-2">

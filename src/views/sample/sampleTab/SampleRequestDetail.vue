@@ -1,5 +1,6 @@
 <template>
   <div class="address">
+    <h3 class="mb-2">품질결과입력 상세</h3>
     <SetPopup ref="confirm" />
     <RealGrid
       domName="sampleRequestDeatil"

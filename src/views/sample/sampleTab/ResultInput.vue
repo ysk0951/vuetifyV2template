@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">결과 입력</h3>
     <div class="wrapperSpace mt-4">
       <v-row class="pl-2">
         <v-col cols="12" sm="3">

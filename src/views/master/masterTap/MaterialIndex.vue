@@ -1,5 +1,6 @@
 <template>
   <div class="material">
+    <h3 class="mb-2">물질명 INDEX 마스터</h3>
     <v-form ref="meterialIndex" lazy-validation>
       <div class="meterialIndex wrapperSpace px-2">
         <v-col cols="12" sm="2">

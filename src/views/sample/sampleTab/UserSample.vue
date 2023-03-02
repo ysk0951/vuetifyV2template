@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">회원 샘플 요청</h3>
     <div class="wrapperSpace">
       <div>
         <h4 class="mt-4 mb-2">요청 내역</h4>

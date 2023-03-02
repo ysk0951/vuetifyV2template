@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">샘플 마스터 관리</h3>
     <v-form ref="sampleMaster" lazy-validation>
       <div class="sampleMaster wrapperSpace">
         <v-col cols="12" sm="6">

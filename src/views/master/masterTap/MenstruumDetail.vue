@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">용매조성 상세</h3>
     <SetPopup ref="confirm" />
     <RealGrid
       :domName="grid"

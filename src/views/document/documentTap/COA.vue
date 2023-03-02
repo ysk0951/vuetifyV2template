@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">COA 관리</h3>
     <SetPopup ref="confirm" />
     <v-form lazy-validation ref="form">
       <div class="wrapperSpace">

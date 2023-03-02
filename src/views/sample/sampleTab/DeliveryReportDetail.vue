@@ -1,5 +1,6 @@
 <template>
   <div class="deliveryReportDetail">
+    <h3 class="mb-2">납품일보 상세</h3>
     <CodeSearch
       ref="code"
       :data="codeList"

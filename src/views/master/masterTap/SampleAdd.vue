@@ -1,6 +1,7 @@
 <template>
   <div>
     <SetPopup ref="confirm" />
+    <h3 class="mb-2">샘플 마스터 등록</h3>
     <v-form lazy-validation ref="form">
       <div class="wrapperSpace">
         <v-col cols="12" sm="4">

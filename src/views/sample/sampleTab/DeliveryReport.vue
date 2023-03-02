@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="mb-2">납품일보</h3>
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
       <div class="wrapperSpace mt-4">

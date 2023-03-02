@@ -1,5 +1,6 @@
 <template>
   <div class="coa">
+    <h3 class="mb-2">COA 상세</h3>
     <v-row class="px-2">
       <v-col cols="12" sm="3">
         <h4>Code Grade</h4>

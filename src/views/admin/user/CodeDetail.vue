@@ -2,6 +2,7 @@
   <div>
     <div>
       <div class="filter">
+        <h3 class="mb-2">코드 상세</h3>
         <v-row class="row">
           <v-col cols="12" sm="3">
             <h4>공통코드명</h4>
