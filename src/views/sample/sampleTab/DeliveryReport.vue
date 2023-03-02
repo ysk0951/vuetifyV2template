@@ -208,7 +208,15 @@ export default {
           const items = response.data.items;
           const page = response.data.params;
           this.items = items;
-          this.$refs.grid.loadData(items);
+          this.$refs.grid.loadData(items, [
+            "derivery_date",
+            "derivery_due_date",
+            "request_date",
+            "produce_due_date",
+            "produce_date",
+            "out_date",
+            "out_due_date",
+          ]);
           this.$refs.grid.setPage(page);
           if (items.length === 0) {
             this.settings.errorMessage = "진행중인 사항이 없습니다";
