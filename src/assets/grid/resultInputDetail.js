@@ -4,19 +4,19 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "name",
+    field: "spec",
     alias: "스펙명",
   },
   {
-    field: "dan",
+    field: "unit",
     alias: "단위",
   },
   {
-    field: "spec",
+    field: "vol",
     alias: "요청 SPEC",
   },
   {
-    field: "row",
+    field: "low",
     alias: "하한",
   },
   {
@@ -28,13 +28,14 @@ const data = [
     alias: "공차",
   },
   {
-    field: "2",
+    field: "resultInput",
     alias: "결과입력",
+    editable: true,
   },
 ];
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  makeCell(1, [o], fields, columns);
+  makeCell(1, [o], fields, columns, false, o.editable);
 });
 export { fields, columns };

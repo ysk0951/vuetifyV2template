@@ -6,22 +6,22 @@ let columns = [];
 
 const data = [
   {
-    field: "name",
+    field: "spec",
     alias: "스펙명",
     indexExclusive: true,
   },
   {
-    field: "dan",
+    field: "unit",
     alias: "단위",
     indexExclusive: true,
   },
   {
-    field: "spec",
+    field: "vol",
     alias: "요청 SPEC",
     indexExclusive: true,
   },
   {
-    field: "row",
+    field: "low",
     alias: "하한",
     indexExclusive: true,
   },
@@ -45,13 +45,13 @@ const rowSet = makeRowSet(fields);
 const row = makeARow(fields)[0];
 const initRow = [];
 
-_.each(ppm, function (name) {
-  initRow.push({ ...row, name, dan: "ppm" });
+_.each(ppm, function (spec) {
+  initRow.push({ ...row, spec, unit: "ppm" });
 });
-_.each(APHA, function (name) {
-  initRow.push({ ...row, name, dan: "APHA" });
+_.each(APHA, function (spec) {
+  initRow.push({ ...row, spec, unit: "APHA" });
 });
-_.each(g_cm3, function (name) {
-  initRow.push({ ...row, name, dan: "g/cm3" });
+_.each(g_cm3, function (spec) {
+  initRow.push({ ...row, spec, unit: "g/cm3" });
 });
 export { fields, columns, rowSet, initRow };

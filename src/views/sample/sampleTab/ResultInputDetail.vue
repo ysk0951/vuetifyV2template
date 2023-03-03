@@ -9,8 +9,9 @@
       domName="resultInputDetail"
       ref="resultInputDetail"
       :settings="settings"
+      :nonePage="true"
     />
-    <div class="wrapper">
+    <div class="wrapper mt-3">
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>
       </v-card-actions>
@@ -23,7 +24,7 @@
 <script>
 import { columns, fields, rows, height } from "@/assets/grid/resultInputDetail";
 import RealGrid from "@/components/RealGrid.vue";
-
+import { resultsList } from "api/sample/sample";
 export default {
   props: ["data"],
   data() {
@@ -34,15 +35,28 @@ export default {
         rows,
         height,
         errorMessage: "결과가 없습니다",
+        noneNo: true,
+        hideCheckBar: true,
       },
     };
   },
   methods: {
-    reset() {},
+    reset() {
+      this.loadData();
+    },
     save() {
       this.loadData();
     },
-    loadData() {},
+    async loadData() {
+      const res = await resultsList({
+        lotNo: this.data.lotNo,
+      });
+      const item = res.data.data.items;
+      this.$refs.resultInputDetail.loadData(item);
+    },
+  },
+  mounted() {
+    this.loadData();
   },
   components: {
     RealGrid,

@@ -202,17 +202,18 @@ export function makeSum(row) {
   return row;
 }
 
-export function makeSampleSet(rows) {
-  const key = ["name", "unit", "spec", "row", "mid", "hig"];
+export function makeSampleSet(rows, lotNo) {
+  const key = ["spec", "unit", "vol", "low", "mid", "hig"];
   let ret = [];
   _.each(rows, function (row) {
     const data = {};
     _.each(row, (col, idx) => {
       data[key[idx]] = col;
     });
+    data.lotNo = lotNo;
     ret.push(data);
   });
-  return JSON.stringify(ret);
+  return ret;
 }
 
 export function showSampleSet(row) {

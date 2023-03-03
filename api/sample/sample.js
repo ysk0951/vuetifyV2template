@@ -88,3 +88,11 @@ export async function dashnew(param) {
 export async function progress(param) {
   return http.post(prefix + `/progress`, param);
 }
+
+export async function resultsList(param) {
+  return http.post(prefix + `/resultsList`, param);
+}
+
+export async function resultsUpdate(param) {
+  return http.post(prefix + `/resultsUpdate`, param);
+}

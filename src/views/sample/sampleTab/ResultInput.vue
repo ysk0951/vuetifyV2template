@@ -82,7 +82,6 @@ export default {
   },
   methods: {
     dbClick(data) {
-      console.log(data);
       this.$emit(
         "dbClick",
         _.filter(this.items, (v) => v.lot_no === data.lot_no)[0]

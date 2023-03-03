@@ -156,7 +156,6 @@ import {
   makeSum,
   makeARow,
   makeSampleSet,
-  showSampleSet,
   setNewSum,
 } from "@/assets/grid/gridUtill";
 import SetPopup from "@/components/SetPopup.vue";
@@ -311,9 +310,7 @@ export default {
               make_grid_div: { ...makeSum(CodeDB_B), code },
             };
             this.setGridExecSearch(gridKey, sampleKey);
-            this.$refs.spec_grid.loadData([
-              { data: showSampleSet(CodeDB_Dt), code },
-            ]);
+            this.$refs.spec_grid.loadData(CodeDB_Dt);
             this.param.code_grade = code;
           })
           .catch((res) => {
@@ -337,7 +334,7 @@ export default {
       if (sum1 > 100 || sum2 > 100) {
         this.openPopup("SUM 정보를 확인해 주세요");
       } else {
-        const code = this.input.code_grade;
+        // const code = this.input.code_grade;
         const sample = {
           ...this.$refs.sample_grid_div1.getJsonRow(),
           ...this.$refs.sample_grid_div2.getJsonRow(),
@@ -355,10 +352,7 @@ export default {
           ...this.$refs.make_grid_div3.getJsonRow(),
         };
         const dt = this.$refs.spec_grid.getJsonAllRow();
-        const sampleDetail = {
-          data: makeSampleSet(dt),
-          code,
-        };
+        const sampleDetail = makeSampleSet(dt);
         this.openPopup("저장 하시겠습니까?", true, () => {
           insertSampleMaster({
             sample,
