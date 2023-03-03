@@ -178,8 +178,19 @@ export default {
         code_title: "",
         code_grade: "",
       },
+      key: {
+        solvent1: "solventVol1",
+        solvent2: "solventVol2",
+        solvent3: "solventVol3",
+        solvent4: "solventVol4",
+        solvent5: "solventVol5",
+        solvent6: "solventVol6",
+        solvent7: "solventVol7",
+        solvent8: "solventVol8",
+        solvent9: "solventVol9",
+        solvent10: "solventVol10",
+      },
       grid: "sampleMasterAdd",
-      specBefore: [],
       settings_div1: this.gridSetting(sample1, false),
       settings_div2: this.gridSetting(sample2, false),
       settings_div3: this.gridSetting(sample3, false),
@@ -189,7 +200,6 @@ export default {
   },
   mounted() {
     this.setGrid();
-    this.specBefore = this.$refs.spec_grid.getJsonRows();
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
@@ -249,25 +259,29 @@ export default {
     addSpec(ref) {
       const row = this.$refs[ref].getJsonRow();
       const key = _.keys(row);
-      const rowtmp = makeARow(spec.fields)[0];
+      const beforeSpec = this.$refs.spec_grid.getJsonRows();
+      const fixSpec = beforeSpec.slice(-11);
+      // const rowtmp = makeARow(spec.fields)[0];
       const rowArr = [];
-      let dan = "";
+      let unit = "";
+      let vol = "";
       _.each(key, (v) => {
         if (!v.includes("Vol")) {
           if (v.includes("solvent")) {
-            dan = "vol";
+            unit = "vol";
+            vol = Number(row[this.key[v]]);
           } else if (v.includes("salt")) {
-            dan = "M.wt%";
+            unit = "M.wt%";
           } else if (v.includes("add")) {
-            dan = "wt%";
+            unit = "wt%";
           }
-          const name = row[v];
-          if (!_.isEmpty(name)) {
-            rowArr.push({ ...rowtmp, name, dan });
+          const spec = row[v];
+          if (!_.isEmpty(spec)) {
+            rowArr.push({ spec, unit, vol, low: 0, mid: 0, hig: 0 });
           }
         }
       });
-      this.$refs.spec_grid.loadData(rowArr.concat(this.specBefore));
+      this.$refs.spec_grid.loadData(rowArr.concat(fixSpec));
     },
     setGrid() {
       const gridKey = ["sample_grid_div", "real_grid_div", "make_grid_div"];

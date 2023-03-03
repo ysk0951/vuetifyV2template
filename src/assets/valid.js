@@ -42,17 +42,17 @@ const email = (v) => {
   return !!emailRegex.test(v) || "이메일 형식에 맞지 않습니다";
 };
 const number = (v) => {
-  if (v.length === 0) {
+  if (!v || v.length === 0) {
     return true;
   }
   return !!numberRegex.test(v) || "숫자만 입력해야합니다";
 };
 
 const numberDot = (v) => {
-  v = v.replaceAll(".", "");
-  if (v.length === 0) {
+  if (!v || v.length === 0) {
     return true;
   } else {
+    v = v.replaceAll(".", "");
     return !!numberRegex.test(v) || "숫자, 소수점만 입력해야합니다.";
   }
 };
