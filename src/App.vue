@@ -259,7 +259,7 @@ div.v-menu__content.theme--light.menuable__content__active > div {
   display: none;
 }
 .v-tab--active {
-  border-bottom: 2px solid;
+  background-color: #bcc0c8;
 }
 .dimmRow {
   background-color: aquamarine !important;

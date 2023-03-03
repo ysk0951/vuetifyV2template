@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid class="mt-4">
     <SetDialog ref="modal" />
-    <div class="pa-10 full">
+    <div class="pa-10 full mt-3">
       <v-tabs :value="tab">
         <v-tab
           v-for="item in this.selectMenu"
