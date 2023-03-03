@@ -208,14 +208,14 @@ export default {
         const code = this.param.code;
         const code_title = this.param.code_title;
         const dt = this.$refs.spec_grid.getJsonAllRow();
-        const sampleDetail = {
-          data: makeSampleSet(dt),
-        };
         const sum1 = this.$refs.real_grid.getJsonRow().sum;
         const sum2 = this.$refs.make_grid.getJsonRow().sum;
         if (sum1 > 100 || sum2 > 100) {
           this.openPopup("SUM 정보를 확인해 주세요");
         } else {
+          const sampleDetail = _.each(makeSampleSet(dt), (v) => {
+            v.code = code;
+          });
           updateSampleMaster({
             sample: {
               ...this.$refs.sample_grid.getJsonRow(),
@@ -224,7 +224,7 @@ export default {
             },
             sampleA: { ...this.$refs.real_grid.getJsonRow(), code },
             sampleB: { ...this.$refs.make_grid.getJsonRow(), code },
-            sampleDetail: { ...sampleDetail, code },
+            sampleDetail,
           }).then(() => {
             this.closePopup();
             this.openPopup("저장되었습니다", false);
