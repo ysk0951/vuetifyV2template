@@ -450,7 +450,7 @@ export default {
           this.codeGrade = res.data.data.result;
         })
         .catch((err) => {
-          this.setModal(err);
+          this.setModal(err.errorMessage);
         });
     },
     saveExec() {
