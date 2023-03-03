@@ -88,7 +88,6 @@ import {
   makeSum,
   makeARow,
   makeSampleSet,
-  showSampleSet,
   setNewSum,
 } from "@/assets/grid/gridUtill";
 // import { makeARow } from "@/assets/grid/gridUtill";
@@ -184,12 +183,8 @@ export default {
           this.$refs.sample_grid.loadData([{ ...CodeDB, code }]);
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
-          let specData = showSampleSet(CodeDB_Dt);
-          if (specData.constructor == Object) {
-            specData = [specData];
-          }
           this.param.code_title = CodeDB.code_title;
-          this.$refs.spec_grid.loadData(specData);
+          this.$refs.spec_grid.loadData(CodeDB_Dt);
         })
         .catch((res) => {
           console.error(res);
