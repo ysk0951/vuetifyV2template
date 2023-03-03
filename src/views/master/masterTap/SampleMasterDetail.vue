@@ -84,18 +84,25 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
 import { mapMutations } from "vuex";
-import {
-  makeSum,
-  makeARow,
-  makeSampleSet,
-  setNewSum,
-} from "@/assets/grid/gridUtill";
+import { makeSum, makeSampleSet, setNewSum } from "@/assets/grid/gridUtill";
 // import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
   props: ["data"],
   data() {
     return {
+      key: {
+        solvent1: "solventVol1",
+        solvent2: "solventVol2",
+        solvent3: "solventVol3",
+        solvent4: "solventVol4",
+        solvent5: "solventVol5",
+        solvent6: "solventVol6",
+        solvent7: "solventVol7",
+        solvent8: "solventVol8",
+        solvent9: "solventVol9",
+        solvent10: "solventVol10",
+      },
       param: {
         code: "",
         code_title: "",
@@ -250,25 +257,29 @@ export default {
     addSpec() {
       const row = this.$refs.sample_grid.getJsonRow();
       const key = _.keys(row);
-      const rowtmp = makeARow(spec.fields)[0];
+      const beforeSpec = this.$refs.spec_grid.getJsonRows();
+      const fixSpec = beforeSpec.slice(-11);
       const rowArr = [];
-      let dan = "";
+      let unit = "";
+      let vol = "";
       _.each(key, (v) => {
         if (!v.includes("Vol")) {
           if (v.includes("solvent")) {
-            dan = "vol";
+            unit = "vol";
+            vol = Number(row[this.key[v]]);
           } else if (v.includes("salt")) {
-            dan = "M.wt%";
+            unit = "M.wt%";
           } else if (v.includes("add")) {
-            dan = "wt%";
+            unit = "wt%";
           }
-          const name = row[v];
-          if (!_.isEmpty(name)) {
-            rowArr.push({ ...rowtmp, name, dan });
-            this.$refs.spec_grid.loadData(rowArr.concat(this.specBefore));
+          const spec = row[v];
+          if (!_.isEmpty(spec)) {
+            rowArr.push({ spec, unit, vol, low: 0, mid: 0, hig: 0 });
           }
         }
       });
+      console.log(rowArr);
+      this.$refs.spec_grid.loadData(rowArr.concat(fixSpec));
     },
   },
   mounted() {
