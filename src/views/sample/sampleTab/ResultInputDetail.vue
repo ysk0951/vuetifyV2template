@@ -22,9 +22,10 @@
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/resultInputDetail";
+import _ from "lodash";
 import RealGrid from "@/components/RealGrid.vue";
 import { resultsList } from "api/sample/sample";
+import { columns, fields, rows, height } from "@/assets/grid/resultInputDetail";
 export default {
   props: ["data"],
   data() {
@@ -52,6 +53,9 @@ export default {
         lotNo: this.data.lotNo,
       });
       const item = res.data.data.items;
+      _.each(item, (v) => {
+        v.sub = v.hig - v.vol;
+      });
       this.$refs.resultInputDetail.loadData(item);
     },
   },

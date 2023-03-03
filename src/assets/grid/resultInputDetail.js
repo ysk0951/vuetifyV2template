@@ -24,7 +24,7 @@ const data = [
     alias: "상한",
   },
   {
-    field: "1",
+    field: "sub",
     alias: "공차",
   },
   {
