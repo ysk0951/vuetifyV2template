@@ -447,9 +447,14 @@ export default {
         lotNo: this.data.lot_no,
       })
         .then((res) => {
-          this.codeGrade = res.data.data.result;
+          if (res.data.errorMessage) {
+            this.setModal(res.data.errorMessage);
+          } else {
+            this.codeGrade = res.data.data.result;
+          }
         })
         .catch((err) => {
+          console.log(err);
           this.setModal(err.errorMessage);
         });
     },
