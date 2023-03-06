@@ -98,7 +98,6 @@ export default {
       _.each(rows, (row) => {
         const obj = {};
         _.each(row, (value, idx) => {
-          console.log(columns[idx], columns[idx].fieldName, value);
           obj[columns[idx].header.text] = value;
         });
         excelData.push(obj);
