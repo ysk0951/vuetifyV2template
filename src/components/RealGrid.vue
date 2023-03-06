@@ -56,9 +56,11 @@ export default {
   methods: {
     loadData: function (row, dateCol) {
       if (dateCol && dateCol.length > 0) {
-        _.each(dateCol, (o) => {
-          _.each(row, (v) => {
-            v[o] = moment(v[o]).format("YYYY-MM-DD");
+        _.each(row, (v) => {
+          _.each(dateCol, (o) => {
+            if (v[o]) {
+              v[o] = moment(v[o]).format("YYYY-MM-DD");
+            }
           });
         });
       }

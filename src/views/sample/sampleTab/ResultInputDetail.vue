@@ -24,7 +24,7 @@
 <script>
 import _ from "lodash";
 import RealGrid from "@/components/RealGrid.vue";
-import { resultsList } from "api/sample/sample";
+import { resultsList, resultsUpdate } from "api/sample/sample";
 import { columns, fields, rows, height } from "@/assets/grid/resultInputDetail";
 export default {
   props: ["data"],
@@ -46,7 +46,17 @@ export default {
       this.loadData();
     },
     save() {
-      this.loadData();
+      const rows = this.$refs.resultInputDetail.getJsonRows();
+      _.each(rows, (v) => {
+        v.lotNo = this.data.lotNo;
+        v.code = this.data.code;
+      });
+      console.log(rows);
+      resultsUpdate(rows)
+        .then(() => {
+          this.loadData();
+        })
+        .catch(() => {});
     },
     async loadData() {
       const res = await resultsList({

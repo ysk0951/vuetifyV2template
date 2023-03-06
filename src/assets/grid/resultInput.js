@@ -24,7 +24,7 @@ const data = [
     alias: "배송지",
   },
   {
-    field: "resultYn",
+    field: "rv",
     alias: "결과입력",
   },
   {

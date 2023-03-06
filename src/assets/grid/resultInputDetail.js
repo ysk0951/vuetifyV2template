@@ -28,7 +28,7 @@ const data = [
     alias: "공차",
   },
   {
-    field: "resultInput",
+    field: "rv",
     alias: "결과입력",
     editable: true,
   },
