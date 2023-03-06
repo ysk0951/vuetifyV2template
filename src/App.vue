@@ -258,8 +258,12 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 .v-tabs-slider {
   display: none;
 }
+.v-tab {
+  border-bottom: 1px solid #bcc0c8;
+}
 .v-tab--active {
   background-color: #bcc0c8;
+  font-weight: bold;
 }
 .dimmRow {
   background-color: aquamarine !important;

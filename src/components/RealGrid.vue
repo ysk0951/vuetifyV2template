@@ -87,6 +87,24 @@ export default {
     setGroup(groupingInfo) {
       this.gv.setColumnLayout(groupingInfo);
     },
+    getCheckedRowExecl: function (columns) {
+      const idx = this.gv.getCheckedRows(true, false, false);
+      const allRow = this.dp.getRows(0, -1);
+      const rows = [];
+      _.each(idx, (i) => {
+        rows.push(allRow[i]);
+      });
+      const excelData = [];
+      _.each(rows, (row) => {
+        const obj = {};
+        _.each(row, (value, idx) => {
+          console.log(columns[idx], columns[idx].fieldName, value);
+          obj[columns[idx].header.text] = value;
+        });
+        excelData.push(obj);
+      });
+      return excelData;
+    },
     getCheckedRow: function () {
       const idx = this.gv.getCheckedRows(true, false, false);
       const rows = [];

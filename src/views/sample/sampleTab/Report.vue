@@ -131,7 +131,7 @@ export default {
       }
     },
     exelDownload() {
-      const data = this.$refs.grid.getCheckedRow();
+      const data = this.$refs.grid.getCheckedRowExecl(this.settings.columns);
       if (data.length > 0) {
         getExcel(data, "제조기록지");
       } else {

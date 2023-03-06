@@ -178,7 +178,7 @@ export default {
       return this.$refs.form.validate();
     },
     exelDownload() {
-      const data = this.$refs.grid.getCheckedRow();
+      const data = this.$refs.grid.getCheckedRowExecl(this.settings.columns);
       if (data.length > 0) {
         getExcel(data, "납품일보");
       } else {
