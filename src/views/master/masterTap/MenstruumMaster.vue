@@ -55,7 +55,7 @@
         <v-btn depressed color="primary" @click="search">검색</v-btn>
       </v-card-actions>
     </div>
-    <h3 class="mt-16 mb-2 pl-1 pr-1">
+    <h3 class="mt-2 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">
         용매조성 목록
         <v-btn depressed color="primary" @click="addSample">등록</v-btn>
