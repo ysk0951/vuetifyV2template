@@ -1,5 +1,5 @@
 <template>
-  <div class="coa">
+  <div class="reportDetail">
     <v-row class="px-2">
       <v-col cols="12" sm="2">
         <h4>Lot No</h4>
@@ -40,33 +40,45 @@
     </v-row>
     <h3 class="mt-16 mb-2">세부정보</h3>
     <hr class="mb-8" />
-    <RealGrid domName="main" ref="reportDetailGrid" />
-    <v-row style="height: 90px" class="pl-2">
+    <RealGrid :domName="grid" ref="reportDetailGrid" :settings="settings" />
+    <v-row style="height: 90px" class="px-2">
       <v-col cols="12" sm="3">
         <h4>제품 무게</h4>
-        <v-text-field outlined dense></v-text-field>
+        <v-text-field outlined dense filled disabled></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>제조용기 무게</h4>
-        <v-text-field outlined dense></v-text-field>
+        <v-text-field outlined dense filled disabled></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>제품 최종 총 무게</h4>
-        <v-text-field outlined dense></v-text-field>
+        <v-text-field outlined dense filled disabled></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>포장 용기</h4>
-        <v-text-field outlined dense class="pr-2"></v-text-field>
+        <v-select
+          :items="this.rmAll(code.C)"
+          v-model="param.packing"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+        ></v-select>
       </v-col>
     </v-row>
-    <v-row style="height: 90px" class="pl-2">
+    <v-row style="height: 90px" class="px-2">
       <v-col cols="12" sm="3">
         <h4>라벨기재사항</h4>
         <v-text-field outlined dense></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>배송방법</h4>
-        <v-text-field outlined dense></v-text-field>
+        <v-select
+          :items="this.rmAll(code.D)"
+          v-model="param.delivery_type"
+          placeholder="선택해주세요"
+          outlined
+          id="work"
+        ></v-select>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>분석 특이사항</h4>
@@ -77,7 +89,7 @@
         <v-text-field outlined dense class="pr-2"></v-text-field>
       </v-col>
     </v-row>
-    <v-row style="height: 90px" class="pl-2">
+    <v-row style="height: 90px" class="px-2">
       <v-col cols="12" sm="3">
         <h4>제조상 특이사항</h4>
         <v-text-field outlined dense></v-text-field>
@@ -100,12 +112,14 @@
 <script>
 import RealGrid from "@/components/RealGrid.vue";
 import { mapState } from "vuex";
+import * as settings from "@/assets/grid/reportDetail";
 export default {
   props: ["data"],
   data() {
     return {
       grid: "reportDetail",
       param: {},
+      settings,
     };
   },
   methods: {
@@ -120,4 +134,10 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.reportDetail {
+  .v-input__slot {
+    width: 100%;
+  }
+}
+</style>

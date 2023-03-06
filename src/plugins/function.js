@@ -23,6 +23,11 @@ export const FunctionCustom = {
         return v.menu_eng === menu;
       });
     };
+    Vue.prototype.rmAll = (menu) => {
+      return _.filter(menu, (v) => {
+        return v !== "전체";
+      });
+    };
   },
 };
 Vue.use(FunctionCustom, { store });

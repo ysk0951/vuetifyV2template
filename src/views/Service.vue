@@ -151,8 +151,8 @@
           <template v-if="item.code === 'qulityTestInput'">
             <QulityTestInput ref="qulityTestInput" />
           </template>
-          <template v-if="item.code === 'report'">
-            <Report ref="report" @reportDetail="reportDetail" />
+          <template v-if="item.code === 'RMGMT'">
+            <Report ref="report" @dbClick="reportDetail" />
           </template>
           <template v-if="item.code === 'reportDetail'">
             <ReportDetail ref="reportDetail" :data="reportDetailData" />

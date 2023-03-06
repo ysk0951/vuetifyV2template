@@ -1,33 +1,40 @@
 <template>
   <div>
-    <div class="wrapperSpace">
-      <v-row class="pl-2">
-        <v-col cols="12" sm="3">
-          <h4>Code Grade</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="Code Grade를 입력해주세요"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <h4>Lot No</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="Lot No를 입력해주세요"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <h4>요청자</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="요청자를 입력해주세요"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </div>
+    <v-form ref="form">
+      <div class="wrapperSpace">
+        <v-row class="pl-2">
+          <v-col cols="12" sm="3">
+            <h4>Code Grade</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="Code Grade를 입력해주세요"
+              v-model="param.code"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <h4>Lot No</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="Lot No를 입력해주세요"
+              :rules="[this.validSet.commonCodeHipen]"
+              v-model="param.lot_no"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <h4>요청자</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청자를 입력해주세요"
+              :rules="[this.validSet.name]"
+              v-model="param.request_name"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </div>
+    </v-form>
     <div class="wrapperEnd">
       <v-card-actions>
         <v-btn depressed @click="reset">초기화</v-btn>
@@ -48,16 +55,26 @@
         >엑셀 다운로드</v-btn
       >
     </div>
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      @changePage="search"
+      @dbClick="dbClick"
+    />
   </div>
 </template>
 <script>
-import { columns, fields, rows, height } from "@/assets/grid/sampleRequest";
 import RealGrid from "@/components/RealGrid.vue";
+import validSet from "@/assets/valid";
+import _ from "lodash";
+import { searchproduce } from "api/sample/sample";
+import { columns, fields, rows, height } from "@/assets/grid/report";
 import { getExcel } from "api/file";
 export default {
   data() {
     return {
+      validSet,
       grid: "report",
       settings: {
         columns,
@@ -65,21 +82,67 @@ export default {
         rows,
         height,
       },
+      param: {
+        lot_no: "",
+        request_name: "",
+        pageSize: 10,
+        code: "",
+      },
+      items: [],
     };
   },
   methods: {
-    newSample() {
-      this.$emit("newSample");
+    valid() {
+      return this.$refs.form.validate();
     },
-    reset() {},
-    search() {},
+    reset() {
+      this.param = {
+        lot_no: "",
+        request_name: "",
+        pageSize: 10,
+        code: "",
+      };
+    },
+    search(v) {
+      if (this.valid()) {
+        searchproduce({
+          currentPage: _.isNumber(v) ? v : 1,
+          ...this.param,
+        }).then((res) => {
+          const response = res.data;
+          const items = response.data.items;
+          this.items = items;
+          const page = response.data.params;
+          this.items = items;
+          this.$refs.grid.loadData(items, [
+            "derivery_date",
+            "derivery_due_date",
+            "request_date",
+            "produce_due_date",
+            "produce_date",
+            "out_date",
+            "out_due_date",
+          ]);
+          this.$refs.grid.setPage(page);
+          if (items.length === 0) {
+            this.settings.errorMessage = "진행중인 사항이 없습니다";
+          }
+        });
+      }
+    },
     exelDownload() {
       const data = this.$refs.grid.getCheckedRow();
       if (data.length > 0) {
-        getExcel(data, "coa");
+        getExcel(data, "제조기록지");
       } else {
         this.openPopup("엑셀 다운로드할 행을 선택해주세요");
       }
+    },
+    dbClick(data) {
+      this.$emit(
+        "dbClick",
+        _.filter(this.items, (v) => v.lot_no === data.lot_no)[0]
+      );
     },
   },
   components: {
