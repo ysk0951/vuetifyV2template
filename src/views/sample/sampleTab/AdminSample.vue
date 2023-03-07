@@ -249,7 +249,16 @@
               ></v-date-picker>
             </v-menu>
           </v-col>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="2">
+            <h4>요청업체명</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청업체명을 입력해 주세요"
+              v-model="param.request_company"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
             <h4>기타 요청사항</h4>
             <v-text-field
               outlined
@@ -325,6 +334,7 @@ export default {
         qty: "",
         request_code: "",
         request_name: "",
+        request_company: "",
         pick_name: "",
         memberId: "",
         analysis: "",
@@ -374,6 +384,7 @@ export default {
         qty: "",
         request_code: "",
         request_name: "",
+        request_company: "",
         pick_name: "",
         memberId: "",
         analysis: "",
