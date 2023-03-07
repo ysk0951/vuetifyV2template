@@ -41,6 +41,14 @@ export default {
       currentPage: 1,
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   computed: {
     ...mapState("select", ["workType", "roleType"]),
   },
@@ -63,8 +71,11 @@ export default {
       this.$refs.confirm.openPopup(cb);
     },
     search(v) {
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
       getMessageList({
-        currentPage: _.isNumber(v) ? v : 1,
+        currentPage: this.currentPage,
         pageSize: 10,
       }).then((res) => {
         const response = res.data;

@@ -72,6 +72,14 @@ export default {
   computed: {
     ...mapState("select", ["workType", "roleType"]),
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   mounted() {
     this.SET_POPUP({
       title: "알림",
@@ -97,9 +105,12 @@ export default {
     },
     search(v) {
       if (this.valid()) {
+        if (_.isNumber(v)) {
+          this.currentPage = v;
+        }
         getCodeAll({
           ...this.input,
-          currentPage: _.isNumber(v) ? v : 1,
+          currentPage: this.currentPage,
         }).then((res) => {
           const response = res.data;
           const items = response.data.items;

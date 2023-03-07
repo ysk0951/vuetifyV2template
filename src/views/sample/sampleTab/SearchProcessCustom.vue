@@ -44,12 +44,23 @@ export default {
   mounted() {
     this.loadData();
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   methods: {
     reset() {},
     search(v) {
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
       sampleRequestandstatus({
         ...this.param,
-        currentPage: _.isNumber(v) ? v : 1,
+        currentPage: this.currentPage,
       }).then((res) => {
         const response = res.data;
         const items = response.data.items;

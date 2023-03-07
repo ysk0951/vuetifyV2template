@@ -91,6 +91,14 @@ export default {
       items: [],
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   methods: {
     valid() {
       return this.$refs.form.validate();
@@ -105,8 +113,11 @@ export default {
     },
     search(v) {
       if (this.valid()) {
+        if (_.isNumber(v)) {
+          this.currentPage = v;
+        }
         searchproduce({
-          currentPage: _.isNumber(v) ? v : 1,
+          currentPage: this.currentPage,
           ...this.param,
         }).then((res) => {
           const response = res.data;

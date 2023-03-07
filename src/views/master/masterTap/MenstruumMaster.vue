@@ -93,13 +93,24 @@ export default {
       settings: { ...menstrumm, hideCheckBar: true, noneNo: true },
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   methods: {
     valid() {
       return this.$refs.menstrumm.validate();
     },
     search(v) {
       if (this.valid()) {
-        solventMasterList({ ...this.param, currentPage: _.isNumber(v) ? v : 1 })
+        if (_.isNumber(v)) {
+          this.currentPage = v;
+        }
+        solventMasterList({ ...this.param, currentPage: this.currentPage })
           .then((res) => {
             const response = res.data;
             const items = response.data.items;

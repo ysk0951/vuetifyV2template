@@ -80,6 +80,14 @@ export default {
       items: [],
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   methods: {
     dbClick(data) {
       this.$emit(
@@ -94,8 +102,11 @@ export default {
       this.search(v);
     },
     search(v) {
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
       searchproduce({
-        currentPage: _.isNumber(v) ? v : 1,
+        currentPage: this.currentPage,
         ...this.param,
       }).then((res) => {
         const response = res.data;

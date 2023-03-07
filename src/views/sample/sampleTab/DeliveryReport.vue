@@ -172,6 +172,14 @@ export default {
       },
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   methods: {
     ...mapMutations("popup", ["SET_POPUP"]),
     valid() {
@@ -200,8 +208,11 @@ export default {
     },
     search(v) {
       if (this.valid()) {
+        if (_.isNumber(v)) {
+          this.currentPage = v;
+        }
         searchproduce({
-          currentPage: _.isNumber(v) ? v : 1,
+          currentPage: this.currentPage,
           ...this.param,
         }).then((res) => {
           const response = res.data;

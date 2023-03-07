@@ -38,6 +38,14 @@ export default {
       },
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   methods: {
     newSample() {
       this.$emit("newSample");
@@ -46,8 +54,11 @@ export default {
       this.$emit("dbClick");
     },
     loadData(v) {
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
       memberSampleList({
-        currentPage: _.isNumber(v) ? v : 1,
+        currentPage: this.currentPage,
         pageSize: "10",
       })
         .then((res) => {

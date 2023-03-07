@@ -130,6 +130,14 @@ export default {
       validSet,
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   mounted() {
     this.reset();
     this.input.roles = this.roleType[0];
@@ -171,9 +179,12 @@ export default {
           param.employeeStatus = "";
           break;
       }
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
       memberList({
         ...param,
-        currentPage: _.isNumber(v) ? v : 1,
+        currentPage: this.currentPage,
         pageSize: 10,
       })
         .then((res) => {

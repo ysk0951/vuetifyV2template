@@ -101,6 +101,14 @@ export default {
       currentpage: 1,
     };
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   computed: {
     ...mapState("common", ["code"]),
   },
@@ -115,7 +123,10 @@ export default {
       this.search(v);
     },
     search(v) {
-      subsMasterList({ ...this.param, currentPage: _.isNumber(v) ? v : 1 })
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
+      subsMasterList({ ...this.param, currentPage: this.currentpage })
         .then((res) => {
           const response = res.data;
           const items = response.data.items;

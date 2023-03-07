@@ -157,6 +157,14 @@ export default {
     this.input.roles = this.roleType[0];
     this.loadData();
   },
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   methods: {
     ...mapMutations("modal", [
       "SET_DIALOG_TITLE",
@@ -197,9 +205,12 @@ export default {
           param.employeeStatus = "";
           break;
       }
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
       memberList({
         ...param,
-        currentPage: _.isNumber(v) ? v : 1,
+        currentPage: this.currentPage,
       })
         .then((res) => {
           const response = res.data;
