@@ -1,6 +1,6 @@
 <template>
   <div class="address">
-    <h3 class="mb-2">품질결과입력 상세</h3>
+    <h3 class="mb-2">샘플요청 상세</h3>
     <SetPopup ref="confirm" />
     <RealGrid
       domName="sampleRequestDeatil"
@@ -253,8 +253,8 @@ export default {
               this.REMOVE_SELECT_MENU("sampleRequestDetail");
             });
           })
-          .catch((err) => {
-            this.openPopup(err, this.cancle());
+          .catch(() => {
+            this.openPopup("서버에러, 관리자에게 문의하세요", this.cancle());
           });
       }
     },
