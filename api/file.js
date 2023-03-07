@@ -38,20 +38,22 @@ export async function getExcel(data, name) {
         },
       },
     }));
-    for (let i = 1; i <= columns.length; i++) {
-      // let code = 64 + i;
-      // const char = String.fromCharCode(code);
-      // const sellNumber = `${char}1`;
-      ws.getCell("A3").fill = {
-        bgColor: { type: "pattern", pattern: "solid", argb: "bcc0c8" },
-      };
-    }
 
+    ws.insertRows(2, data);
     ws.getRow(1).font = {
       bold: true,
       size: 15,
     };
-    ws.insertRows(2, data);
+    for (let i = 1; i <= columns.length; i++) {
+      let code = 64 + i;
+      const char = String.fromCharCode(code);
+      const sellNumber = `${char}1`;
+      ws.getCell(sellNumber).fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "b8b8b8" },
+      };
+    }
     const bf = await wb.xlsx.writeBuffer();
     saveAs(new Blob([bf]), `${name}_${moment().valueOf()}.xlsx`);
   } catch (exception) {

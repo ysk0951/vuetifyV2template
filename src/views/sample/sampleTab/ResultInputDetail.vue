@@ -26,6 +26,7 @@ import _ from "lodash";
 import RealGrid from "@/components/RealGrid.vue";
 import { resultsList, resultsUpdate } from "api/sample/sample";
 import { columns, fields, rows, height } from "@/assets/grid/resultInputDetail";
+import { mapMutations } from "vuex";
 export default {
   props: ["data"],
   data() {
@@ -42,6 +43,10 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     reset() {
       this.loadData();
     },
@@ -51,10 +56,10 @@ export default {
         v.lotNo = this.data.lotNo;
         v.code = this.data.code;
       });
-      console.log(rows);
       resultsUpdate(rows)
         .then(() => {
-          this.loadData();
+          this.REMOVE_SELECT_MENU("resultInputDetail");
+          this.SET_SELECT_MENU_TAB_BY_CODE("RIMGMT");
         })
         .catch(() => {});
     },
