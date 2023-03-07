@@ -157,7 +157,7 @@ export function setNewSum(row) {
     Number(getNum(row["addVol13"])) +
     Number(getNum(row["addVol14"])) +
     Number(getNum(row["addVol15"]));
-  row["sum"] = sum;
+  row["sum"] = sum.toFixed(2);
   return row;
 }
 export function checkRowEmptcheck(row) {
