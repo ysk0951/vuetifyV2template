@@ -298,8 +298,8 @@ export default {
             this.$refs.addPopup.closePopup();
           });
         })
-        .catch((err) => {
-          this.openConfirm(err, false, () => {
+        .catch(() => {
+          this.openConfirm("서버에러 관리자에게 문의하세요", false, () => {
             this.$refs.addPopup.closePopup();
           });
         });

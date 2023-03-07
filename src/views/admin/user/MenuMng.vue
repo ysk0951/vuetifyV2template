@@ -218,8 +218,8 @@ export default {
                   await this.SET_ROLE_TYPE();
                 });
               })
-              .catch((err) => {
-                this.setModal(err, true, () => {
+              .catch(() => {
+                this.setModal("서버에러 관리자에게 문의하세요", true, () => {
                   this.loadData();
                 });
               })
