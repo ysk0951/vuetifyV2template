@@ -88,7 +88,7 @@ export default {
         lot_no: "",
         sampleCode: "",
         request_name: "",
-        page_size: 1,
+        pageSize: 10,
       },
       settings: {
         columns,
@@ -153,6 +153,9 @@ export default {
     dbClick(data) {
       this.$emit("dbClick", data);
     },
+  },
+  mounted() {
+    this.loadData();
   },
   components: {
     RealGrid,

@@ -157,6 +157,9 @@ export default {
       );
     },
   },
+  mounted() {
+    this.search();
+  },
   components: {
     RealGrid,
   },

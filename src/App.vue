@@ -56,40 +56,53 @@
             {{ item.text }}
           </v-btn>
         </div>
-        <v-avatar tile v-if="accessToken">
-          <v-icon @mouseover="openProfile"> mdi-account </v-icon>
-        </v-avatar>
+        <v-btn depressed v-if="accessToken" @click="openProfile">
+          <v-icon disabled> mdi-account </v-icon>
+        </v-btn>
 
         <v-btn depressed @click="account">{{
           this.accessToken ? "로그아웃" : "로그인"
         }}</v-btn>
       </v-app-bar>
-      <v-container fill-height fluid class="mu-4">
+      <v-container fill-height fluid class="mu-4" @click="closeProfile">
         <Address ref="address" @select="addressSelect" />
         <v-card
-          class="profile pa-3"
+          class="profile pa-5"
+          elevation="15"
           v-if="profile && accessToken"
-          @mouseleave="openProfile"
         >
-          <div class="wrapper mb-3">{{ userInfo.member_name }} 님</div>
-          <div class="wrapperLeft">* 회사명: {{ userInfo.company }}</div>
-          <div class="wrapperLeft">* 기본 배송지 주소</div>
+          <div class="mb-3">
+            <v-row style="height: 50px">
+              <v-col cols="12" sm="2" class="mt-2">
+                <v-icon disabled style="margin-left: 13px">
+                  mdi-account
+                </v-icon>
+              </v-col>
+              <v-col cols="12" sm="5">
+                <div class="wrapperLeft">{{ userInfo.member_name }} 님</div>
+                <div class="wrapperLeft smallText">{{ userInfo.company }}</div>
+              </v-col>
+              <v-col cols="12" sm="5">
+                <v-select
+                  :items="this.language"
+                  v-model="myprofileLang"
+                  outlined
+                ></v-select>
+              </v-col>
+            </v-row>
+          </div>
+          <hr class="mb-5 mt-5" />
+          <div class="wrapperLeft mb-5">기본 배송지 주소</div>
           <div v-if="userInfo.address">
-            <div class="wrapperLeft">
-              {{ userInfo.address }}
+            <div class="wrapperLeft smallText">
+              * {{ userInfo.address }}{{ userInfo.address2 }}
             </div>
-            <div class="wrapperLeft">
-              {{ userInfo.address2 }}
-            </div>
-            <div class="wrapperLeft">
-              * 배송지 연락처 1 : {{ userInfo.phone1 }}
-            </div>
-            <div class="wrapperLeft">
-              * 배송지 연락처 2 : {{ userInfo.phone2 }}
+            <div class="wrapperLeft smallText mb-5">
+              * 연락처 1 : {{ userInfo.phone1 }}
             </div>
           </div>
           <div v-else>등록된 기본배송지가 없습니다</div>
-          <div class="wrapper">
+          <div style="display: flex; justify-content: center">
             <v-btn depressed color="primary" class="my-3" @click="openPost"
               >배송지 관리</v-btn
             >
@@ -122,12 +135,21 @@ export default {
     ...mapState("menu", ["menu"]),
     ...mapState("locale", ["locale"]),
   },
+  watch: {
+    locale: function (v) {
+      this.myprofileLang = v;
+    },
+    myprofileLang: function (v) {
+      this.changeLang(v);
+    },
+  },
   data: () => ({
     profile: false,
     language: [
       { value: "ko", text: "한국어" },
       { value: "en", text: "English" },
     ],
+    myprofileLang: "",
     dom1: "realgrid1",
     dom2: "realgrid2",
   }),
@@ -172,7 +194,10 @@ export default {
       this.$router.push({ name: "main" });
     },
     openProfile() {
-      this.profile = !this.profile;
+      this.profile = true;
+    },
+    closeProfile() {
+      this.profile = false;
     },
     openPost() {
       this.$refs.address.open();
@@ -185,6 +210,9 @@ export default {
         })
         .catch(() => {});
     },
+  },
+  mounted() {
+    this.myprofileLang = this.locale;
   },
 };
 </script>
@@ -283,8 +311,12 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 .profile {
   z-index: 99;
   position: absolute;
-  top: 29px;
-  right: 127px;
+  top: 49px;
+  right: 21px;
   width: 300px;
+}
+.smallText {
+  font-size: 13px;
+  color: gray;
 }
 </style>
