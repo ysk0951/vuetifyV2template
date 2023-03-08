@@ -12,7 +12,7 @@ const data = [
     alias: "Code Grade",
   },
   {
-    field: "납기일",
+    field: "delivery_date",
     alias: "납기일",
   },
   {
@@ -20,7 +20,7 @@ const data = [
     alias: "제품수량(kg)",
   },
   {
-    field: "접수상태",
+    field: "stat",
     alias: "접수 상태",
   },
   {
