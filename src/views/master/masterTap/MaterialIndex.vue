@@ -2,7 +2,7 @@
   <div class="material">
     <h3 class="mb-2">물질명 INDEX 마스터</h3>
     <v-form ref="meterialIndex" lazy-validation>
-      <div class="meterialIndex wrapperSpace px-2">
+      <div class="meterialIndex wrapperSpace px-2 sch">
         <v-col cols="12" sm="2">
           <h4>자재코드</h4>
           <v-text-field
@@ -41,23 +41,23 @@
         </v-col>
         <v-col cols="12" sm="4">
           <h4>관용명 및 이명</h4>
-          <v-text-field
-            outlined
-            dense
-            placeholder="관용어 및 이명을 입력해 주세요."
-            v-model="param.common_name"
-          ></v-text-field>
+          <div class="wrapperTop">
+            <v-text-field
+              outlined
+              dense
+              placeholder="관용어 및 이명을 입력해 주세요."
+              v-model="param.common_name"
+            ></v-text-field>
+            <v-card-actions>
+              <v-btn depressed @click="reset">초기화</v-btn>
+            </v-card-actions>
+            <v-card-actions>
+              <v-btn depressed color="primary" @click="search">검색</v-btn>
+            </v-card-actions>
+          </div>
         </v-col>
       </div>
     </v-form>
-    <div class="wrapperEnd">
-      <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="search">검색</v-btn>
-      </v-card-actions>
-    </div>
     <h3 class="mt-16 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">
         목록

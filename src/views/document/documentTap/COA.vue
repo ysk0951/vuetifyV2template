@@ -3,49 +3,51 @@
     <h3 class="mb-2">COA 관리</h3>
     <SetPopup ref="confirm" />
     <v-form lazy-validation ref="form">
-      <div class="wrapperSpace">
-        <v-row class="pl-2">
-          <v-col cols="12" sm="2">
-            <h4>Lot No</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="Lot No를 입력해 주세요."
-              v-model="input.lot_no"
-              :rules="[this.validSet.commonCodeHipen]"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>샘플코드</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="샘플코드를 입력해 주세요."
-              v-model="input.sampleCode"
-              :rules="[this.validSet.commonCodeHipen]"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>요청자</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="요청자를 입력해 주세요."
-              v-model="input.request_name"
-              :rules="[this.validSet.name]"
-            ></v-text-field>
-          </v-col>
-        </v-row>
+      <div style="width: 80%">
+        <div class="wrapperSpace pa-4 sch">
+          <v-row class="pl-2">
+            <v-col cols="12" sm="4">
+              <h4>Lot No</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="Lot No를 입력해 주세요."
+                v-model="input.lot_no"
+                :rules="[this.validSet.commonCodeHipen]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <h4>샘플코드</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="샘플코드를 입력해 주세요."
+                v-model="input.sampleCode"
+                :rules="[this.validSet.commonCodeHipen]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <h4>요청자</h4>
+              <div class="wrapperTop">
+                <v-text-field
+                  outlined
+                  dense
+                  placeholder="요청자를 입력해 주세요."
+                  v-model="input.request_name"
+                  :rules="[this.validSet.name]"
+                ></v-text-field>
+                <v-card-actions>
+                  <v-btn depressed @click="reset">초기화</v-btn>
+                </v-card-actions>
+                <v-card-actions>
+                  <v-btn depressed color="primary" @click="search">검색</v-btn>
+                </v-card-actions>
+              </div>
+            </v-col>
+          </v-row>
+        </div>
       </div>
     </v-form>
-    <div class="wrapperEnd">
-      <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="search">검색</v-btn>
-      </v-card-actions>
-    </div>
     <div class="wrapperSpace pr-2">
       <div>
         <h4 class="mt-4 mb-2">목록</h4>

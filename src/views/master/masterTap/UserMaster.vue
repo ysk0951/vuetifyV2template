@@ -1,40 +1,42 @@
 <template>
   <div>
-    <h3 class="mb-2">회원 마스터 관리</h3>
+    <h3 class="mb-4">회원 마스터 관리</h3>
     <v-form ref="userMaster" lazy-validation>
       <div class="userMaster wrapperSpace">
-        <v-row class="ml-0">
-          <v-col cols="12" sm="2">
-            <h4>이름</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="이름을 입력해 주세요."
-              v-model="param.memberName"
-              :rules="[this.validSet.name]"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>기업명</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="기업명을 입력해 주세요."
-              v-model="param.company"
-              :rules="[this.validSet.company]"
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <div style="width: 50%">
+          <v-row class="ml-0 px-2 sch">
+            <v-col cols="12" sm="6">
+              <h4>이름</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="이름을 입력해 주세요."
+                v-model="param.memberName"
+                :rules="[this.validSet.name]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <h4>기업명</h4>
+              <div class="wrapperTop">
+                <v-text-field
+                  outlined
+                  dense
+                  placeholder="기업명을 입력해 주세요."
+                  v-model="param.company"
+                  :rules="[this.validSet.company]"
+                ></v-text-field>
+                <v-card-actions>
+                  <v-btn depressed @click="reset">초기화</v-btn>
+                </v-card-actions>
+                <v-card-actions>
+                  <v-btn depressed color="primary" @click="search">검색</v-btn>
+                </v-card-actions>
+              </div>
+            </v-col>
+          </v-row>
+        </div>
       </div>
     </v-form>
-    <div class="wrapperEnd">
-      <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="search">검색</v-btn>
-      </v-card-actions>
-    </div>
     <h3 class="mt-16 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">목록</div>
     </h3>

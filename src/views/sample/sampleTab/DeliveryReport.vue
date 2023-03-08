@@ -3,7 +3,7 @@
     <h3 class="mb-2">납품일보</h3>
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
-      <div class="wrapperSpace mt-4">
+      <div class="wrapperSpace mt-4 pt-3 px-2 sch">
         <v-row class="px-2">
           <v-col cols="12" sm="2">
             <h4>Lot No</h4>
@@ -73,46 +73,47 @@
               ></v-date-picker>
             </v-menu>
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="2" class="btn">
             <h4>납품에정일</h4>
-            <v-menu
-              v-model="picker2"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
+            <div class="wrapperTop mb-3">
+              <v-menu
+                v-model="picker2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="param.delivery_due_date"
+                    placeholder="납품에정일을 입력해주세요"
+                    append-icon="mdi-calendar"
+                    outlined
+                    dense
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  no-title
+                  @input="menu = false"
                   v-model="param.delivery_due_date"
-                  placeholder="납품에정일을 입력해주세요"
-                  append-icon="mdi-calendar"
-                  outlined
-                  dense
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                no-title
-                @input="menu = false"
-                v-model="param.delivery_due_date"
-              ></v-date-picker>
-            </v-menu>
+                ></v-date-picker>
+              </v-menu>
+
+              <v-card-actions>
+                <v-btn depressed @click="reset">초기화</v-btn>
+              </v-card-actions>
+              <v-card-actions>
+                <v-btn depressed color="primary" @click="search">검색</v-btn>
+              </v-card-actions>
+            </div>
           </v-col>
         </v-row>
       </div>
       <hr class="mb-3" />
-      <div class="wrapperEnd mb-3">
-        <v-card-actions>
-          <v-btn depressed @click="reset">초기화</v-btn>
-        </v-card-actions>
-        <v-card-actions>
-          <v-btn depressed color="primary" @click="search">검색</v-btn>
-        </v-card-actions>
-      </div>
       <div class="wrapperSpace px-2">
         <div>
           <h4 class="mt-4 mb-2">목록</h4>

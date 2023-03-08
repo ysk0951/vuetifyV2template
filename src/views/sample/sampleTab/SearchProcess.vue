@@ -2,7 +2,7 @@
   <div>
     <h3 class="mb-2">진행사항 조회</h3>
     <v-form lazy-validation ref="form">
-      <div class="searchProcess wrapperSpace pr-2 mt-4">
+      <div class="searchProcess wrapperSpace pa-3 mt-4 sch">
         <v-row class="pl-2" style="height: 86px">
           <v-col cols="12" sm="3">
             <h4>Lot No</h4>
@@ -39,23 +39,24 @@
           </v-col>
           <v-col cols="12" sm="2">
             <h4>출하 사항</h4>
-            <v-select
-              :items="code.O"
-              v-model="param.releasestat"
-              outlined
-              id="work"
-            />
+            <div class="wrapperTop">
+              <v-select
+                :items="code.O"
+                v-model="param.releasestat"
+                outlined
+                id="work"
+              />
+              <v-card-actions>
+                <v-btn depressed @click="reset">초기화</v-btn>
+              </v-card-actions>
+              <v-card-actions class="px-0">
+                <v-btn depressed color="primary" @click="search">검색</v-btn>
+              </v-card-actions>
+            </div>
           </v-col>
         </v-row>
       </div>
-      <div class="wrapperEnd">
-        <v-card-actions>
-          <v-btn depressed @click="reset">초기화</v-btn>
-        </v-card-actions>
-        <v-card-actions class="px-0">
-          <v-btn depressed color="primary" @click="search">검색</v-btn>
-        </v-card-actions>
-      </div>
+
       <div class="wrapperSpace">
         <div>
           <h4 class="mt-4 mb-2">요청 내역</h4>

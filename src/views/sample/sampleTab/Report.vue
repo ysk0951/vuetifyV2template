@@ -1,52 +1,53 @@
 <template>
   <div>
+    <h3 class="mb-5">제조 기록지</h3>
     <v-form ref="form">
       <div class="wrapperSpace">
-        <v-row class="pl-2">
-          <v-col cols="12" sm="3">
-            <h4>Code Grade</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="Code Grade를 입력해주세요"
-              v-model="param.code"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>Lot No</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="Lot No를 입력해주세요"
-              :rules="[this.validSet.commonCodeHipen]"
-              v-model="param.lot_no"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="3">
-            <h4>요청자</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="요청자를 입력해주세요"
-              :rules="[this.validSet.name]"
-              v-model="param.request_name"
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <div style="width: 60%">
+          <v-row class="pl-5 sch">
+            <v-col cols="12" sm="4">
+              <h4>Code Grade</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="Code Grade를 입력해주세요"
+                v-model="param.code"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <h4>Lot No</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="Lot No를 입력해주세요"
+                :rules="[this.validSet.commonCodeHipen]"
+                v-model="param.lot_no"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <h4>요청자</h4>
+              <div class="wrapperTop">
+                <v-text-field
+                  outlined
+                  dense
+                  placeholder="요청자를 입력해주세요"
+                  :rules="[this.validSet.name]"
+                  v-model="param.request_name"
+                ></v-text-field>
+                <v-card-actions>
+                  <v-btn depressed @click="reset">초기화</v-btn>
+                </v-card-actions>
+                <v-card-actions>
+                  <v-btn depressed color="primary" @click="search">검색</v-btn>
+                </v-card-actions>
+              </div>
+            </v-col>
+          </v-row>
+        </div>
       </div>
     </v-form>
-    <div class="wrapperEnd">
-      <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
-      </v-card-actions>
-      <v-card-actions>
-        <v-btn depressed color="primary" @click="search">검색</v-btn>
-      </v-card-actions>
-    </div>
-    <div class="wrapperSpace pr-2">
-      <div>
-        <h4 class="mt-4 mb-2">목록</h4>
-      </div>
+    <div class="wrapperSpace pr-2 mt-16 mb-2">
+      <h4>목록</h4>
       <v-btn
         depressed
         color="primary"
