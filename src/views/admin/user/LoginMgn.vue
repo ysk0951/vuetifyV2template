@@ -6,8 +6,8 @@
     <div class="service login">
       <h3 class="mb-2">로그인 관리</h3>
       <v-form ref="form" lazy-validation>
-        <div class="filter">
-          <v-row class="row">
+        <div class="filter sch">
+          <v-row class="row mb-7">
             <v-col cols="12" sm="3">
               <h4>계정 구분</h4>
               <v-select
@@ -36,20 +36,21 @@
                 :rules="[this.validSet.name]"
               ></v-text-field>
             </v-col>
+            <v-col cols="12" sm="3" class="btn">
+              <div class="wrapperEnd">
+                <v-card-actions>
+                  <v-btn depressed @click="reset">초기화</v-btn>
+                </v-card-actions>
+                <v-card-actions>
+                  <v-btn depressed color="primary" @click="onApprove"
+                    >검색</v-btn
+                  >
+                </v-card-actions>
+              </div>
+            </v-col>
           </v-row>
         </div>
       </v-form>
-      <div class="wrapperSpace">
-        <div></div>
-        <div class="wrapper">
-          <v-card-actions>
-            <v-btn depressed @click="reset">초기화</v-btn>
-          </v-card-actions>
-          <v-card-actions>
-            <v-btn depressed color="primary" @click="onApprove">검색</v-btn>
-          </v-card-actions>
-        </div>
-      </div>
       <h3 class="mt-16 mb-2 pl-1 pr-1">
         <div class="wrapperSpace">
           목록

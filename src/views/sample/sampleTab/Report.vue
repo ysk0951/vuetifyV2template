@@ -127,7 +127,7 @@ export default {
           this.items = items;
           this.$refs.grid.loadData(items, [
             "delivery_date",
-            "derivery_due_date",
+            "delivery_due_date",
             "request_date",
             "produce_due_date",
             "produce_date",

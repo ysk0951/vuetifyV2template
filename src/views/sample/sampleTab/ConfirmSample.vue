@@ -3,39 +3,45 @@
     <h3 class="mb-2">샘플요청 검수</h3>
     <v-form ref="form" lazy-validation>
       <div class="wrapperSpace py-1 mt-4">
-        <v-row class="pl-2">
-          <v-col cols="12" sm="2">
-            <h4>Lot No</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="Lot No를 입력해 주세요."
-              v-model="param.lot_no"
-              :rules="[this.validSet.commonCodeHipen]"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>요청자</h4>
-            <v-text-field
-              outlined
-              dense
-              placeholder="요청자를 입력해 주세요."
-              v-model="param.request_name"
-              :rules="[this.validSet.name]"
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <div class="sch" style="width: 50%">
+          <v-row class="px-4 py-2">
+            <v-col cols="12" sm="6">
+              <h4>Lot No</h4>
+              <v-text-field
+                outlined
+                dense
+                placeholder="Lot No를 입력해 주세요."
+                v-model="param.lot_no"
+                :rules="[this.validSet.commonCodeHipen]"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <h4>요청자</h4>
+              <div class="wrapperEnd">
+                <v-text-field
+                  outlined
+                  dense
+                  placeholder="요청자를 입력해 주세요."
+                  v-model="param.request_name"
+                  :rules="[this.validSet.name]"
+                ></v-text-field>
+                <div class="wrapperTop">
+                  <v-card-actions>
+                    <v-btn depressed @click="reset">초기화</v-btn>
+                  </v-card-actions>
+                  <v-card-actions class="px-0">
+                    <v-btn depressed color="primary" @click="search"
+                      >검색</v-btn
+                    >
+                  </v-card-actions>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+        </div>
       </div>
     </v-form>
     <hr class="mb-3" />
-    <div class="wrapperEnd">
-      <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
-      </v-card-actions>
-      <v-card-actions class="px-0">
-        <v-btn depressed color="primary" @click="search">검색</v-btn>
-      </v-card-actions>
-    </div>
     <div class="wrapperSpace">
       <div>
         <h4 class="mt-4 mb-2">요청 내역</h4>

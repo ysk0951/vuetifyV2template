@@ -32,11 +32,11 @@ const data = [
     alias: "출하예정일",
   },
   {
-    field: "derivery_due_date",
+    field: "delivery_due_date",
     alias: "납기 예정일",
   },
   {
-    field: "derivery_date",
+    field: "delivery_date",
     alias: "납기일",
   },
   {

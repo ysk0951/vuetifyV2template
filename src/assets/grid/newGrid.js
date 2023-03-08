@@ -55,7 +55,7 @@ makeCell(
 );
 makeCell(
   1,
-  [{ field: "lot_no2", alias: "접수 상태", indexExclusive: true }],
+  [{ field: "request_stat", alias: "접수 상태", indexExclusive: true }],
   fields,
   columns
 );

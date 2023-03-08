@@ -189,6 +189,13 @@ export default {
 };
 </script>
 <style lang="scss">
+.btn {
+  margin: auto;
+}
+.sch {
+  background: #f2f5f1;
+  border: 1px solid #d6ebcd;
+}
 .ci {
   height: 40px;
   cursor: pointer;
@@ -197,10 +204,14 @@ export default {
   justify-content: center;
   display: flex;
 }
-.col-12 {
-  padding: 4px;
+.wrapperTop {
+  justify-content: center;
+  display: flex;
+  align-items: flex-start;
+  .v-card__actions {
+    padding-top: 3px;
+  }
 }
-
 .wrapperSpace {
   justify-content: space-between;
   display: flex;
@@ -212,6 +223,9 @@ export default {
 .wrapperFlex {
   display: flex;
 }
+.col-12 {
+  padding: 4px;
+}
 .flexCol {
   flex-direction: column;
 }
@@ -220,7 +234,6 @@ export default {
   justify-content: end;
   font-size: 10px;
 }
-
 .langBoxWrapper {
   display: flex;
   justify-content: end;
@@ -241,13 +254,11 @@ export default {
 div.v-menu__content.theme--light.menuable__content__active > div {
   padding: 0px;
 }
-
 .background {
   background-color: rgba(0, 0, 0, 0.02);
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.02) !important;
 }
-
 .v-select__selections {
   position: absolute !important;
   top: -2px !important;
@@ -258,12 +269,13 @@ div.v-menu__content.theme--light.menuable__content__active > div {
 .v-tabs-slider {
   display: none;
 }
-.v-tab {
+.v-tabs-bar__content {
   border-bottom: 1px solid #bcc0c8;
 }
 .v-tab--active {
-  background-color: #bcc0c8;
-  font-weight: bold;
+  color: #60ab41 !important;
+  font-weight: 900 !important;
+  border-bottom: 4px solid #60ab41 !important;
 }
 .dimmRow {
   background-color: aquamarine !important;

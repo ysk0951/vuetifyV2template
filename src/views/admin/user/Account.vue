@@ -19,8 +19,8 @@
     <div class="service">
       <h3 class="mb-2">아이디 관리</h3>
       <v-form ref="form" lazy-validation>
-        <div class="filter mb-3">
-          <v-row class="row">
+        <div class="filter sch">
+          <v-row class="row pa-3 mb-8">
             <v-col cols="12" sm="1" class="pl-0">
               <h4>계정 구분</h4>
               <v-select
@@ -60,7 +60,7 @@
                 :rules="[this.validSet.company]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="2">
+            <v-col cols="12" sm="1">
               <h4>사번</h4>
               <v-text-field
                 outlined
@@ -79,20 +79,21 @@
                 id="work"
               ></v-select>
             </v-col>
+            <v-col cols="12" sm="1" class="pr-0 btn">
+              <div class="wrapperEnd">
+                <v-card-actions class="mr-0">
+                  <v-btn depressed @click="reset">초기화</v-btn>
+                </v-card-actions>
+                <v-card-actions>
+                  <v-btn depressed color="primary" @click="onApprove"
+                    >검색</v-btn
+                  >
+                </v-card-actions>
+              </div>
+            </v-col>
           </v-row>
         </div>
       </v-form>
-      <div class="wrapperSpace">
-        <div></div>
-        <div class="wrapper">
-          <v-card-actions class="mr-0">
-            <v-btn depressed @click="reset">초기화</v-btn>
-          </v-card-actions>
-          <v-card-actions>
-            <v-btn depressed color="primary" @click="onApprove">검색</v-btn>
-          </v-card-actions>
-        </div>
-      </div>
       <h3 class="mt-16 mb-2 pl-1 pr-1">
         <div class="wrapperSpace">목록</div>
       </h3>

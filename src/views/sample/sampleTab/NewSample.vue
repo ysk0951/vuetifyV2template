@@ -247,7 +247,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="param.derivery_date"
+                  v-model="param.delivery_date"
                   placeholder="납기일을 선택해 주세요."
                   append-icon="mdi-calendar"
                   outlined
@@ -260,7 +260,7 @@
               <v-date-picker
                 no-title
                 @input="menu = false"
-                v-model="param.derivery_date"
+                v-model="param.delivery_date"
               ></v-date-picker>
             </v-menu>
           </v-col>
@@ -354,7 +354,7 @@ export default {
         request_name: "",
         pick_name: "",
         analysis: "",
-        derivery_date: "",
+        delivery_date: "",
         postcode: "",
       },
       isSelecting: false,
@@ -400,7 +400,7 @@ export default {
         request_name: "",
         pick_name: "",
         analysis: "",
-        derivery_date: "",
+        delivery_date: "",
         postcode: this.defaultAddress.postcode,
       };
       this.file = "";
@@ -473,6 +473,7 @@ export default {
         this.openConfirm("필수 항목이 없습니다. 입력항목을 확인해주세요");
       } else if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
+          console.log(v, this.param);
           const data = {
             ...this.param,
             ...v,

@@ -6,19 +6,25 @@
         <div class="service">
           <div class="wrapper mt-10">
             <v-row>
-              <v-col cols="12" sm="3" class="px-2">
+              <v-col cols="12" sm="3" class="px-2 sch pa-1 mb-2">
                 <h4>Lot No</h4>
-                <v-text-field
-                  placeholder="Lot No를 입력해주세요"
-                  type="text"
-                  outlined
-                  dense
-                  v-model="param.lot_no"
-                />
-              </v-col>
-              <v-col cols="12" sm="3" class="px-0 search">
-                <v-btn depressed class="ml-3 mr-3" @click="reset">초기화</v-btn>
-                <v-btn depressed color="primary " @click="search">검색</v-btn>
+                <div class="wrapper">
+                  <v-text-field
+                    placeholder="Lot No를 입력해주세요"
+                    type="text"
+                    outlined
+                    dense
+                    v-model="param.lot_no"
+                  />
+                  <div class="wrapperEnd">
+                    <v-btn depressed class="ml-3 mr-3" @click="reset"
+                      >초기화</v-btn
+                    >
+                    <v-btn depressed color="primary " @click="search"
+                      >검색</v-btn
+                    >
+                  </div>
+                </div>
               </v-col>
             </v-row>
           </div>

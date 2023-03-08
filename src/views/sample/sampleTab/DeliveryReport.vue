@@ -85,7 +85,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="param.derivery_due_date"
+                  v-model="param.delivery_due_date"
                   placeholder="납품에정일을 입력해주세요"
                   append-icon="mdi-calendar"
                   outlined
@@ -98,7 +98,7 @@
               <v-date-picker
                 no-title
                 @input="menu = false"
-                v-model="param.derivery_due_date"
+                v-model="param.delivery_due_date"
               ></v-date-picker>
             </v-menu>
           </v-col>
@@ -168,7 +168,7 @@ export default {
         request_code: "",
         request_company: "",
         produce_due_date: "",
-        derivery_due_date: "",
+        delivery_due_date: "",
       },
     };
   },
@@ -220,8 +220,8 @@ export default {
           const page = response.data.params;
           this.items = items;
           this.$refs.grid.loadData(items, [
-            "derivery_date",
-            "derivery_due_date",
+            "delivery_date",
+            "delivery_due_date",
             "request_date",
             "produce_due_date",
             "produce_date",
@@ -243,7 +243,7 @@ export default {
         request_code: "",
         request_company: "",
         produce_due_date: "",
-        derivery_due_date: "",
+        delivery_due_date: "",
       };
       this.items = [];
     },

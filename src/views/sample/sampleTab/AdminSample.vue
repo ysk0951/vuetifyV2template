@@ -232,7 +232,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="param.derivery_date"
+                  v-model="param.delivery_date"
                   placeholder="납기일을 선택해 주세요."
                   append-icon="mdi-calendar"
                   outlined
@@ -245,7 +245,7 @@
               <v-date-picker
                 no-title
                 @input="menu = false"
-                v-model="param.derivery_date"
+                v-model="param.delivery_date"
               ></v-date-picker>
             </v-menu>
           </v-col>
@@ -339,7 +339,7 @@ export default {
         memberId: "",
         analysis: "",
         delivery_type: "",
-        derivery_date: "",
+        delivery_date: "",
         postcode: "",
       },
       isSelecting: false,
@@ -389,7 +389,7 @@ export default {
         memberId: "",
         analysis: "",
         delivery_type: "",
-        derivery_date: "",
+        delivery_date: "",
         postcode: "",
       };
       this.checkRows = false;

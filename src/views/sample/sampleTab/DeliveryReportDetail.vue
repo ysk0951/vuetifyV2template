@@ -225,7 +225,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
-                v-model="param.derivery_due_date"
+                v-model="param.delivery_due_date"
                 placeholder="납기예정일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
@@ -238,7 +238,7 @@
             <v-date-picker
               no-title
               @input="menu = false"
-              v-model="param.derivery_due_date"
+              v-model="param.delivery_due_date"
             ></v-date-picker>
           </v-menu>
         </v-col>
@@ -254,7 +254,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
-                v-model="param.derivery_date"
+                v-model="param.delivery_date"
                 placeholder="납기일을 선택해 주세요."
                 append-icon="mdi-calendar"
                 outlined
@@ -267,7 +267,7 @@
             <v-date-picker
               no-title
               @input="menu = false"
-              v-model="param.derivery_date"
+              v-model="param.delivery_date"
             ></v-date-picker>
           </v-menu>
         </v-col>
@@ -358,11 +358,11 @@ export default {
         produce_date: this.data.produce_date,
         out_date: this.data.out_date,
         out_due_date: this.data.out_due_date,
-        derivery_due_date: this.data.derivery_date,
+        delivery_due_date: this.data.delivery_date,
         pickpart: this.data.pickpart,
         price_type: this.data.price_type,
         qty: this.data.qty,
-        derivery_date: this.data.derivery_date,
+        delivery_date: this.data.delivery_date,
       },
     };
   },
@@ -419,11 +419,11 @@ export default {
         produce_date: this.data.produce_date,
         out_date: this.data.out_date,
         out_due_date: this.data.out_due_date,
-        derivery_due_date: this.data.derivery_date,
+        delivery_due_date: this.data.delivery_date,
         pickpart: this.data.pickpart,
         price_type: this.data.price_type,
         qty: this.data.qty,
-        derivery_date: this.data.derivery_date,
+        delivery_date: this.data.delivery_date,
       };
     },
     searchCode() {
