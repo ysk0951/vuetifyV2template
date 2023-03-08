@@ -56,8 +56,14 @@
       :nonePage="true"
       @changeData="changeDataMake"
     />
-    <h3 class="mt-4 mb-2 pl-1 pr-1">
-      <div class="wrapperSpace">세부 스펙</div>
+    <h3 class="mt-8 mb-2 pl-1 pr-1">
+      <div class="wrapperSpace">
+        세부 스펙
+        <div>
+          <v-btn depressed @click="specAdd">추가</v-btn>
+          <v-btn depressed color="primary" @click="specDel">삭제</v-btn>
+        </div>
+      </div>
     </h3>
     <hr class="mb-4" />
     <RealGrid
@@ -84,7 +90,12 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { sampleMasterDetail, updateSampleMaster } from "api/sample/sample";
 import { mapMutations } from "vuex";
-import { makeSum, makeSampleSet, setNewSum } from "@/assets/grid/gridUtill";
+import {
+  makeSum,
+  makeSampleSet,
+  setNewSum,
+  makeARow,
+} from "@/assets/grid/gridUtill";
 // import { makeARow } from "@/assets/grid/gridUtill";
 import _ from "lodash";
 export default {
@@ -151,7 +162,6 @@ export default {
           return v;
         }),
         height: 700,
-        hideCheckBar: true,
         noneNo: true,
       },
     };
@@ -166,15 +176,35 @@ export default {
       this.param.code = this.data.code;
       this.search(this.param.code);
     },
+    ...mapMutations("popup", ["SET_POPUP"]),
     openPopup(text, closable, cb) {
       this.SET_POPUP({
         title: "알림",
         height: 150,
         width: 300,
-        closable,
         text,
+        closable,
       });
       this.$refs.confirm.openPopup(cb);
+    },
+    specAdd() {
+      const row = this.$refs.spec_grid.getJsonRows();
+      const add = makeARow(spec.fields);
+      this.$refs.spec_grid.loadData(row.concat(add));
+    },
+    specDel() {
+      const row = this.$refs.spec_grid.getJsonRows();
+      const idx = this.$refs.spec_grid.getCheckedRowIdx();
+      if (idx.length < 1) {
+        this.openPopup("삭제할 행을 선택해주세요");
+      } else {
+        this.openPopup("삭제하시겠습니까", true, () => {
+          const ret = _.filter(row, (v, index) => {
+            return !idx.includes(index);
+          });
+          this.$refs.spec_grid.loadData(ret);
+        });
+      }
     },
     closePopup() {
       this.$refs.confirm.closePopup();

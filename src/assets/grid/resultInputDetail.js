@@ -30,12 +30,12 @@ const data = [
   {
     field: "rv",
     alias: "결과입력",
-    editable: true,
   },
 ];
 
 _.each(data, function (o) {
   o.indexExclusive = true;
+  o.editable = true;
   makeCell(1, [o], fields, columns, false, o.editable);
 });
 export { fields, columns };

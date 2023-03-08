@@ -113,12 +113,7 @@ export default {
       return rows;
     },
     getCheckedRowIdx: function () {
-      const idx = this.gv.getCheckedRows(true, false, false);
-      const rows = [];
-      _.each(idx, (v, idx) => {
-        rows.push(idx);
-      });
-      return rows;
+      return this.gv.getCheckedRows(true, false, false);
     },
     getCheckedRowIdxRadio: function () {
       return parseInt(this.getCheckedRowIdx().join(""));
