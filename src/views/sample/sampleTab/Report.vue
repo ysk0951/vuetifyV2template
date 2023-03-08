@@ -126,7 +126,7 @@ export default {
           const page = response.data.params;
           this.items = items;
           this.$refs.grid.loadData(items, [
-            "derivery_date",
+            "delivery_date",
             "derivery_due_date",
             "request_date",
             "produce_due_date",
