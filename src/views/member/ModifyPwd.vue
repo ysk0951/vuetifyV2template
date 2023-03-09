@@ -11,7 +11,7 @@
               <h3>고객님 께서는 임시비밀번호로 로그인 하셨습니다.</h3>
               <span> 비밀번호를 변경해주세요 </span>
               <div class="wrapperSpace mt-8">
-                <label>*신규 비밀번호</label>
+                <label>* 신규 비밀번호</label>
                 <v-text-field
                   append-icon="mdi-eye"
                   :type="pwdType"
@@ -32,7 +32,7 @@
                 </v-text-field>
               </div>
               <div class="wrapperSpace">
-                <label>*비밀번호 확인</label>
+                <label>* 비밀번호 확인</label>
                 <v-text-field
                   append-icon="mdi-eye"
                   :type="pwdType"
@@ -174,7 +174,7 @@ export default {
     margin-right: 40px;
   }
   .v-input__slot {
-    width: 313px;
+    width: 280px;
   }
 }
 </style>

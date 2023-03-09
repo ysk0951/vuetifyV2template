@@ -332,7 +332,7 @@ export default {
   props: ["data"],
   data() {
     return {
-      codeGrade: "",
+      codeGrade: this.data.code ? this.data.code : "",
       codeGradeExist: true,
       codeList: [],
       picker_1: false,
