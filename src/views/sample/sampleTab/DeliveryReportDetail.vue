@@ -358,7 +358,7 @@ export default {
         produce_date: this.data.produce_date,
         out_date: this.data.out_date,
         out_due_date: this.data.out_due_date,
-        delivery_due_date: this.data.delivery_date,
+        delivery_due_date: this.data.delivery_due_date,
         pickpart: this.data.pickpart,
         price_type: this.data.price_type,
         qty: this.data.qty,
