@@ -228,11 +228,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.full {
-  height: 100%;
-  width: 100%;
-  background-color: white;
-}
 .filter {
   z-index: 1;
   width: 90%;

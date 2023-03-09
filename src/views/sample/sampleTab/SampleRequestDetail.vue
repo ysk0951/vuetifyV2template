@@ -278,20 +278,24 @@ export default {
 .fileBtn {
   height: 41px !important;
 }
-.file .v-text-field__details {
-  display: none !important;
+.file {
+  .v-text-field__details {
+    display: none !important;
+  }
+  .v-input__slot {
+    width: 300px;
+  }
 }
 .aLink {
   color: blue !important;
   text-decoration: underline;
 }
-.file .v-input__slot {
-  width: 300px;
-}
-.address .v-input__slot {
-  width: 100%;
-}
-.address .row {
-  height: 100px;
+.address {
+  .v-input__slot {
+    width: 100%;
+  }
+  .row {
+    height: 100px;
+  }
 }
 </style>

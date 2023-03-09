@@ -202,6 +202,10 @@ export default {
     this.setGrid();
   },
   methods: {
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     ...mapMutations("popup", ["SET_POPUP"]),
     valid() {
       return this.$refs.form.validate();

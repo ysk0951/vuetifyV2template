@@ -217,7 +217,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 .infoCard {
   text-align: center;
   padding: 50px;
@@ -252,11 +252,12 @@ export default {
   margin-bottom: 55px;
   margin-left: 16px;
 }
-.findPw .v-messages__message {
-  margin-top: 3px !important;
-}
-
-.findPw .v-subheader {
-  width: 135px;
+.findPw {
+  .v-messages__message {
+    margin-top: 3px !important;
+  }
+  .v-subheader {
+    width: 135px;
+  }
 }
 </style>

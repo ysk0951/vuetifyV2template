@@ -509,18 +509,9 @@ export default {
 };
 </script>
 <style lang="scss">
-.fileBtn {
-  height: 41px !important;
-}
-.file .v-text-field__details {
-  display: none !important;
-}
 .aLink {
   color: blue !important;
   text-decoration: underline;
-}
-.file .v-input__slot {
-  width: 300px;
 }
 .address .v-input__slot {
   width: 100%;

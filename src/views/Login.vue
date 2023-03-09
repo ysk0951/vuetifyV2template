@@ -355,11 +355,11 @@ export default {
 .underLogin {
   display: flex;
   justify-content: space-between;
+  span {
+    cursor: pointer;
+  }
 }
 
-.underLogin span {
-  cursor: pointer;
-}
 .v-input__slot {
   margin-bottom: 0px;
 }

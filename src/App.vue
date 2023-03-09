@@ -65,49 +65,6 @@
         }}</v-btn>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4" @click="closeProfile">
-        <Address ref="address" @select="addressSelect" />
-        <v-card
-          class="profile pa-5"
-          elevation="15"
-          v-if="profile && accessToken"
-        >
-          <div class="mb-3">
-            <v-row style="height: 50px">
-              <v-col cols="12" sm="2" class="mt-2">
-                <v-icon disabled style="margin-left: 13px">
-                  mdi-account
-                </v-icon>
-              </v-col>
-              <v-col cols="12" sm="5">
-                <div class="wrapperLeft">{{ userInfo.member_name }} 님</div>
-                <div class="wrapperLeft smallText">{{ userInfo.company }}</div>
-              </v-col>
-              <v-col cols="12" sm="5">
-                <v-select
-                  :items="this.language"
-                  v-model="myprofileLang"
-                  outlined
-                ></v-select>
-              </v-col>
-            </v-row>
-          </div>
-          <hr class="mb-5 mt-5" />
-          <div class="wrapperLeft mb-5">기본 배송지 주소</div>
-          <div v-if="userInfo.address">
-            <div class="wrapperLeft smallText">
-              * {{ userInfo.address }}{{ userInfo.address2 }}
-            </div>
-            <div class="wrapperLeft smallText mb-5">
-              * 연락처 1 : {{ userInfo.phone1 }}
-            </div>
-          </div>
-          <div v-else>등록된 기본배송지가 없습니다</div>
-          <div style="display: flex; justify-content: center">
-            <v-btn depressed color="primary" class="my-3" @click="openPost"
-              >배송지 관리</v-btn
-            >
-          </div>
-        </v-card>
         <v-layout align-center row wrap>
           <v-overlay :value="loading" style="z-index: 999">
             <v-progress-circular
@@ -118,6 +75,43 @@
           <router-view />
         </v-layout>
       </v-container>
+      <Address ref="address" @select="addressSelect" />
+      <v-card class="profile pa-5" elevation="15" v-if="profile && accessToken">
+        <div class="mb-3">
+          <v-row style="height: 50px">
+            <v-col cols="12" sm="2" class="mt-2">
+              <v-icon disabled style="margin-left: 13px"> mdi-account </v-icon>
+            </v-col>
+            <v-col cols="12" sm="5">
+              <div class="wrapperLeft">{{ userInfo.member_name }} 님</div>
+              <div class="wrapperLeft smallText">{{ userInfo.company }}</div>
+            </v-col>
+            <v-col cols="12" sm="5">
+              <v-select
+                :items="this.language"
+                v-model="myprofileLang"
+                outlined
+              ></v-select>
+            </v-col>
+          </v-row>
+        </div>
+        <hr class="mb-5 mt-5" />
+        <div class="wrapperLeft mb-5">기본 배송지 주소</div>
+        <div v-if="userInfo.address">
+          <div class="wrapperLeft smallText">
+            * {{ userInfo.address }}{{ userInfo.address2 }}
+          </div>
+          <div class="wrapperLeft smallText mb-5">
+            * 연락처 1 : {{ userInfo.phone1 }}
+          </div>
+        </div>
+        <div v-else>등록된 기본배송지가 없습니다</div>
+        <div style="display: flex; justify-content: center">
+          <v-btn depressed color="primary" class="my-3" @click="openPost"
+            >배송지 관리</v-btn
+          >
+        </div>
+      </v-card>
     </v-main>
   </v-app>
 </template>
@@ -194,7 +188,7 @@ export default {
       this.$router.push({ name: "main" });
     },
     openProfile() {
-      this.profile = true;
+      this.profile = !this.profile;
     },
     closeProfile() {
       this.profile = false;

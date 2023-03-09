@@ -162,11 +162,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.full {
-  height: 100%;
-  width: 100%;
-  background-color: white;
-}
 .service {
   width: 80%;
   .v-input__slot {
