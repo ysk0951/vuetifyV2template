@@ -8,11 +8,11 @@ const data = [
     alias: "Lot No",
   },
   {
-    field: "Code Grade",
+    field: "code",
     alias: "Code Grade",
   },
   {
-    field: "납기일",
+    field: "delivery_date",
     alias: "납기일",
   },
   {
@@ -20,7 +20,7 @@ const data = [
     alias: "제품수량(kg)",
   },
   {
-    field: "접수상태",
+    field: "stat",
     alias: "접수 상태",
   },
   {
@@ -28,7 +28,7 @@ const data = [
     alias: "제조 진행사항",
   },
   {
-    field: "producestat_",
+    field: "out_due_date",
     alias: "출하 예정일",
   },
 ];
