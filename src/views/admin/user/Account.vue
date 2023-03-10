@@ -19,7 +19,7 @@
     <div class="service">
       <h3 class="mb-2">아이디 관리</h3>
       <v-form ref="form" lazy-validation>
-        <div class="filter sch">
+        <div class="filter sch pr-5">
           <v-row class="row pa-3 mb-8">
             <v-col cols="12" sm="1" class="pl-0">
               <h4>계정 구분</h4>
@@ -79,8 +79,8 @@
                 id="work"
               ></v-select>
             </v-col>
-            <v-col cols="12" sm="1" class="pr-0 btn">
-              <div class="wrapperEnd">
+            <v-col cols="12" sm="1" class="pr-0">
+              <div class="wrapperTop pt-6 pl-6">
                 <v-card-actions class="mr-0">
                   <v-btn depressed @click="reset">초기화</v-btn>
                 </v-card-actions>
