@@ -180,8 +180,10 @@ export default {
       });
       const data = res.data.data;
       const grid = this.$refs[ref];
+      console.log(grid);
       if (grid) {
         if (data.items) {
+          console.log(data.items);
           grid.loadData(data.items, ["delivery_date"]);
         } else {
           grid.loadData([]);
@@ -196,10 +198,10 @@ export default {
       this.chageTab(v, "progress", "progressGrid", progress);
     },
     progressDelay(v) {
-      this.chageTab(v, "progressDelay", "progressDealyGrid", dashproducedelay);
+      this.chageTab(v, "progressDelay", "progressDelayGrid", dashproducedelay);
     },
     deliveryDelay(v) {
-      this.chageTab(v, "deliveryDelay", "deliveryDealyGrid", dashdeliverydelay);
+      this.chageTab(v, "deliveryDelay", "deliveryDelayGrid", dashdeliverydelay);
     },
     delivery(v) {
       this.chageTab(v, "delivery", "deliveryGrid", dashdelivery);

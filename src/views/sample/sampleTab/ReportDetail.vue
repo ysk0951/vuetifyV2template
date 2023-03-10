@@ -40,9 +40,9 @@
     </v-row>
     <h3 class="mt-16 mb-2">세부정보</h3>
     <hr class="mb-8" />
-    <RealGrid :domName="grid" ref="reportDetailGrid" :settings="settings" />
+    <!-- <RealGrid :domName="grid" ref="reportDetailGrid" :settings="settings" /> -->
     <v-row style="height: 90px" class="px-2">
-      <v-col cols="12" sm="3">
+      <!-- <v-col cols="12" sm="3">
         <h4>제품 무게</h4>
         <v-text-field outlined dense filled disabled></v-text-field>
       </v-col>
@@ -53,7 +53,7 @@
       <v-col cols="12" sm="3">
         <h4>제품 최종 총 무게</h4>
         <v-text-field outlined dense filled disabled></v-text-field>
-      </v-col>
+      </v-col> -->
       <v-col cols="12" sm="3">
         <h4>포장 용기</h4>
         <v-select
@@ -64,8 +64,6 @@
           id="work"
         ></v-select>
       </v-col>
-    </v-row>
-    <v-row style="height: 90px" class="px-2">
       <v-col cols="12" sm="3">
         <h4>라벨기재사항</h4>
         <v-text-field outlined dense></v-text-field>
@@ -84,12 +82,12 @@
         <h4>분석 특이사항</h4>
         <v-text-field outlined dense></v-text-field>
       </v-col>
+    </v-row>
+    <v-row style="height: 90px" class="px-2">
       <v-col cols="12" sm="3">
         <h4>고객요청 특이사항</h4>
         <v-text-field outlined dense class="pr-2"></v-text-field>
       </v-col>
-    </v-row>
-    <v-row style="height: 90px" class="px-2">
       <v-col cols="12" sm="3">
         <h4>제조상 특이사항</h4>
         <v-text-field outlined dense></v-text-field>
@@ -99,6 +97,7 @@
         <v-text-field outlined dense placeholder="(kg)"></v-text-field>
       </v-col>
     </v-row>
+    <v-row style="height: 90px" class="px-2"> </v-row>
     <div class="wrapper">
       <v-card-actions>
         <v-btn depressed @click="reset">취소</v-btn>
@@ -110,7 +109,7 @@
   </div>
 </template>
 <script>
-import RealGrid from "@/components/RealGrid.vue";
+// import RealGrid from "@/components/RealGrid.vue";
 import { mapState } from "vuex";
 import * as settings from "@/assets/grid/reportDetail";
 export default {
@@ -127,7 +126,7 @@ export default {
     save() {},
   },
   components: {
-    RealGrid,
+    // RealGrid,
   },
   computed: {
     ...mapState("common", ["code"]),
