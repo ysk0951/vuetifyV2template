@@ -123,6 +123,9 @@ export default {
       });
     },
   },
+  mounted() {
+    this.loadData();
+  },
   components: {
     RealGrid,
   },

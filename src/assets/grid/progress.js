@@ -8,7 +8,7 @@ const data = [
     alias: "Lot No",
   },
   {
-    field: "Code Grade",
+    field: "code",
     alias: "Code Grade",
   },
   {

@@ -182,7 +182,7 @@ export default {
       const grid = this.$refs[ref];
       if (grid) {
         if (data.items) {
-          grid.loadData(data.items);
+          grid.loadData(data.items, ["delivery_date"]);
         } else {
           grid.loadData([]);
         }

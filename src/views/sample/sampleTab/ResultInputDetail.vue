@@ -3,10 +3,10 @@
     <SetPopup ref="confirm" />
     <div class="wrapperSpace">
       <h4 class="mt-4 mb-2">품질검사 결과입력</h4>
-      <div>
+      <!-- <div>
         <v-btn depressed @click="specAdd">추가</v-btn>
         <v-btn depressed color="primary" @click="specDel">삭제</v-btn>
-      </div>
+      </div> -->
     </div>
     <RealGrid
       domName="resultInputDetail"
