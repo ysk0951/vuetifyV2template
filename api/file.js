@@ -1,4 +1,5 @@
 import http from "./http";
+import config from "./config";
 import moment from "moment";
 // import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
@@ -59,4 +60,16 @@ export async function getExcel(data, name) {
   } catch (exception) {
     alert("파일다운로드 실패");
   }
+}
+
+export async function getReportFile(path) {
+  return http
+    .get(config.exelLocation + path, { responseType: "blob" })
+    .then((response) => {
+      FileDownload(response.data, `제조기록지_${moment.now()}.xlsx`);
+    })
+    .catch((exception) => {
+      console.log(exception);
+      alert("파일 다운로드 실패");
+    });
 }

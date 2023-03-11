@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { makeCell } from "./gridUtill";
+import { makeCell, makeGroup } from "./gridUtill";
 let fields = [];
 let columns = [];
 const data = [
@@ -10,35 +10,45 @@ const data = [
   {
     field: "vol",
     alias: "함량비",
+    editable: true,
+  },
+  {
+    field: "vol2",
+    alias: "계산비",
+    editable: true,
   },
   {
     field: "qty",
-    alias: "계산비",
-  },
-  {
-    field: "qty_",
     alias: "투입량",
+    editable: true,
   },
   {
-    field: "log",
+    field: "low",
     alias: "하한",
+    editable: true,
   },
   {
     field: "hig",
     alias: "상한",
+    editable: true,
   },
   {
-    field: "out_due_date",
+    field: "rqty",
     alias: "실투입량",
+    editable: true,
   },
   {
-    field: "etc",
+    field: "bigo",
     alias: "비고",
+    editable: true,
   },
 ];
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  makeCell(1, [o], fields, columns, false, true);
+  makeCell(1, [o], fields, columns, false, o.editable);
 });
-export { fields, columns };
+const hideCheckBar = true;
+const noneNo = true;
+const grouping = makeGroup(data, 4, 5, "투입범위");
+export { fields, columns, hideCheckBar, noneNo, grouping };

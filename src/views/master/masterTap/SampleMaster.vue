@@ -44,7 +44,6 @@
                 outlined
                 dense
                 placeholder="00.00/00.00/00.00"
-                v-mask="'##.##/##.##/##.##'"
                 :rules="[this.validSet.sample(param.saltVol, 2, 'value')]"
               ></v-text-field>
             </v-col>

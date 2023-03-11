@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SetPopup ref="confirm" />
     <h3 class="mb-5">제조 기록지</h3>
     <v-form ref="form">
       <div class="wrapperSpace">
@@ -52,8 +53,8 @@
         depressed
         color="primary"
         @click="exelDownload"
-        style="width: 145px"
-        >엑셀 다운로드</v-btn
+        style="width: 155px"
+        >제조기록지 다운로드</v-btn
       >
     </div>
     <RealGrid
@@ -68,10 +69,12 @@
 <script>
 import RealGrid from "@/components/RealGrid.vue";
 import validSet from "@/assets/valid";
+import SetPopup from "@/components/SetPopup.vue";
 import _ from "lodash";
-import { searchproduce } from "api/sample/sample";
+import { produceReportlist } from "api/sample/sample";
 import { columns, fields, rows, height } from "@/assets/grid/report";
-import { getExcel } from "api/file";
+import { getReportFile } from "api/file";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -82,6 +85,7 @@ export default {
         fields,
         rows,
         height,
+        radio: true,
       },
       param: {
         lot_no: "",
@@ -101,8 +105,20 @@ export default {
     },
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP"]),
     valid() {
       return this.$refs.form.validate();
+    },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        approveName: closable ? "초기화" : "확인",
+        text,
+        closable,
+      });
+      this.$refs.confirm.openPopup(cb);
     },
     reset() {
       this.param = {
@@ -117,7 +133,7 @@ export default {
         if (_.isNumber(v)) {
           this.currentPage = v;
         }
-        searchproduce({
+        produceReportlist({
           currentPage: this.currentPage,
           ...this.param,
         }).then((res) => {
@@ -125,7 +141,6 @@ export default {
           const items = response.data.items;
           this.items = items;
           const page = response.data.params;
-          this.items = items;
           this.$refs.grid.loadData(items, [
             "delivery_date",
             "delivery_due_date",
@@ -143,11 +158,16 @@ export default {
       }
     },
     exelDownload() {
-      const data = this.$refs.grid.getCheckedRowExecl(this.settings.columns);
-      if (data.length > 0) {
-        getExcel(data, "제조기록지");
+      const idx = this.$refs.grid.getCheckedRowIdxRadio();
+      if (idx !== undefined) {
+        const row = this.items[idx];
+        if (row.excel_path) {
+          getReportFile(row.excel_path);
+        } else if (!row.excel_path) {
+          this.openPopup("제조기록지가 존재하지 않습니다");
+        }
       } else {
-        this.openPopup("엑셀 다운로드할 행을 선택해주세요");
+        this.openPopup("제조기록지 다운로드할 행을 선택해주세요");
       }
     },
     dbClick(data) {
@@ -162,6 +182,7 @@ export default {
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>

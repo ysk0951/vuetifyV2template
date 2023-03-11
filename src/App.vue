@@ -307,7 +307,6 @@ div.v-menu__content.theme--light.menuable__content__active > div {
   position: absolute;
   top: 49px;
   right: 21px;
-  width: 300px;
 }
 .smallText {
   font-size: 13px;

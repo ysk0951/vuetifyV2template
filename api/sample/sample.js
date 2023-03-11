@@ -96,3 +96,15 @@ export async function resultsList(param) {
 export async function resultsUpdate(param) {
   return http.post(prefix + `/resultsUpdate`, param);
 }
+
+export async function produceReportlist(param) {
+  return http.post(prefix + `/produceReportlist`, param);
+}
+
+export async function produceReportDetail(param) {
+  return http.post(prefix + `/produceReportDetail`, param);
+}
+
+export async function produceReportUpdate(param) {
+  return http.post(prefix + `/produceReportUpdate`, param);
+}

@@ -4,7 +4,7 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "lot_no",
+    field: "lotNo",
     alias: "Lot No",
   },
   {
