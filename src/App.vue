@@ -76,23 +76,21 @@
         </v-layout>
       </v-container>
       <Address ref="address" @select="addressSelect" />
-      <v-card class="profile pa-5" elevation="15" v-if="profile && accessToken">
+      <v-card class="profile pa-6" elevation="15" v-if="profile && accessToken">
         <div class="mb-3">
-          <v-row style="height: 50px">
-            <v-col cols="12" sm="2" class="mt-2">
-              <v-icon disabled style="margin-left: 13px"> mdi-account </v-icon>
-            </v-col>
-            <v-col cols="12" sm="5">
-              <div class="wrapperLeft">{{ userInfo.member_name }} 님</div>
+          <v-row style="height: 50px" class="my-1 mx-1">
+            <v-icon disabled style="margin-left: 13px; margin-bottom: 30px">
+              mdi-account
+            </v-icon>
+            <div class="flexCol px-3">
+              <div class="wrapperLeft mr-1">{{ userInfo.member_name }} 님</div>
               <div class="wrapperLeft smallText">{{ userInfo.company }}</div>
-            </v-col>
-            <v-col cols="12" sm="5">
-              <v-select
-                :items="this.language"
-                v-model="myprofileLang"
-                outlined
-              ></v-select>
-            </v-col>
+            </div>
+            <v-select
+              :items="this.language"
+              v-model="myprofileLang"
+              outlined
+            ></v-select>
           </v-row>
         </div>
         <hr class="mb-5 mt-5" />

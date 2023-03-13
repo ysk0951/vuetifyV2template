@@ -171,9 +171,10 @@ export default {
       }
     },
     dbClick(data) {
+      console.log(data.lot_no);
       this.$emit(
         "dbClick",
-        _.filter(this.items, (v) => v.lot_no === data.lot_no)[0]
+        _.filter(this.items, (v) => v.lotNo === data.lotNo)[0]
       );
     },
   },
