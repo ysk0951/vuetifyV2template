@@ -42,7 +42,6 @@
         </v-row>
       </div>
     </div>
-    <hr class="mt-3 mb-3" />
     <div class="wrapperSpace">
       <div>
         <h4 class="mt-4 mb-2">목록</h4>

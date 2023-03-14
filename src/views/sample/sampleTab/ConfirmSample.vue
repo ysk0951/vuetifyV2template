@@ -41,7 +41,6 @@
         </div>
       </div>
     </v-form>
-    <hr class="mb-3" />
     <div class="wrapperSpace">
       <div>
         <h4 class="mt-4 mb-2">요청 내역</h4>

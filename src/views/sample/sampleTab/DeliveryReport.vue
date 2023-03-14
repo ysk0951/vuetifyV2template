@@ -113,7 +113,6 @@
           </v-col>
         </v-row>
       </div>
-      <hr class="mb-3" />
       <div class="wrapperSpace px-2">
         <div>
           <h4 class="mt-4 mb-2">목록</h4>
