@@ -4,32 +4,52 @@
     <div class="pa-10 full">
       <div class="wrapper">
         <div class="filter">
-          <v-row>
-            <v-col cols="12" sm="2">
+          <v-row :class="userInfo.admincheck == 2 ? 'fiveCol mt-4' : 'mt-4'">
+            <v-col cols="12" :sm="userInfo.admincheck === 2 ? 2 : 4">
               <v-card elevation="3" @click="newRq"
-                >신규요청<span>{{ dash.new }}</span></v-card
+                >신규요청
+                <div>
+                  <span style="color: crimson">{{ dash.new }}</span
+                  ><span>건</span>
+                </div></v-card
               >
             </v-col>
-            <v-col cols="12" sm="2">
+            <v-col cols="12" :sm="userInfo.admincheck === 2 ? 2 : 4">
               <v-card elevation="3" @click="progress"
-                >제조중<span>{{ dash.progress }}</span></v-card
+                >제조중
+                <div>
+                  <span style="color: #60ab41">{{ dash.progress }}</span>
+                  <span>건</span>
+                </div></v-card
               >
             </v-col>
             <template v-if="userInfo.admincheck === 2">
               <v-col cols="12" sm="2">
                 <v-card elevation="3" @click="progressDelay"
-                  >제조지연<span>{{ dash.produceduedelay }}</span></v-card
-                >
+                  >제조지연
+                  <div>
+                    <span style="color: brown">{{ dash.produceduedelay }}</span>
+                    <span>건</span>
+                  </div>
+                </v-card>
               </v-col>
               <v-col cols="12" sm="2">
                 <v-card elevation="3" @click="deliveryDelay"
-                  >출하지연<span>{{ dash.outduedelay }}</span></v-card
+                  >출하지연
+                  <div>
+                    <span style="color: darkblue">{{ dash.outduedelay }}</span>
+                    <span>건</span>
+                  </div></v-card
                 >
               </v-col>
             </template>
-            <v-col cols="12" sm="2">
+            <v-col cols="12" :sm="userInfo.admincheck === 2 ? 2 : 4">
               <v-card elevation="3" @click="delivery"
-                >출하예정 <span>{{ dash.outdue }}</span>
+                >출하예정
+                <div>
+                  <span style="color: tomato">{{ dash.outdue }}</span>
+                  <span>건</span>
+                </div>
               </v-card>
             </v-col>
           </v-row>
@@ -242,5 +262,8 @@ export default {
     padding-right: 15px;
     justify-content: space-between;
   }
+}
+.fiveCol {
+  width: 120%;
 }
 </style>

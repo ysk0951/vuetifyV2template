@@ -4,8 +4,8 @@
       <div class="service commonCode">
         <h3 class="mb-2">공통코드 관리</h3>
         <div class="filter">
-          <v-row class="row mb-7">
-            <v-col cols="12" sm="3" class="sch">
+          <v-row class="row sch" style="height: 84px">
+            <v-col cols="12" sm="3">
               <h4>공통코드명</h4>
               <div class="wrapperEnd">
                 <v-text-field
@@ -31,7 +31,7 @@
         <div class="wrapperSpace">
           <div></div>
         </div>
-        <h3 class="mt-16 mb-2 pl-1 pr-1">
+        <h3 class="mt-8 mb-2 pl-1 pr-1">
           <div class="wrapperSpace">목록</div>
         </h3>
         <hr class="mb-4" />

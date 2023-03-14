@@ -12,7 +12,7 @@ const data = [
     alias: "Code Grade",
   },
   {
-    field: "request_date",
+    field: "delivery_date",
     alias: "납기일",
   },
   {
