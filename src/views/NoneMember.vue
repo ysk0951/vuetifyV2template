@@ -5,8 +5,8 @@
       <v-form ref="nonMember" lazy-validation>
         <div class="service">
           <div class="wrapper mt-10">
-            <v-row>
-              <v-col cols="12" sm="3" class="px-2 sch pa-1 mb-2">
+            <v-row class="sch mb-3">
+              <v-col cols="12" sm="3" class="px-4 mb-2 mt-5">
                 <h4>Lot No</h4>
                 <div class="wrapper">
                   <v-text-field

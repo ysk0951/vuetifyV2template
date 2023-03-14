@@ -37,7 +37,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="3">
-              <div class="wrapperEnd mt-7">
+              <div class="wrapperEnd mt-4">
                 <v-card-actions>
                   <v-btn depressed outlined @click="reset">초기화</v-btn>
                 </v-card-actions>

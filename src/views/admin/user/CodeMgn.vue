@@ -4,7 +4,7 @@
       <div class="service commonCode">
         <h3 class="mb-2">공통코드 관리</h3>
         <div class="filter">
-          <v-row class="row px-4 py-3 sch" style="height: 105px">
+          <v-row class="row px-4 py-3 sch wrapperSpace" style="height: 105px">
             <v-col cols="12" sm="3">
               <h4>공통코드명</h4>
               <div class="wrapperEnd">
@@ -14,18 +14,16 @@
                   placeholder="공통코드명을 입력해 주세요."
                   v-model="input.gubun"
                 ></v-text-field>
-                <div class="wrapperTop">
-                  <v-card-actions>
-                    <v-btn depressed outlined @click="reset">초기화</v-btn>
-                  </v-card-actions>
-                  <v-card-actions>
-                    <v-btn depressed color="primary" @click="search"
-                      >검색</v-btn
-                    >
-                  </v-card-actions>
-                </div>
               </div>
             </v-col>
+            <div class="wrapperTop pt-7">
+              <v-card-actions>
+                <v-btn depressed outlined @click="reset">초기화</v-btn>
+              </v-card-actions>
+              <v-card-actions>
+                <v-btn depressed color="primary" @click="search">검색</v-btn>
+              </v-card-actions>
+            </div>
           </v-row>
         </div>
         <div class="wrapperSpace">

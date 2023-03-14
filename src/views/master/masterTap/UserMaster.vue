@@ -25,15 +25,17 @@
                   v-model="param.company"
                   :rules="[this.validSet.company]"
                 ></v-text-field>
-                <v-card-actions>
-                  <v-btn depressed outlined @click="reset">초기화</v-btn>
-                </v-card-actions>
-                <v-card-actions>
-                  <v-btn depressed color="primary" @click="search">검색</v-btn>
-                </v-card-actions>
               </div>
             </v-col>
           </v-row>
+        </div>
+        <div class="wrapper">
+          <v-card-actions>
+            <v-btn depressed outlined @click="reset">초기화</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn depressed color="primary" @click="search">검색</v-btn>
+          </v-card-actions>
         </div>
       </div>
     </v-form>

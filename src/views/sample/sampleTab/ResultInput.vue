@@ -2,7 +2,7 @@
   <div>
     <h3 class="mb-2">결과 입력</h3>
     <div class="wrapperSpace mt-4 sch">
-      <div style="width: 40%" class="px-4 pt-6 pb-2">
+      <div style="width: 100%" class="px-4 pt-6 pb-2">
         <v-row class="pl-2">
           <v-col cols="12" sm="3">
             <h4>Code Grade</h4>
@@ -22,15 +22,17 @@
               v-model="param.lot_no"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="6">
-            <h4>요청자</h4>
-            <div class="wrapperTop">
+          <v-col cols="12" sm="6" class="wrapperSpace">
+            <div style="width: 50%">
+              <h4>요청자</h4>
               <v-text-field
                 outlined
                 dense
                 placeholder="요청자를 입력해주세요"
                 v-model="param.request_name"
               ></v-text-field>
+            </div>
+            <div class="wrapper">
               <v-card-actions>
                 <v-btn depressed outlined @click="reset">초기화</v-btn>
               </v-card-actions>

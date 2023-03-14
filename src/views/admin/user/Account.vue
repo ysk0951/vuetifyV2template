@@ -40,7 +40,7 @@
                 :rules="[this.validSet.name]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="2">
               <h4>이메일 주소</h4>
               <v-text-field
                 outlined
@@ -50,7 +50,7 @@
                 :rules="[this.validSet.email]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="2">
               <h4>기업명</h4>
               <v-text-field
                 outlined
@@ -60,7 +60,7 @@
                 :rules="[this.validSet.company]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="1">
+            <v-col cols="12" sm="2">
               <h4>사번</h4>
               <v-text-field
                 outlined
@@ -70,7 +70,7 @@
                 :rules="[this.validSet.employNumber]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="1" class="pr-0">
+            <v-col cols="12" sm="2" class="pr-0">
               <h4>재직</h4>
               <v-select
                 :items="this.workType"

@@ -14,7 +14,7 @@
               :rules="[this.validSet.commonCodeHipen]"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="3">
+          <v-col cols="12" sm="2">
             <h4>요청자</h4>
             <v-text-field
               outlined
@@ -37,7 +37,7 @@
               id="work"
             />
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="3">
             <h4>출하 사항</h4>
             <div class="wrapperTop">
               <v-select

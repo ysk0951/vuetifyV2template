@@ -5,7 +5,7 @@
     <v-form ref="form" lazy-validation>
       <div class="wrapperSpace mt-4 pt-3 px-2 sch">
         <v-row class="px-4 pt-4">
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="1">
             <h4>Lot No</h4>
             <v-text-field
               outlined
@@ -73,7 +73,7 @@
               ></v-date-picker>
             </v-menu>
           </v-col>
-          <v-col cols="12" sm="2" class="btn">
+          <v-col cols="12" sm="3" class="btn">
             <h4>납품에정일</h4>
             <div class="wrapperTop mb-3">
               <v-menu

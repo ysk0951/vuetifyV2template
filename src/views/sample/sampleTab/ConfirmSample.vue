@@ -25,19 +25,17 @@
                   v-model="param.request_name"
                   :rules="[this.validSet.name]"
                 ></v-text-field>
-                <div class="wrapperTop">
-                  <v-card-actions>
-                    <v-btn depressed outlined @click="reset">초기화</v-btn>
-                  </v-card-actions>
-                  <v-card-actions class="px-0">
-                    <v-btn depressed color="primary" @click="search"
-                      >검색</v-btn
-                    >
-                  </v-card-actions>
-                </div>
               </div>
             </v-col>
           </v-row>
+        </div>
+        <div class="wrapper pr-3 pt-3">
+          <v-card-actions>
+            <v-btn depressed outlined @click="reset">초기화</v-btn>
+          </v-card-actions>
+          <v-card-actions class="px-0">
+            <v-btn depressed color="primary" @click="search">검색</v-btn>
+          </v-card-actions>
         </div>
       </div>
     </v-form>
