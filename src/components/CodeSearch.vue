@@ -50,7 +50,7 @@ export default {
     open() {
       this.SET_MODAL({
         height: 100,
-        width: 800,
+        width: 1400,
         closable: true,
         customApprove: true,
       });

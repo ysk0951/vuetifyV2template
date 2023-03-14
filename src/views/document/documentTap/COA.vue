@@ -3,7 +3,7 @@
     <h3 class="mb-2">COA 관리</h3>
     <SetPopup ref="confirm" />
     <v-form lazy-validation ref="form">
-      <div style="width: 100%">
+      <div style="width: 100%" class="mb-4">
         <div class="wrapperSpace pa-4 pt-6 sch">
           <v-row class="pl-2">
             <v-col cols="12" sm="4">

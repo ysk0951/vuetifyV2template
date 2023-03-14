@@ -3,7 +3,7 @@
     <h3 class="mb-2">납품일보</h3>
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
-      <div class="wrapperSpace mt-4 pt-3 px-2 sch">
+      <div class="wrapperSpace mt-4 pt-3 px-2 mb-4 sch">
         <v-row class="px-4 pt-4">
           <v-col cols="12" sm="1">
             <h4>Lot No</h4>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="mb-2">샘플 마스터 관리</h3>
+    <h3 class="mb-8">샘플 마스터 관리</h3>
     <v-form ref="sampleMaster" lazy-validation>
       <v-row class="sch pl-2 mb-2">
         <v-col cols="12" sm="11">
@@ -70,9 +70,9 @@
               ></v-text-field>
             </v-col></div></v-col
         ><v-col cols="12" sm="1" style="align-self: end">
-          <div class="wrapperEnd pr-1">
+          <div class="wrapperEnd pr-4">
             <v-card-actions>
-              <v-btn depressed @click="reset">초기화</v-btn>
+              <v-btn depressed outlined @click="reset">초기화</v-btn>
             </v-card-actions>
             <v-card-actions>
               <v-btn depressed color="primary" @click="search">검색</v-btn>
@@ -81,7 +81,7 @@
         ></v-row
       >
     </v-form>
-    <h3 class="mt-2 mb-2 pl-1 pr-1">
+    <h3 class="mt-8 mb-2 pl-1 pr-1">
       <div class="wrapperSpace">
         샘플 목록
         <v-btn depressed color="primary" @click="addSample">등록</v-btn>

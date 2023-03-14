@@ -9,7 +9,7 @@
       :nonePage="true"
       class="mt-4"
     />
-    <h3 class="mt-4 mb-2">추가 정보</h3>
+    <h3 class="mt-4 mb-5">추가 정보</h3>
     <v-row class="pl-2">
       <v-col cols="12" sm="2">
         <h4>요청자</h4>
