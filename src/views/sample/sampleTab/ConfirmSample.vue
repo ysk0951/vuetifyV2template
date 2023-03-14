@@ -2,8 +2,8 @@
   <div>
     <h3 class="mb-2">샘플요청 검수</h3>
     <v-form ref="form" lazy-validation>
-      <div class="wrapperSpace py-1 mt-4">
-        <div class="sch" style="width: 50%">
+      <div class="wrapperSpace py-1 sch">
+        <div class="mt-4 px-2" style="width: 50%">
           <v-row class="px-4 py-2">
             <v-col cols="12" sm="6">
               <h4>Lot No</h4>
@@ -27,7 +27,7 @@
                 ></v-text-field>
                 <div class="wrapperTop">
                   <v-card-actions>
-                    <v-btn depressed @click="reset">초기화</v-btn>
+                    <v-btn depressed outlined @click="reset">초기화</v-btn>
                   </v-card-actions>
                   <v-card-actions class="px-0">
                     <v-btn depressed color="primary" @click="search"

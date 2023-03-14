@@ -6,7 +6,7 @@
     <div class="service login">
       <h3 class="mb-2">로그인 관리</h3>
       <v-form ref="form" lazy-validation>
-        <div class="filter sch">
+        <div class="filter sch pt-4 pl-2">
           <v-row class="row mb-7">
             <v-col cols="12" sm="3">
               <h4>계정 구분</h4>
@@ -36,10 +36,10 @@
                 :rules="[this.validSet.name]"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="3" class="btn">
-              <div class="wrapperEnd">
+            <v-col cols="12" sm="3">
+              <div class="wrapperEnd mt-7">
                 <v-card-actions>
-                  <v-btn depressed @click="reset">초기화</v-btn>
+                  <v-btn depressed outlined @click="reset">초기화</v-btn>
                 </v-card-actions>
                 <v-card-actions>
                   <v-btn depressed color="primary" @click="onApprove"

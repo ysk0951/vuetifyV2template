@@ -1,9 +1,9 @@
 <template>
   <div>
     <h3 class="mb-2">결과 입력</h3>
-    <div class="wrapperSpace mt-4">
-      <div style="width: 40%" class="px-3">
-        <v-row class="pl-2 sch">
+    <div class="wrapperSpace mt-4 sch">
+      <div style="width: 40%" class="px-4 pt-6 pb-2">
+        <v-row class="pl-2">
           <v-col cols="12" sm="3">
             <h4>Code Grade</h4>
             <v-text-field
@@ -32,7 +32,7 @@
                 v-model="param.request_name"
               ></v-text-field>
               <v-card-actions>
-                <v-btn depressed @click="reset">초기화</v-btn>
+                <v-btn depressed outlined @click="reset">초기화</v-btn>
               </v-card-actions>
               <v-card-actions>
                 <v-btn depressed color="primary" @click="search">검색</v-btn>

@@ -4,8 +4,8 @@
     <h3 class="mb-5">제조 기록지</h3>
     <v-form ref="form">
       <div class="wrapperSpace">
-        <div style="width: 60%">
-          <v-row class="pl-5 sch">
+        <div style="width: 100%">
+          <v-row class="px-5 sch pt-3">
             <v-col cols="12" sm="4">
               <h4>Code Grade</h4>
               <v-text-field
@@ -36,7 +36,7 @@
                   v-model="param.request_name"
                 ></v-text-field>
                 <v-card-actions>
-                  <v-btn depressed @click="reset">초기화</v-btn>
+                  <v-btn depressed outlined @click="reset">초기화</v-btn>
                 </v-card-actions>
                 <v-card-actions>
                   <v-btn depressed color="primary" @click="search">검색</v-btn>

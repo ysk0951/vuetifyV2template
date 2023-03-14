@@ -3,7 +3,7 @@
     <RealGrid :domName="grid" ref="grid" :settings="settings" />
     <div class="wrapper">
       <v-card-actions>
-        <v-btn depressed @click="reset">초기화</v-btn>
+        <v-btn depressed outlined @click="reset">초기화</v-btn>
       </v-card-actions>
       <v-card-actions>
         <v-btn depressed color="primary" @click="search">저장</v-btn>

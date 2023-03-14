@@ -2,7 +2,7 @@
   <div>
     <h3 class="mb-2">진행사항 조회</h3>
     <v-form lazy-validation ref="form">
-      <div class="searchProcess wrapperSpace pa-3 mt-4 sch">
+      <div class="searchProcess wrapperSpace pa-6 mt-4 sch">
         <v-row class="pl-2" style="height: 86px">
           <v-col cols="12" sm="3">
             <h4>Lot No</h4>
@@ -47,7 +47,7 @@
                 id="work"
               />
               <v-card-actions>
-                <v-btn depressed @click="reset">초기화</v-btn>
+                <v-btn depressed outlined @click="reset">초기화</v-btn>
               </v-card-actions>
               <v-card-actions class="px-0">
                 <v-btn depressed color="primary" @click="search">검색</v-btn>

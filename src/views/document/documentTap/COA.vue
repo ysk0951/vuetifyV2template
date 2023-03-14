@@ -3,8 +3,8 @@
     <h3 class="mb-2">COA 관리</h3>
     <SetPopup ref="confirm" />
     <v-form lazy-validation ref="form">
-      <div style="width: 80%">
-        <div class="wrapperSpace pa-4 sch">
+      <div style="width: 100%">
+        <div class="wrapperSpace pa-4 pt-6 sch">
           <v-row class="pl-2">
             <v-col cols="12" sm="4">
               <h4>Lot No</h4>
@@ -37,7 +37,7 @@
                   :rules="[this.validSet.name]"
                 ></v-text-field>
                 <v-card-actions>
-                  <v-btn depressed @click="reset">초기화</v-btn>
+                  <v-btn depressed outlined @click="reset">초기화</v-btn>
                 </v-card-actions>
                 <v-card-actions>
                   <v-btn depressed color="primary" @click="search">검색</v-btn>

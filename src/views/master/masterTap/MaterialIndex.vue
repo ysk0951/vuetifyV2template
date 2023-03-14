@@ -2,7 +2,7 @@
   <div class="material">
     <h3 class="mb-2">물질명 INDEX 마스터</h3>
     <v-form ref="meterialIndex" lazy-validation>
-      <div class="meterialIndex wrapperSpace px-2 sch">
+      <div class="meterialIndex wrapperSpace px-2 sch pt-4">
         <v-col cols="12" sm="2">
           <h4>자재코드</h4>
           <v-text-field
@@ -49,7 +49,7 @@
               v-model="param.common_name"
             ></v-text-field>
             <v-card-actions>
-              <v-btn depressed @click="reset">초기화</v-btn>
+              <v-btn depressed outlined @click="reset">초기화</v-btn>
             </v-card-actions>
             <v-card-actions>
               <v-btn depressed color="primary" @click="search">검색</v-btn>

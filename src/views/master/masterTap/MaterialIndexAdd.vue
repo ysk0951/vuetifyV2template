@@ -19,7 +19,7 @@
     </v-form>
     <div class="wrapper">
       <v-card-actions>
-        <v-btn depressed @click="setData">초기화</v-btn>
+        <v-btn depressed outlined @click="setData">초기화</v-btn>
       </v-card-actions>
       <v-card-actions>
         <v-btn depressed color="primary" @click="save">저장</v-btn>

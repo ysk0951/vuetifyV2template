@@ -82,7 +82,7 @@
             <v-col cols="12" sm="1" class="pr-0">
               <div class="wrapperTop pt-6 pl-6">
                 <v-card-actions class="mr-0">
-                  <v-btn depressed @click="reset">초기화</v-btn>
+                  <v-btn depressed outlined @click="reset">초기화</v-btn>
                 </v-card-actions>
                 <v-card-actions>
                   <v-btn depressed color="primary" @click="onApprove"

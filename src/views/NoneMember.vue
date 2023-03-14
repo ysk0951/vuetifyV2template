@@ -17,7 +17,7 @@
                     v-model="param.lot_no"
                   />
                   <div class="wrapperEnd">
-                    <v-btn depressed class="ml-3 mr-3" @click="reset"
+                    <v-btn depressed outlined class="ml-3 mr-3" @click="reset"
                       >초기화</v-btn
                     >
                     <v-btn depressed color="primary " @click="search"

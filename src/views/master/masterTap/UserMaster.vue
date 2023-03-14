@@ -2,9 +2,9 @@
   <div>
     <h3 class="mb-4">회원 마스터 관리</h3>
     <v-form ref="userMaster" lazy-validation>
-      <div class="userMaster wrapperSpace">
+      <div class="userMaster wrapperSpace sch">
         <div style="width: 50%">
-          <v-row class="ml-0 px-2 sch">
+          <v-row class="ml-0 px-2 py-3 pt-6">
             <v-col cols="12" sm="6">
               <h4>이름</h4>
               <v-text-field
@@ -26,7 +26,7 @@
                   :rules="[this.validSet.company]"
                 ></v-text-field>
                 <v-card-actions>
-                  <v-btn depressed @click="reset">초기화</v-btn>
+                  <v-btn depressed outlined @click="reset">초기화</v-btn>
                 </v-card-actions>
                 <v-card-actions>
                   <v-btn depressed color="primary" @click="search">검색</v-btn>

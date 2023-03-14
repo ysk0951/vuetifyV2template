@@ -50,7 +50,7 @@
         ><v-col cols="12" sm="1" style="align-self: end">
           <div class="wrapperEnd pr-2">
             <v-card-actions>
-              <v-btn depressed @click="reset">초기화</v-btn>
+              <v-btn depressed outlined @click="reset">초기화</v-btn>
             </v-card-actions>
             <v-card-actions>
               <v-btn depressed color="primary" @click="search">검색</v-btn>

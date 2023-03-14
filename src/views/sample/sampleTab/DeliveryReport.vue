@@ -4,7 +4,7 @@
     <SetPopup ref="confirm" />
     <v-form ref="form" lazy-validation>
       <div class="wrapperSpace mt-4 pt-3 px-2 sch">
-        <v-row class="px-2">
+        <v-row class="px-4 pt-4">
           <v-col cols="12" sm="2">
             <h4>Lot No</h4>
             <v-text-field
@@ -104,7 +104,7 @@
               </v-menu>
 
               <v-card-actions>
-                <v-btn depressed @click="reset">초기화</v-btn>
+                <v-btn depressed outlined @click="reset">초기화</v-btn>
               </v-card-actions>
               <v-card-actions>
                 <v-btn depressed color="primary" @click="search">검색</v-btn>
