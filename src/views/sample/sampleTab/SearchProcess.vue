@@ -144,7 +144,7 @@ export default {
           const items = response.data.items;
           const page = response.data.params;
           this.$refs.grid.setPage(page);
-          this.$refs.grid.loadData(items);
+          this.$refs.grid.loadData(items, ["delivery_date"]);
         });
       }
     },

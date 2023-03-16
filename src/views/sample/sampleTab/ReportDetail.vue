@@ -43,7 +43,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
-        <h4>요청처</h4>
+        <h4>요청업체명</h4>
         <v-text-field
           outlined
           dense
