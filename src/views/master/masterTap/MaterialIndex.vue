@@ -119,8 +119,8 @@ export default {
     newSample() {
       this.$emit("newSample");
     },
-    loadData() {
-      // this.search(v);
+    loadData(v) {
+      this.search(v);
     },
     search(v) {
       if (_.isNumber(v)) {
