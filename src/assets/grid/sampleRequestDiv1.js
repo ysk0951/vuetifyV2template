@@ -10,7 +10,7 @@ makeCell(
     },
     {
       field: "solventVol",
-      alias: "wt%",
+      alias: "vol%",
       excelKey: "vol%_",
     },
   ],
