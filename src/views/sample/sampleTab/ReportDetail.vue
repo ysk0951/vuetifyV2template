@@ -141,6 +141,10 @@
           v-model="param.delivery_etc"
         ></v-text-field>
       </v-col>
+      <v-col cols="12" sm="3">
+        <h4>총량</h4>
+        <v-text-field outlined dense v-model="param.total"></v-text-field>
+      </v-col>
     </v-row>
     <v-row style="height: 90px" class="px-2"> </v-row>
     <div class="wrapper">
@@ -160,6 +164,7 @@ import _ from "lodash";
 import { mapState, mapMutations } from "vuex";
 import { produceReportDetail, produceReportUpdate } from "api/sample/sample";
 import * as settings from "@/assets/grid/reportDetail";
+import { getNum } from "@/assets/grid/gridUtill";
 export default {
   props: ["data"],
   data() {
@@ -184,6 +189,7 @@ export default {
         sum_qty: "",
         sum_vol: "",
         sum_vol2: "",
+        total: "",
       },
       settings,
     };
@@ -232,7 +238,6 @@ export default {
         .then((res) => {
           const response = res.data.data;
           if (response) {
-            console.log(response);
             this.param.code_title = response.code_title;
             this.param.detail = response.items;
             this.param.delivery_type = response.delivery_type;
@@ -259,6 +264,18 @@ export default {
               vol2: response.sum_vol2,
               qty: response.sum_qty,
             });
+            _.each(response.items, (v) => {
+              v["vol"] = Number(getNum(v["vol"])).toFixed(2);
+              v["vol2"] = Number(getNum(v["vol2"])).toFixed(2);
+              v["qty"] = Number(getNum(v["qty"])).toFixed(2);
+              v["low"] = Number(getNum(v["low"])).toFixed(2);
+              v["hig"] = Number(getNum(v["hig"])).toFixed(2);
+              v["rqty"] = Number(getNum(v["rqty"])).toFixed(2);
+            });
+            console.log(response.total);
+            this.param.total = response.total
+              ? response.total
+              : response.qty * 1000;
             this.$refs.reportDetailGrid.loadData(response.items);
           }
         })

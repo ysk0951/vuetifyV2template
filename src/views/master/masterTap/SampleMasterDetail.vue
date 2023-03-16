@@ -84,7 +84,7 @@
 </template>
 <script>
 import * as sample from "@/assets/grid/sampleRequest";
-import * as sampleSum from "@/assets/grid/sampleRequestSum";
+import * as sampleSum from "@/assets/grid/sampleRequestSumWt";
 import * as spec from "@/assets/grid/spec";
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
