@@ -69,7 +69,7 @@
       :domName="grid"
       ref="grid"
       :settings="settings"
-      @changePage="loadData"
+      @changePage="search"
       @dbClick="dbClick"
     />
   </div>
@@ -98,17 +98,17 @@ export default {
         common_name: "",
         pageSize: 10,
       },
-      currentpage: 1,
+      currentPage: 1,
     };
   },
-  watch: {
-    param: {
-      deep: true,
-      handler: function () {
-        this.currentPage = 1;
-      },
-    },
-  },
+  // watch: {
+  //   param: {
+  //     deep: true,
+  //     handler: function () {
+  //       this.currentPage = 1;
+  //     },
+  //   },
+  // },
   computed: {
     ...mapState("common", ["code"]),
   },
@@ -119,14 +119,15 @@ export default {
     newSample() {
       this.$emit("newSample");
     },
-    loadData(v) {
-      this.search(v);
+    loadData() {
+      // this.search(v);
     },
     search(v) {
       if (_.isNumber(v)) {
         this.currentPage = v;
       }
-      subsMasterList({ ...this.param, currentPage: this.currentpage })
+      console.log(v, this.currentPage);
+      subsMasterList({ ...this.param, currentPage: this.currentPage })
         .then((res) => {
           const response = res.data;
           const items = response.data.items;
