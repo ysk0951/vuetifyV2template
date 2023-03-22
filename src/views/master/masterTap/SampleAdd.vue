@@ -131,7 +131,13 @@
       @changeData="changeDataMake"
     />
     <h3 class="mt-4 mb-2 pl-1 pr-1">
-      <div class="wrapperSpace">세부 스펙</div>
+      <div class="wrapperSpace">
+        세부 스펙
+        <div>
+          <v-btn depressed @click="specAdd">추가</v-btn>
+          <v-btn depressed color="primary" @click="specDel">삭제</v-btn>
+        </div>
+      </div>
     </h3>
     <hr class="mb-4" />
     <RealGrid
@@ -195,7 +201,7 @@ export default {
       settings_div2: this.gridSetting(sample2, false),
       settings_div3: this.gridSetting(sample3, false),
       settings_div3_noSum: this.gridSetting(sample3, true),
-      settings_spec: this.gridSetting(spec, false, 700),
+      settings_spec: this.gridSetting(spec, false, 700, false),
     };
   },
   mounted() {
@@ -210,7 +216,7 @@ export default {
     valid() {
       return this.$refs.form.validate();
     },
-    gridSetting(sample, existSum, height) {
+    gridSetting(sample, existSum, height, hideCheckBar) {
       return {
         ...sample,
         columns: existSum
@@ -228,7 +234,7 @@ export default {
               v.editable = true;
               return v;
             }),
-        hideCheckBar: true,
+        hideCheckBar: hideCheckBar === false ? hideCheckBar : true,
         height: height ? height : 150,
         noneNo: true,
       };
@@ -345,6 +351,25 @@ export default {
         code_grade: "",
       };
       this.setGrid();
+    },
+    specAdd() {
+      const row = this.$refs.spec_grid.getJsonRows();
+      const add = makeARow(spec.fields);
+      this.$refs.spec_grid.loadData(row.concat(add));
+    },
+    specDel() {
+      const row = this.$refs.spec_grid.getJsonRows();
+      const idx = this.$refs.spec_grid.getCheckedRowIdx();
+      if (idx.length < 1) {
+        this.openPopup("삭제할 행을 선택해주세요");
+      } else {
+        this.openPopup("삭제하시겠습니까", true, () => {
+          const ret = _.filter(row, (v, index) => {
+            return !idx.includes(index);
+          });
+          this.$refs.spec_grid.loadData(ret);
+        });
+      }
     },
     save() {
       const sum1 = this.$refs.real_grid_div3.getJsonRow().sum;

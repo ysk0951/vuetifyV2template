@@ -121,6 +121,7 @@ export default {
         columns,
         fields,
         height,
+        hideCheckBar: true,
       },
     };
   },
