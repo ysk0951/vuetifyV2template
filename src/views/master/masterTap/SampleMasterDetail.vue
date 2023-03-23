@@ -13,7 +13,17 @@
           disabled
         ></v-text-field>
       </v-col>
-      <v-col cols="12" sm="10">
+      <v-col cols="12" sm="2">
+        <h4>w/w</h4>
+        <v-text-field
+          v-model="param.wwval"
+          outlined
+          dense
+          filled
+          disabled
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="8">
         <h4>품명</h4>
         <v-text-field
           v-model="param.code_title"
@@ -173,8 +183,14 @@ export default {
       "SET_SELECT_MENU_TAB_BY_CODE",
     ]),
     loadData() {
+      var chk = false;
+      if (this.param.code != this.data.code) {
+        chk = true;
+      }
       this.param.code = this.data.code;
-      this.search(this.param.code);
+      if (chk) {
+        this.search(this.param.code);
+      }
     },
     ...mapMutations("popup", ["SET_POPUP"]),
     openPopup(text, closable, cb) {
@@ -221,6 +237,7 @@ export default {
           this.$refs.real_grid.loadData([{ ...makeSum(CodeDB_A), code }]);
           this.$refs.make_grid.loadData([{ ...makeSum(CodeDB_B), code }]);
           this.param.code_title = CodeDB.code_title;
+          this.param.wwval = CodeDB.wwval;
           this.$refs.spec_grid.loadData(CodeDB_Dt);
         })
         .catch((res) => {

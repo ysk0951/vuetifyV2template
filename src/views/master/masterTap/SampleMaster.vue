@@ -3,7 +3,7 @@
     <h3 class="mb-8">샘플 마스터 관리</h3>
     <v-form ref="sampleMaster" lazy-validation>
       <v-row class="sch pl-2 mb-2">
-        <v-col cols="12" sm="11">
+        <v-col cols="12" sm="10">
           <div class="sampleMaster wrapperSpace">
             <v-col cols="12" sm="6">
               <h4>Solvent</h4>
@@ -69,7 +69,7 @@
                 :rules="[this.validSet.sample(param.addVol, 9, 'value')]"
               ></v-text-field>
             </v-col></div></v-col
-        ><v-col cols="12" sm="1" style="align-self: end">
+        ><v-col cols="12" pl-2 sm="2" style="align-self: end">
           <div class="wrapperEnd pr-4">
             <v-card-actions>
               <v-btn depressed outlined @click="reset">초기화</v-btn>

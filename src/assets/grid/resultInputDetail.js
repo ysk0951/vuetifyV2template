@@ -20,6 +20,10 @@ const data = [
     alias: "하한",
   },
   {
+    field: "mid",
+    alias: "중한",
+  },
+  {
     field: "hig",
     alias: "상한",
   },

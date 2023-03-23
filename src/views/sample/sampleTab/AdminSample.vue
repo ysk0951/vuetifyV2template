@@ -55,6 +55,15 @@
         <hr class="mb-4" />
         <v-row class="px-2">
           <v-col cols="12" sm="2">
+            <h4>요청업체명</h4>
+            <v-text-field
+              outlined
+              dense
+              placeholder="요청업체명을 입력해 주세요"
+              v-model="param.request_company"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
             <h4>*요청자</h4>
             <v-text-field
               outlined
@@ -71,19 +80,28 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
-            <h4>*요청자 이메일</h4>
+            <h4>요청자 이메일</h4>
             <v-text-field
               outlined
               dense
               v-model="param.memberId"
               placeholder="요청자 이메일을 입력해주세요"
-              :rules="[
-                this.validSet.empty(
-                  param.memberId,
-                  '요청자 이메일을 입력해주세요'
-                ),
-                this.validSet.email,
-              ]"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <div class="wrapperSpace" style="height: 24px">
+              <h4>수령업체명</h4>
+              <v-checkbox v-model="param.same2">
+                <template v-slot:label>
+                  <h5>요청업체명과 동일</h5>
+                </template></v-checkbox
+              >
+            </div>
+            <v-text-field
+              outlined
+              dense
+              placeholder="수령업체명을 입력해주세요"
+              v-model="param.pick_company"
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
@@ -108,16 +126,6 @@
                 this.validSet.name,
               ]"
             ></v-text-field>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h4>유무상</h4>
-            <v-select
-              :items="code.P"
-              v-model="param.price_type"
-              placeholder="선택해주세요"
-              outlined
-              id="work"
-            ></v-select>
           </v-col>
         </v-row>
         <h4 class="mb-3">배송지 선택</h4>
@@ -250,13 +258,14 @@
             </v-menu>
           </v-col>
           <v-col cols="12" sm="2">
-            <h4>요청업체명</h4>
-            <v-text-field
+            <h4>유무상</h4>
+            <v-select
+              :items="code.P"
+              v-model="param.price_type"
+              placeholder="선택해주세요"
               outlined
-              dense
-              placeholder="요청업체명을 입력해 주세요"
-              v-model="param.request_company"
-            ></v-text-field>
+              id="work"
+            ></v-select>
           </v-col>
           <v-col cols="12" sm="2">
             <h4>기타 요청사항</h4>
@@ -299,6 +308,11 @@ export default {
     "param.same": function (v) {
       if (v) {
         this.param.pick_name = this.param.request_name;
+      }
+    },
+    "param.same2": function (v) {
+      if (v) {
+        this.param.pick_company = this.param.request_company;
       }
     },
   },

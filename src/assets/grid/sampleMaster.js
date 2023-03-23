@@ -15,6 +15,18 @@ makeCell(
   columns
 );
 makeCell(
+  1,
+  [
+    {
+      field: "wwval",
+      alias: "w/w",
+      indexExclusive: true,
+    },
+  ],
+  fields,
+  columns
+);
+makeCell(
   8,
   [
     {

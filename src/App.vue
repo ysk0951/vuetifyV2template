@@ -46,16 +46,7 @@
             </div>
           </div>
         </template>
-        <div class="langBoxWrapper">
-          <v-btn
-            v-for="(item, idx) in language"
-            depressed
-            :key="idx"
-            @click="changeLang(item.value)"
-          >
-            {{ item.text }}
-          </v-btn>
-        </div>
+        <div class="langBoxWrapper"></div>
         <v-btn depressed v-if="accessToken" @click="openProfile">
           <v-icon disabled> mdi-account </v-icon>
         </v-btn>

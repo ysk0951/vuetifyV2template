@@ -12,6 +12,18 @@ const data = [
     field: "request_name",
   },
   {
+    alias: "요청업체명",
+    field: "request_company",
+  },
+  {
+    alias: "수령자",
+    field: "pick_name",
+  },
+  {
+    alias: "수령업체명",
+    field: "pick_company",
+  },
+  {
     alias: "요청일",
     field: "created_at",
     date: "yyyy-MM-dd",

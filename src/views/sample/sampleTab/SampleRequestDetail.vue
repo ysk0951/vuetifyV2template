@@ -23,6 +23,17 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
+        <h4>요청업체명</h4>
+        <v-text-field
+          outlined
+          dense
+          v-model="param.request_company"
+          placeholder="요청업체명을 입력해 주세요."
+          disabled
+          filled
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="2">
         <h4>수령자</h4>
         <v-text-field
           outlined
@@ -34,6 +45,45 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="2">
+        <h4>수령업체명</h4>
+        <v-text-field
+          outlined
+          dense
+          v-model="param.pick_company"
+          placeholder="수령업체명 입력해 주세요."
+          disabled
+          filled
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row class="pl-2">
+      <v-col cols="12" sm="2">
+        <h4>우편번호</h4>
+        <v-text-field
+          type="text"
+          :value="data.postcode"
+          outlined
+          dense
+          disabled
+          filled
+        />
+      </v-col>
+      <v-col cols="12" sm="4">
+        <h4>배송지주소</h4>
+        <v-text-field
+          type="text"
+          :value="
+            (data.address ? data.address : '') +
+            ` ` +
+            (data.address2 ? data.address2 : '')
+          "
+          outlined
+          dense
+          disabled
+          filled
+        />
+      </v-col>
+      <v-col cols="12" sm="2">
         <h4>유무상</h4>
         <v-select
           :items="code.P"
@@ -42,37 +92,6 @@
           outlined
           id="work"
         ></v-select>
-      </v-col>
-    </v-row>
-    <h4 class="mb-2">배송지</h4>
-    <v-row style="height: 64px" class="pl-2">
-      <v-col cols="12" sm="2">
-        <div class="wrapper address">
-          <v-text-field
-            type="text"
-            :value="data.postcode"
-            outlined
-            dense
-            disabled
-            filled
-          />
-        </div>
-      </v-col>
-      <v-col cols="12" sm="4">
-        <div class="wrapper address">
-          <v-text-field
-            type="text"
-            :value="
-              (data.address ? data.address : '') +
-              ` ` +
-              (data.address2 ? data.address2 : '')
-            "
-            outlined
-            dense
-            disabled
-            filled
-          />
-        </div>
       </v-col>
     </v-row>
     <v-row class="pl-2">
