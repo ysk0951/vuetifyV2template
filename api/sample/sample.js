@@ -108,3 +108,13 @@ export async function produceReportDetail(param) {
 export async function produceReportUpdate(param) {
   return http.post(prefix + `/produceReportUpdate`, param);
 }
+
+export async function coalist(param) {
+  return http.post(prefix + `/coalist`, param);
+}
+export async function coadetail(param) {
+  return http.post(prefix + `/coadetail`, param);
+}
+export async function coaUpdate(param) {
+  return http.post(prefix + `/coaUpdate`, param);
+}

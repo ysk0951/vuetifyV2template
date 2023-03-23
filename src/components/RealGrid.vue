@@ -121,9 +121,9 @@ export default {
     setColor() {},
     setPage: function (v) {
       this.page = {
-        currentPage: Number(v.currentPage),
-        totalRows: v.totalRows,
-        pageSize: Number(v.pageSize),
+        currentPage: v.currentPage ? Number(v.currentPage) : 1,
+        totalRows: v.totalRows ? v.totalRows : 10,
+        pageSize: v.pageSize ? Number(v.pageSize) : 10,
       };
     },
     getPage: function () {

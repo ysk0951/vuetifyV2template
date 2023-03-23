@@ -12,7 +12,7 @@
                 outlined
                 dense
                 placeholder="Lot No를 입력해 주세요."
-                v-model="input.lot_no"
+                v-model="input.lotNo"
                 :rules="[this.validSet.commonCodeHipen]"
               ></v-text-field>
             </v-col>
@@ -22,7 +22,7 @@
                 outlined
                 dense
                 placeholder="샘플코드를 입력해 주세요."
-                v-model="input.sampleCode"
+                v-model="input.code"
                 :rules="[this.validSet.commonCodeHipen]"
               ></v-text-field>
             </v-col>
@@ -75,7 +75,7 @@ import validSet from "@/assets/valid";
 import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { columns, fields, rows, height } from "@/assets/grid/coa";
-import { sampleSearch } from "api/sample/sample";
+import { coalist } from "api/sample/sample";
 import { getExcel } from "api/file";
 import _ from "lodash";
 import { mapMutations } from "vuex";
@@ -85,11 +85,12 @@ export default {
       validSet,
       grid: "cda",
       input: {
-        lot_no: "",
-        sampleCode: "",
+        lotNo: "",
+        code: "",
         request_name: "",
         pageSize: 10,
       },
+      origin: [],
       settings: {
         columns,
         fields,
@@ -135,7 +136,7 @@ export default {
         if (_.isNumber(v)) {
           this.currentPage = v;
         }
-        const res = await sampleSearch({
+        const res = await coalist({
           ...this.input,
           currentPage: this.currentPage,
         });
@@ -144,6 +145,7 @@ export default {
         const page = response.data.params;
         this.$refs.grid.loadData(items, ["created_at"]);
         this.$refs.grid.setPage(page);
+        this.origin = items;
       }
     },
     reset() {},
@@ -151,7 +153,12 @@ export default {
       this.search(v);
     },
     dbClick(data) {
-      this.$emit("dbClick", data);
+      this.$emit(
+        "dbClick",
+        _.filter(this.origin, (v) => {
+          return v.code === data.code;
+        })[0]
+      );
     },
   },
   mounted() {

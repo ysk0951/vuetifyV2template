@@ -4,7 +4,13 @@
     <v-row class="px-2">
       <v-col cols="12" sm="3">
         <h4>Code Grade</h4>
-        <v-text-field outlined dense disabled filled></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          disabled
+          filled
+          v-model="param.code"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>Lot No</h4>
@@ -13,16 +19,28 @@
           dense
           disabled
           filled
-          :value="this.data.lot_no"
+          :value="param.lot_no"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>수량(Qty)</h4>
-        <v-text-field outlined dense disabled filled></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          disabled
+          filled
+          :value="param.qty"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
         <h4>제조일</h4>
-        <v-text-field outlined dense disabled filled></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          disabled
+          filled
+          :value="this.data.qty"
+        ></v-text-field>
       </v-col>
     </v-row>
     <v-row class="px-2">
@@ -32,7 +50,13 @@
       </v-col>
       <v-col cols="12" sm="9">
         <h4>품명</h4>
-        <v-text-field outlined dense disabled filled></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          disabled
+          filled
+          v-model="param.code_title"
+        ></v-text-field>
       </v-col>
     </v-row>
     <h3 class="mt-16 mb-2">상세정보</h3>
@@ -85,9 +109,19 @@ import {
   grouping,
 } from "@/assets/grid/coaDetail";
 import RealGrid from "@/components/RealGrid.vue";
+import _ from "lodash";
+import { coadetail } from "api/sample/sample";
 
 export default {
   props: ["data"],
+  watch: {
+    param: {
+      deep: true,
+      handler: function () {
+        this.currentPage = 1;
+      },
+    },
+  },
   data() {
     return {
       grid: "coaDetail",
@@ -101,17 +135,35 @@ export default {
       file: {
         name: "",
       },
+      param: {
+        code: this.data.code ? this.data.code : "",
+        lotNo: this.data.lot_no ? this.data.lot_no : "",
+        request_name: this.data.request_name ? this.data.request_name : "",
+      },
       isSelecting: false,
+      currentPage: 1,
     };
   },
   methods: {
-    search() {},
+    async search(v) {
+      if (_.isNumber(v)) {
+        this.currentPage = v;
+      }
+      const data = await coadetail({
+        ...this.param,
+        currentPage: this.currentPage,
+      });
+      console.log(data);
+    },
     reset() {},
     cancle() {},
     save() {},
     onFileChanged() {},
     upload() {},
     read() {},
+  },
+  mounted() {
+    this.search();
   },
   components: {
     RealGrid,
