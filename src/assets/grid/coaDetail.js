@@ -4,30 +4,33 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "ITEM",
+    field: "spec",
     alias: "ITEM",
   },
   {
-    field: "LCL",
+    field: "low",
     alias: "LCL",
+    editable: true,
   },
   {
-    field: "UCL",
+    field: "hig",
     alias: "UCL",
+    editable: true,
   },
   {
-    field: "UNIT",
+    field: "unit",
     alias: "UNIT",
   },
   {
-    field: "RESULT",
+    field: "rv",
     alias: "RESULT",
+    editable: true,
   },
 ];
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  makeCell(1, [o], fields, columns);
+  makeCell(1, [o], fields, columns, false, o.editable);
 });
 const grouping = makeGroup(data, 1, 2, "SPECIFICATION");
 export { fields, columns, grouping };

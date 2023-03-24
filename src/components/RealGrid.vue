@@ -136,7 +136,7 @@ export default {
   mounted() {
     this.dp = new LocalDataProvider(true);
     this.gv = new GridView(this.gridName);
-    this.gv.displayOptions.fitStyle = "fill";
+    this.gv.displayOptions.fitStyle = "even";
     this.gv.displayOptions.rowHeight = 30;
     this.gv.setDataSource(this.dp);
     this.dp.setFields(this.settings.fields);

@@ -118,3 +118,7 @@ export async function coadetail(param) {
 export async function coaUpdate(param) {
   return http.post(prefix + `/coaUpdate`, param);
 }
+
+export async function coaPDFupload(param) {
+  return http.post(prefix + `/coaPDFupload`, param);
+}

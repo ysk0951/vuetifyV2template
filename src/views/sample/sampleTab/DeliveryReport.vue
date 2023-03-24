@@ -74,7 +74,7 @@
             </v-menu>
           </v-col>
           <v-col cols="12" sm="3" class="btn">
-            <h4>납품에정일</h4>
+            <h4>납품예정일</h4>
             <div class="wrapperTop mb-3">
               <v-menu
                 v-model="picker2"

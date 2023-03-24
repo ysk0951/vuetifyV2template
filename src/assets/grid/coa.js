@@ -4,7 +4,7 @@ let fields = [];
 let columns = [];
 const data = [
   {
-    field: "lot_no",
+    field: "lotNo",
     alias: "Lot No",
   },
   {
@@ -20,7 +20,7 @@ const data = [
     alias: "기업명",
   },
   {
-    field: "created_at",
+    field: "request_date",
     alias: "요청일",
   },
   {
@@ -44,11 +44,11 @@ const data = [
     alias: "납기일",
   },
   {
-    field: "stat",
+    field: "stat_str",
     alias: "상태",
   },
   {
-    field: "pdf",
+    field: "coapdf_path",
     alias: "PDF",
   },
 ];

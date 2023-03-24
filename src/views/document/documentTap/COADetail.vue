@@ -1,5 +1,6 @@
 <template>
   <div class="coa">
+    <SetPopup ref="confirm" />
     <h3 class="mb-2">COA 상세</h3>
     <v-row class="px-2">
       <v-col cols="12" sm="3">
@@ -19,7 +20,7 @@
           dense
           disabled
           filled
-          :value="param.lot_no"
+          v-model="param.lotNo"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
@@ -29,7 +30,7 @@
           dense
           disabled
           filled
-          :value="param.qty"
+          v-model="param.qty"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="3">
@@ -39,14 +40,20 @@
           dense
           disabled
           filled
-          :value="this.data.qty"
+          v-model="param.produce_date"
         ></v-text-field>
       </v-col>
     </v-row>
     <v-row class="px-2">
       <v-col cols="12" sm="3">
         <h4>납품처</h4>
-        <v-text-field outlined dense disabled filled></v-text-field>
+        <v-text-field
+          outlined
+          dense
+          disabled
+          filled
+          v-model="param.pickpart"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="9">
         <h4>품명</h4>
@@ -61,10 +68,15 @@
     </v-row>
     <h3 class="mt-16 mb-2">상세정보</h3>
     <hr class="mb-4" />
-    <RealGrid :domName="grid" ref="grid" :settings="settings" />
+    <RealGrid
+      :domName="grid"
+      ref="grid"
+      :settings="settings"
+      :nonePage="true"
+    />
     <h3 class="mt-16 mb-2">PDF 업로드</h3>
     <hr class="mb-4" />
-    <div class="wrapperFlex file">
+    <div class="wrapper" style="width: 33%">
       <v-text-field
         placeholder="파일을 선택해주세요"
         type="text"
@@ -88,11 +100,10 @@
         :loading="isSelecting"
         >파일선택</v-btn
       >
-      <v-btn depressed class="fileBtn" @click="read">불러오기</v-btn>
     </div>
     <v-row class="wrapper">
       <v-card-actions>
-        <v-btn depressed @click="cancle">취소</v-btn>
+        <v-btn depressed @click="reset">취소</v-btn>
       </v-card-actions>
       <v-card-actions>
         <v-btn depressed color="primary" @click="save"> 저장 </v-btn>
@@ -111,7 +122,8 @@ import {
 import RealGrid from "@/components/RealGrid.vue";
 import _ from "lodash";
 import { coadetail } from "api/sample/sample";
-
+import { mapMutations } from "vuex";
+import SetPopup from "@/components/SetPopup.vue";
 export default {
   props: ["data"],
   watch: {
@@ -131,35 +143,70 @@ export default {
         rows,
         height,
         grouping,
+        hideCheckBar: true,
+        noneNo: true,
       },
-      file: {
-        name: "",
-      },
+      file: {},
       param: {
         code: this.data.code ? this.data.code : "",
-        lotNo: this.data.lot_no ? this.data.lot_no : "",
+        lotNo: this.data.lotNo ? this.data.lotNo : "",
         request_name: this.data.request_name ? this.data.request_name : "",
+        qty: this.data.qty ? this.data.qty : "",
+        produce_date: this.data.produce_date ? this.data.produce_date : "",
+        pickpart: this.data.pickpart ? this.pickpart : "",
+        code_title: this.data.code_title ? this.data.code_title : "",
       },
       isSelecting: false,
       currentPage: 1,
     };
   },
   methods: {
+    ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
     async search(v) {
       if (_.isNumber(v)) {
         this.currentPage = v;
       }
-      const data = await coadetail({
+      const res = await coadetail({
         ...this.param,
         currentPage: this.currentPage,
       });
+      const data = res.data.data;
+      this.param.pickpart = data.pickpart;
+      this.param.code_title = data.code_title;
+      this.$refs.grid.loadData(data.items);
       console.log(data);
     },
-    reset() {},
-    cancle() {},
+    reset() {
+      this.openPopup("취소하시겠습니까?", true, () => {
+        this.search();
+      });
+    },
+    openPopup(text, closable, cb) {
+      this.SET_POPUP({
+        title: "알림",
+        height: 150,
+        width: 300,
+        text,
+        closable,
+      });
+      this.$refs.confirm.openPopup(cb);
+    },
     save() {},
-    onFileChanged() {},
-    upload() {},
+    onFileChanged(e) {
+      const file = e.target.files[0];
+      this.file = file;
+    },
+    upload() {
+      this.isSelecting = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelecting = false;
+        },
+        { once: true }
+      );
+      this.$refs.uploader.click();
+    },
     read() {},
   },
   mounted() {
@@ -167,6 +214,7 @@ export default {
   },
   components: {
     RealGrid,
+    SetPopup,
   },
 };
 </script>

@@ -148,7 +148,14 @@ export default {
         this.origin = items;
       }
     },
-    reset() {},
+    reset() {
+      this.input = {
+        lotNo: "",
+        code: "",
+        request_name: "",
+        pageSize: 10,
+      };
+    },
     loadData(v) {
       this.search(v);
     },
