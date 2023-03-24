@@ -168,6 +168,10 @@ export default {
   },
   methods: {
     ...mapMutations("popup", ["SET_POPUP", "SET_POPUP_TEXT"]),
+    ...mapMutations("menu", [
+      "REMOVE_SELECT_MENU",
+      "SET_SELECT_MENU_TAB_BY_CODE",
+    ]),
     async search(v) {
       if (_.isNumber(v)) {
         this.currentPage = v;
@@ -209,12 +213,14 @@ export default {
         }
         const dt = this.$refs.grid.getJsonAllRow();
         const sampleDetail = makeCOASpec(dt, this.data.lotNo, this.data.code);
-        const updateCOA = await coaUpdate({
+        await coaUpdate({
           lotNo: this.data.lotNo,
           results: sampleDetail,
         });
-        console.log(updateCOA);
-        this.openPopup(`저장되었습니다`, false, () => {});
+        this.openPopup(`저장되었습니다`, false, () => {
+          this.REMOVE_SELECT_MENU("coaDetail");
+          this.SET_SELECT_MENU_TAB_BY_CODE("COMGMT");
+        });
       } catch (error) {
         this.openPopup(`관리자에게 문의하세요 :${error}`);
       }
