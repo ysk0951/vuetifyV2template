@@ -1,7 +1,15 @@
 import { ValueType } from "realgrid";
 import _ from "lodash";
 
-export function makeCell(count, value, fields, columns, width, editable) {
+export function makeCell(
+  count,
+  value,
+  fields,
+  columns,
+  width,
+  editable,
+  renderer
+) {
   for (var v = 1; v <= count; v++) {
     {
       _.each(value, (o) => {
@@ -40,6 +48,7 @@ export function makeCell(count, value, fields, columns, width, editable) {
           width: width ? width : "200px",
           fillWidth: width ? 0 : 1,
           editable: editable ? editable : false,
+          renderer,
         });
       });
     }
@@ -222,7 +231,6 @@ export function makeCOASpec(rows, lotNo, code) {
   let ret = [];
   _.each(rows, function (row) {
     const data = {};
-    console.log(row);
     _.each(row, (col, idx) => {
       data[key[idx]] = col;
     });

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { makeCell } from "./gridUtill";
+import config from "api/config";
 let fields = [];
 let columns = [];
 const data = [
@@ -50,12 +51,28 @@ const data = [
   {
     field: "coapdf_path",
     alias: "PDF",
+    urlCallback: true,
   },
 ];
 
 _.each(data, function (o) {
   o.indexExclusive = true;
-  makeCell(1, [o], fields, columns);
+  if (o.urlCallback) {
+    makeCell(1, [o], fields, columns, null, null, {
+      type: "link",
+      urlCallback: function (grid, cell) {
+        if (
+          cell.valueColumn.fieldName &&
+          cell.valueColumn.fieldName === "coapdf_path"
+        ) {
+          return config.exelLocation + cell.value;
+        }
+        // return "https://www.google.com/maps/place/" + cell.value;
+      },
+    });
+  } else {
+    makeCell(1, [o], fields, columns);
+  }
 });
 
 export { fields, columns };
