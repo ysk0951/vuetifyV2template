@@ -121,8 +121,9 @@ import {
 } from "@/assets/grid/coaDetail";
 import RealGrid from "@/components/RealGrid.vue";
 import _ from "lodash";
-import { coadetail } from "api/sample/sample";
+import { coadetail, coaPDFupload, coaUpdate } from "api/sample/sample";
 import { mapMutations } from "vuex";
+import { makeCOASpec } from "@/assets/grid/gridUtill";
 import SetPopup from "@/components/SetPopup.vue";
 export default {
   props: ["data"],
@@ -146,7 +147,12 @@ export default {
         hideCheckBar: true,
         noneNo: true,
       },
-      file: {},
+      file: {
+        name: this.data.coapdf_path
+          ? this.data.coapdf_path.split("/").pop()
+          : "",
+      },
+      fileBinary: "",
       param: {
         code: this.data.code ? this.data.code : "",
         lotNo: this.data.lotNo ? this.data.lotNo : "",
@@ -174,10 +180,12 @@ export default {
       this.param.pickpart = data.pickpart;
       this.param.code_title = data.code_title;
       this.$refs.grid.loadData(data.items);
-      console.log(data);
     },
     reset() {
       this.openPopup("취소하시겠습니까?", true, () => {
+        this.file = {};
+        this.fileBinary = "";
+        this.$refs.uploader.value = null;
         this.search();
       });
     },
@@ -191,9 +199,30 @@ export default {
       });
       this.$refs.confirm.openPopup(cb);
     },
-    save() {},
+    async save() {
+      try {
+        if (this.file.size) {
+          const frm = new FormData();
+          frm.append("lotNo", this.data.lotNo);
+          frm.append("file", this.file);
+          await coaPDFupload(frm);
+        }
+        const dt = this.$refs.grid.getJsonAllRow();
+        const sampleDetail = makeCOASpec(dt, this.data.lotNo, this.data.code);
+        const updateCOA = await coaUpdate({
+          lotNo: this.data.lotNo,
+          results: sampleDetail,
+        });
+        console.log(updateCOA);
+        this.openPopup(`저장되었습니다`, false, () => {});
+      } catch (error) {
+        this.openPopup(`관리자에게 문의하세요 :${error}`);
+      }
+    },
     onFileChanged(e) {
       const file = e.target.files[0];
+      let reader = new FileReader();
+      reader.readAsArrayBuffer(file);
       this.file = file;
     },
     upload() {

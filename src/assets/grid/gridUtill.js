@@ -216,6 +216,23 @@ export function makeSampleSet(rows, lotNo) {
   return ret;
 }
 
+export function makeCOASpec(rows, lotNo, code) {
+  const key = ["spec", "low", "hig", "unit", "rv"];
+
+  let ret = [];
+  _.each(rows, function (row) {
+    const data = {};
+    console.log(row);
+    _.each(row, (col, idx) => {
+      data[key[idx]] = col;
+    });
+    data.lotNo = lotNo;
+    data.code = code;
+    ret.push(data);
+  });
+  return ret;
+}
+
 export function showSampleSet(row) {
   if (row && row.data) {
     return JSON.parse(row.data);

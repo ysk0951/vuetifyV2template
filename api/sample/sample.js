@@ -119,6 +119,10 @@ export async function coaUpdate(param) {
   return http.post(prefix + `/coaUpdate`, param);
 }
 
-export async function coaPDFupload(param) {
-  return http.post(prefix + `/coaPDFupload`, param);
+export async function coaPDFupload(form) {
+  return http.post(prefix + `/coaPDFupload`, form, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
