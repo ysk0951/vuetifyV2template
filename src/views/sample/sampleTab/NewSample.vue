@@ -473,7 +473,6 @@ export default {
         this.openConfirm("필수 항목이 없습니다. 입력항목을 확인해주세요");
       } else if (row.length > 0 && this.valid()) {
         _.each(row, (v) => {
-          console.log(v, this.param);
           const data = {
             ...this.param,
             ...v,

@@ -126,7 +126,6 @@ export default {
       if (_.isNumber(v)) {
         this.currentPage = v;
       }
-      console.log(v, this.currentPage);
       subsMasterList({ ...this.param, currentPage: this.currentPage })
         .then((res) => {
           const response = res.data;

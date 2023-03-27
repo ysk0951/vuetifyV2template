@@ -159,7 +159,7 @@ export default {
     },
     exelDownload() {
       const idx = this.$refs.grid.getCheckedRowIdxRadio();
-      if (idx !== undefined) {
+      if (idx !== undefined && !isNaN(idx)) {
         const row = this.items[idx];
         if (row.excel_path) {
           getReportFile(row.excel_path);
@@ -171,7 +171,6 @@ export default {
       }
     },
     dbClick(data) {
-      console.log(data.lot_no);
       this.$emit(
         "dbClick",
         _.filter(this.items, (v) => v.lotNo === data.lotNo)[0]

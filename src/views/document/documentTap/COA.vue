@@ -76,7 +76,7 @@ import RealGrid from "@/components/RealGrid.vue";
 import SetPopup from "@/components/SetPopup.vue";
 import { columns, fields, rows, height } from "@/assets/grid/coa";
 import { coalist } from "api/sample/sample";
-import { getExcel } from "api/file";
+import { getReportFile } from "api/file";
 import _ from "lodash";
 import { mapMutations } from "vuex";
 export default {
@@ -97,6 +97,7 @@ export default {
         rows,
         height,
         errorMessage: "내역이 존재하지 않습니다",
+        radio: true,
       },
     };
   },
@@ -114,11 +115,16 @@ export default {
       return this.$refs.form.validate();
     },
     exelDownload() {
-      const data = this.$refs.grid.getCheckedRowExecl(this.settings.columns);
-      if (data.length > 0) {
-        getExcel(data, "coa");
+      const idx = this.$refs.grid.getCheckedRowIdxRadio();
+      if (idx !== undefined && !isNaN(idx)) {
+        const row = this.origin[idx];
+        if (row.coaexcel_path) {
+          getReportFile(row.coaexcel_path);
+        } else if (!row.coaexcel_path) {
+          this.openPopup("COA 엑셀이 존재하지 않습니다");
+        }
       } else {
-        this.openPopup("엑셀 다운로드할 행을 선택해주세요");
+        this.openPopup("COA 엑셀 다운로드할 행을 선택해주세요");
       }
     },
     openPopup(text, closable, cb) {

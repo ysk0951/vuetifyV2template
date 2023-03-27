@@ -200,10 +200,8 @@ export default {
       });
       const data = res.data.data;
       const grid = this.$refs[ref];
-      console.log(grid);
       if (grid) {
         if (data.items) {
-          console.log(data.items);
           grid.loadData(data.items, ["delivery_date"]);
         } else {
           grid.loadData([]);

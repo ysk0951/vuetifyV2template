@@ -272,7 +272,6 @@ export default {
               v["hig"] = Number(getNum(v["hig"])).toFixed(2);
               v["rqty"] = Number(getNum(v["rqty"])).toFixed(2);
             });
-            console.log(response.total);
             this.param.total = response.total
               ? response.total
               : response.qty * 1000;

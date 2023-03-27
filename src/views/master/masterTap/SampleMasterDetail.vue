@@ -325,7 +325,6 @@ export default {
           }
         }
       });
-      console.log(rowArr);
       this.$refs.spec_grid.loadData(rowArr.concat(fixSpec));
     },
   },
