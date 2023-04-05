@@ -3,6 +3,11 @@
 Develop Stack - vue / vuetify / realGrid 
 ```
 
+## Develop period
+```
+2022.10~2023.03
+```
+
 ## Project Directory Architecture
 ```
 Api - axios Http Networking Module
