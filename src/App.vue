@@ -3,7 +3,6 @@
     <v-main class="blue-grey lighten-4">
       <v-app-bar dense style="position: absolute">
         <img
-          src="../assets/dwel_logo_ko.png"
           class="ci mr-8"
           alt=""
           @click="home"
@@ -19,26 +18,11 @@
                     v-on="on"
                     style="height: 48px"
                   >
-                    <template v-if="locale === 'ko'">
-                      {{ item.menu }}
-                    </template>
-                    <template v-else-if="locale === 'en'">
-                      {{ item.menu_eng }}
-                    </template>
                   </v-btn>
                 </template>
                 <v-list>
                   <v-list-item v-for="(it, idx) in item.subMenu" :key="idx">
-                    <v-list-item-title
-                      @click="routing(it)"
-                      style="cursor: pointer"
-                    >
-                      <template v-if="locale === 'ko'">
-                        {{ it.menu }}
-                      </template>
-                      <template v-else-if="locale === 'en'">
-                        {{ it.menu_eng }}
-                      </template>
+                    <v-list-item-title>
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -50,10 +34,7 @@
         <v-btn depressed v-if="accessToken" @click="openProfile">
           <v-icon disabled> mdi-account </v-icon>
         </v-btn>
-
-        <v-btn depressed @click="account">{{
-          this.accessToken ? "로그아웃" : "로그인"
-        }}</v-btn>
+        <v-btn depressed @click="account"></v-btn>
       </v-app-bar>
       <v-container fill-height fluid class="mu-4" @click="closeProfile">
         <v-layout align-center row wrap>
@@ -77,29 +58,11 @@
               <div class="wrapperLeft mr-1">{{ userInfo.member_name }} 님</div>
               <div class="wrapperLeft smallText">{{ userInfo.company }}</div>
             </div>
-            <v-select
-              :items="this.language"
-              v-model="myprofileLang"
-              outlined
-            ></v-select>
+            <v-select></v-select>
           </v-row>
         </div>
         <hr class="mb-5 mt-5" />
         <div class="wrapperLeft mb-5">기본 배송지 주소</div>
-        <div v-if="userInfo.address">
-          <div class="wrapperLeft smallText">
-            * {{ userInfo.address }}{{ userInfo.address2 }}
-          </div>
-          <div class="wrapperLeft smallText mb-5">
-            * 연락처 1 : {{ userInfo.phone1 }}
-          </div>
-        </div>
-        <div v-else>등록된 기본배송지가 없습니다</div>
-        <div style="display: flex; justify-content: center">
-          <v-btn depressed color="primary" class="my-3" @click="openPost"
-            >배송지 관리</v-btn
-          >
-        </div>
       </v-card>
     </v-main>
   </v-app>
@@ -113,18 +76,8 @@ import { userInfo } from "api/member/member";
 export default {
   name: "App",
   computed: {
-    ...mapState("loading", ["loading"]),
-    ...mapState("member", ["accessToken", "userInfo"]),
-    ...mapState("menu", ["menu"]),
-    ...mapState("locale", ["locale"]),
   },
   watch: {
-    locale: function (v) {
-      this.myprofileLang = v;
-    },
-    myprofileLang: function (v) {
-      this.changeLang(v);
-    },
   },
   data: () => ({
     profile: false,
@@ -132,14 +85,13 @@ export default {
       { value: "ko", text: "한국어" },
       { value: "en", text: "English" },
     ],
-    myprofileLang: "",
-    dom1: "realgrid1",
-    dom2: "realgrid2",
   }),
   components: {
     Address,
   },
   async created() {
+    /*
+    SampleCode
     await this.SET_ROLE_TYPE();
     await this.SET_ALL_MENU();
     await this.SET_CODE("C");
@@ -151,6 +103,7 @@ export default {
     await this.SET_CODE("O");
     await this.SET_CODE("Q");
     await this.SET_CODE("R");
+     */
   },
   methods: {
     ...mapMutations("select", ["SET_ROLE_TYPE"]),
@@ -158,147 +111,14 @@ export default {
     ...mapMutations("common", ["SET_CODE"]),
     ...mapMutations("member", ["SET_TOKEN", "SET_USER_INFO"]),
     ...mapMutations("locale", ["SET_LOCALE"]),
-    routing(v) {
-      this.$router.push({ name: "service" });
-      this.SELECT_MENU(v);
-    },
-    changeLang(v) {
-      this.SET_LOCALE(v);
-    },
-    account() {
-      if (this.accessToken) {
-        this.SET_TOKEN({});
-        this.$router.push({ name: "login" });
-      } else {
-        this.$router.push({ name: "login" });
-      }
-    },
-    home() {
-      this.$router.push({ name: "main" });
-    },
-    openProfile() {
-      this.profile = !this.profile;
-    },
-    closeProfile() {
-      this.profile = false;
-    },
-    openPost() {
-      this.$refs.address.open();
-    },
-    addressSelect(v) {
-      addressbookUt(v.idx)
-        .then(async () => {
-          const loginUserInfo = await userInfo();
-          this.SET_USER_INFO(loginUserInfo);
-        })
-        .catch(() => {});
-    },
   },
   mounted() {
-    this.myprofileLang = this.locale;
   },
 };
 </script>
 <style lang="scss">
-.btn {
-  margin: auto;
-}
-.sch {
-  background: #f2f5f1;
-  border: 1px solid #d6ebcd;
-}
-.ci {
-  height: 40px;
-  cursor: pointer;
-}
 .wrapper {
   justify-content: center;
   display: flex;
-}
-.wrapperTop {
-  justify-content: center;
-  display: flex;
-  align-items: flex-start;
-  .v-card__actions {
-    padding-top: 3px;
-  }
-}
-.wrapperSpace {
-  justify-content: space-between;
-  display: flex;
-}
-.wrapperEnd {
-  justify-content: end;
-  display: flex;
-}
-.wrapperFlex {
-  display: flex;
-}
-.col-12 {
-  padding: 4px;
-}
-.flexCol {
-  flex-direction: column;
-}
-.langBox {
-  width: 80px;
-  justify-content: end;
-  font-size: 10px;
-}
-.langBoxWrapper {
-  display: flex;
-  justify-content: end;
-  width: 100%;
-}
-.v-btn.v-size--default {
-  font-size: 0.95rem !important;
-}
-.container {
-  padding: 0 0 0 0px !important;
-}
-.v-toolbar__content {
-  height: 48px !important;
-}
-.menu {
-  height: 48px !important;
-}
-div.v-menu__content.theme--light.menuable__content__active > div {
-  padding: 0px;
-}
-.background {
-  background-color: rgba(0, 0, 0, 0.02);
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.02) !important;
-}
-.v-select__selections {
-  position: absolute !important;
-  top: -2px !important;
-}
-.v-text-field__slot > input::placeholder {
-  font-size: 14px;
-}
-.v-tabs-slider {
-  display: none;
-}
-.v-tabs-bar__content {
-  border-bottom: 1px solid #bcc0c8;
-}
-.v-tab--active {
-  color: #60ab41 !important;
-  font-weight: 900 !important;
-  border-bottom: 4px solid #60ab41 !important;
-}
-.dimmRow {
-  background-color: aquamarine !important;
-}
-.profile {
-  z-index: 99;
-  position: absolute;
-  top: 49px;
-  right: 21px;
-}
-.smallText {
-  font-size: 13px;
-  color: gray;
 }
 </style>

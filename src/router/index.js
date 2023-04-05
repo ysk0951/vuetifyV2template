@@ -19,78 +19,12 @@ import _ from "lodash";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    name: "main",
-    component: Main,
-  },
-  {
-    path: "/service",
-    name: "service",
-    component: Service,
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: Login,
-  },
-  {
-    path: "/modifyPwd",
-    name: "modifyPwd",
-    component: ModifyPwd,
-  },
-  {
-    path: "/find",
-    name: "find",
-    component: Find,
-  },
-  {
-    path: "/signup",
-    name: "signup",
-    component: Signup,
-  },
-  {
-    path: "/signupDone",
-    name: "signupDone",
-    component: SignupDone,
-  },
-  {
-    path: "/admin",
-    name: "admin",
-    component: Admin,
-    props: true,
-  },
-  {
-    path: "/admin/addGroup",
-    name: "addGroup",
-    component: AddGroup,
-  },
-  {
-    path: "/sample",
-    name: "sample",
-    component: Sample,
-    props: true,
-  },
-  {
-    path: "/master",
-    name: "master",
-    component: Master,
-    props: true,
-  },
-  {
-    path: "/document",
-    name: "document",
-    component: Document,
-  },
-  {
-    path: "/noneMember",
-    name: "noneMember",
-    component: NoneMember,
-  },
-  {
-    path: "*",
-    component: NotFoundPage,
-  },
+  // SampleCode
+  // {
+  //   path: "/",
+  //   name: "main",
+  //   component: Main,
+  // },
 ];
 
 const router = new VueRouter({
@@ -98,8 +32,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-const defaultPath = ["/login", "/signup", "/modifyPwd", "/service"];
-const adminPath = ["/admin"];
 const path = defaultPath.concat(adminPath);
 const dev = true;
 router.beforeEach((to, from, next) => {
